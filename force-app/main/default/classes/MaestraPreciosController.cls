@@ -1,0 +1,300 @@
+/**********************************************************************************
+Desarrollado por: SEIDOR
+Autor: Rodrigo Carvallo (RCG)
+Proyecto: Maestra de Precios - Perfomance
+Descripción: Clase controladora principal para Maestra de Precios - Gestiona la lógica de negocio y coordinación entre servicios
+Test: MaestraPreciosController_Test
+
+---------------------------------------------------------------------------------
+No. Fecha                Autor                     Descripción
+------ ---------- ---------------------------------------------------------------
+1.0 11-09-2025            RCG                Creación de la clase.
+**********************************************************************************/
+public class MaestraPreciosController {
+    public Account acc { get; set; }
+    public List<Detalle__c> comprasMaestradePrecios { get; set; }
+    public List<Descuento_Cliente__c> descuentosClienteMaestradePrecios { get; set; }
+    public Detalle__c newComprasMaestraPrecio { get; set; }
+    public Descuento_cliente__c newDescuentosMaestraPrecio { get; set; }
+    public Map<Id, Decimal> preciosClienteNeto { get; set; }
+    public Map<Id, Decimal> precioFinal { get; set; }
+    public Map<Id, Decimal> margenProductoMap { get; set; }
+    public Map<Id, Decimal> margenContribucionKiloMap { get; set; }
+    public Map<Id, Id> pricebookEntriesMap { get; set; }
+    public String encabezado { get; set; }
+    public Pricebook2 clientePricebook { get; set; }
+    public List<PricebookEntry> allPricebookEntries { get; set; }
+    public String pageTitle { get; set; }
+    public Set<Id> productIds { get; set; }
+    public Map<Id, Decimal> costosProductosMap { get; set; }
+    public Map<Id, String> errorMargenMap { get; set; }
+
+    /**
+    * Constructor principal - Inicializa todos los datos y servicios para la Maestra de Precios
+    * @author Rodrigo Carvallo
+    * @param ApexPages.StandardController controller - Controlador estándar de la página
+    **/
+    public MaestraPreciosController(ApexPages.StandardController controller) {
+        System.debug('MaestraPreciosController - Controlador - INICIO');
+        acc = [SELECT Id, Name, Sucursal__c, Centro_de_Abastecimiento__c FROM Account WHERE Id = :controller.getId() LIMIT 1];
+        Id accountId = controller.getId();
+        errorMargenMap = new Map<Id, String>();
+        costosProductosMap = new Map<Id, Decimal>();
+        Set<Id> productosExistentes = new Set<Id>();
+        this.descuentosClienteMaestradePrecios = ICB_DescuentoServiceImpl.getDescuentosMaestraPrecios(acc.Id, productosExistentes);
+        this.comprasMaestradePrecios = ICB_PrecioServiceImpl.getComprasMaestraPrecios(acc.Id, productosExistentes);
+        ICB_CostoServiceImpl.buscarCostosParaProductos(costosProductosMap, comprasMaestradePrecios, descuentosClienteMaestradePrecios);
+        this.newComprasMaestraPrecio = new Detalle__c();
+        this.newDescuentosMaestraPrecio = new Descuento_Cliente__c();
+        this.preciosClienteNeto = new Map<Id, Decimal>();
+        this.precioFinal = new Map<Id, Decimal>();
+        this.margenProductoMap = new Map<Id, Decimal>();
+        this.margenContribucionKiloMap = new Map<Id, Decimal>();
+        this.encabezado = ICB_UtilsServiceImpl.generarEncabezado();
+        this.productIds = new Set<Id>();
+        
+        // Calcular precios y lógica
+        clientePricebook = ICB_PricebookServiceImpl.buscarPricebookCliente(acc.Sucursal__c);
+        productIds = ICB_ProductServiceImpl.cargarProductIds(comprasMaestradePrecios, descuentosClienteMaestradePrecios);
+        allPricebookEntries = ICB_PricebookServiceImpl.cargarTodosLosPricebookEntries(clientePricebook);
+        pricebookEntriesMap = ICB_PricebookServiceImpl.cargarPricebookEntries(productIds, descuentosClienteMaestradePrecios, comprasMaestradePrecios, clientePricebook, costosProductosMap);
+        ICB_PrecioServiceImpl.calcularPreciosCompras(acc.Sucursal__c, comprasMaestradePrecios);
+        ICB_DescuentoServiceImpl.calcularPreciosDescuento(acc.Sucursal__c, descuentosClienteMaestradePrecios);        
+        ICB_RecargoServiceImpl.calcularRecargosparaCompras(comprasMaestradePrecios);
+        ICB_RecargoServiceImpl.calcularRecargosParaDescuentos(descuentosClienteMaestradePrecios);  
+        ICB_RappelServiceImpl.calcularPrecioClienteNetoConRappelCompras(acc.Id, comprasMaestradePrecios, preciosClienteNeto);
+        ICB_PrecioServiceImpl.calcularPrecioClienteNetoConRappelDescuentos(descuentosClienteMaestradePrecios, acc.Id, preciosClienteNeto);
+        ICB_MargenServiceImpl.calcularMargenPorcentajeCompras(comprasMaestradePrecios, margenProductoMap, costosProductosMap);
+        ICB_MargenServiceImpl.calcularMargenPorcentajeDescuento(descuentosClienteMaestradePrecios, costosProductosMap, margenProductoMap);
+        ICB_MargenServiceImpl.calcularMargenPorPesoCompras(comprasMaestradePrecios, costosProductosMap, margenContribucionKiloMap);
+        ICB_MargenServiceImpl.calcularMargenPorPesoDescuentos(descuentosClienteMaestradePrecios, costosProductosMap, margenContribucionKiloMap);
+        ICB_UtilsServiceImpl.formatearFechas(comprasMaestradePrecios);
+        pageTitle = ICB_UtilsServiceImpl.generarEncabezado();
+        System.debug('MaestraPreciosController - Controlador - FIN');
+    }
+            
+    /**
+    * Método para redirigir a la página PaneldeSeteo
+    * @author Rodrigo Carvallo
+    * @return PageReference - Referencia a la página PaneldeSeteo
+    **/
+    public PageReference redirectToOtherPage() {
+        System.debug('redirectToOtherPage - INICIO');
+        // Obtener el Id de la cuenta actual desde los parámetros de la página
+        String accountId = ApexPages.currentPage().getParameters().get('id');
+        
+        // Verificar si el Id de la cuenta no es nulo ni vacío
+        if (accountId != null && accountId != '') {
+            // Redirigir a la otra página pasando el Id de la cuenta en el URL
+            return new PageReference('/apex/PaneldeSeteo?id=' + accountId);
+        } else {
+            // Manejar el caso donde no hay un Id de cuenta presente
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'No se encontró la cuenta.'));
+            return null;
+        }
+    }
+
+    /**
+    * Método para obtener registros unificados de compras, descuentos y pricebook entries
+    * @author Rodrigo Carvallo
+    * @param Id accountId - ID del cliente
+    * @return List<ICB_RegistroUnificadoWrapper> - Lista de registros unificados
+    **/
+    @AuraEnabled
+    public static List<ICB_RegistroUnificadoWrapper> obtenerRegistrosUnificados(Id accountId) {
+        System.debug('obtenerRegistrosUnificados - INICIO');
+        MaestraPreciosController instance = new MaestraPreciosController(new ApexPages.StandardController(new Account(Id = accountId)));
+        List<ICB_RegistroUnificadoWrapper> registrosUnificados = new List<ICB_RegistroUnificadoWrapper>();
+        for (Detalle__c detalle : instance.comprasMaestradePrecios) {
+            detalle.Precio_Final__c = ICB_PrecioServiceImpl.getPrecioFinalCompras(detalle.Id, instance.comprasMaestradePrecios);
+            Decimal costo = ICB_CostoServiceImpl.obtenerCostoProducto(detalle.Producto__c, instance.costosProductosMap);
+            registrosUnificados.add(new ICB_RegistroUnificadoWrapper(detalle, costo));
+        }
+        for (Descuento_Cliente__c descuento : instance.descuentosClienteMaestradePrecios) {
+            descuento.Precio_Final__c = ICB_DescuentoServiceImpl.getPrecioFinalDescuento(descuento.Id, instance.descuentosClienteMaestradePrecios);
+            Decimal costo = ICB_CostoServiceImpl.obtenerCostoProducto(descuento.Producto__c, instance.costosProductosMap);
+            registrosUnificados.add(new ICB_RegistroUnificadoWrapper(descuento, costo));
+        }
+
+        return registrosUnificados;
+    }
+
+    /**
+    * Método para crear una Quote con los registros unificados
+    * @author Rodrigo Carvallo
+    * @param String status - Estado de la quote
+    * @param List<ICB_RegistroUnificadoWrapper> registrosUnificados - Lista de registros a incluir
+    * @param Id accountId - ID del cliente
+    * @return Quote - Quote creada
+    **/
+    @AuraEnabled
+    public static Quote crearQuote(String status, List<ICB_RegistroUnificadoWrapper> registrosUnificados, Id accountId){
+        System.debug('crearQuote - INICIO');
+        Integer EXPIRATION_DATE = 48;
+        MaestraPreciosController maestraInstance = new MaestraPreciosController(new ApexPages.StandardController(new Account(Id = accountId)));
+        try {
+            Quote newQuote = new Quote(
+                Name = maestraInstance.acc.Name + ' - ' + String.valueOf(System.today()),
+                ClienteId__c = maestraInstance.acc.Id,
+                //Status = status,
+                ExpirationDate = System.today().addDays(EXPIRATION_DATE),
+                Pricebook2Id = ICB_PricebookServiceImpl.getPricebookId(maestraInstance.clientePricebook)
+            );
+            insert newQuote;   
+            
+            List<QuoteLineItem> quoteLineItems = new List<QuoteLineItem>();
+
+            for (ICB_RegistroUnificadoWrapper registroUnificado : registrosUnificados) {
+                Id currentPricebookEntryId;
+                if (registroUnificado.sObjectName == 'PricebookEntry') {
+                    currentPricebookEntryId = registroUnificado.id;
+                } else {
+                    currentPricebookEntryId = ICB_PricebookServiceImpl.getPricebookEntryIdByProductId(registroUnificado.productId, maestraInstance.pricebookEntriesMap);
+                }
+                if (currentPricebookEntryId != null) {
+                    QuoteLineItem qli = new QuoteLineItem(
+                        QuoteId = newQuote.Id,
+                        PricebookEntryId = currentPricebookEntryId,
+                        UnitPrice = registroUnificado.listaPrecio,
+                        Quantity = 1,
+                        Costo__c = ICB_CostoServiceImpl.obtenerCostoProducto(registroUnificado.productId, maestraInstance.costosProductosMap),
+                        SKU__c = registroUnificado.sku,
+                        M_Desc_Aut_nomo__c = registroUnificado.descuentoAutonomo,
+                        M_Fecha_max_descuento__c = registroUnificado.fechaVencimientoDescuento,
+                        Fecha_desde__c = System.today(),
+                        Fecha_hasta__c = registroUnificado.fechaVencimientoDescuento,
+                        UMV_Panel__c = registroUnificado.umv,
+                        M_PrecioListaUni__c = registroUnificado.precioFinal,
+                        Discount = registroUnificado.descuento,
+                        Rappel__c = registroUnificado.rappel,
+                        M_Margen_producto__c = registroUnificado.margen,
+                        M_Contribucion_Peso__c = registroUnificado.margenContribucionKilo,
+                        M_Precio_Final__c = registroUnificado.precioFinal,
+                        DescuentoModificado__c = true
+                    );
+                    quoteLineItems.add(qli);
+                } else {
+                    throw new AuraHandledException('No PricebookEntry encontrado para Product2Id en DetalleWrapper: ');
+                }
+            }
+            if (!quoteLineItems.isEmpty()) {
+                insert quoteLineItems;
+                newQuote.Status = status;
+                update newQuote; // Para disparar flow de Quote.
+            }
+            return newQuote;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    /**
+    * Método para obtener entries de pricebook con paginación y búsqueda
+    * @author Rodrigo Carvallo
+    * @param Id accountId - ID del cliente
+    * @param Integer queryLimit - Límite de registros
+    * @param Integer queryOffset - Offset para paginación
+    * @param String searchTerm - Término de búsqueda
+    * @return List<ICB_RegistroUnificadoWrapper> - Lista de entries de pricebook
+    **/
+    @AuraEnabled(cacheable=true)
+    public static List<ICB_RegistroUnificadoWrapper> fetchPricebookEntries(Id accountId, Integer queryLimit, Integer queryOffset, String searchTerm) {
+        System.debug('fetchPricebookEntries - INICIO');
+        // 1. Obtener solo los datos necesarios de Account
+        Account acc = ICB_MaestraPreciosRepository.getAccountById(accountId);
+
+        // 2. Usar servicios existentes
+        Pricebook2 clientePricebook = ICB_PricebookServiceImpl.buscarPricebookCliente(acc.Sucursal__c);
+        String centroAbastecimiento = acc.Centro_de_Abastecimiento__c.substring(0, 4);
+
+        // 3. Query principal optimizada
+        String likeSearchTerm = '%' + searchTerm + '%';
+        List<PricebookEntry> pricebookEntries = ICB_MaestraPreciosRepository.getPricebookEntries(
+            clientePricebook.Id, queryLimit, queryOffset, searchTerm);
+
+        // 4. Query de costos optimizada
+        Set<Id> productoIds = new Set<Id>();
+        for (PricebookEntry pbe : pricebookEntries) {
+            productoIds.add(pbe.Product2Id);
+        }
+
+        List<Costo__c> costos = ICB_MaestraPreciosRepository.getCostosByProductos(
+            productoIds, centroAbastecimiento);
+
+        // 5. Mapeo costos
+        Map<Id, Decimal> costosMap = new Map<Id, Decimal>();
+        for (Costo__c costo : costos) {
+            costosMap.put(costo.Codigo_del_Producto__c, costo.CostoProducto__c);
+        }
+
+        // 6. Construir resultados
+        List<ICB_RegistroUnificadoWrapper> resultados = new List<ICB_RegistroUnificadoWrapper>();
+        for (PricebookEntry entry : pricebookEntries) {
+            Decimal costo = costosMap.get(entry.Product2Id) != null ? costosMap.get(entry.Product2Id) : 0;
+            resultados.add(new ICB_RegistroUnificadoWrapper(entry, costo));
+        }
+        System.debug('fetchPricebookEntries - FIN');
+        return resultados;
+
+    }
+
+    /**
+    * Método para obtener un entry específico de pricebook por ID
+    * @author Rodrigo Carvallo
+    * @param Id accountId - ID del cliente
+    * @param Id pricebookEntryId - ID del pricebook entry
+    * @return List<ICB_RegistroUnificadoWrapper> - Lista con el entry específico
+    **/
+    @AuraEnabled(cacheable=true)
+    public static List<ICB_RegistroUnificadoWrapper> fetchPricebookEntryById(Id accountId, Id pricebookEntryId) {
+        System.debug('fetchPricebookEntryById - INICIO');
+        MaestraPreciosController instance = new MaestraPreciosController(new ApexPages.StandardController(new Account(Id = accountId)));
+        List<PricebookEntry> pricebookEntries = ICB_MaestraPreciosRepository.getPricebookEntryById(
+            instance.clientePricebook.Id, pricebookEntryId);
+
+        List<ICB_RegistroUnificadoWrapper> registrosUnificados = new List<ICB_RegistroUnificadoWrapper>();
+
+        if (!pricebookEntries.isEmpty()) {
+            for (PricebookEntry entry : pricebookEntries) {
+                //entry.Precio_Final__c = instance.getPrecioFinalCompras(entry.Id);
+                Decimal costo = ICB_CostoServiceImpl.obtenerCostoProducto(entry.Product2Id, instance.costosProductosMap);
+                registrosUnificados.add(new ICB_RegistroUnificadoWrapper(entry, costo));
+            }
+        }
+
+        return registrosUnificados;
+    }
+
+    /**
+    * Método para obtener el número total de entries de pricebook
+    * @author Rodrigo Carvallo
+    * @param Id accountId - ID del cliente
+    * @param String searchTerm - Término de búsqueda
+    * @return Integer - Número total de entries
+    **/
+    @AuraEnabled
+    public static Integer getTotalNumberOfPricebookEntries(Id accountId, String searchTerm) {
+        System.debug('getTotalNumberOfPricebookEntries - INICIO');
+        Account acc = ICB_MaestraPreciosRepository.getAccountSucursal(accountId);
+        Pricebook2 clientePricebook = ICB_PricebookServiceImpl.buscarPricebookCliente(acc.Sucursal__c);
+        return ICB_MaestraPreciosRepository.countPricebookEntries(clientePricebook.Id, searchTerm);
+    }
+
+    /**
+    * Método para obtener el ID del pricebook asociado al cliente
+    * @author Rodrigo Carvallo
+    * @param Id accountId - ID del cliente
+    * @return Id - ID del pricebook
+    **/
+    @AuraEnabled
+    public static Id getPricebookId(Id accountId){
+        System.debug('getPricebookId - INICIO');
+        try {
+            Account acc = ICB_MaestraPreciosRepository.getAccountFullData(accountId);
+            Pricebook2 clientePricebook = ICB_PricebookServiceImpl.buscarPricebookCliente(acc.Sucursal__c);
+            return ICB_PricebookServiceImpl.getPricebookId(clientePricebook);
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+}

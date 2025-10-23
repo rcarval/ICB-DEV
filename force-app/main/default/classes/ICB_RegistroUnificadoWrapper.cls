@@ -1,0 +1,116 @@
+/**********************************************************************************
+Desarrollado por: SEIDOR
+Autor: Rodrigo Carvallo (RCG)
+Proyecto: Maestra de Precios - Perfomance
+Descripción: Clase wrapper para unificar registros de diferentes objetos en Maestra de Precios
+
+---------------------------------------------------------------------------------
+No. Fecha                Autor                     Descripción
+------ ---------- ---------------------------------------------------------------
+1.0 08-10-2025            RCG                Creación de la clase.
+**********************************************************************************/
+public class ICB_RegistroUnificadoWrapper {
+    @AuraEnabled public String id { get; set; }
+        @AuraEnabled public String productId { get; set; }
+        @AuraEnabled public String sku { get; set; }
+        @AuraEnabled public String umv { get; set; }
+        @AuraEnabled public String descripcion { get; set; }
+        @AuraEnabled public String sObjectName { get; set; }
+        @AuraEnabled public Decimal listaPrecio { get; set; }
+        @AuraEnabled public Decimal descuento { get; set; }
+        @AuraEnabled public Decimal precioClienteNeto { get; set; }
+        @AuraEnabled public Decimal rappel { get; set; }
+        @AuraEnabled public Decimal margen { get; set; }
+        @AuraEnabled public Decimal descuentoAutonomo { get; set; }
+        @AuraEnabled public Decimal margenContribucionKilo { get; set; }
+        @AuraEnabled public Decimal precioFinal { get; set; }
+        @AuraEnabled public Decimal costo { get; set; }
+        @AuraEnabled public Decimal peso { get; set; }
+        @AuraEnabled public Boolean tieneCosto { get; set; }
+        @AuraEnabled public Date fechaVencimientoDescuento { get; set; }
+        @AuraEnabled public Date fechaMaximaOriginal { get; set; } // Atributo usado para comparar fechas al ajustarse la fechaVencimientoDescuento
+        @AuraEnabled public Date fechaDesde { get; set; }
+        @AuraEnabled public Date fechaHasta { get; set; }
+
+        public ICB_RegistroUnificadoWrapper() {
+            // No initialization needed, this is just for JSON deserialization.
+        }
+
+        // Constructor para objetos tipo "Detalle"
+        public ICB_RegistroUnificadoWrapper(Detalle__c detalle, Decimal costo) {
+            this.id = detalle.Id;
+            this.productId = detalle.Producto__c;
+            this.sku = detalle.SKU__c;
+            this.umv = detalle.Unidad_de_Medida__c;
+            this.descripcion = detalle.Producto__r.Name;
+            this.listaPrecio = detalle.Valor_Neto__c;
+            this.descuento = detalle.Descuento_Cliente__r.Descuento_gestionado__c != null ? detalle.Descuento_Cliente__r.Descuento_gestionado__c : 0;
+            this.precioClienteNeto = detalle.Precio_Cliente_Neto__c;
+            this.rappel = detalle.Relacion_Rappel_Detalle__r.Rappel__c;
+            this.margen = detalle.Margen_Producto__c;
+            this.descuentoAutonomo = detalle.Producto__r.Descuento_Autonomo_de_Asesor__c;
+            this.margenContribucionKilo = detalle.Margen_de_Contribucion_por_Kilo__c;
+            this.fechaVencimientoDescuento = detalle.Descuento_Cliente__r.Fecha_Hasta__c != null ? detalle.Descuento_Cliente__r.Fecha_Hasta__c : detalle.Producto__r.Fecha_maxima_de_descuento__c;
+            this.fechaMaximaOriginal = detalle.Descuento_Cliente__r.Fecha_Hasta__c != null ? detalle.Descuento_Cliente__r.Fecha_Hasta__c : detalle.Producto__r.Fecha_maxima_de_descuento__c;
+            this.fechaDesde = detalle.Descuento_Cliente__r.Fecha_desde__c;
+            this.fechaHasta = detalle.Descuento_Cliente__r.Fecha_hasta__c;
+            this.precioFinal = detalle.Precio_Final__c;
+            this.tieneCosto = detalle.Tiene_Costo__c;
+            this.costo = costo;
+            this.sObjectName = 'Detalle__c';
+            this.peso = detalle.Producto__r.Peso__c;
+        }
+    
+        // Constructor para registros tipo "Descuento"
+        public ICB_RegistroUnificadoWrapper(Descuento_Cliente__c descuento, Decimal costo) {
+            this.id = descuento.Id;
+            this.productId = descuento.Producto__c;
+            this.sku = descuento.Producto__r.Codigo__c;
+            this.umv = descuento.UMV__c;
+            this.descripcion = descuento.Producto__r.Name;
+            this.listaPrecio = descuento.Valor_Neto__c;
+            //this.listaCliente = descuento.Precio_Final__c;
+            this.descuento = (descuento.Descuento_gestionado__c != null && !descuento.Es_recargo__c)? descuento.Descuento_gestionado__c : 0;
+            this.precioClienteNeto = descuento.Precio_Cliente_Neto__c;
+            this.rappel = descuento.Relacion_Rappel_Descuento__r.Rappel__c;
+            this.margen = descuento.Margen_Producto__c;
+            this.descuentoAutonomo = descuento.Producto__r.Descuento_Autonomo_de_Asesor__c;
+            this.margenContribucionKilo = descuento.Margen_de_Contribucion_por_Kilo__c;
+            this.fechaVencimientoDescuento = descuento.Fecha_Hasta__c != null ? descuento.Fecha_Hasta__c : descuento.Producto__r.Fecha_maxima_de_descuento__c; 
+            this.fechaMaximaOriginal = descuento.Fecha_Hasta__c != null ? descuento.Fecha_Hasta__c : descuento.Producto__r.Fecha_maxima_de_descuento__c; 
+            this.fechaDesde = descuento.Fecha_desde__c;
+            this.fechaHasta = descuento.Fecha_hasta__c;
+            this.precioFinal = descuento.Precio_Final__c;
+            this.tieneCosto = descuento.Tiene_Costo__c;
+            this.costo = costo;
+            this.sObjectName = 'Descuento_Cliente__c';
+            this.peso = descuento.Producto__r.Peso__c;
+        }
+
+        // Constructor para registros tipo "PricebookEntry"
+        public ICB_RegistroUnificadoWrapper(PricebookEntry entry, Decimal costo) {
+            this.id = entry.Id;
+            this.productId = entry.Product2Id;
+            this.sku = entry.Product2.Codigo__c;
+            this.umv = entry.Product2.TextoUMV__c;
+            this.descripcion = entry.Product2.Name;
+            this.listaPrecio = entry.UnitPrice;
+            this.costo = costo;
+            this.peso = entry.Product2.Peso__c;
+            this.descuentoAutonomo = entry.Product2.Descuento_Autonomo_de_Asesor__c;
+            this.fechaVencimientoDescuento = entry.Product2.Fecha_maxima_de_descuento__c;
+            this.fechaMaximaOriginal = entry.Product2.Fecha_maxima_de_descuento__c;
+            this.sObjectName = 'PricebookEntry';
+            //this.listaCliente = entry.Precio_Final__c;
+            //this.entry = entry.entry_gestionado__c != null ? entry.entry_gestionado__c : 0;
+            //this.precioClienteNeto = entry.Precio_Cliente_Neto__c;
+            //this.rappel = entry.Relacion_Rappel_entry__r.Rappel__c;
+            //this.margen = entry.Margen_Producto__c;
+            //this.entryAutonomo = entry.Producto__r.entry_Autonomo_de_Asesor__c;
+            //this.margenContribucionKilo = entry.Margen_de_Contribucion_por_Kilo__c;
+            //this.fechaDesde = entry.Fecha_desde__c;
+            //this.fechaHasta = entry.Fecha_hasta__c;
+            //this.precioFinal = entry.Precio_Final__c;
+            //this.tieneCosto = entry.Tiene_Costo__c;
+        }
+}
