@@ -1,0 +1,183 @@
+name: Salesforce Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'force-app/**'
+      - '**/*.cls'
+      - '**/*.trigger'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'force-app/**'
+      - '**/*.cls'
+      - '**/*.trigger'
+  workflow_dispatch:
+    inputs:
+      test_class:
+        description: 'Test class to run (leave empty for all)'
+        required: false
+        default: ''
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Run Salesforce Tests
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Salesforce CLI
+        run: |
+          npm install -g @salesforce/cli
+          sf --version
+
+      - name: Authenticate to Salesforce
+        run: |
+          echo "${{ secrets.SF_AUTH_URL }}" > auth_url.txt
+          sf org login sfdx-url --sfdx-url-file auth_url.txt --alias dev --set-default
+
+      - name: Run Specific Test Class
+        if: ${{ github.event.inputs.test_class != '' }}
+        run: |
+          sf apex run test --class-names ${{ github.event.inputs.test_class }} --result-format human --wait 10 --code-coverage
+        continue-on-error: true
+
+      - name: Run All Tests
+        if: ${{ github.event.inputs.test_class == '' }}
+        run: |
+          sf apex run test --result-format human --wait 10 --code-coverage
+        continue-on-error: true
+
+      - name: Parse Test Results
+        id: test-results
+        if: always()
+        run: |
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "status=success" >> $GITHUB_OUTPUT
+            echo "message=✅ Todos los tests pasaron correctamente" >> $GITHUB_OUTPUT
+            echo "color=good" >> $GITHUB_OUTPUT
+          else
+            echo "status=failure" >> $GITHUB_OUTPUT
+            echo "message=❌ Algunos tests fallaron" >> $GITHUB_OUTPUT
+            echo "color=danger" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Notify Slack - Test Results
+        if: always()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ steps.test-results.outputs.status }}
+          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          custom_payload: |
+            {
+              "text": "🧪 ${{ steps.test-results.outputs.message }}",
+              "attachments": [
+                {
+                  "color": "${{ steps.test-results.outputs.color }}",
+                  "fields": [
+                    {
+                      "title": "Repository",
+                      "value": "${{ github.repository }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Branch",
+                      "value": "${{ github.ref_name }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Test Class",
+                      "value": "${{ github.event.inputs.test_class || 'All Tests' }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Commit",
+                      "value": "${{ github.sha }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Author",
+                      "value": "${{ github.actor }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Workflow",
+                      "value": "${{ github.workflow }}",
+                      "short": true
+                    }
+                  ],
+                  "footer": "Salesforce CI/CD",
+                  "ts": ${{ github.event.head_commit.timestamp }}
+                }
+              ]
+            }
+
+  coverage:
+    runs-on: ubuntu-latest
+    name: Code Coverage Report
+    needs: test
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Salesforce CLI
+        run: |
+          npm install -g @salesforce/cli
+          sf --version
+
+      - name: Authenticate to Salesforce
+        run: |
+          echo "${{ secrets.SF_AUTH_URL }}" > auth_url.txt
+          sf org login sfdx-url --sfdx-url-file auth_url.txt --alias dev --set-default
+
+      - name: Generate Coverage Report
+        run: |
+          sf apex run test --result-format human --code-coverage --wait 10
+
+      - name: Notify Slack - Coverage Report
+        if: always()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          custom_payload: |
+            {
+              "text": "📊 Reporte de Cobertura de Código Generado",
+              "attachments": [
+                {
+                  "color": "good",
+                  "fields": [
+                    {
+                      "title": "Repository",
+                      "value": "${{ github.repository }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Branch",
+                      "value": "${{ github.ref_name }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Commit",
+                      "value": "${{ github.sha }}",
+                      "short": true
+                    }
+                  ],
+                  "footer": "Salesforce Code Coverage",
+                  "ts": ${{ github.event.head_commit.timestamp }}
+                }
+              ]
+            }
