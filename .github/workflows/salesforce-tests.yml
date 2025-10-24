@@ -2,7 +2,7 @@ name: Salesforce Tests
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, develop, "Ticket-N°00024350" ]
     paths:
       - 'force-app/**'
       - '**/*.cls'
