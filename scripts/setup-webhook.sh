@@ -67,7 +67,7 @@ case $option in
         echo -e "${BLUE}Nota: Esta URL no funcionará, es solo para pruebas${NC}"
         
         # Crear URL de ejemplo
-        example_url="https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+        example_url="https://hooks.slack.com/services/EXAMPLE/EXAMPLE/EXAMPLE"
         echo "SLACK_WEBHOOK_URL=$example_url" >> .env
         echo -e "${GREEN}✅ URL de ejemplo configurada${NC}"
         echo -e "${YELLOW}Recuerda cambiar por tu URL real${NC}"
