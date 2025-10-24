@@ -74,7 +74,6 @@ jobs:
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ steps.test-results.outputs.status }}
-          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
           custom_payload: |
             {
               "text": "🧪 ${{ steps.test-results.outputs.message }}",
@@ -118,6 +117,8 @@ jobs:
                 }
               ]
             }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
   coverage:
     runs-on: ubuntu-latest
@@ -152,7 +153,6 @@ jobs:
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
-          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
           custom_payload: |
             {
               "text": "📊 Reporte de Cobertura de Código Generado",
@@ -181,3 +181,5 @@ jobs:
                 }
               ]
             }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
