@@ -1,0 +1,109 @@
+<template>
+    <template if:false={isActualizarClicked}>
+        <lightning-card title="Maestra de Precios" icon-name="standard:pricebook">
+            <!-- Sección de Encabezado -->
+            <div class="slds-grid slds-wrap slds-p-around_medium slds-box slds-theme_shade slds-m-bottom_medium">
+                <div class="slds-col slds-size_1-of-2">
+                    <p class="slds-text-heading_medium">Cliente: {accountName}</p>
+                    <p class="slds-text-body_regular">{encabezado}</p>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-text-align_right">
+                    <lightning-button variant="brand" label="Actualizar Maestra Actual" onclick={handleActualizar}></lightning-button>
+                </div>
+            </div>
+
+            <!-- Campo de búsqueda -->
+            <div class="search-container slds-p-horizontal_medium slds-m-bottom_medium">
+                <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                    <div class="slds-col slds-size_1-of-2">
+                        <h2 class="slds-text-heading_small">Productos</h2>
+                        <p class="slds-text-body_small slds-text-color_weak" if:true={productsAvailable}>
+                            Mostrando {filteredData.length} de {allProductData.length} productos
+                        </p>
+                    </div>
+                    <div class="slds-col search-input-container">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="search-input">Búsqueda rápida</label>
+                            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left-right">
+                                <lightning-icon
+                                    icon-name="utility:search"
+                                    size="x-small"
+                                    alternative-text="Buscar"
+                                    class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default">
+                                </lightning-icon>
+                                <input
+                                    id="search-input"
+                                    type="search"
+                                    value={searchTerm}
+                                    oninput={handleSearch}
+                                    placeholder="Buscar por SKU o descripción..."
+                                    class="slds-input professional-input"
+                                />
+                                <template if:true={searchTerm}>
+                                    <button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right" 
+                                            title="Limpiar búsqueda"
+                                            onclick={clearSearch}>
+                                        <lightning-icon
+                                            icon-name="utility:clear"
+                                            size="x-small"
+                                            alternative-text="Limpiar búsqueda">
+                                        </lightning-icon>
+                                    </button>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spinner mientras se cargan los datos -->
+            <template if:false={productsAvailable}>
+                <div class="slds-align_absolute-center slds-m-vertical_x-large">
+                    <lightning-spinner alternative-text="Cargando..." size="medium"></lightning-spinner>
+                    <p class="slds-text-body_regular slds-m-top_small">Cargando maestra de precios...</p>
+                </div>
+            </template>
+
+            <!-- Mensaje cuando no hay resultados -->
+            <template if:true={noResultsFound}>
+                <div class="slds-box slds-align_absolute-center slds-theme_warning slds-m-around_medium no-results-container">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <lightning-icon icon-name="utility:warning" size="large" class="slds-icon-text-warning"></lightning-icon>
+                        </div>
+                        <div class="slds-media__body">
+                            <h3 class="slds-text-heading_small">No se encontraron resultados</h3>
+                            <p>No hay productos que coincidan con "<strong>{searchTerm}</strong>"</p>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Tabla de Registros usando lightning-datatable -->
+            <template if:true={productsAvailable}>
+                <div class="table-container">
+                    <lightning-datatable
+                        key-field="id"
+                        data={filteredData}
+                        columns={columns}
+                        hide-checkbox-column="true"
+                        class="professional-datatable"
+                        onsort={handleSort}
+                        sorted-by={sortedBy}
+                        sorted-direction={sortedDirection}
+                        default-sort-direction="asc"
+                    ></lightning-datatable>
+                </div>
+            </template>
+        </lightning-card>
+    </template>
+    <template if:true={isActualizarClicked}>
+        <c-panel-seteo
+            account-id-value={accountIdValue}
+            account-name={accountName}
+            onatrasclicked={handleAtrasClicked}
+            should-filter=true
+            initial-product-data={initialProductData}>
+        </c-panel-seteo>
+    </template>
+</template>
