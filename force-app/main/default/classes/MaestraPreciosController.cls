@@ -103,6 +103,20 @@ public class MaestraPreciosController {
     @AuraEnabled
     public static List<ICB_RegistroUnificadoWrapper> obtenerRegistrosUnificados(Id accountId) {
         System.debug('obtenerRegistrosUnificados - INICIO');
+        
+        // Validar que accountId no sea null
+        if (accountId == null) {
+            System.debug('ERROR: accountId es null.');
+            throw new AuraHandledException('No se puede cargar la maestra de precios: El cliente no está definido.');
+        }
+        
+        // Validar que el cliente tenga Sucursal__c definida
+        Account acc = [SELECT Id, Name, Sucursal__c FROM Account WHERE Id = :accountId LIMIT 1];
+        if (String.isBlank(acc.Sucursal__c)) {
+            System.debug('ERROR: El cliente ' + acc.Name + ' (ID: ' + acc.Id + ') no tiene Sucursal__c definida.');
+            throw new AuraHandledException('No se puede cargar la maestra de precios: El cliente "' + acc.Name + '" no tiene una Sucursal asignada. Por favor, asigna una Sucursal al cliente antes de continuar.');
+        }
+        
         MaestraPreciosController instance = new MaestraPreciosController(new ApexPages.StandardController(new Account(Id = accountId)));
         List<ICB_RegistroUnificadoWrapper> registrosUnificados = new List<ICB_RegistroUnificadoWrapper>();
         for (Detalle__c detalle : instance.comprasMaestradePrecios) {

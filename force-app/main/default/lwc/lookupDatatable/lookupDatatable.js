@@ -54,17 +54,38 @@ export default class LookupDatatable extends LightningElement {
         });
     }
 
+    // Función para formatear números con punto para miles y coma para decimales
+    formatNumber(value, decimals = 2) {
+        if (value == null || value === '' || isNaN(value)) {
+            return '';
+        }
+        const num = parseFloat(value);
+        if (isNaN(num)) {
+            return '';
+        }
+        // Separar parte entera y decimal
+        const parts = num.toFixed(decimals).split('.');
+        const integerPart = parts[0];
+        const decimalPart = parts[1];
+        
+        // Agregar puntos como separadores de miles
+        const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        
+        // Retornar con coma como separador decimal
+        return decimalPart ? `${formattedInteger},${decimalPart}` : formattedInteger;
+    }
+
     setColumns() {
         return [
             { label: 'SKU', fieldName: 'sku', type: 'text' },
             { label: 'UMV', fieldName: 'umv', type: 'text' },
             { label: 'Descripción', fieldName: 'descripcion', type: 'text' },
-            { label: 'Lista de Precio', fieldName: 'listaPrecio', type: 'number', typeAttributes: { maximumFractionDigits: 2 }, cellAttributes: { alignment: 'left'} },
-            { label: 'Descuento %', fieldName: 'descuento', type: 'number', typeAttributes: { minimumFractionDigits: 2 }, cellAttributes: { alignment: 'left'} },
-            { label: 'Precio Cliente Neto', fieldName: 'precioClienteNeto', type: 'number', typeAttributes: { maximumFractionDigits: 2 }, cellAttributes: { alignment: 'left'} },
-            { label: 'Rappel', fieldName: 'rappel', type: 'number', cellAttributes: { alignment: 'left'} },
-            { label: '%MG', fieldName: 'margen', type: 'number', typeAttributes: { minimumFractionDigits: 2 }, cellAttributes: { alignment: 'left'} },
-            { label: 'MG Contribución x Kilo', fieldName: 'margenContribucionKilo', type: 'number', typeAttributes: { maximumFractionDigits: 0 }, cellAttributes: { alignment: 'left'} },
+            { label: 'Lista de Precio', fieldName: 'listaPrecioFormatted', type: 'text', cellAttributes: { alignment: 'right'} },
+            { label: 'Descuento %', fieldName: 'descuentoFormatted', type: 'text', cellAttributes: { alignment: 'right'} },
+            { label: 'Precio Cliente Neto', fieldName: 'precioClienteNetoFormatted', type: 'text', cellAttributes: { alignment: 'right'} },
+            { label: 'Rappel', fieldName: 'rappelFormatted', type: 'text', cellAttributes: { alignment: 'right'} },
+            { label: '%MG', fieldName: 'margenFormatted', type: 'text', cellAttributes: { alignment: 'right'} },
+            { label: 'MG Contribución x Kilo', fieldName: 'margenContribucionKiloFormatted', type: 'text', cellAttributes: { alignment: 'right'} },
         ];
     }
 
@@ -160,6 +181,23 @@ export default class LookupDatatable extends LightningElement {
                 item.precioClienteNeto = item.listaPrecio;
                 item.margen = calculateMargen(item);
                 item.margenContribucionKilo = calculateKilo(item);
+                
+                // Aplicar formato a los números
+                item.listaPrecioFormatted = this.formatNumber(item.listaPrecio, 2);
+                item.descuentoFormatted = this.formatNumber(item.descuento, 2);
+                item.precioClienteNetoFormatted = this.formatNumber(item.precioClienteNeto, 2);
+                if (item.rappel != null) {
+                    item.rappelFormatted = this.formatNumber(item.rappel, 2);
+                } else {
+                    item.rappelFormatted = '';
+                }
+                // Formatear margen (puede ser número o "SIN COSTO")
+                if (item.margen && item.margen !== 'SIN COSTO') {
+                    item.margenFormatted = this.formatNumber(item.margen, 2);
+                } else {
+                    item.margenFormatted = item.margen || '';
+                }
+                item.margenContribucionKiloFormatted = this.formatNumber(item.margenContribucionKilo, 0);
             });
         })
         .catch(error => {  
@@ -169,25 +207,35 @@ export default class LookupDatatable extends LightningElement {
     }
 
     handleSelectedRow(event) {
-        const currentlySelectedData = [...this.selectedData, ...event.detail.selectedRows];
-
-        // Remove duplicates based on the 'id' attribute
-        const uniqueData = [];
-        const idSet = new Set();
-
-        currentlySelectedData.forEach(item => {
-            if (!idSet.has(item.id)) {
-                uniqueData.push(item);
-                idSet.add(item.id);
+        // event.detail.selectedRows contiene TODAS las filas actualmente seleccionadas
+        // No solo las nuevas, sino todas las que están seleccionadas en este momento
+        // Por lo tanto, debemos reemplazar selectedData, no agregar a él
+        const selectedRows = event.detail.selectedRows || [];
+        
+        // Convertir a objetos planos para evitar problemas con Proxies
+        const plainSelectedData = selectedRows.map(item => {
+            const plainItem = {};
+            for (const key in item) {
+                if (item.hasOwnProperty && item.hasOwnProperty(key)) {
+                    plainItem[key] = item[key];
+                } else {
+                    // Si no tiene hasOwnProperty, intentar acceder directamente
+                    try {
+                        plainItem[key] = item[key];
+                    } catch (e) {
+                        // Ignorar propiedades que no se pueden acceder
+                    }
+                }
             }
+            return plainItem;
         });
 
-        this.selectedData = uniqueData;
+        // Reemplazar selectedData con la nueva selección (no acumular)
+        this.selectedData = plainSelectedData;
 
         // Disparar evento custom para avisar al padre que se actualizaron los datos
         const recordUpdateEvent = new CustomEvent('recorddatachange', {
-        //detail: { recordData: this.selectedData }
-        detail: { recordData: this.selectedData.map(item => ({ ...item })) }
+            detail: { recordData: this.selectedData.map(item => ({ ...item })) }
         });
         this.dispatchEvent(recordUpdateEvent);
     }
