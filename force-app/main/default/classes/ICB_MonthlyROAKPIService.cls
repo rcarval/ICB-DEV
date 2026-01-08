@@ -35,10 +35,13 @@ public without sharing class ICB_MonthlyROAKPIService {
             }
         }
 
-        // Filtrar solo OwnerIds activos
+        // Filtrar solo OwnerIds activos Y que sean Asesores
         Set<Id> activeOwnerIds = new Set<Id>();
         for (User u : [
-            SELECT Id FROM User WHERE Id IN :ownerIds AND IsActive = true
+            SELECT Id FROM User 
+            WHERE Id IN :ownerIds 
+            AND IsActive = true 
+            AND UserRole.Name LIKE '%Asesor%'
         ]) {
             activeOwnerIds.add(u.Id);
         }
@@ -50,14 +53,16 @@ public without sharing class ICB_MonthlyROAKPIService {
         Integer targetMonth = yesterday.month();
         Date firstDayOfTargetMonth = Date.newInstance(targetYear, targetMonth, 1);
         Date lastDayOfTargetMonth = firstDayOfTargetMonth.addMonths(1).addDays(-1);
+        Date threeMonthsAgo = firstDayOfTargetMonth.addMonths(-3);
         String monthKey = String.valueOf(targetYear) + '-' + (targetMonth < 10 ? '0' + String.valueOf(targetMonth) : String.valueOf(targetMonth));
 
-        // Calcular Cartera Activa: clientes únicos con facturas en el mes de ayer
+        // Calcular Cartera Activa: clientes únicos con facturas en últimos 3 meses (relativo al mes objetivo)
+        // Siguiendo la lógica de ChurnKPIService: clientes con compra en los últimos 3 meses
         Map<Id, Integer> carteraActivaMap = new Map<Id, Integer>();
         for (AggregateResult ar : [
             SELECT Cliente__r.OwnerId ownerId, COUNT_DISTINCT(Cliente__c) total
             FROM Facturas__c
-            WHERE Fecha_de_Documento__c >= :firstDayOfTargetMonth
+            WHERE Fecha_de_Documento__c >= :threeMonthsAgo
               AND Fecha_de_Documento__c <= :lastDayOfTargetMonth
               AND Cliente__r.OwnerId IN :activeOwnerIds
             GROUP BY Cliente__r.OwnerId
@@ -91,9 +96,8 @@ public without sharing class ICB_MonthlyROAKPIService {
             nuevosMap.put(oid, total);
         }
 
-        // Calcular Retenidos: clientes que facturaron en últimos 3 meses Y en el mes de ayer
+        // Calcular Retenidos: clientes que facturaron en últimos 3 meses Y en el mes objetivo
         Map<Id, Integer> retainedMap = new Map<Id, Integer>();
-        Date threeMonthsAgo = firstDayOfTargetMonth.addMonths(-3);
         for (AggregateResult ar : [
             SELECT OwnerId ownerId, COUNT(Id) total
             FROM Account
@@ -117,7 +121,8 @@ public without sharing class ICB_MonthlyROAKPIService {
             retainedMap.put(oid, total);
         }
 
-        // Calcular Fugados: clientes que facturaron en últimos 3 meses PERO NO en el mes de ayer
+        // Calcular Fugados: clientes que facturaron en últimos 3 meses PERO NO en el mes objetivo
+        // Siguiendo la lógica de ChurnKPIService: la fuga es parte de la cartera activa y no la sobrepasa
         Map<Id, Integer> churnedMap = new Map<Id, Integer>();
         for (AggregateResult ar : [
             SELECT OwnerId ownerId, COUNT(Id) total
@@ -127,7 +132,7 @@ public without sharing class ICB_MonthlyROAKPIService {
                   SELECT Cliente__c
                   FROM Facturas__c
                   WHERE Fecha_de_Documento__c >= :threeMonthsAgo
-                    AND Fecha_de_Documento__c < :firstDayOfTargetMonth
+                    AND Fecha_de_Documento__c <= :lastDayOfTargetMonth
               )
               AND Id NOT IN (
                   SELECT Cliente__c

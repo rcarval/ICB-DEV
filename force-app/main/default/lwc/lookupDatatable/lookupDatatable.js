@@ -211,7 +211,7 @@ export default class LookupDatatable extends LightningElement {
         // No solo las nuevas, sino todas las que están seleccionadas en este momento
         // Por lo tanto, debemos reemplazar selectedData, no agregar a él
         const selectedRows = event.detail.selectedRows || [];
-        
+
         // Convertir a objetos planos para evitar problemas con Proxies
         const plainSelectedData = selectedRows.map(item => {
             const plainItem = {};
@@ -235,7 +235,7 @@ export default class LookupDatatable extends LightningElement {
 
         // Disparar evento custom para avisar al padre que se actualizaron los datos
         const recordUpdateEvent = new CustomEvent('recorddatachange', {
-            detail: { recordData: this.selectedData.map(item => ({ ...item })) }
+        detail: { recordData: this.selectedData.map(item => ({ ...item })) }
         });
         this.dispatchEvent(recordUpdateEvent);
     }

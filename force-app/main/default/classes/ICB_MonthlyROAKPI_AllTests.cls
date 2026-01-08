@@ -20,6 +20,15 @@ private class ICB_MonthlyROAKPI_AllTests {
     **/
     private static User mkUser(String alias) {
         Profile p = [SELECT Id FROM Profile WHERE Id = :UserInfo.getProfileId()];
+        
+        // Intentar obtener un rol de Asesor para los tests
+        UserRole asesorRole = null;
+        try {
+            asesorRole = [SELECT Id FROM UserRole WHERE Name LIKE '%Asesor%' LIMIT 1];
+        } catch (Exception e) {
+            // Si no existe rol de Asesor, crear usuario sin rol (los tests pueden fallar si el org requiere rol)
+        }
+        
         User u = new User(
             ProfileId = p.Id,
             Username = alias + DateTime.now().getTime() + '@t.icb',
@@ -33,6 +42,11 @@ private class ICB_MonthlyROAKPI_AllTests {
             LanguageLocaleKey = 'es',
             IsActive = true
         );
+        
+        if (asesorRole != null) {
+            u.UserRoleId = asesorRole.Id;
+        }
+        
         insert u;
         return u;
     }
@@ -72,7 +86,7 @@ private class ICB_MonthlyROAKPI_AllTests {
             // Cliente A3: factura en mes actual pero NO en mes anterior (Cartera Activa, Nuevo o Recuperado)
             new Facturas__c(Cliente__c = accts[2].Id, Fecha_de_Documento__c = yesterday),
             // Cliente B1: factura en mes actual (para otro owner)
-            new Facturas__c(Cliente__c = accts[3].Id, Fecha_de_Documento__c = yesterday)
+            new Facturas__c(Cliente__c = accts[4].Id, Fecha_de_Documento__c = yesterday)
         };
         insert facturas;
 

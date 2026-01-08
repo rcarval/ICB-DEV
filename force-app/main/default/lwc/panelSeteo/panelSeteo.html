@@ -9,7 +9,7 @@
                     </div>
                     <div class="slds-media__body">
                         <p class="slds-text-heading_medium account-name">Cliente: {displayAccountName}</p>
-                        <p class="slds-text-body_regular">{encabezado}</p>
+                <p class="slds-text-body_regular">{encabezado}</p>
                     </div>
                 </div>
             </div>
@@ -190,19 +190,19 @@
         <template if:false={showSpinner}>
             <template if:true={hasData}>
                 <div class="table-container slds-m-around_medium">
-                    <lightning-datatable
+            <lightning-datatable
                         class="professional-datatable"
-                        key-field="id"
+                key-field="id"
                         data={paginatedData}
-                        columns={columns}
-                        hide-checkbox-column="true"
-                        suppress-bottom-bar="true"
+                columns={columns}
+                hide-checkbox-column="true"
+                suppress-bottom-bar="true"
                         onsort={handleSort}
-                        oncellchange={handleCellChange}
-                        draft-values={draftValues}
+                oncellchange={handleCellChange}
+                draft-values={draftValues}
                         sorted-by={sortedBy}
                         sorted-direction={sortedDirection}
-                    ></lightning-datatable>
+            ></lightning-datatable>
                 </div>
                 
                 <!-- Paginación -->

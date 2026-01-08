@@ -846,7 +846,7 @@ export default class PanelSeteo extends LightningElement {
         // Actualizar en productDataDraft (página actual)
         const auxProductDraft = [...this.productDataDraft];
         const product = auxProductDraft.find(item => item.id === currentItem.id);
-        
+
         // También actualizar en filteredData
         const auxFilteredData = [...this.filteredData];
         const productInFiltered = auxFilteredData.find(item => item.id === currentItem.id);
