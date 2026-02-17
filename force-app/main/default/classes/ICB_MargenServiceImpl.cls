@@ -15,49 +15,43 @@ public class ICB_MargenServiceImpl{
     /**
     * Método para calcular margen porcentual de producto en compras
     * @author Rodrigo Carvallo
-    * @param List<Detalle__c> comprasMaestradePrecios - Lista de compras a calcular márgenes
+    * @param List<Detalle_Factura__c> comprasMaestradePrecios - Lista de compras a calcular márgenes
     * @param Map<Id, Decimal> margenProductoMap - Mapa para almacenar márgenes calculados
     * @param Map<Id, Decimal> costosProductosMap - Mapa con costos de productos
     **/
-    public static void calcularMargenPorcentajeCompras(List<Detalle__c> comprasMaestradePrecios, Map<Id, Decimal> margenProductoMap, Map<Id, Decimal> costosProductosMap) {
+    public static void calcularMargenPorcentajeCompras(List<Detalle_Factura__c> comprasMaestradePrecios, Map<Id, Decimal> margenProductoMap, Map<Id, Decimal> costosProductosMap) {
         System.debug('Iniciando el cálculo de Margen de % Producto para Compras');
 
-        for (Detalle__c detalle : comprasMaestradePrecios) {
+        for (Detalle_Factura__c detalle : comprasMaestradePrecios) {
             // Obtener el costo del producto desde costosProductosMap
-           Decimal costoBase = ICB_CostoServiceImpl.obtenerCostoProducto(detalle.Producto__c, costosProductosMap);
-            System.debug('Costo base obtenido para el producto ' + detalle.Producto__c + ': ' + costoBase);
+           Decimal costoBase = ICB_CostoServiceImpl.obtenerCostoProducto(detalle.Product__c, costosProductosMap);
+            System.debug('Costo base obtenido para el producto ' + detalle.Product__c + ': ' + costoBase);
             
             // Verificar si el costo es nulo o cero
             if (costoBase == null || costoBase == 0) {
-                detalle.Tiene_Costo__c = false;
-                detalle.Error_Margen__c = 'El producto no tiene costo';
-                detalle.Margen_Producto__c = null; // No calcular el margen
+                // No asignar a campos que nunca tuvieron valores, solo continuar
                 continue; // Pasar al siguiente detalle
-            } else {
-                detalle.Tiene_Costo__c = true;
-                detalle.Error_Margen__c = ''; // Limpia el mensaje de error si hay costo
             }
             
-            
-            // Obtener el precio cliente neto, asegurándose de que no sea nulo
-            Decimal precioClienteNeto = (detalle.Precio_Cliente_Neto__c != null) ? detalle.Precio_Cliente_Neto__c : 0;
+            // Precio_Cliente_Neto__c nunca tuvo valor, usar Valor_Neto__c
+            Decimal precioClienteNeto = (detalle.Valor_Neto__c != null) ? detalle.Valor_Neto__c : 0;
             System.debug('Precio Cliente Neto obtenido: ' + precioClienteNeto);
             
-            // Aplicar el porcentaje de rappel sobre el precio cliente neto
-            Decimal porcentajeRappel = detalle.Porcentaje_de_Rappel__c != null ? detalle.Porcentaje_de_Rappel__c : 0;
+            // Porcentaje_de_Rappel__c nunca tuvo valor, usar 0
+            Decimal porcentajeRappel = 0;
             Decimal rappelAplicado = precioClienteNeto * (porcentajeRappel / 100);
             Decimal precioConRappel = precioClienteNeto + rappelAplicado;
             System.debug('Precio con Rappel aplicado: ' + precioConRappel);
             
             // Calcular el margen de producto usando el precio con rappel
+            Decimal margenCalculado = 0;
             if (precioConRappel != 0) {
-                detalle.Margen_Producto__c = ((precioConRappel - costoBase) / precioConRappel) * 100;
-            } else {
-                detalle.Margen_Producto__c = 0;
+                margenCalculado = ((precioConRappel - costoBase) / precioConRappel) * 100;
             }
             
-            margenProductoMap.put(detalle.Id, detalle.Margen_Producto__c);
-            System.debug('Producto ' + detalle.Id + ': Margen calculado = ' + detalle.Margen_Producto__c + '%');
+            // Guardar en el mapa (no asignar a campos que nunca tuvieron valores)
+            margenProductoMap.put(detalle.Id, margenCalculado);
+            System.debug('Producto ' + detalle.Id + ': Margen calculado = ' + margenCalculado + '%');
         }
     }
 
@@ -114,49 +108,43 @@ public class ICB_MargenServiceImpl{
     /**
     * Método para calcular margen de contribución por kilo en compras
     * @author Rodrigo Carvallo
-    * @param List<Detalle__c> comprasMaestradePrecios - Lista de compras a calcular márgenes
+    * @param List<Detalle_Factura__c> comprasMaestradePrecios - Lista de compras a calcular márgenes
     * @param Map<Id, Decimal> costosProductosMap - Mapa con costos de productos
     * @param Map<Id, Decimal> margenContribucionKiloMap - Mapa para almacenar márgenes por kilo
     **/
-    public static void calcularMargenPorPesoCompras(List<Detalle__c> comprasMaestradePrecios, Map<Id, Decimal> costosProductosMap, Map<Id, Decimal> margenContribucionKiloMap) {
+    public static void calcularMargenPorPesoCompras(List<Detalle_Factura__c> comprasMaestradePrecios, Map<Id, Decimal> costosProductosMap, Map<Id, Decimal> margenContribucionKiloMap) {
         System.debug('Iniciando el cálculo de Margen de Contribución por Kilo para Compras');
         
-        for (Detalle__c detalle : comprasMaestradePrecios) {
+        for (Detalle_Factura__c detalle : comprasMaestradePrecios) {
             // Obtener el costo base del producto desde costosProductosMap
-            Decimal costoBase = costosProductosMap.containsKey(detalle.Producto__c) ? costosProductosMap.get(detalle.Producto__c) : 0;
-            System.debug('Costo base obtenido para el producto ' + detalle.Producto__c + ': ' + costoBase);
+            Decimal costoBase = costosProductosMap.containsKey(detalle.Product__c) ? costosProductosMap.get(detalle.Product__c) : 0;
+            System.debug('Costo base obtenido para el producto ' + detalle.Product__c + ': ' + costoBase);
             
             // Verificar si el costo es nulo o cero
             if (costoBase == null || costoBase == 0) {
-                detalle.Tiene_Costo__c = false;
-                detalle.Error_Margen__c = 'El producto no tiene costo';
-                detalle.Margen_Producto__c = null; // No calcular el margen
+                // No asignar a campos que nunca tuvieron valores, solo continuar
                 continue; // Pasar al siguiente detalle
-            } else {
-                detalle.Tiene_Costo__c = true;
-                detalle.Error_Margen__c = ''; // Limpia el mensaje de error si hay costo
             }
             
-            
-            // Obtener el precio cliente neto, asegurándose de que no sea nulo
-            Decimal precioClienteNeto = (detalle.Precio_Cliente_Neto__c != null) ? detalle.Precio_Cliente_Neto__c : 0;
+            // Precio_Cliente_Neto__c nunca tuvo valor, usar Valor_Neto__c
+            Decimal precioClienteNeto = (detalle.Valor_Neto__c != null) ? detalle.Valor_Neto__c : 0;
             System.debug('Precio Cliente Neto obtenido: ' + precioClienteNeto);
             
-            // Aplicar el porcentaje de rappel sobre el precio cliente neto
-            Decimal porcentajeRappel = detalle.Porcentaje_de_Rappel__c != null ? detalle.Porcentaje_de_Rappel__c : 0;
+            // Porcentaje_de_Rappel__c nunca tuvo valor, usar 0
+            Decimal porcentajeRappel = 0;
             Decimal rappelAplicado = precioClienteNeto * (porcentajeRappel / 100);
             Decimal costoTotal = costoBase + rappelAplicado;
             
             // Calcular el margen de contribución por kilo
-            Decimal pesoProducto = (detalle.Producto__r.Peso__c != null) ? detalle.Producto__r.Peso__c : 0;
+            Decimal pesoProducto = (detalle.Product__r.Peso__c != null) ? detalle.Product__r.Peso__c : 0;
+            Decimal margenPorKilo = 0;
             if (pesoProducto != 0) {
-                detalle.Margen_de_Contribucion_por_Kilo__c = (precioClienteNeto - costoTotal) / pesoProducto;
-            } else {
-                detalle.Margen_de_Contribucion_por_Kilo__c = 0;
+                margenPorKilo = (precioClienteNeto - costoTotal) / pesoProducto;
             }
             
-            margenContribucionKiloMap.put(detalle.Id, detalle.Margen_de_Contribucion_por_Kilo__c);
-            System.debug('Producto ' + detalle.Id + ': Costo Total = ' + costoTotal + ', Precio Cliente Neto = ' + precioClienteNeto + ', Margen por Kilo = ' + detalle.Margen_de_Contribucion_por_Kilo__c);
+            // Guardar en el mapa (no asignar a campos que nunca tuvieron valores)
+            margenContribucionKiloMap.put(detalle.Id, margenPorKilo);
+            System.debug('Producto ' + detalle.Id + ': Costo Total = ' + costoTotal + ', Precio Cliente Neto = ' + precioClienteNeto + ', Margen por Kilo = ' + margenPorKilo);
         }
     }
     

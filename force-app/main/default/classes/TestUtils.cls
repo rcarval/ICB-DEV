@@ -9,44 +9,74 @@ public without sharing class TestUtils {
         );
         insert comuna;
 
+        // Generar RUT único usando timestamp + número aleatorio para evitar duplicados
+        // Formato RUT: 8 dígitos + guion + dígito verificador (1-9 o K)
+        String timestamp = String.valueOf(Datetime.now().getTime());
+        Integer randomNum = Integer.valueOf(Math.random() * 9999); // Número aleatorio de 0-9999
+        String rutBase = (timestamp.right(8) + String.valueOf(randomNum).leftPad(4, '0')).left(8); // Asegurar 8 dígitos
+        String rutUnico = rutBase + '-5';
+        
         Account testAccount = new Account(
-            Name = 'Test Account',
+            Name = 'Test Account ' + timestamp.right(8),
             //Phone = '123-456-7890',
             Sucursal__c = 'S001 - Suc Santiago',
             Centro_de_Abastecimiento__c = 'FS00 - Santiago Maulén',
             RecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Negocio').getRecordTypeId(),
             Nombre_de_contacto__c = 'Juan Carlos Del Valle',
-            Email__c = 'testaccount@test.com',
+            Email__c = 'testaccount' + timestamp.right(8) + '@test.com',
             ShippingStreet = 'Calle Los Leones',
             ShippingCity = 'Temblayork',
             BillingStreet = 'Calle Los Leones',
             BillingCity = 'Temblayork',
-            RUT__c = '77086752-5',
+            RUT__c = rutUnico,
             Region_Despacho__c = '13 - Región Metropolitana',
             Region__c = '13 - Región Metropolitana',
             Comuna_Facturaci_n__c = comuna.Id,
             Comuna_Despacho__c = comuna.Id
         );
-        insert testAccount;
+        
+        // Intentar insertar, si falla por duplicado, buscar el existente
+        try {
+            insert testAccount;
+        } catch (DmlException e) {
+            if (e.getMessage().contains('DUPLICATES_DETECTED')) {
+                // Si hay duplicado, buscar el Account existente
+                List<Account> existingAccounts = [SELECT Id FROM Account WHERE RUT__c = :rutUnico LIMIT 1];
+                if (!existingAccounts.isEmpty()) {
+                    testAccount = existingAccounts[0];
+                } else {
+                    // Si no se encuentra, generar nuevo RUT y reintentar
+                    Integer newRandomNum = Integer.valueOf(Math.random() * 9999);
+                    String newRutBase = (timestamp.right(8) + String.valueOf(newRandomNum).leftPad(4, '0')).left(8);
+                    rutUnico = newRutBase + '-5';
+                    testAccount.RUT__c = rutUnico;
+                    testAccount.Name = 'Test Account ' + timestamp.right(8) + ' ' + String.valueOf(newRandomNum);
+                    testAccount.Email__c = 'testaccount' + timestamp.right(8) + String.valueOf(newRandomNum) + '@test.com';
+                    insert testAccount;
+                }
+            } else {
+                throw e;
+            }
+        }
 
-        // Create a Custom Pricebook
+        // Create a Custom Pricebook - El nombre debe ser fijo para que ICB_PricebookServiceImpl lo encuentre
         Pricebook2 customPricebook = new Pricebook2(
             Name = 'Precios S001',
             IsActive = true
         );
         insert customPricebook;
         
-        // Crear Categoria
+        // Crear Categoria con nombre único
         Categoria__c categoria = new Categoria__c(
-            Name = 'Categoria Test',
-            Descripcion__c = 'Categoria Test'
+            Name = 'Categoria Test ' + timestamp,
+            Descripcion__c = 'Categoria Test ' + timestamp
         );
         insert categoria;
 
-        // Crear Familia
+        // Crear Familia con nombre único
         Familia__c familia = new Familia__c(
-            Name = 'FS342 TEST',
-            Descripcion__c = 'FS342 TEST'
+            Name = 'FS342 TEST ' + timestamp,
+            Descripcion__c = 'FS342 TEST ' + timestamp
         );
         insert familia;
 
@@ -168,74 +198,73 @@ public without sharing class TestUtils {
         }
         insert rappels;
 
-        // Create Venta__c records
-        List<Venta__c> ventas = new List<Venta__c>();
-        for (Integer i = 0; i < 10; i++) {
-            Venta__c venta = new Venta__c(
-                Cliente__c = testAccount.Id,
-                Fecha_de_Venta__c = Date.today().addDays(-5)
-            );
-            ventas.add(venta);
-        }
-        insert ventas;
+        // Crear Domicilio_de_Cliente__c asociado a la cuenta (requerido por validación en Facturas__c)
+        Domicilio_de_Cliente__c domicilio = new Domicilio_de_Cliente__c(
+            Cliente__c = testAccount.Id,
+            Cliente_Despacho__c = 'Calle Los Leones 123',
+            Region__c = '13 - Región Metropolitana',
+            Comuna_Despacho__c = comuna.Id
+        );
+        insert domicilio;
 
-        // Create Detalle__c records and associate related records
-        List<Detalle__c> detalles = new List<Detalle__c>();
+        // Crear Facturas__c (el objeto se llama Facturas__c con 's')
+        // El campo lookup en Detalle_Factura__c es Factura__c (sin 's') y es MasterDetail (requerido)
+        List<SObject> facturas = new List<SObject>();
+        Schema.SObjectType facturaType = Schema.getGlobalDescribe().get('Facturas__c');
+        if (facturaType != null) {
+            for (Integer i = 0; i < 10; i++) {
+                SObject factura = facturaType.newSObject();
+                factura.put('Cliente__c', testAccount.Id);
+                factura.put('Fecha_de_Documento__c', Date.today().addDays(-5));
+                factura.put('Domicilio_Cliente__c', domicilio.Id); // Asociar el domicilio creado
+                facturas.add(factura);
+            }
+            insert facturas;
+        }
+
+        // Create Detalle_Factura__c records
+        // El campo Factura__c es MasterDetail y es requerido
+        List<Detalle_Factura__c> detalles = new List<Detalle_Factura__c>();
         for (Integer i = 0; i < 10; i++) {
             Product2 product = products[i];
-            PricebookEntry pricebookEntry = pricebookEntries[i];
-            Descuento_Cliente__c descuento = descuentos[i];
-            Costo__c costo = costos[i];
-            Rappel__c rappel = rappels[i];
-            Venta__c venta = ventas[i];
-
-            Detalle__c detalle = new Detalle__c(
-                SKU__c = product.Codigo__c,
-                Unidad_de_Medida__c = product.TextoUMV__c,
-                Descripcion__c = 'Detalle description ' + i,
-                Valor_Neto__c = 100,
-                Margen_Producto__c = 20 + i,
-                Descuento_Cliente__c = descuento.Id,
-                PrecioId__c = pricebookEntry.Id,
-                Margen_de_Contribucion_por_Kilo__c = 10 + i,
-                Producto__c = product.Id,
-                costoId__c = costo.Id,
-                Precio_Final__c = 200 + i,
-                Precio_Cliente_Neto__c = 180 + i,
-                Porcentaje_de_Rappel__c = 5 + i,
-                Relacion_Rappel_Detalle__c = rappel.Id,
-                Venta__c = venta.Id
-            );
-            detalles.add(detalle);
+            Id facturaId = facturas.isEmpty() ? null : (Id)facturas[i].get('Id');
+            
+            if (facturaId != null) {
+                Detalle_Factura__c detalle = new Detalle_Factura__c(
+                    SKU__c = product.Codigo__c,
+                    Unidad_de_Medida__c = product.TextoUMV__c,
+                    Descripcion__c = 'Detalle description ' + i,
+                    Valor_Neto__c = 100,
+                    Product__c = product.Id,
+                    Factura__c = facturaId // Campo MasterDetail requerido
+                );
+                detalles.add(detalle);
+            }
         }
-        insert detalles;
+        if (!detalles.isEmpty()) {
+            insert detalles;
+        }
 
-        // Create Detalle__c records without Descuento
-        List<Detalle__c> detallesSinDescuento = new List<Detalle__c>();
+        // Create Detalle_Factura__c records without Descuento
+        List<Detalle_Factura__c> detallesSinDescuento = new List<Detalle_Factura__c>();
         for (Integer i = 15; i < 20; i++) {
             Product2 product = products[i];
-            PricebookEntry pricebookEntry = pricebookEntries[i];
-            //Costo__c costo = costos[i];
-            //Venta__c venta = ventas[i];
-
-            Detalle__c detalle = new Detalle__c(
-                SKU__c = product.Codigo__c,
-                Unidad_de_Medida__c = product.TextoUMV__c,
-                Descripcion__c = 'Detalle description ' + i,
-                Valor_Neto__c = 100 + i,
-                Margen_Producto__c = 20 + i,
-                PrecioId__c = pricebookEntry.Id,
-                Margen_de_Contribucion_por_Kilo__c = 10 + i,
-                Producto__c = product.Id,
-                //costoId__c = costo.Id,
-                Precio_Final__c = 200 + i,
-                Precio_Cliente_Neto__c = 180 + i,
-                Porcentaje_de_Rappel__c = 5 + i
-                //Relacion_Rappel_Detalle__c = rappel.Id,
-                //Venta__c = venta.Id
-            );
-            detallesSinDescuento.add(detalle);
+            Id facturaId = facturas.isEmpty() ? null : (Id)facturas[Math.mod(i, facturas.size())].get('Id');
+            
+            if (facturaId != null) {
+                Detalle_Factura__c detalle = new Detalle_Factura__c(
+                    SKU__c = product.Codigo__c,
+                    Unidad_de_Medida__c = product.TextoUMV__c,
+                    Descripcion__c = 'Detalle description ' + i,
+                    Valor_Neto__c = 100 + i,
+                    Product__c = product.Id,
+                    Factura__c = facturaId // Campo MasterDetail requerido
+                );
+                detallesSinDescuento.add(detalle);
+            }
         }
-        insert detallesSinDescuento;
+        if (!detallesSinDescuento.isEmpty()) {
+            insert detallesSinDescuento;
+        }
     }
 }

@@ -197,23 +197,44 @@ public class ICB_MaestraPreciosRepository {
     * @author Rodrigo Carvallo
     * @param Id accountId - ID del cliente
     * @param Date fechaDesde - Fecha desde para filtrar compras
-    * @return List<Detalle__c> - Lista de detalles de compras
+    * @return List<Detalle_Factura__c> - Lista de detalles de compras
     **/
-    public static List<Detalle__c> getDetallesComprasByCliente(Id accountId, Date fechaDesde) {
+    public static List<Detalle_Factura__c> getDetallesComprasByCliente(Id accountId, Date fechaDesde) {
         return [
-            SELECT Id, SKU__c, Unidad_de_Medida__c, Descripcion__c, Valor_Neto__c, Margen_Producto__c,
-                Descuento_Cliente__r.Es_recargo__c, Descuento_Cliente__r.Descuento_gestionado__c,
-                Descuento_Cliente__r.Margen_Producto__c, Descuento_Cliente__r.Fecha_desde__c, Descuento_Cliente__r.Fecha_hasta__c,
-                Descuento_Cliente__r.CostoId__c, Descuento_Cliente__r.CostoId__r.CostoProducto__c,
-                Descuento_Cliente__r.PrecioId__c, Descuento_Cliente__r.IdPricebookentry__c, PrecioId__c, Margen_de_Contribucion_por_Kilo__c,
-                Producto__r.Peso__c, Producto__r.Name, Producto__r.Descuento_Autonomo_de_Asesor__c, Producto__r.Fecha_maxima_de_descuento__c,
-                Porcentaje_de_Rappel__c, Precio_Final__c, Precio_Cliente_Neto__c, Relacion_Rappel_Detalle__r.Rappel__c, Venta__r.Cliente__c, Venta__r.Fecha_de_Venta__c,
-                Relacion_Rappel_Detalle__r.Fecha_Vigencia_Desde__c, Relacion_Rappel_Detalle__r.Fecha_Vigencia_Hasta__c, Producto__c, costoId__c,
-                Venta__r.Cliente__r.Centro_de_Abastecimiento__c
-            FROM Detalle__c
-            WHERE Venta__r.Cliente__c = :accountId
-            AND Venta__r.Fecha_de_Venta__c >= :fechaDesde
+            SELECT Id, SKU__c, Unidad_de_Medida__c, Descripcion__c, Valor_Neto__c,
+                Product__r.Peso__c, Product__r.Name, Product__r.Descuento_Autonomo_de_Asesor__c, Product__r.Fecha_maxima_de_descuento__c,
+                Factura__r.Cliente__c, Factura__r.Fecha_de_Documento__c,
+                Product__c,
+                Factura__r.Cliente__r.Centro_de_Abastecimiento__c
+            FROM Detalle_Factura__c
+            WHERE Factura__r.Cliente__c = :accountId
+            AND Factura__r.Fecha_de_Documento__c >= :fechaDesde
         ];
+    }
+
+    /**
+    * Obtiene la última fecha de compra por producto para un cliente en la ventana desde fechaDesde.
+    * Usado para calcular si un producto está "fugado" (dejó de comprarse en mes actual y anterior).
+    * @param Id accountId - ID del cliente
+    * @param Date fechaDesde - Fecha desde (ej. hace 3 meses)
+    * @return Map<Id, Date> - Product__c -> última Fecha_de_Documento__c de factura
+    **/
+    public static Map<Id, Date> getUltimaFechaCompraPorProducto(Id accountId, Date fechaDesde) {
+        List<Detalle_Factura__c> detalles = [
+            SELECT Product__c, Factura__r.Fecha_de_Documento__c
+            FROM Detalle_Factura__c
+            WHERE Factura__r.Cliente__c = :accountId
+            AND Factura__r.Fecha_de_Documento__c >= :fechaDesde
+        ];
+        Map<Id, Date> productToLastDate = new Map<Id, Date>();
+        for (Detalle_Factura__c d : detalles) {
+            if (d.Product__c == null || d.Factura__r == null || d.Factura__r.Fecha_de_Documento__c == null) continue;
+            Date fd = d.Factura__r.Fecha_de_Documento__c;
+            if (!productToLastDate.containsKey(d.Product__c) || productToLastDate.get(d.Product__c) < fd) {
+                productToLastDate.put(d.Product__c, fd);
+            }
+        }
+        return productToLastDate;
     }
 
     /**

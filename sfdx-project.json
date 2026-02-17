@@ -5,8 +5,8 @@
       "default": true
     }
   ],
-  "name": "ICB-DEV",
+  "name": "ICB-DEV-TUFIRMA",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "64.0"
+  "sourceApiVersion": "65.0"
 }

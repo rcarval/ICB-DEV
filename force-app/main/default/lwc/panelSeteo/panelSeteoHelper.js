@@ -1,5 +1,31 @@
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 const helper = {
+    // Función para formatear números con punto para miles y coma para decimales
+    formatNumber: (value, decimals = 2, showDecimalsIfZero = true) => {
+        if (value == null || value === '' || isNaN(value)) {
+            return '';
+        }
+        const num = parseFloat(value);
+        if (isNaN(num)) {
+            return '';
+        }
+        // Separar parte entera y decimal
+        const parts = num.toFixed(decimals).split('.');
+        const integerPart = parts[0];
+        const decimalPart = parts[1];
+        
+        // Agregar puntos como separadores de miles
+        const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        
+        // Si showDecimalsIfZero es false y los decimales son cero, no mostrar decimales
+        if (!showDecimalsIfZero && decimalPart && parseFloat(decimalPart) === 0) {
+            return formattedInteger;
+        }
+        
+        // Retornar con coma como separador decimal
+        return decimalPart ? `${formattedInteger},${decimalPart}` : formattedInteger;
+    },
+
     generarEncabezado: () => {
         const today = new Date();
 
@@ -16,17 +42,19 @@ const helper = {
 
     initializeColumns: () => {
         return [
-            { label: 'SKU', fieldName: 'sku', type: 'text' },
-            { label: 'UMV', fieldName: 'umv', type: 'text' },
-            { label: 'Descripción', fieldName: 'descripcion', type: 'text' },
-            { label: '% Autónomo', fieldName: 'descuentoAutonomo', type: 'number', typeAttributes: { minimumFractionDigits: 2 }, cellAttributes: { alignment: 'left'} },
-            { label: 'Lista de Precio', fieldName: 'listaPrecio', type: 'number', typeAttributes: { maximumFractionDigits: 2 }, cellAttributes: { alignment: 'left'} },
-            { label: 'Descuento %', fieldName: 'descuento', type: 'number', typeAttributes: { minimumFractionDigits: 2 }, editable: true, cellAttributes: { alignment: 'left'} },
-            { label: 'Precio Cliente Neto', fieldName: 'precioClienteNeto', type: 'number', typeAttributes: { maximumFractionDigits: 2 }, editable: true, cellAttributes: { alignment: 'left'}},
-            //{ label: '%MG', fieldName: 'margen', type: 'number', typeAttributes: { minimumFractionDigits: 2 } },
-            { label: '%MG', fieldName: 'margen', type: 'text' },
-            { label: 'MG Contribución x Kilo', fieldName: 'margenContribucionKilo', type: 'number', typeAttributes: { maximumFractionDigits: 0 }, cellAttributes: { alignment: 'left'} },
-            { label: 'Fecha Vto de Descuento', fieldName: 'fechaVencimientoDescuento', type: 'date', editable: true, typeAttributes: {year: 'numeric', month: '2-digit', day:'2-digit'} }
+            { label: 'SKU', fieldName: 'sku', type: 'text', sortable: true, initialWidth: 100 },
+            { label: 'UMV', fieldName: 'umv', type: 'text', sortable: true, initialWidth: 80 },
+            { label: 'Descripción', fieldName: 'descripcion', type: 'text', sortable: true, initialWidth: 350 },
+            { label: 'Fugados', fieldName: 'fugadoDisplay', type: 'text', sortable: true, initialWidth: 90, cellAttributes: { class: { fieldName: 'fugadoDisplayClass' } } },
+            { label: 'Motivo', fieldName: 'motivoFuga', type: 'text', editable: true, sortable: true, initialWidth: 180 },
+            { label: 'Comentario', fieldName: 'comentarioFuga', type: 'text', editable: true, sortable: true, initialWidth: 200 },
+            { label: '% Autónomo', fieldName: 'descuentoAutonomoFormatted', type: 'text', cellAttributes: { alignment: 'right' }, sortable: true, initialWidth: 120 },
+            { label: 'Lista de Precio', fieldName: 'listaPrecioFormatted', type: 'text', cellAttributes: { alignment: 'right' }, sortable: true, initialWidth: 150 },
+            { label: 'Descuento %', fieldName: 'descuentoFormatted', type: 'text', editable: true, cellAttributes: { alignment: 'right' }, sortable: true, initialWidth: 140 },
+            { label: 'Precio Cliente Neto', fieldName: 'precioClienteNetoFormatted', type: 'text', editable: true, cellAttributes: { alignment: 'right' }, sortable: true, initialWidth: 180 },
+            { label: '%MG', fieldName: 'margenFormatted', type: 'text', sortable: true, initialWidth: 100 },
+            { label: 'MG Contribución x Kilo', fieldName: 'margenContribucionKiloFormatted', type: 'text', cellAttributes: { alignment: 'right' }, sortable: true, initialWidth: 200 },
+            { label: 'Fecha Vto de Descuento', fieldName: 'fechaVencimientoDescuento', type: 'date', editable: true, typeAttributes: {year: 'numeric', month: '2-digit', day:'2-digit'}, sortable: true, initialWidth: 180 }
         ];
     },
 
