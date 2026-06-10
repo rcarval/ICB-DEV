@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>ACT_Notificar_Owner_Campana</name>
+        <label>ACT Notificar Owner Campana</label>
+        <locationX>182</locationX>
+        <locationY>620</locationY>
+        <actionName>customNotificationAction</actionName>
+        <actionType>customNotificationAction</actionType>
+        <connector>
+            <targetReference>ACT_Notificar_Owner_Email</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>customNotifTypeId</name>
+            <value>
+                <elementReference>GetNotifTypeOwner.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>recipientIds</name>
+            <value>
+                <elementReference>varRecipientIds</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>title</name>
+            <value>
+                <elementReference>txtTituloOwner</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>body</name>
+            <value>
+                <elementReference>txtBodyOwner</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>targetId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>customNotificationAction</nameSegment>
+    </actionCalls>
+    <actionCalls>
+        <name>ACT_Notificar_Owner_Email</name>
+        <label>ACT Notificar Owner Email</label>
+        <locationX>182</locationX>
+        <locationY>728</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Record.Owner.Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <inputConfiguratorMode>Custom</inputConfiguratorMode>
+                <stringValue>info@icbfs.cl</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>composeEmailContent</name>
+            <value>
+                <stringValue>True</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Tu solicitud de cambio de condicion de pago fue aprobada</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <stringValue>Hola {!$Record.Owner.Name},
+
+Se aprobo tu solicitud de cambio de condicion de pago para la cuenta {!$Record.Name}.
+
+Nueva condicion de pago: {!$Record.condicion_pago__c}
+
+Link: {!frmRecordLink}</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <offset>0</offset>
+        <versionString>1.0.1</versionString>
+    </actionCalls>
+    <apiVersion>66.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>ASG_Agregar_Owner_Recipient</name>
+        <label>ASG Agregar Owner Recipient</label>
+        <locationX>182</locationX>
+        <locationY>512</locationY>
+        <assignmentItems>
+            <assignToReference>varRecipientIds</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>GetNotifTypeOwner</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>DEC_NotifTypeOwner_Existe</name>
+        <label>DEC NotifTypeOwner Existe</label>
+        <locationX>182</locationX>
+        <locationY>728</locationY>
+        <defaultConnector>
+            <targetReference>ACT_Notificar_Owner_Email</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No existe tipo campana</defaultConnectorLabel>
+        <rules>
+            <name>ExisteNotifType</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GetNotifTypeOwner.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>ACT_Notificar_Owner_Campana</targetReference>
+            </connector>
+            <label>Existe notif type</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>DEC_Viene_De_Proceso</name>
+        <label>DEC Viene De Proceso</label>
+        <locationX>50</locationX>
+        <locationY>296</locationY>
+        <defaultConnectorLabel>No viene de aprobacion</defaultConnectorLabel>
+        <rules>
+            <name>VieneDeEnProceso</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>frmVieneDeProceso</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>ASG_Agregar_Owner_Recipient</targetReference>
+            </connector>
+            <label>Viene de en proceso</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>frmRecordLink</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!$Api.Partner_Server_URL_610}, FIND(&quot;/services&quot;, {!$Api.Partner_Server_URL_610}) - 1) &amp; &quot;/lightning/r/Account/&quot; &amp; {!$Record.Id} &amp; &quot;/view&quot;</expression>
+    </formulas>
+    <formulas>
+        <name>frmVieneDeProceso</name>
+        <dataType>Boolean</dataType>
+        <expression>ISPICKVAL({!$Record__Prior.Estado_Aprobacion_Condicion_Pago__c}, &quot;En Proceso de Aprobacion&quot;)</expression>
+    </formulas>
+    <interviewLabel>Account Condicion Pago Notify Owner Approved {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Account Condicion Pago Notify Owner Approved</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>GetNotifTypeOwner</name>
+        <label>Get NotifType Owner</label>
+        <locationX>182</locationX>
+        <locationY>620</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>DEC_NotifTypeOwner_Existe</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Cambio_Condicion_Pago_Aprobacion</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>CustomNotificationType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>DEC_Viene_De_Proceso</targetReference>
+        </connector>
+        <filterLogic>1 AND 2 AND 3 AND 4</filterLogic>
+        <filters>
+            <field>Estado_Aprobacion_Condicion_Pago__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Estado_Aprobacion_Condicion_Pago__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Aprobada</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Condicion_Pago_Solicitada__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>condicion_pago__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>Account</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Draft</status>
+    <textTemplates>
+        <name>txtBodyOwner</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Se aprobo tu solicitud de cambio de condicion de pago para la cuenta {!$Record.Name}.
+Nueva condicion: {!$Record.condicion_pago__c}
+Link: {!frmRecordLink}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>txtTituloOwner</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Solicitud aprobada</text>
+    </textTemplates>
+    <variables>
+        <name>varRecipientIds</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

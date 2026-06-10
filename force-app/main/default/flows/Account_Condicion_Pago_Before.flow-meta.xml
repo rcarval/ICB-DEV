@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>ASG_Bypass_Admin</name>
+        <label>ASG Bypass Admin</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Estado_Aprobacion_Condicion_Pago__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Aprobada</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Condicion_Pago_Solicitada__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>ASG_Preparar_Solicitud</name>
+        <label>ASG Preparar Solicitud</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Condicion_Pago_Solicitada__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.condicion_pago__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.condicion_pago__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record__Prior.condicion_pago__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Estado_Aprobacion_Condicion_Pago__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>En Proceso de Aprobacion</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>DEC_Bypass</name>
+        <label>DEC Bypass</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>DEC_Es_Primera_Solicitud</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Requiere aprobacion</defaultConnectorLabel>
+        <rules>
+            <name>BypassAdmin</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>frmBypassAdmin</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>ASG_Bypass_Admin</targetReference>
+            </connector>
+            <label>Bypass admin</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>DEC_Cambio_Controlado</name>
+        <label>DEC Cambio Controlado</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Sin cambio controlado</defaultConnectorLabel>
+        <rules>
+            <name>EsCambioControlado</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>frmCambioControlado</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>DEC_Bypass</targetReference>
+            </connector>
+            <label>Es cambio controlado</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>DEC_Es_Primera_Solicitud</name>
+        <label>DEC Es Primera Solicitud</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>No preparar solicitud</defaultConnectorLabel>
+        <rules>
+            <name>PrimeraSolicitud</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>frmEsPrimeraSolicitud</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>ASG_Preparar_Solicitud</targetReference>
+            </connector>
+            <label>Primera solicitud</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>frmBypassAdmin</name>
+        <dataType>Boolean</dataType>
+        <expression>{!$Permission.Bypass_Condicion_Pago_Aprobacion}</expression>
+    </formulas>
+    <formulas>
+        <name>frmCambioControlado</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+AND(
+TEXT({!$Record__Prior.condicion_pago__c}) = &quot;ZD01&quot;,
+TEXT({!$Record.condicion_pago__c}) = &quot;ZE01&quot;
+),
+AND(
+TEXT({!$Record__Prior.condicion_pago__c}) = &quot;ZE01&quot;,
+TEXT({!$Record.condicion_pago__c}) = &quot;ZD01&quot;
+)
+)</expression>
+    </formulas>
+    <formulas>
+        <name>frmEsPrimeraSolicitud</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+ISBLANK(TEXT({!$Record__Prior.Condicion_Pago_Solicitada__c})),
+NOT(ISPICKVAL({!$Record__Prior.Estado_Aprobacion_Condicion_Pago__c}, &quot;En Proceso de Aprobacion&quot;))
+)</expression>
+    </formulas>
+    <interviewLabel>Account Condicion Pago Before {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Account Condicion Pago Before</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>DEC_Cambio_Controlado</targetReference>
+        </connector>
+        <object>Account</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

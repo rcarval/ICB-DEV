@@ -15,15 +15,15 @@ public class ICB_ProductServiceImpl{
     /**
     * Retorna una lista de Id de Product2 en base al detalle de compras y los descuento de Maestra de Precios
     * @author Rodrigo Carvallo
-    * @param List<Detalle__c> comprasMaestradePrecios
+    * @param List<Detalle_Factura__c> comprasMaestradePrecios
     * @return Set<Id>
     **/
-    public static Set<Id> cargarProductIds(List<Detalle__c> comprasMaestradePrecios, List<Descuento_Cliente__c> descuentosClienteMaestradePrecios) {
+    public static Set<Id> cargarProductIds(List<Detalle_Factura__c> comprasMaestradePrecios, List<Descuento_Cliente__c> descuentosClienteMaestradePrecios) {
         Set<Id> productIds = new Set<Id>();
-        // Cargar los Product2 Ids en productIds desde las compras (Detalle__c)
-        for (Detalle__c detalle : comprasMaestradePrecios) {
-            if (detalle.Producto__c != null) {
-                productIds.add(detalle.Producto__c);
+        // Cargar los Product2 Ids en productIds desde las compras (Detalle_Factura__c)
+        for (Detalle_Factura__c detalle : comprasMaestradePrecios) {
+            if (detalle.Product__c != null) {
+                productIds.add(detalle.Product__c);
             }
         }
         

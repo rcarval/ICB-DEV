@@ -15,34 +15,18 @@ public class ICB_RecargoServiceImpl{
     /**
     * Método para calcular recargos aplicados a compras del cliente
     * @author Rodrigo Carvallo
-    * @param List<Detalle__c> comprasMaestradePrecios - Lista de compras a aplicar recargos
+    * @param List<Detalle_Factura__c> comprasMaestradePrecios - Lista de compras a aplicar recargos
     **/
-    public static void calcularRecargosparaCompras(List<Detalle__c> comprasMaestradePrecios) {
-        for (Detalle__c detalle : comprasMaestradePrecios) {
+    public static void calcularRecargosparaCompras(List<Detalle_Factura__c> comprasMaestradePrecios) {
+        // Descuento_Cliente__r nunca tuvo valores, por lo que no se pueden aplicar recargos
+        // El método solo asegura que Valor_Neto__c tenga un valor válido
+        for (Detalle_Factura__c detalle : comprasMaestradePrecios) {
             // Si Valor_Neto__c es nulo, se asigna 0
             if (detalle.Valor_Neto__c == null) {
                 detalle.Valor_Neto__c = 0; // Asegurarse de que tenga un valor inicial
             }
-            
-            // Obtener el valor neto (que ya se asegura que no sea nulo)
-            Decimal valorNeto = detalle.Valor_Neto__c;
-            // Calcular recargos solo si el campo Es_recargo__c es verdadero
-            if (Boolean.valueOf(detalle.Descuento_Cliente__r.Es_recargo__c) == true &&
-                detalle.Descuento_Cliente__r.Descuento_gestionado__c != null) {
-                    // Aplicar el porcentaje de recargo
-                    Decimal porcentajeRecargo = detalle.Descuento_Cliente__r.Descuento_gestionado__c;
-                    // Calcular el recargo
-                    Decimal valorRecargo = (porcentajeRecargo / 100) * valorNeto;
-                    // Sumar el recargo al valor neto
-                    detalle.Valor_Neto__c += valorRecargo;
-                    System.debug('Descuento ' + detalle.Id + ': Valor Neto = ' + valorNeto + ', Recargo = ' + valorRecargo + ', Nuevo Valor Neto = ' + detalle.Valor_Neto__c);
-                }
-            // Asignar el valor calculado a Precio_Final__c
-            detalle.Precio_Final__c = detalle.Valor_Neto__c;
-            // Si Es_recargo__c es false, simplemente mantendremos el Valor_Neto__c
-            System.debug('Descuento ' + detalle.Id + ': Precio Final = ' + detalle.Precio_Final__c);
+            System.debug('Detalle ' + detalle.Id + ': Valor Neto = ' + detalle.Valor_Neto__c);
         }
-        
     }
 
     /**

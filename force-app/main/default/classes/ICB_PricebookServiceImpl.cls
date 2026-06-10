@@ -46,12 +46,12 @@ public class ICB_PricebookServiceImpl{
     * @author Rodrigo Carvallo
     * @param Set<Id> productIds
     * @param List<Descuento_Cliente__c> descuentosClienteMaestradePrecios
-    * @param List<Detalle__c> comprasMaestradePrecios
+    * @param List<Detalle_Factura__c> comprasMaestradePrecios
     * @param Pricebook2 clientePricebook
     * @param Map<Id, Decimal> costosProductosMap
     * @return Map<Id,Id>
     **/
-    public static Map<Id,Id> cargarPricebookEntries(Set<Id> productIds, List<Descuento_Cliente__c> descuentosClienteMaestradePrecios, List<Detalle__c> comprasMaestradePrecios, Pricebook2 clientePricebook, Map<Id, Decimal> costosProductosMap) {
+    public static Map<Id,Id> cargarPricebookEntries(Set<Id> productIds, List<Descuento_Cliente__c> descuentosClienteMaestradePrecios, List<Detalle_Factura__c> comprasMaestradePrecios, Pricebook2 clientePricebook, Map<Id, Decimal> costosProductosMap) {
         Map<Id, Id> pricebookEntriesMap = new Map<Id, Id>();
         Map<Id,Id> pricebookEntriesDesactive = new Map<Id,Id>();
         if (clientePricebook != null) {
@@ -84,13 +84,13 @@ public class ICB_PricebookServiceImpl{
     * @author Rodrigo Carvallo
     * @param Map<Id,Id> pricebookEntriesDesactive
     * @param List<Descuento_Cliente__c> descuentosClienteMaestradePrecios
-    * @param List<Detalle__c> comprasMaestradePrecios
+    * @param List<Detalle_Factura__c> comprasMaestradePrecios
     * @param Set<Id> productIds
     **/
-    private static void borrarPricebookEntriesDesactivados(Map<Id,Id> pricebookEntriesDesactive, List<Descuento_Cliente__c> descuentosClienteMaestradePrecios, List<Detalle__c> comprasMaestradePrecios, Set<Id> productIds, Map<Id, Decimal> costosProductosMap){
+    private static void borrarPricebookEntriesDesactivados(Map<Id,Id> pricebookEntriesDesactive, List<Descuento_Cliente__c> descuentosClienteMaestradePrecios, List<Detalle_Factura__c> comprasMaestradePrecios, Set<Id> productIds, Map<Id, Decimal> costosProductosMap){
         
         List<Descuento_Cliente__c> listaDescuentoTemporal = new List<Descuento_Cliente__c>();
-        List<Detalle__c> listaComprasTemporal = new List<Detalle__c>();
+        List<Detalle_Factura__c> listaComprasTemporal = new List<Detalle_Factura__c>();
         Set<Id> idProductosTemporal = new Set<Id>();
         
         //Elimino de los descuentos el producto que tiene el pricebook desactivado
@@ -104,8 +104,8 @@ public class ICB_PricebookServiceImpl{
         descuentosClienteMaestradePrecios = listaDescuentoTemporal;
 
         //Elimino de las compras el producto que tiene el pricebook desactivado
-        for(Detalle__c detalle : comprasMaestradePrecios) {
-            if(!pricebookEntriesDesactive.containsKey(detalle.Producto__c)) {
+        for(Detalle_Factura__c detalle : comprasMaestradePrecios) {
+            if(!pricebookEntriesDesactive.containsKey(detalle.Product__c)) {
                 listaComprasTemporal.add(detalle);
             }
         }

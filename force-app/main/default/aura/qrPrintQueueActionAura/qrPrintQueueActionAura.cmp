@@ -1,0 +1,14 @@
+<aura:component implements="force:lightningQuickAction,force:hasRecordId,force:hasSObjectName" access="global">
+    <aura:html tag="style">
+        .slds-modal__container {
+            max-width: 90rem !important;
+            width: 90% !important;
+        }
+
+        .cuf-content {
+            padding: 0 !important;
+        }
+    </aura:html>
+
+    <c:qrPrintQueueAction recordId="{!v.recordId}" />
+</aura:component>

@@ -1,0 +1,3003 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Error_entrada_lista_no_activada</name>
+        <label>Error entrada lista no activada</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>Mensaje_error_vr</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>La entrada de lista de precio del producto esta desactivada.</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>errorprodcto</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Error_entrada_lista_no_encontrada</name>
+        <label>Error entrada lista no encontrada</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>Mensaje_error_vr</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>El producto no esta en una entrada de lista de precio.</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>errorprodcto</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Error_lista_de_precios_no_activada</name>
+        <label>Error lista de precios no activada</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>Mensaje_error_vr</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>La lista de precios Standard Price Book esta desactivada.</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>errorprodcto</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Error_lista_de_precios_no_encontrada</name>
+        <label>Error lista de precios no encontrada</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>Mensaje_error_vr</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>No se encontro la lista de precios Standard Price Book.</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>errorprodcto</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Error_producto_no_activado</name>
+        <label>Error producto no activado</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>Mensaje_error_vr</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Producto no activado.</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>errorprodcto</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Error_producto_no_encontrado</name>
+        <label>Error producto no encontrado</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>Mensaje_error_vr</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>No se encontro el producto asociado a la maquina seleccionada.</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>errorprodcto</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Error_ruta_guiada_invalida</name>
+        <label>Error ruta guiada invalida</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>Mensaje_error_vr</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>La combinacion seleccionada no existe para propuesta guiada. Corrige los datos o usa Propuesta manual.</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Maquinas_Cafe</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Limpiar_error_ruta</name>
+        <label>Limpiar error ruta</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>Mensaje_error_vr</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Confirmacion_Maquina_Guiada</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>maquina</name>
+        <label>maquina</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>Maquina_vr</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Maquina_final</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>producto_maquina</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Set_tipo_negocio_guiada</name>
+        <label>Set tipo negocio guiada</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>Mensaje_error_vr</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Maquinas_Cafe</targetReference>
+        </connector>
+    </assignments>
+    <choices>
+        <name>Alto</name>
+        <choiceText>Alto</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Alto</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Bajo</name>
+        <choiceText>Bajo</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Bajo</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>BANQUETERIA</name>
+        <choiceText>BANQUETERIA</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>BANQUETERIA</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>BOMBA_VOLUMETRICA_FLOJET</name>
+        <choiceText>BOMBA VOLUMETRICA FLOJET</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>BOMBA VOLUMETRICA FLOJET </stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CABEZAL_FILTRO_VH</name>
+        <choiceText>CABEZAL FILTRO VH</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>CABEZAL FILTRO VH </stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CADENAS</name>
+        <choiceText>CADENAS</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>CADENAS</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CAF_MOL_FILTRO_CLASICO_LAVAZZA_226_G</name>
+        <choiceText>CAFÃƒâ€° MOL FILTRO CLASICO LAVAZZA 226 G</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>CAFÃƒâ€° MOL FILTRO CLASICO LAVAZZA 226 G</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CAFE_ENTERO_CREMA_Y_AROMA_LAVAZZA_1_kg</name>
+        <choiceText>CAFE ENTERO CREMA Y AROMA LAVAZZA 1 kg</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>CAFE ENTERO CREMA Y AROMA LAVAZZA 1 kg</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CAFE_ENTERO_TIERRA_SEL_LAVAZZA_1_kg</name>
+        <choiceText>CAFE ENTERO TIERRA SEL LAVAZZA 1 kg</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>CAFE ENTERO TIERRA SEL LAVAZZA 1 kg</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CAFE_ORGANICO_HUMECO_LAVAZZA_1_KG</name>
+        <choiceText>CAFE ORGANICO HUMECO LAVAZZA 1 KG</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>CAFE ORGANICO HUMECO LAVAZZA 1 KG</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CAFETERIAS</name>
+        <choiceText>CAFETERIAS</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>CAFETERIAS</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CAPSULA</name>
+        <choiceIcon>
+            <iconName>utility:away</iconName>
+        </choiceIcon>
+        <choiceText>CAPSULA</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>CAPSULA</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CAPSULA_BLUE_VARIEDADES_LAVAZZA_16_g</name>
+        <choiceText>CAPSULA BLUE VARIEDADES LAVAZZA 16 g</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>CAPSULA BLUE VARIEDADES LAVAZZA 16 g</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CAPSULA_BLUE_VARIEDADES_LAVAZZA_8_g</name>
+        <choiceText>CAPSULA BLUE VARIEDADES LAVAZZA 8 g</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>CAPSULA BLUE VARIEDADES LAVAZZA 8 g</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CHAI_LATTE_VENDING_RISTORA_1_kg</name>
+        <choiceText>CHAI LATTE VENDING RISTORA 1 kg</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>CHAI LATTE VENDING RISTORA 1 kg</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CHOCOLATE_EN_POLVO_VENDING_FAS_1_kg</name>
+        <choiceText>CHOCOLATE EN POLVO VENDING FAS 1 kg</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>CHOCOLATE EN POLVO VENDING FAS 1 kg</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CHOICE_VENTA_GUIADA</name>
+        <choiceText>Propuesta guiada</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>VENTA_GUIADA</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CHOICE_VENTA_MANUAL</name>
+        <choiceText>Propuesta manual</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>VENTA_MANUAL</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CLUB</name>
+        <choiceText>CLUB</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>CLUB</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>DEPURADOR_LA_SPAZIALE_12_LT</name>
+        <choiceText>DEPURADOR LA SPAZIALE 12 LT</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>DEPURADOR LA SPAZIALE 12 LT</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>FILTRO_COFFEE_CARE_VH</name>
+        <choiceText>FILTRO COFFEE CARE VH</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>FILTRO COFFEE CARE VH</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>GRANO_ENTERO</name>
+        <choiceText>GRANO ENTERO</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>GRANO ENTERO</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>GRANO_MOLIDO</name>
+        <choiceText>GRANO MOLIDO</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>GRANO MOLIDO</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>HOTELES</name>
+        <choiceText>HOTELES</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>HOTELES</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>LECHE_EN_POLVO_VENDING_FAS_500_g</name>
+        <choiceText>LECHE EN POLVO VENDING FAS 500 g</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>LECHE EN POLVO VENDING FAS 500 g</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>LECHE_LIQUIDA</name>
+        <choiceText>LECHE LIQUIDA</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>LECHE LIQUIDA</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>LECHE_SOLUBLE</name>
+        <choiceText>LECHE SOLUBLE</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>LECHE SOLUBLE</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>MAQUINA_KREA_TOUCH</name>
+        <choiceText>MAQUINA KREA TOUCH</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>MAQUINA KREA TOUCH</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>MAQUINA_KREA_TOUCH_PLUS</name>
+        <choiceText>MAQUINA KREA TOUCH PLUS</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>MAQUINA KREA TOUCH PLUS</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Medio</name>
+        <choiceText>Medio</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Medio</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>MINIMARKET</name>
+        <choiceText>MINIMARKET</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>MINIMARKET</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>MOLINILLO</name>
+        <choiceText>MOLINILLO</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>MOLINILLO</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>No</name>
+        <choiceText>NO</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>NO</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>OFICINAS</name>
+        <choiceText>OFICINAS</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>OFICINAS</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>PLACA_30x30_cm_LAVAZZA</name>
+        <choiceText>PLACA 30x30 cm LAVAZZA</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>PLACA 30x30 cm LAVAZZA</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>PLATO_ESPRESSO_LAVAZZA</name>
+        <choiceText>PLATO ESPRESSO LAVAZZA</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>PLATO ESPRESSO LAVAZZA</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>RESTAURANTES</name>
+        <choiceText>RESTAURANTES</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>RESTAURANTES</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>TAZA_CAPPUCCINO_LAVAZZA</name>
+        <choiceText>TAZA CAPPUCCINO LAVAZZA</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>TAZA CAPPUCCINO LAVAZZA</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>TAZA_ESPRESSO_LAVAZZA</name>
+        <choiceText>TAZA ESPRESSO LAVAZZA</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>TAZA ESPRESSO LAVAZZA</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>TERMO_5_7_L_BUNN</name>
+        <choiceText>TERMO 5,7 L BUNN</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>TERMO 5,7 L BUNN</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>TO_GO</name>
+        <choiceText>TO GO</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>TO GO</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>VAINILLA_EN_POLVO_VENDING_FAS_1_kg</name>
+        <choiceText>VAINILLA EN POLVO VENDING FAS 1 kg</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>VAINILLA EN POLVO VENDING FAS 1 kg</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X100</name>
+        <choiceText>100</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>100</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X12</name>
+        <choiceText>12</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>12</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X14</name>
+        <choiceText>14</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>14</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X150</name>
+        <choiceText>150</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>150</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X20</name>
+        <choiceText>20</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>20</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X34</name>
+        <choiceText>34</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>34</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X40</name>
+        <choiceText>40</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>40</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X75</name>
+        <choiceText>75</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>75</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X96</name>
+        <choiceText>96</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>96</stringValue>
+        </value>
+    </choices>
+    <customProperties>
+        <name>ScreenProgressIndicator</name>
+        <value>
+            <stringValue>{&quot;location&quot;:&quot;top&quot;,&quot;type&quot;:&quot;simple&quot;}</stringValue>
+        </value>
+    </customProperties>
+    <decisions>
+        <name>Ciente_con_credito</name>
+        <label>Cliente con credito?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>No_puede_crear_OPP</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Resultado predeterminado</defaultConnectorLabel>
+        <rules>
+            <name>Si</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Cuenta.Credito_Bloqueado__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Seleccionar_tipo_de_venta</targetReference>
+            </connector>
+            <label>Si</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Crear_partida_cotizacion</name>
+        <label>Crear partida propuesta</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Lista_la_creaci_n</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Solo propuesta</defaultConnectorLabel>
+        <rules>
+            <name>Con_producto</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Maquina_vr</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Entrada_de_lista_de_precios.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>PArtida_de_P</targetReference>
+            </connector>
+            <label>Con producto</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Estado_entrada_lista</name>
+        <label>Estado entrada lista</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Error_entrada_lista_no_encontrada</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Resultado predeterminado</defaultConnectorLabel>
+        <rules>
+            <name>Entrada_no_activada</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Entrada_de_lista_de_precios.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Entrada_de_lista_de_precios.IsActive</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Error_entrada_lista_no_activada</targetReference>
+            </connector>
+            <label>Entrada no activada</label>
+        </rules>
+        <rules>
+            <name>Entrada_activa</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Entrada_de_lista_de_precios.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Entrada_de_lista_de_precios.IsActive</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Crear_OPP</targetReference>
+            </connector>
+            <label>Entrada activa</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Estado_lista_de_precios</name>
+        <label>Estado lista de precios</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Error_lista_de_precios_no_encontrada</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Lista no encontrada</defaultConnectorLabel>
+        <rules>
+            <name>Lista_no_activada</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Lista_de_precios.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Lista_de_precios.IsActive</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Error_lista_de_precios_no_activada</targetReference>
+            </connector>
+            <label>Lista no activada</label>
+        </rules>
+        <rules>
+            <name>Lista_activa_con_producto</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Lista_de_precios.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Lista_de_precios.IsActive</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Maquina_vr</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Entrada_de_lista_de_precios</targetReference>
+            </connector>
+            <label>Lista activa con producto</label>
+        </rules>
+        <rules>
+            <name>Lista_activa_sin_producto</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Lista_de_precios.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Lista_de_precios.IsActive</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Maquina_vr</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <isGoTo>true</isGoTo>
+                <targetReference>Crear_OPP</targetReference>
+            </connector>
+            <label>Lista activa sin producto</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Estado_producto</name>
+        <label>Estado producto</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Error_producto_no_encontrado</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Producto no encontrado</defaultConnectorLabel>
+        <rules>
+            <name>Producto_no_activado</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>producto_maquina.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>producto_maquina.IsActive</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Error_producto_no_activado</targetReference>
+            </connector>
+            <label>Producto no activado</label>
+        </rules>
+        <rules>
+            <name>Producto_activo</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>producto_maquina.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>producto_maquina.IsActive</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <isGoTo>true</isGoTo>
+                <targetReference>Lista_de_precios</targetReference>
+            </connector>
+            <label>Producto activo</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Modo_de_venta</name>
+        <label>Modo de propuesta</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Seleccionar_tipo_negocio_guiada</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Propuesta guiada</defaultConnectorLabel>
+        <rules>
+            <name>Venta_manual</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Modo_Venta</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>VENTA_MANUAL</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Lista_de_precios</targetReference>
+            </connector>
+            <label>Propuesta manual</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Ruta_guiada_valida_decision</name>
+        <label>Ruta guiada valida</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Error_ruta_guiada_invalida</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Corrige combinacion</defaultConnectorLabel>
+        <rules>
+            <name>Ruta_valida</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Ruta_guiada_valida</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Limpiar_error_ruta</targetReference>
+            </connector>
+            <label>Ruta valida</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>ContentDocumentId_Maquina</name>
+        <dataType>String</dataType>
+        <expression>CASE(
+  {!Maquina_final},
+
+  /* ===== CAPSULA ===== */
+  &quot;MAQUINA CAPSULA LB 2600 LAVAZZA&quot;,        &quot;069Pr00000YIALYIA5&quot;,
+  &quot;MAQUINA CAFE CAPS LB 2317 LAVAZZA&quot;,      &quot;069Pr00000YIEKMIA5&quot;,
+  &quot;MAQUINA CAFE CAPS LB 4300 LAVAZZA&quot;,      &quot;069Pr00000YIAtSIAX&quot;,
+  &quot;MAQUINA CAFE CAPS LB 4724 LAVAZZA&quot;,      &quot;069Pr00000YI99TIAT&quot;,
+
+  /* ===== GRANO ENTERO ===== */
+  &quot;MAQUINA CAFE S2  1G&quot;,                    &quot;069Pr00000YHySUIA1&quot;,
+  &quot;MAQUINA CAFE S2  2G&quot;,                    &quot;069Pr00000YIIAzIAP&quot;,
+  &quot;MAQUINA CAFE S2  3G&quot;,                    &quot;069Pr00000YHvoDIAT&quot;,
+  &quot;MAQUINA KREA SOLISTA&quot;,                   &quot;069Pr00000YI9PWIA1&quot;,
+  &quot;MAQUINA KREA TOUCH&quot;,                     &quot;069Pr00000YHw93IAD&quot;,
+  &quot;MAQUINA KREA TOUCH PLUS&quot;,                &quot;069Pr00000YHeH2IAL&quot;,
+
+  /* ===== GRANO MOLIDO ===== */
+  &quot;PERCOLADORA 9 L&quot;,                        &quot;069Pr00000YIBnvIAH&quot;,
+  &quot;MAQUINA CAFE ICBA SINGLE BUNN&quot;,          &quot;069Pr00000YI6t2IAD&quot;,
+  &quot;MAQUINA CAFE ICBA DOBLE BUNN&quot;,           &quot;069Pr00000YICfDIAX&quot;,
+
+  /* Default */
+  &quot;&quot;
+)</expression>
+    </formulas>
+    <formulas>
+        <name>fechaactual</name>
+        <dataType>Date</dataType>
+        <expression>NOW()</expression>
+    </formulas>
+    <formulas>
+        <name>Maquina_final</name>
+        <dataType>String</dataType>
+        <expression>IF(
+  AND(
+    TRIM({!METODOLOGIA_SEL}) = &quot;GRANO ENTERO&quot;,
+    UPPER(TRIM({!Tipo_Flujo})) = &quot;ALTO&quot;,
+    TRIM({!VOLUMEN_SEL}) = &quot;96&quot;,
+    LEN(TRIM({!Seleccion_de_Maquina})) &gt; 0
+  ),
+  TRIM({!Seleccion_de_Maquina}),
+  IF(
+    TRIM({!METODOLOGIA_SEL}) = &quot;CAPSULA&quot;,
+    CASE(
+      TRIM({!VOLUMEN_SEL}),
+      &quot;14&quot;, &quot;MAQUINA CAPSULA LB 2600 LAVAZZA&quot;,
+      &quot;20&quot;, &quot;MAQUINA CAFE CAPS LB 2317 LAVAZZA&quot;,
+      &quot;34&quot;, &quot;MAQUINA CAFE CAPS LB 4300 LAVAZZA&quot;,
+      &quot;40&quot;, &quot;MAQUINA CAFE CAPS LB 4724 LAVAZZA&quot;,
+      &quot;&quot;
+    ),
+    IF(
+      TRIM({!METODOLOGIA_SEL}) = &quot;GRANO ENTERO&quot;,
+      CASE(
+        UPPER(TRIM({!Tipo_Flujo})) &amp; &quot;|&quot; &amp; TRIM({!VOLUMEN_SEL}),
+        &quot;BAJO|75&quot;,   &quot;MAQUINA CAFE S2  1G&quot;,
+        &quot;MEDIO|75&quot;,  &quot;MAQUINA KREA SOLISTA&quot;,
+        &quot;MEDIO|100&quot;, &quot;MAQUINA CAFE S2  2G&quot;,
+        &quot;ALTO|96&quot;,   &quot;MAQUINA KREA TOUCH&quot;,
+        &quot;ALTO|150&quot;,  &quot;MAQUINA CAFE S2  3G&quot;,
+        &quot;&quot;
+      ),
+      IF(
+        TRIM({!METODOLOGIA_SEL}) = &quot;GRANO MOLIDO&quot;,
+        CASE(
+          UPPER(TRIM({!Tipo_Flujo})),
+          &quot;BAJO&quot;,  &quot;PERCOLADORA 9 L&quot;,
+          &quot;MEDIO&quot;, &quot;MAQUINA CAFE ICBA SINGLE BUNN&quot;,
+          &quot;ALTO&quot;,  &quot;MAQUINA CAFE ICBA DOBLE BUNN&quot;,
+          &quot;&quot;
+        ),
+        &quot;&quot;
+      )
+    )
+  )
+)</expression>
+    </formulas>
+    <formulas>
+        <name>METODOLOGIA_SEL</name>
+        <dataType>String</dataType>
+        <expression>IF(
+    TRIM({!Tipo_de_Negocio_SEL}) = &quot;OFICINAS&quot;,
+    TRIM({!METODOLOGIA_SOLO_CAPSULA}),
+    IF(
+        TRIM({!Tipo_de_Negocio_SEL}) = &quot;BANQUETERIA&quot;,
+        TRIM({!METODOLOGIA_SOLO_GRANO_MOLIDO}),
+        IF(
+            OR(
+                TRIM({!Tipo_de_Negocio_SEL}) = &quot;TO GO&quot;,
+                TRIM({!Tipo_de_Negocio_SEL}) = &quot;MINIMARKET&quot;,
+                TRIM({!Tipo_de_Negocio_SEL}) = &quot;CAFETERIAS&quot;,
+                TRIM({!Tipo_de_Negocio_SEL}) = &quot;RESTAURANTES&quot;,
+                TRIM({!Tipo_de_Negocio_SEL}) = &quot;CADENAS&quot;
+            ),
+            TRIM({!METODOLOGIA_CAPSULA_GRANO_ENTERO}),
+            IF(
+                OR(
+                    TRIM({!Tipo_de_Negocio_SEL}) = &quot;HOTELES&quot;,
+                    TRIM({!Tipo_de_Negocio_SEL}) = &quot;CLUB&quot;
+                ),
+                TRIM({!METODOLOGIA_TODAS}),
+                &quot;&quot;
+            )
+        )
+    )
+)</expression>
+    </formulas>
+    <formulas>
+        <name>Negocio_CADENAS_CLUB_HOTELES</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+  TRIM({!Tipo_de_Negocio_SEL}) = &quot;CADENAS&quot;,
+  TRIM({!Tipo_de_Negocio_SEL}) = &quot;CLUB&quot;,
+  TRIM({!Tipo_de_Negocio_SEL}) = &quot;HOTELES&quot;
+)</expression>
+    </formulas>
+    <formulas>
+        <name>Negocio_CAFETERIAS_CLUB</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+  TRIM({!Tipo_de_Negocio_SEL}) = &quot;CAFETERIAS&quot;,
+  TRIM({!Tipo_de_Negocio_SEL}) = &quot;CLUB&quot;
+)</expression>
+    </formulas>
+    <formulas>
+        <name>Negocio_CAFETERIAS_RESTAURANTES</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+  TRIM({!Tipo_de_Negocio_SEL}) = &quot;CAFETERIAS&quot;,
+  TRIM({!Tipo_de_Negocio_SEL}) = &quot;RESTAURANTES&quot;
+)</expression>
+    </formulas>
+    <formulas>
+        <name>Negocio_CAPSULA_ENTERO</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+  {!Negocio_TOGO_MINIMARKET},
+  {!Negocio_CAFETERIAS_RESTAURANTES},
+  TRIM({!Tipo_de_Negocio_SEL}) = &quot;CADENAS&quot;
+)</expression>
+    </formulas>
+    <formulas>
+        <name>Negocio_GE_BAJO</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+  TRIM({!Tipo_de_Negocio_SEL}) = &quot;CAFETERIAS&quot;,
+  TRIM({!Tipo_de_Negocio_SEL}) = &quot;RESTAURANTES&quot;,
+  TRIM({!Tipo_de_Negocio_SEL}) = &quot;CADENAS&quot;,
+  TRIM({!Tipo_de_Negocio_SEL}) = &quot;CLUB&quot;,
+  TRIM({!Tipo_de_Negocio_SEL}) = &quot;HOTELES&quot;
+)</expression>
+    </formulas>
+    <formulas>
+        <name>Negocio_RESTAURANTES_HOTELES</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+  TRIM({!Tipo_de_Negocio_SEL}) = &quot;RESTAURANTES&quot;,
+  TRIM({!Tipo_de_Negocio_SEL}) = &quot;HOTELES&quot;
+)</expression>
+    </formulas>
+    <formulas>
+        <name>Negocio_SOLO_CAPSULA</name>
+        <dataType>Boolean</dataType>
+        <expression>TRIM({!Tipo_de_Negocio_SEL}) = &quot;OFICINAS&quot;</expression>
+    </formulas>
+    <formulas>
+        <name>Negocio_SOLO_GRANO_MOLIDO</name>
+        <dataType>Boolean</dataType>
+        <expression>TRIM({!Tipo_de_Negocio_SEL}) = &quot;BANQUETERIA&quot;</expression>
+    </formulas>
+    <formulas>
+        <name>Negocio_TODAS_METODOLOGIAS</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+  TRIM({!Tipo_de_Negocio_SEL}) = &quot;HOTELES&quot;,
+  TRIM({!Tipo_de_Negocio_SEL}) = &quot;CLUB&quot;
+)</expression>
+    </formulas>
+    <formulas>
+        <name>Negocio_TOGO_MINIMARKET</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+  TRIM({!Tipo_de_Negocio_SEL}) = &quot;TO GO&quot;,
+  TRIM({!Tipo_de_Negocio_SEL}) = &quot;MINIMARKET&quot;
+)</expression>
+    </formulas>
+    <formulas>
+        <name>Nombre_maquina</name>
+        <dataType>String</dataType>
+        <expression>IF(
+  TRIM({!METODOLOGIA_SEL}) = &quot;CAPSULA&quot;,
+  CASE(
+    TRIM({!VOLUMEN_SEL}),
+    &quot;14&quot;, &quot;MAQUINA CAPSULA LB 2600 LAVAZZA&quot;,
+    &quot;20&quot;, &quot;MAQUINA CAFE CAPS LB 2317 LAVAZZA&quot;,
+    &quot;34&quot;, &quot;MAQUINA CAFE CAPS LB 4300 LAVAZZA&quot;,
+    &quot;40&quot;, &quot;MAQUINA CAFE CAPS LB 4724 LAVAZZA&quot;,
+    &quot;&quot;
+  ),
+
+  IF(
+    TRIM({!METODOLOGIA_SEL}) = &quot;GRANO ENTERO&quot;,
+    CASE(
+      UPPER(TRIM({!Tipo_Flujo})) &amp; &quot;|&quot; &amp; TRIM({!VOLUMEN_SEL}),
+      &quot;BAJO|75&quot;,   &quot;MAQUINA CAFE S2  1G&quot;,
+      &quot;MEDIO|75&quot;,  &quot;MAQUINA KREA SOLISTA&quot;,
+      &quot;MEDIO|100&quot;, &quot;MAQUINA CAFE S2  2G&quot;,
+      &quot;ALTO|96&quot;,   &quot;MAQUINA KREA TOUCH&quot;,
+      &quot;ALTO|150&quot;,  &quot;MAQUINA CAFE S2  3G&quot;,
+      &quot;&quot;
+    ),
+
+    IF(
+      TRIM({!METODOLOGIA_SEL}) = &quot;GRANO MOLIDO&quot;,
+      CASE(
+        UPPER(TRIM({!Tipo_Flujo})),
+        &quot;BAJO&quot;,  &quot;PERCOLADORA 9 L&quot;,
+        &quot;MEDIO&quot;, &quot;MAQUINA CAFE ICBA SINGLE BUNN&quot;,
+        &quot;ALTO&quot;,  &quot;MAQUINA CAFE ICBA DOBLE BUNN&quot;,
+        &quot;&quot;
+      ),
+      &quot;&quot;
+    )
+  )
+)</expression>
+    </formulas>
+    <formulas>
+        <name>Nombreopp</name>
+        <dataType>String</dataType>
+        <expression>IF(
+  OR(
+    TRIM({!Modo_Venta}) = &quot;VENTA_MANUAL&quot;,
+    ISBLANK({!Maquina_final})
+  ),
+  &quot;Propuesta Comodato&quot;,
+  TRIM(
+    &quot;Propuesta &quot;
+    &amp; {!Maquina_final}
+    &amp; &quot; &quot;
+    &amp; TEXT(TODAY())
+  )
+)</expression>
+    </formulas>
+    <formulas>
+        <description>Recomendacion de capsulas diarias</description>
+        <name>rcd</name>
+        <dataType>Number</dataType>
+        <expression>IF(
+  TRIM({!METODOLOGIA_SEL}) = &quot;CAPSULA&quot;,
+  CASE(
+    TRIM({!VOLUMEN_SEL}),
+    &quot;14&quot;, 400,
+    &quot;20&quot;, 600,
+    &quot;34&quot;, 1000,
+    &quot;40&quot;, 1200,
+    0
+  ),
+
+  IF(
+    TRIM({!METODOLOGIA_SEL}) = &quot;GRANO ENTERO&quot;,
+    CASE(
+      TRIM({!VOLUMEN_SEL}),
+      &quot;75&quot;, 18,
+      &quot;96&quot;, 24,
+      &quot;100&quot;, 24,
+      &quot;150&quot;, 36,
+      0
+    ),
+
+    IF(
+      TRIM({!METODOLOGIA_SEL}) = &quot;GRANO MOLIDO&quot;,
+      CASE(
+        UPPER(TRIM({!Tipo_Flujo})),
+        &quot;BAJO&quot;, 12,
+        &quot;MEDIO&quot;, 18,
+        &quot;ALTO&quot;, 24,
+        0
+      ),
+      0
+    )
+  )
+)</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>Ruta_guiada_valida</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+  AND(
+    TRIM({!METODOLOGIA_SEL}) = &quot;CAPSULA&quot;,
+    TRIM({!VOLUMEN_SEL}) = &quot;14&quot;,
+    OR(
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;OFICINAS&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;TO GO&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;MINIMARKET&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CADENAS&quot;
+    )
+  ),
+  AND(
+    TRIM({!METODOLOGIA_SEL}) = &quot;CAPSULA&quot;,
+    TRIM({!VOLUMEN_SEL}) = &quot;20&quot;,
+    OR(
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;RESTAURANTES&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;OFICINAS&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;HOTELES&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CADENAS&quot;
+    )
+  ),
+  AND(
+    TRIM({!METODOLOGIA_SEL}) = &quot;CAPSULA&quot;,
+    TRIM({!VOLUMEN_SEL}) = &quot;34&quot;,
+    OR(
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;RESTAURANTES&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CAFETERIAS&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CADENAS&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CLUB&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;HOTELES&quot;
+    )
+  ),
+  AND(
+    TRIM({!METODOLOGIA_SEL}) = &quot;CAPSULA&quot;,
+    TRIM({!VOLUMEN_SEL}) = &quot;40&quot;,
+    OR(
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;RESTAURANTES&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CAFETERIAS&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CADENAS&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CLUB&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;HOTELES&quot;
+    )
+  ),
+  AND(
+    TRIM({!METODOLOGIA_SEL}) = &quot;GRANO ENTERO&quot;,
+    UPPER(TRIM({!Tipo_Flujo})) = &quot;BAJO&quot;,
+    TRIM({!VOLUMEN_SEL}) = &quot;75&quot;,
+    OR(
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CAFETERIAS&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;RESTAURANTES&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CADENAS&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CLUB&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;HOTELES&quot;
+    )
+  ),
+  AND(
+    TRIM({!METODOLOGIA_SEL}) = &quot;GRANO ENTERO&quot;,
+    UPPER(TRIM({!Tipo_Flujo})) = &quot;MEDIO&quot;,
+    TRIM({!VOLUMEN_SEL}) = &quot;75&quot;,
+    OR(
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;TO GO&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;MINIMARKET&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CADENAS&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CLUB&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;HOTELES&quot;
+    )
+  ),
+  AND(
+    TRIM({!METODOLOGIA_SEL}) = &quot;GRANO ENTERO&quot;,
+    UPPER(TRIM({!Tipo_Flujo})) = &quot;MEDIO&quot;,
+    TRIM({!VOLUMEN_SEL}) = &quot;100&quot;,
+    OR(
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CAFETERIAS&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;RESTAURANTES&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CADENAS&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CLUB&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;HOTELES&quot;
+    )
+  ),
+  AND(
+    TRIM({!METODOLOGIA_SEL}) = &quot;GRANO ENTERO&quot;,
+    UPPER(TRIM({!Tipo_Flujo})) = &quot;ALTO&quot;,
+    TRIM({!VOLUMEN_SEL}) = &quot;96&quot;,
+    OR(
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;TO GO&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;MINIMARKET&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CADENAS&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CLUB&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;HOTELES&quot;
+    )
+  ),
+  AND(
+    TRIM({!METODOLOGIA_SEL}) = &quot;GRANO ENTERO&quot;,
+    UPPER(TRIM({!Tipo_Flujo})) = &quot;ALTO&quot;,
+    TRIM({!VOLUMEN_SEL}) = &quot;150&quot;,
+    OR(
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CAFETERIAS&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;RESTAURANTES&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CADENAS&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CLUB&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;HOTELES&quot;
+    )
+  ),
+  AND(
+    TRIM({!METODOLOGIA_SEL}) = &quot;GRANO MOLIDO&quot;,
+    UPPER(TRIM({!Tipo_Flujo})) = &quot;BAJO&quot;,
+    OR(
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;HOTELES&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CLUB&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;BANQUETERIA&quot;
+    )
+  ),
+  AND(
+    TRIM({!METODOLOGIA_SEL}) = &quot;GRANO MOLIDO&quot;,
+    UPPER(TRIM({!Tipo_Flujo})) = &quot;MEDIO&quot;,
+    OR(
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;HOTELES&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CLUB&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;BANQUETERIA&quot;
+    )
+  ),
+  AND(
+    TRIM({!METODOLOGIA_SEL}) = &quot;GRANO MOLIDO&quot;,
+    UPPER(TRIM({!Tipo_Flujo})) = &quot;ALTO&quot;,
+    OR(
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;HOTELES&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;CLUB&quot;,
+      TRIM({!Tipo_de_Negocio_SEL}) = &quot;BANQUETERIA&quot;
+    )
+  )
+)</expression>
+    </formulas>
+    <formulas>
+        <name>Tipo_de_Negocio_SEL</name>
+        <dataType>String</dataType>
+        <expression>IF(
+  LEN(TRIM({!Tipo_de_Negocio})) &gt; 0,
+  TRIM({!Tipo_de_Negocio}),
+  TRIM({!Tipo_de_Negocio_Guiada})
+)</expression>
+    </formulas>
+    <formulas>
+        <name>Tipo_Leche_Recomendada</name>
+        <dataType>String</dataType>
+        <expression>IF(
+  TRIM({!METODOLOGIA_SEL}) = &quot;CAPSULA&quot;,
+  CASE(
+    TRIM({!VOLUMEN_SEL}),
+    &quot;14&quot;, &quot;LECHE SOLUBLE&quot;,
+    &quot;20&quot;, &quot;LECHE LIQUIDA&quot;,
+    &quot;34&quot;, &quot;LECHE LIQUIDA&quot;,
+    &quot;40&quot;, &quot;LECHE LIQUIDA&quot;,
+    &quot;&quot;
+  ),
+
+  IF(
+    TRIM({!METODOLOGIA_SEL}) = &quot;GRANO ENTERO&quot;,
+    CASE(
+      UPPER(TRIM({!Tipo_Flujo})) &amp; &quot;|&quot; &amp; TRIM({!VOLUMEN_SEL}),
+      &quot;BAJO|75&quot;,   &quot;LECHE LIQUIDA&quot;,
+      &quot;MEDIO|100&quot;, &quot;LECHE LIQUIDA&quot;,
+      &quot;ALTO|150&quot;,  &quot;LECHE LIQUIDA&quot;,
+      &quot;MEDIO|75&quot;,  &quot;LECHE SOLUBLE&quot;,
+      &quot;ALTO|96&quot;,   &quot;LECHE SOLUBLE&quot;,
+      &quot;&quot;
+    ),
+
+    IF(
+      TRIM({!METODOLOGIA_SEL}) = &quot;GRANO MOLIDO&quot;,
+      &quot;NO&quot;,
+      &quot;&quot;
+    )
+  )
+)</expression>
+    </formulas>
+    <formulas>
+        <name>URL_BASE</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!$Api.Partner_Server_URL_260}, FIND(&apos;.com&apos;, {!$Api.Partner_Server_URL_260}) + 4)</expression>
+    </formulas>
+    <formulas>
+        <name>VOLUMEN_SEL</name>
+        <dataType>String</dataType>
+        <expression>IF(
+    TRIM({!METODOLOGIA_SEL}) = &quot;CAPSULA&quot;,
+    IF(
+        OR(
+            TRIM({!Tipo_de_Negocio_SEL}) = &quot;TO GO&quot;,
+            TRIM({!Tipo_de_Negocio_SEL}) = &quot;MINIMARKET&quot;
+        ),
+        TRIM({!VOLUMEN_CAPSULA_TOGO_MINIMARKET}),
+        IF(
+            TRIM({!Tipo_de_Negocio_SEL}) = &quot;OFICINAS&quot;,
+            TRIM({!VOLUMEN_CAPSULA_OFICINAS}),
+            IF(
+                OR(
+                    TRIM({!Tipo_de_Negocio_SEL}) = &quot;RESTAURANTES&quot;,
+                    TRIM({!Tipo_de_Negocio_SEL}) = &quot;HOTELES&quot;
+                ),
+                TRIM({!VOLUMEN_CAPSULA_RESTAURANTES_HOTELES}),
+                IF(
+                    OR(
+                        TRIM({!Tipo_de_Negocio_SEL}) = &quot;CAFETERIAS&quot;,
+                        TRIM({!Tipo_de_Negocio_SEL}) = &quot;CLUB&quot;
+                    ),
+                    TRIM({!VOLUMEN_CAPSULA_CAFETERIAS_CLUB}),
+                    IF(
+                        TRIM({!Tipo_de_Negocio_SEL}) = &quot;CADENAS&quot;,
+                        TRIM({!VOLUMEN_CAPSULA_CADENAS}),
+                        &quot;&quot;
+                    )
+                )
+            )
+        )
+    ),
+    IF(
+        TRIM({!METODOLOGIA_SEL}) = &quot;GRANO ENTERO&quot;,
+        IF(
+            UPPER(TRIM({!Tipo_Flujo})) = &quot;BAJO&quot;,
+            TRIM({!VOLUMEN_ENTERO_BAJO}),
+            IF(
+                UPPER(TRIM({!Tipo_Flujo})) = &quot;MEDIO&quot;,
+                IF(
+                    OR(
+                        TRIM({!Tipo_de_Negocio_SEL}) = &quot;TO GO&quot;,
+                        TRIM({!Tipo_de_Negocio_SEL}) = &quot;MINIMARKET&quot;
+                    ),
+                    TRIM({!VOLUMEN_ENTERO_MEDIO_TOGO_MINIMARKET}),
+                    IF(
+                        OR(
+                            TRIM({!Tipo_de_Negocio_SEL}) = &quot;CAFETERIAS&quot;,
+                            TRIM({!Tipo_de_Negocio_SEL}) = &quot;RESTAURANTES&quot;
+                        ),
+                        TRIM({!VOLUMEN_ENTERO_MEDIO_CAFETERIAS_RESTAURANTES}),
+                        IF(
+                            OR(
+                                TRIM({!Tipo_de_Negocio_SEL}) = &quot;CADENAS&quot;,
+                                TRIM({!Tipo_de_Negocio_SEL}) = &quot;CLUB&quot;,
+                                TRIM({!Tipo_de_Negocio_SEL}) = &quot;HOTELES&quot;
+                            ),
+                            TRIM({!VOLUMEN_ENTERO_MEDIO_CADENAS_CLUB_HOTELES}),
+                            &quot;&quot;
+                        )
+                    )
+                ),
+                IF(
+                    UPPER(TRIM({!Tipo_Flujo})) = &quot;ALTO&quot;,
+                    IF(
+                        OR(
+                            TRIM({!Tipo_de_Negocio_SEL}) = &quot;TO GO&quot;,
+                            TRIM({!Tipo_de_Negocio_SEL}) = &quot;MINIMARKET&quot;
+                        ),
+                        TRIM({!VOLUMEN_ENTERO_ALTO_TOGO_MINIMARKET}),
+                        IF(
+                            OR(
+                                TRIM({!Tipo_de_Negocio_SEL}) = &quot;CAFETERIAS&quot;,
+                                TRIM({!Tipo_de_Negocio_SEL}) = &quot;RESTAURANTES&quot;
+                            ),
+                            TRIM({!VOLUMEN_ENTERO_ALTO_CAFETERIAS_RESTAURANTES}),
+                            IF(
+                                OR(
+                                    TRIM({!Tipo_de_Negocio_SEL}) = &quot;CADENAS&quot;,
+                                    TRIM({!Tipo_de_Negocio_SEL}) = &quot;CLUB&quot;,
+                                    TRIM({!Tipo_de_Negocio_SEL}) = &quot;HOTELES&quot;
+                                ),
+                                TRIM({!VOLUMEN_ENTERO_ALTO_CADENAS_CLUB_HOTELES}),
+                                &quot;&quot;
+                            )
+                        )
+                    ),
+                    &quot;&quot;
+                )
+            )
+        ),
+        &quot;&quot;
+    )
+)</expression>
+    </formulas>
+    <interviewLabel>Crear Opp Lavazza {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Crear Opp Lavazza</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <name>cargar_pdf</name>
+        <label>cargar pdf</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Lista_la_creaci_n</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>ContentDocumentId</field>
+            <value>
+                <elementReference>ContentDocumentId_Maquina</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LinkedEntityId</field>
+            <value>
+                <elementReference>Presupuesto.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ShareType</field>
+            <value>
+                <stringValue>V</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Visibility</field>
+            <value>
+                <stringValue>AllUsers</stringValue>
+            </value>
+        </inputAssignments>
+        <object>ContentDocumentLink</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Crear_OPP</name>
+        <label>Crear OPP</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Presupuesto</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CloseDate</field>
+            <value>
+                <elementReference>fechaactual</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>Nombreopp</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Pricebook2Id</field>
+            <value>
+                <elementReference>Lista_de_precios.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>StageName</field>
+            <value>
+                <stringValue>Generación de Propuesta</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>PArtida_de_P</name>
+        <label>PArtida de Pe</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>cargar_pdf</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Estado__c</field>
+            <value>
+                <stringValue>Sin gestión</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>PricebookEntryId</field>
+            <value>
+                <elementReference>Entrada_de_lista_de_precios.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Product2Id</field>
+            <value>
+                <elementReference>producto_maquina.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Quantity</field>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>QuoteId</field>
+            <value>
+                <elementReference>Presupuesto.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>UnitPrice</field>
+            <value>
+                <elementReference>Entrada_de_lista_de_precios.UnitPrice</elementReference>
+            </value>
+        </inputAssignments>
+        <object>QuoteLineItem</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Presupuesto</name>
+        <label>Presupuesto</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Crear_partida_cotizacion</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>Nombreopp</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OpportunityId</field>
+            <value>
+                <elementReference>Crear_OPP.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Pricebook2Id</field>
+            <value>
+                <elementReference>Lista_de_precios.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>QuoteAccountId</field>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Draft</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Quote</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <name>Cuenta</name>
+        <label>Cuenta</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Ciente_con_credito</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Entrada_de_lista_de_precios</name>
+        <label>Entrada de lista de precios</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Estado_entrada_lista</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Product2Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>producto_maquina.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Pricebook2Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Lista_de_precios.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>PricebookEntry</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Lista_de_precios</name>
+        <label>Lista de precios</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Estado_lista_de_precios</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Standard Price Book</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Pricebook2</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>producto_maquina</name>
+        <label>producto maquina</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Estado_producto</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Maquina_vr</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Product2</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <screens>
+        <name>Confirmacion_Maquina_Guiada</name>
+        <label>Confirmacion Maquina Guiada</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>maquina</targetReference>
+        </connector>
+        <fields>
+            <name>titulo_confirmacion_maquina</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 20px;&quot;&gt;Resumen de recomendacion&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>Cantidad_de_Capsulas</name>
+            <dataType>Number</dataType>
+            <defaultValue>
+                <elementReference>rcd</elementReference>
+            </defaultValue>
+            <fieldText>Kilos/Unidades mes</fieldText>
+            <fieldType>InputField</fieldType>
+            <isReadOnly>
+                <booleanValue>true</booleanValue>
+            </isReadOnly>
+            <isRequired>false</isRequired>
+            <scale>0</scale>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>Tipo_de_Leche</name>
+            <choiceReferences>LECHE_SOLUBLE</choiceReferences>
+            <choiceReferences>LECHE_LIQUIDA</choiceReferences>
+            <choiceReferences>No</choiceReferences>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference>Tipo_Leche_Recomendada</elementReference>
+            </defaultValue>
+            <fieldText>Tipo de Leche</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>name_machine</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference>Maquina_final</elementReference>
+            </defaultValue>
+            <fieldText>Su maquina sugerida es</fieldText>
+            <fieldType>InputField</fieldType>
+            <isReadOnly>
+                <booleanValue>true</booleanValue>
+            </isReadOnly>
+            <isRequired>false</isRequired>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>Maquina_archivo</name>
+            <extensionName>mulesoft_idp:configEditorPreviewPlayer</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>fileId</name>
+                <value>
+                    <elementReference>ContentDocumentId_Maquina</elementReference>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>ContentDocumentId_Maquina</leftValueReference>
+                    <operator>IsNull</operator>
+                    <rightValue>
+                        <booleanValue>false</booleanValue>
+                    </rightValue>
+                </conditions>
+                <conditions>
+                    <leftValueReference>Ruta_guiada_valida</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>errorprodcto</name>
+        <label>errorprodcto</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>msjerrorproducto</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 18px;&quot;&gt;{!Mensaje_error_vr}&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Lista_la_creaci_n</name>
+        <label>Lista la creacion</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>creado</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;&lt;img src=&quot;{!$Resource.LavazzaLogo}&quot; alt=&quot;Check-01.png&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 24px;&quot;&gt;Su propuesta &lt;/strong&gt;&lt;a href=&quot;{!URL_BASE}/lightning/r/Quote/{!Presupuesto.Id}/view&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;font-size: 24px;&quot;&gt;&lt;strong&gt;{!Presupuesto.Name}&lt;/strong&gt;&lt;/a&gt;&lt;strong style=&quot;font-size: 24px;&quot;&gt; ya se encuentra creada.&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Maquinas_Cafe</name>
+        <label>Maquinas Cafe</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Ruta_guiada_valida_decision</targetReference>
+        </connector>
+        <fields>
+            <name>Maquinas_Cafe_Section1</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Maquinas_Cafe_Section1_Column1</name>
+                <fieldType>Region</fieldType>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>4</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>Maquinas_Cafe_Section1_Column2</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>cuad_lvza</name>
+                    <fieldText>&lt;p&gt;&lt;img src=&quot;{!$Resource.LavazzaLogo}&quot; alt=&quot;&quot;&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>8</stringValue>
+                        </width>
+                    </styleProperties>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>7</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>Maquinas_Cafe_Section1_Column3</name>
+                <fieldType>Region</fieldType>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>1</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>11</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>nombre</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 24px;&quot;&gt;{!Cuenta.Nombre_de_Fantasia__c}&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>Maquinas_Cafe_Section2</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Maquinas_Cafe_Section2_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>Tipo_de_Negocio</name>
+                    <choiceReferences>BANQUETERIA</choiceReferences>
+                    <choiceReferences>RESTAURANTES</choiceReferences>
+                    <choiceReferences>OFICINAS</choiceReferences>
+                    <choiceReferences>HOTELES</choiceReferences>
+                    <choiceReferences>CADENAS</choiceReferences>
+                    <choiceReferences>TO_GO</choiceReferences>
+                    <choiceReferences>MINIMARKET</choiceReferences>
+                    <choiceReferences>CAFETERIAS</choiceReferences>
+                    <choiceReferences>CLUB</choiceReferences>
+                    <dataType>String</dataType>
+                    <defaultValue>
+                        <elementReference>Tipo_de_Negocio_Guiada</elementReference>
+                    </defaultValue>
+                    <fieldText>Tipo de Negocio</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <isDisabled>
+                        <booleanValue>true</booleanValue>
+                    </isDisabled>
+                    <isRequired>false</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                </fields>
+                <fields>
+                    <name>Tipo_Flujo</name>
+                    <choiceReferences>Bajo</choiceReferences>
+                    <choiceReferences>Medio</choiceReferences>
+                    <choiceReferences>Alto</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Tipo Flujo</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <isRequired>true</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                    <visibilityRule>
+                        <conditionLogic>or</conditionLogic>
+                        <conditions>
+                            <leftValueReference>Negocio_SOLO_GRANO_MOLIDO</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_CAPSULA_GRANO_ENTERO</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>GRANO ENTERO</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_TODAS</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>GRANO ENTERO</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_TODAS</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>GRANO MOLIDO</stringValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>Maquinas_Cafe_Section2_Column2</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>METODOLOGIA_SOLO_CAPSULA</name>
+                    <choiceReferences>CAPSULA</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Metodologia de Cafe</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <isRequired>true</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>Negocio_SOLO_CAPSULA</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>METODOLOGIA_SOLO_GRANO_MOLIDO</name>
+                    <choiceReferences>GRANO_MOLIDO</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Metodologia de Cafe</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <isRequired>true</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>Negocio_SOLO_GRANO_MOLIDO</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>METODOLOGIA_CAPSULA_GRANO_ENTERO</name>
+                    <choiceReferences>CAPSULA</choiceReferences>
+                    <choiceReferences>GRANO_ENTERO</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Metodologia de Cafe</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <isRequired>true</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>Negocio_CAPSULA_ENTERO</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>METODOLOGIA_TODAS</name>
+                    <choiceReferences>CAPSULA</choiceReferences>
+                    <choiceReferences>GRANO_MOLIDO</choiceReferences>
+                    <choiceReferences>GRANO_ENTERO</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Metodologia de Cafe</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <isRequired>true</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>Negocio_TODAS_METODOLOGIAS</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>VOLUMEN_CAPSULA_TOGO_MINIMARKET</name>
+                    <choiceReferences>X14</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Volumen Diario Propuesta</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <isRequired>true</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_CAPSULA_GRANO_ENTERO</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>CAPSULA</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>Negocio_TOGO_MINIMARKET</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>VOLUMEN_CAPSULA_OFICINAS</name>
+                    <choiceReferences>X14</choiceReferences>
+                    <choiceReferences>X20</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Volumen Diario Propuesta</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <isRequired>true</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_SOLO_CAPSULA</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>CAPSULA</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>Tipo_de_Negocio_SEL</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>OFICINAS</stringValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>VOLUMEN_CAPSULA_RESTAURANTES_HOTELES</name>
+                    <choiceReferences>X20</choiceReferences>
+                    <choiceReferences>X34</choiceReferences>
+                    <choiceReferences>X40</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Volumen Diario Propuesta</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <isRequired>true</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                    <visibilityRule>
+                        <conditionLogic>1 AND (2 OR 3)</conditionLogic>
+                        <conditions>
+                            <leftValueReference>Negocio_RESTAURANTES_HOTELES</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_CAPSULA_GRANO_ENTERO</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>CAPSULA</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_TODAS</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>CAPSULA</stringValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>VOLUMEN_CAPSULA_CAFETERIAS_CLUB</name>
+                    <choiceReferences>X34</choiceReferences>
+                    <choiceReferences>X40</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Volumen Diario Propuesta</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <isRequired>true</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                    <visibilityRule>
+                        <conditionLogic>1 AND (2 OR 3)</conditionLogic>
+                        <conditions>
+                            <leftValueReference>Negocio_CAFETERIAS_CLUB</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_CAPSULA_GRANO_ENTERO</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>CAPSULA</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_TODAS</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>CAPSULA</stringValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>VOLUMEN_CAPSULA_CADENAS</name>
+                    <choiceReferences>X14</choiceReferences>
+                    <choiceReferences>X20</choiceReferences>
+                    <choiceReferences>X34</choiceReferences>
+                    <choiceReferences>X40</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Volumen Diario Propuesta</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <isRequired>true</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_CAPSULA_GRANO_ENTERO</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>CAPSULA</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>Tipo_de_Negocio_SEL</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>CADENAS</stringValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>VOLUMEN_ENTERO_BAJO</name>
+                    <choiceReferences>X75</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Volumen Diario Propuesta</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <isRequired>true</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                    <visibilityRule>
+                        <conditionLogic>1 AND 2 AND (3 OR 4)</conditionLogic>
+                        <conditions>
+                            <leftValueReference>Tipo_Flujo</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>Bajo</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>Negocio_GE_BAJO</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_CAPSULA_GRANO_ENTERO</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>GRANO ENTERO</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_TODAS</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>GRANO ENTERO</stringValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>VOLUMEN_ENTERO_MEDIO_TOGO_MINIMARKET</name>
+                    <choiceReferences>X75</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Volumen Diario Propuesta</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <isRequired>true</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_CAPSULA_GRANO_ENTERO</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>GRANO ENTERO</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>Tipo_Flujo</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>Medio</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>Negocio_TOGO_MINIMARKET</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>VOLUMEN_ENTERO_MEDIO_CAFETERIAS_RESTAURANTES</name>
+                    <choiceReferences>X100</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Volumen Diario Propuesta</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <isRequired>true</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_CAPSULA_GRANO_ENTERO</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>GRANO ENTERO</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>Tipo_Flujo</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>Medio</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>Negocio_CAFETERIAS_RESTAURANTES</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>VOLUMEN_ENTERO_MEDIO_CADENAS_CLUB_HOTELES</name>
+                    <choiceReferences>X75</choiceReferences>
+                    <choiceReferences>X100</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Volumen Diario Propuesta</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <isRequired>true</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                    <visibilityRule>
+                        <conditionLogic>1 AND 2 AND (3 OR 4)</conditionLogic>
+                        <conditions>
+                            <leftValueReference>Tipo_Flujo</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>Medio</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>Negocio_CADENAS_CLUB_HOTELES</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_CAPSULA_GRANO_ENTERO</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>GRANO ENTERO</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_TODAS</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>GRANO ENTERO</stringValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>VOLUMEN_ENTERO_ALTO_TOGO_MINIMARKET</name>
+                    <choiceReferences>X96</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Volumen Diario Propuesta</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <isRequired>true</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_CAPSULA_GRANO_ENTERO</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>GRANO ENTERO</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>Tipo_Flujo</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>Alto</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>Negocio_TOGO_MINIMARKET</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>VOLUMEN_ENTERO_ALTO_CAFETERIAS_RESTAURANTES</name>
+                    <choiceReferences>X150</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Volumen Diario Propuesta</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <isRequired>true</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_CAPSULA_GRANO_ENTERO</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>GRANO ENTERO</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>Tipo_Flujo</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>Alto</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>Negocio_CAFETERIAS_RESTAURANTES</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>VOLUMEN_ENTERO_ALTO_CADENAS_CLUB_HOTELES</name>
+                    <choiceReferences>X96</choiceReferences>
+                    <choiceReferences>X150</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Volumen Diario Propuesta</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <isRequired>true</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                    <visibilityRule>
+                        <conditionLogic>1 AND 2 AND (3 OR 4)</conditionLogic>
+                        <conditions>
+                            <leftValueReference>Tipo_Flujo</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>Alto</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>Negocio_CADENAS_CLUB_HOTELES</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_CAPSULA_GRANO_ENTERO</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>GRANO ENTERO</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_TODAS</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>GRANO ENTERO</stringValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>doble_maquina_disponible</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Para esta combinacion puedes usar MAQUINA KREA TOUCH o MAQUINA KREA TOUCH PLUS.&lt;/strong&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                    <visibilityRule>
+                        <conditionLogic>1 AND (2 OR 3) AND (4 OR 5)</conditionLogic>
+                        <conditions>
+                            <leftValueReference>Tipo_Flujo</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>Alto</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_CAPSULA_GRANO_ENTERO</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>GRANO ENTERO</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_TODAS</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>GRANO ENTERO</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>VOLUMEN_ENTERO_ALTO_TOGO_MINIMARKET</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>96</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>VOLUMEN_ENTERO_ALTO_CADENAS_CLUB_HOTELES</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>96</stringValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>Seleccion_de_Maquina</name>
+                    <choiceReferences>MAQUINA_KREA_TOUCH</choiceReferences>
+                    <choiceReferences>MAQUINA_KREA_TOUCH_PLUS</choiceReferences>
+                    <dataType>String</dataType>
+                    <defaultValue>
+                        <elementReference>Nombre_maquina</elementReference>
+                    </defaultValue>
+                    <fieldText>Maquina sugerida</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <isRequired>false</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                    <visibilityRule>
+                        <conditionLogic>1 AND (2 OR 3) AND (4 OR 5)</conditionLogic>
+                        <conditions>
+                            <leftValueReference>Tipo_Flujo</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>Alto</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_CAPSULA_GRANO_ENTERO</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>GRANO ENTERO</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>METODOLOGIA_TODAS</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>GRANO ENTERO</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>VOLUMEN_ENTERO_ALTO_TOGO_MINIMARKET</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>96</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>VOLUMEN_ENTERO_ALTO_CADENAS_CLUB_HOTELES</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>96</stringValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>mensaje_combinacion_invalida</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 18px; color: rgb(194, 57, 52);&quot;&gt;{!Mensaje_error_vr}&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Mensaje_error_vr</leftValueReference>
+                    <operator>IsNull</operator>
+                    <rightValue>
+                        <booleanValue>false</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>No_puede_crear_OPP</name>
+        <label>No puede crear OPP</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Error</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 24px; color: rgb(255, 0, 0);&quot;&gt;X&lt;/strong&gt;&lt;strong style=&quot;font-size: 18px;&quot;&gt; El cliente {!Cuenta.Nombre_de_Fantasia__c}  no puede crear una Oportunidad &apos;Propuesta de Maquina&apos;, ya que no es un cliente CRÃƒâ€°DITO&lt;/strong&gt;&lt;strong style=&quot;font-size: 18px; color: rgb(255, 0, 0);&quot;&gt; &lt;/strong&gt;&lt;strong style=&quot;font-size: 24px; color: rgb(255, 0, 0);&quot;&gt;X&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Seleccionar_tipo_de_venta</name>
+        <label>Seleccionar tipo de propuesta</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Modo_de_venta</targetReference>
+        </connector>
+        <fields>
+            <name>texto_tipo_de_venta</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 22px;&quot;&gt;Selecciona el tipo de propuesta&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;Propuesta guiada recomienda maquina y producto. Propuesta manual crea la oportunidad y la propuesta base sin maquina.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>Modo_Venta</name>
+            <choiceReferences>CHOICE_VENTA_GUIADA</choiceReferences>
+            <choiceReferences>CHOICE_VENTA_MANUAL</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Tipo de propuesta</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Seleccionar_tipo_negocio_guiada</name>
+        <label>Seleccionar tipo negocio guiada</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Set_tipo_negocio_guiada</targetReference>
+        </connector>
+        <fields>
+            <name>texto_tipo_negocio_guiada</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 20px;&quot;&gt;Primero selecciona el Tipo de Negocio&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;Despues definimos metodologia, flujo y volumen segun esa seleccion.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>Tipo_de_Negocio_Guiada</name>
+            <choiceReferences>BANQUETERIA</choiceReferences>
+            <choiceReferences>RESTAURANTES</choiceReferences>
+            <choiceReferences>OFICINAS</choiceReferences>
+            <choiceReferences>HOTELES</choiceReferences>
+            <choiceReferences>CADENAS</choiceReferences>
+            <choiceReferences>TO_GO</choiceReferences>
+            <choiceReferences>MINIMARKET</choiceReferences>
+            <choiceReferences>CAFETERIAS</choiceReferences>
+            <choiceReferences>CLUB</choiceReferences>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference>Tipo_de_Negocio</elementReference>
+            </defaultValue>
+            <fieldText>Tipo de Negocio</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Cuenta</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>Maquina_vr</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Mensaje_error_vr</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>recordId</stringValue>
+        </value>
+    </variables>
+</Flow>
