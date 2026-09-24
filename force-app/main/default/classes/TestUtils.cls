@@ -198,74 +198,73 @@ public without sharing class TestUtils {
         }
         insert rappels;
 
-        // Create Venta__c records
-        List<Venta__c> ventas = new List<Venta__c>();
-        for (Integer i = 0; i < 10; i++) {
-            Venta__c venta = new Venta__c(
-                Cliente__c = testAccount.Id,
-                Fecha_de_Venta__c = Date.today().addDays(-5)
-            );
-            ventas.add(venta);
-        }
-        insert ventas;
+        // Crear Domicilio_de_Cliente__c asociado a la cuenta (requerido por validación en Facturas__c)
+        Domicilio_de_Cliente__c domicilio = new Domicilio_de_Cliente__c(
+            Cliente__c = testAccount.Id,
+            Cliente_Despacho__c = 'Calle Los Leones 123',
+            Region__c = '13 - Región Metropolitana',
+            Comuna_Despacho__c = comuna.Id
+        );
+        insert domicilio;
 
-        // Create Detalle__c records and associate related records
-        List<Detalle__c> detalles = new List<Detalle__c>();
+        // Crear Facturas__c (el objeto se llama Facturas__c con 's')
+        // El campo lookup en Detalle_Factura__c es Factura__c (sin 's') y es MasterDetail (requerido)
+        List<SObject> facturas = new List<SObject>();
+        Schema.SObjectType facturaType = Schema.getGlobalDescribe().get('Facturas__c');
+        if (facturaType != null) {
+            for (Integer i = 0; i < 10; i++) {
+                SObject factura = facturaType.newSObject();
+                factura.put('Cliente__c', testAccount.Id);
+                factura.put('Fecha_de_Documento__c', Date.today().addDays(-5));
+                factura.put('Domicilio_Cliente__c', domicilio.Id); // Asociar el domicilio creado
+                facturas.add(factura);
+            }
+            insert facturas;
+        }
+
+        // Create Detalle_Factura__c records
+        // El campo Factura__c es MasterDetail y es requerido
+        List<Detalle_Factura__c> detalles = new List<Detalle_Factura__c>();
         for (Integer i = 0; i < 10; i++) {
             Product2 product = products[i];
-            PricebookEntry pricebookEntry = pricebookEntries[i];
-            Descuento_Cliente__c descuento = descuentos[i];
-            Costo__c costo = costos[i];
-            Rappel__c rappel = rappels[i];
-            Venta__c venta = ventas[i];
-
-            Detalle__c detalle = new Detalle__c(
-                SKU__c = product.Codigo__c,
-                Unidad_de_Medida__c = product.TextoUMV__c,
-                Descripcion__c = 'Detalle description ' + i,
-                Valor_Neto__c = 100,
-                Margen_Producto__c = 20 + i,
-                Descuento_Cliente__c = descuento.Id,
-                PrecioId__c = pricebookEntry.Id,
-                Margen_de_Contribucion_por_Kilo__c = 10 + i,
-                Producto__c = product.Id,
-                costoId__c = costo.Id,
-                Precio_Final__c = 200 + i,
-                Precio_Cliente_Neto__c = 180 + i,
-                Porcentaje_de_Rappel__c = 5 + i,
-                Relacion_Rappel_Detalle__c = rappel.Id,
-                Venta__c = venta.Id
-            );
-            detalles.add(detalle);
+            Id facturaId = facturas.isEmpty() ? null : (Id)facturas[i].get('Id');
+            
+            if (facturaId != null) {
+                Detalle_Factura__c detalle = new Detalle_Factura__c(
+                    SKU__c = product.Codigo__c,
+                    Unidad_de_Medida__c = product.TextoUMV__c,
+                    Descripcion__c = 'Detalle description ' + i,
+                    Valor_Neto__c = 100,
+                    Product__c = product.Id,
+                    Factura__c = facturaId // Campo MasterDetail requerido
+                );
+                detalles.add(detalle);
+            }
         }
-        insert detalles;
+        if (!detalles.isEmpty()) {
+            insert detalles;
+        }
 
-        // Create Detalle__c records without Descuento
-        List<Detalle__c> detallesSinDescuento = new List<Detalle__c>();
+        // Create Detalle_Factura__c records without Descuento
+        List<Detalle_Factura__c> detallesSinDescuento = new List<Detalle_Factura__c>();
         for (Integer i = 15; i < 20; i++) {
             Product2 product = products[i];
-            PricebookEntry pricebookEntry = pricebookEntries[i];
-            //Costo__c costo = costos[i];
-            //Venta__c venta = ventas[i];
-
-            Detalle__c detalle = new Detalle__c(
-                SKU__c = product.Codigo__c,
-                Unidad_de_Medida__c = product.TextoUMV__c,
-                Descripcion__c = 'Detalle description ' + i,
-                Valor_Neto__c = 100 + i,
-                Margen_Producto__c = 20 + i,
-                PrecioId__c = pricebookEntry.Id,
-                Margen_de_Contribucion_por_Kilo__c = 10 + i,
-                Producto__c = product.Id,
-                //costoId__c = costo.Id,
-                Precio_Final__c = 200 + i,
-                Precio_Cliente_Neto__c = 180 + i,
-                Porcentaje_de_Rappel__c = 5 + i
-                //Relacion_Rappel_Detalle__c = rappel.Id,
-                //Venta__c = venta.Id
-            );
-            detallesSinDescuento.add(detalle);
+            Id facturaId = facturas.isEmpty() ? null : (Id)facturas[Math.mod(i, facturas.size())].get('Id');
+            
+            if (facturaId != null) {
+                Detalle_Factura__c detalle = new Detalle_Factura__c(
+                    SKU__c = product.Codigo__c,
+                    Unidad_de_Medida__c = product.TextoUMV__c,
+                    Descripcion__c = 'Detalle description ' + i,
+                    Valor_Neto__c = 100 + i,
+                    Product__c = product.Id,
+                    Factura__c = facturaId // Campo MasterDetail requerido
+                );
+                detallesSinDescuento.add(detalle);
+            }
         }
-        insert detallesSinDescuento;
+        if (!detallesSinDescuento.isEmpty()) {
+            insert detallesSinDescuento;
+        }
     }
 }

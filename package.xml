@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>confirmarEstadoCongelado</members>
+        <name>LightningComponentBundle</name>
+    </types>
+    <types>
+        <members>Negocio_Gastronomico_Record_Page</members>
+        <name>FlexiPage</name>
+    </types>
+    <types>
+        <members>ICB_CostoServiceImpl</members>
+        <members>ICB_MaestraPreciosRepository</members>
+        <members>ICB_MargenServiceImpl</members>
+        <members>ICB_PrecioServiceImpl</members>
+        <members>ICB_PricebookServiceImpl</members>
+        <members>ICB_ProductServiceImpl</members>
+        <members>ICB_RappelServiceImpl</members>
+        <members>ICB_RecargoServiceImpl</members>
+        <members>ICB_RegistroUnificadoWrapper</members>
+        <members>ICB_UtilsServiceImpl</members>
+        <members>MaestraPreciosController</members>
+        <members>MaestraPreciosControllerTest</members>
+        <members>TestUtils</members>
+        <name>ApexClass</name>
+    </types>
+    <version>61.0</version>
+</Package>

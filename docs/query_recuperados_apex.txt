@@ -1,0 +1,44 @@
+// Clientes RECUPERADOS: alguna vez facturaron, el mes pasado NO facturaron, este mes SÍ facturaron.
+// Sin subqueries sobre el mismo objeto: se obtienen 3 sets y se combinan en Apex.
+// Ejecutar en Developer Console → Debug → Open Execute Anonymous Window.
+
+Date firstDayLastMonth = Date.today().addMonths(-1).toStartOfMonth();
+
+// 1) Clientes que facturaron ESTE MES
+Set<Id> facturaronEsteMes = new Set<Id>();
+for (Facturas__c f : [SELECT Cliente__c FROM Facturas__c WHERE Fecha_de_Documento__c = THIS_MONTH]) {
+    facturaronEsteMes.add(f.Cliente__c);
+}
+
+// 2) Clientes que tienen al menos una factura ANTES del mes pasado (historial)
+Set<Id> tienenHistorial = new Set<Id>();
+for (Facturas__c f : [SELECT Cliente__c FROM Facturas__c WHERE Fecha_de_Documento__c < :firstDayLastMonth]) {
+    tienenHistorial.add(f.Cliente__c);
+}
+
+// 3) Clientes que facturaron el MES PASADO (para excluirlos)
+Set<Id> facturaronMesPasado = new Set<Id>();
+for (Facturas__c f : [SELECT Cliente__c FROM Facturas__c WHERE Fecha_de_Documento__c = LAST_MONTH]) {
+    facturaronMesPasado.add(f.Cliente__c);
+}
+
+// Recuperados = facturaron este mes Y tienen historial Y NO facturaron el mes pasado
+Set<Id> idsRecuperados = new Set<Id>();
+for (Id idCliente : facturaronEsteMes) {
+    if (tienenHistorial.contains(idCliente) && !facturaronMesPasado.contains(idCliente)) {
+        idsRecuperados.add(idCliente);
+    }
+}
+
+// 4) Detalle de cuentas
+List<Account> recuperados = [
+    SELECT Id, Name, OwnerId, Owner.Name
+    FROM Account
+    WHERE Id IN :idsRecuperados
+    ORDER BY Owner.Name, Name
+];
+
+System.debug('Recuperados: ' + recuperados.size());
+for (Account a : recuperados) {
+    System.debug(a.Name + ' | Owner: ' + a.Owner?.Name);
+}

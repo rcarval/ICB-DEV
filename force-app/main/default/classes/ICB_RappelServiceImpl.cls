@@ -16,10 +16,10 @@ public class ICB_RappelServiceImpl{
     * Método para calcular precio cliente neto con aplicación de rappels en compras
     * @author Rodrigo Carvallo
     * @param Id accountId - ID del cliente para buscar rappels
-    * @param List<Detalle__c> comprasMaestradePrecios - Lista de compras a procesar
+    * @param List<Detalle_Factura__c> comprasMaestradePrecios - Lista de compras a procesar
     * @param Map<Id, Decimal> preciosClienteNeto - Mapa para almacenar precios netos calculados
     **/
-    public static void calcularPrecioClienteNetoConRappelCompras(Id accountId, List<Detalle__c> comprasMaestradePrecios, Map<Id, Decimal> preciosClienteNeto) {
+    public static void calcularPrecioClienteNetoConRappelCompras(Id accountId, List<Detalle_Factura__c> comprasMaestradePrecios, Map<Id, Decimal> preciosClienteNeto) {
         Date today = Date.today(); // Obtener la fecha actual
         
         // Crear un mapa de rappels por cliente y producto
@@ -37,14 +37,14 @@ public class ICB_RappelServiceImpl{
         }
         
         // Procesar cada detalle de comprasMaestradePrecios
-        for (Detalle__c detalle : comprasMaestradePrecios) {
-            Decimal precioFinal = Integer.valueOf(detalle.Precio_Final__c);
-            Decimal descuento = detalle.Descuento_Cliente__r.Descuento_gestionado__c;
+        for (Detalle_Factura__c detalle : comprasMaestradePrecios) {
+            // Precio_Final__c nunca tuvo valor, usar Valor_Neto__c
+            Decimal precioFinal = detalle.Valor_Neto__c != null ? Integer.valueOf(detalle.Valor_Neto__c) : 0;
+            // Descuento_Cliente__r nunca tuvo valores, establecer descuento = 0
+            Decimal descuento = 0;
             
             // Calcular el precio después del descuento
-            Decimal precioDespuesDescuento = (descuento != null)
-                ? Integer.valueOf(precioFinal - (precioFinal * descuento / 100))
-                : precioFinal;
+            Decimal precioDespuesDescuento = precioFinal;
             
             // Inicializa el porcentaje de rappel
             Decimal porcentajeRappel = 0;
@@ -52,24 +52,22 @@ public class ICB_RappelServiceImpl{
             
             // Verificar si hay un rappel para el cliente y producto en el mapa
             if (rappelsPorClienteYProducto.containsKey(accountId) &&
-                rappelsPorClienteYProducto.get(accountId).containsKey(detalle.Producto__c)) {
-                    Rappel__c rappel = rappelsPorClienteYProducto.get(accountId).get(detalle.Producto__c);
+                rappelsPorClienteYProducto.get(accountId).containsKey(detalle.Product__c)) {
+                    Rappel__c rappel = rappelsPorClienteYProducto.get(accountId).get(detalle.Product__c);
                     porcentajeRappel = rappel.Rappel__c;
                     rappelVigenteEncontrado = true;
                 }
             
             // Si se encontró un rappel vigente, se aplica al precio después del descuento
             if (rappelVigenteEncontrado) {
-                System.debug('Rappel vigente encontrado: ' + porcentajeRappel + '% para el producto: ' + detalle.Producto__c);
+                System.debug('Rappel vigente encontrado: ' + porcentajeRappel + '% para el producto: ' + detalle.Product__c);
                 precioDespuesDescuento += Integer.valueOf(precioDespuesDescuento * (porcentajeRappel / 100));
-                detalle.Porcentaje_de_Rappel__c = porcentajeRappel; // Guardar el porcentaje en el detalle
             } else {
-                System.debug('No se encontró rappel vigente para el producto: ' + detalle.Producto__c);
+                System.debug('No se encontró rappel vigente para el producto: ' + detalle.Product__c);
             }
             
-            // Asignar el precio cliente neto final
-            detalle.Precio_Cliente_Neto__c = precioDespuesDescuento;
-            preciosClienteNeto.put(detalle.Id, detalle.Precio_Cliente_Neto__c); // Guardar el valor en el mapa
+            // Guardar el precio cliente neto calculado en el mapa (no asignar a campos que nunca tuvieron valores)
+            preciosClienteNeto.put(detalle.Id, precioDespuesDescuento);
         }
     }
 

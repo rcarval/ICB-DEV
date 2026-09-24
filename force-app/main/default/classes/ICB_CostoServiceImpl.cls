@@ -16,21 +16,21 @@ public class ICB_CostoServiceImpl{
     * Método para buscar costos de productos filtrados por centro de abastecimiento
     * @author Rodrigo Carvallo
     * @param Map<Id, Decimal> costosProductosMap - Mapa para almacenar costos encontrados
-    * @param List<Detalle__c> comprasMaestradePrecios - Lista de compras para obtener productos
+    * @param List<Detalle_Factura__c> comprasMaestradePrecios - Lista de compras para obtener productos
     * @param List<Descuento_Cliente__c> descuentosClienteMaestradePrecios - Lista de descuentos para obtener productos
     **/
-    public static void buscarCostosParaProductos(Map<Id, Decimal> costosProductosMap, List<Detalle__c> comprasMaestradePrecios, List<Descuento_Cliente__c> descuentosClienteMaestradePrecios) {
+    public static void buscarCostosParaProductos(Map<Id, Decimal> costosProductosMap, List<Detalle_Factura__c> comprasMaestradePrecios, List<Descuento_Cliente__c> descuentosClienteMaestradePrecios) {
         Set<Id> productoIds = new Set<Id>();
         Map<Id, String> centrosAbastecimientoPorProducto = new Map<Id, String>();
         
         // Obtener los productos y el centro de abastecimiento de compras
-        for (Detalle__c detalle : comprasMaestradePrecios) {
-            if (detalle.Producto__c != null && detalle.Venta__r.Cliente__r.Centro_de_Abastecimiento__c != null) {
-                productoIds.add(detalle.Producto__c);
+        for (Detalle_Factura__c detalle : comprasMaestradePrecios) {
+            if (detalle.Product__c != null && detalle.Factura__r.Cliente__r.Centro_de_Abastecimiento__c != null) {
+                productoIds.add(detalle.Product__c);
                 // Solo almacenar los primeros 4 caracteres del centro de abastecimiento para el filtro
-                System.debug(detalle.Venta__r.Cliente__r.Centro_de_Abastecimiento__c.substring(0, 4));
-                centrosAbastecimientoPorProducto.put(detalle.Producto__c, 
-                                                     detalle.Venta__r.Cliente__r.Centro_de_Abastecimiento__c.substring(0, 4));
+                System.debug(detalle.Factura__r.Cliente__r.Centro_de_Abastecimiento__c.substring(0, 4));
+                centrosAbastecimientoPorProducto.put(detalle.Product__c, 
+                                                     detalle.Factura__r.Cliente__r.Centro_de_Abastecimiento__c.substring(0, 4));
                 System.debug(centrosAbastecimientoPorProducto.values());                                                     
             }
         }

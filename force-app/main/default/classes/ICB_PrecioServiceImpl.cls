@@ -18,25 +18,25 @@ public class ICB_PrecioServiceImpl{
     * @author Rodrigo Carvallo
     * @param Id accountId - ID del cliente
     * @param Set<Id> productosExistentes - Conjunto de IDs de productos ya existentes
-    * @return List<Detalle__c> - Lista de compras de los últimos 3 meses sin duplicados
+    * @return List<Detalle_Factura__c> - Lista de compras de los últimos 3 meses sin duplicados
     **/
-    public static List<Detalle__c> getComprasMaestraPrecios(Id accountId, Set<Id> productosExistentes){
+    public static List<Detalle_Factura__c> getComprasMaestraPrecios(Id accountId, Set<Id> productosExistentes){
         Date today = Date.today();
         Date threeMonthsAgo = today.addMonths(-3);
         
-        // Set para almacenar los IDs de los Detalle__c y evitar duplicados
-        Map<Id, Detalle__c> detallesPorVentaMap = new Map<Id, Detalle__c>();
+        // Set para almacenar los IDs de los Detalle_Factura__c y evitar duplicados
+        Map<Id, Detalle_Factura__c> detallesPorVentaMap = new Map<Id, Detalle_Factura__c>();
         
         //REPOSITORY
-        List<Detalle__c> detallesPorVenta = ICB_MaestraPreciosRepository.getDetallesComprasByCliente(accountId, threeMonthsAgo);
+        List<Detalle_Factura__c> detallesPorVenta = ICB_MaestraPreciosRepository.getDetallesComprasByCliente(accountId, threeMonthsAgo);
         
-        List<Detalle__c> comprasFiltradas = new List<Detalle__c>();
+        List<Detalle_Factura__c> comprasFiltradas = new List<Detalle_Factura__c>();
         
-        // Filtrar duplicados basados en Producto__c
-        for (Detalle__c detalle : detallesPorVenta) {
-            if (!productosExistentes.contains(detalle.Producto__c)) {
+        // Filtrar duplicados basados en Product__c
+        for (Detalle_Factura__c detalle : detallesPorVenta) {
+            if (!productosExistentes.contains(detalle.Product__c)) {
                 comprasFiltradas.add(detalle);
-                productosExistentes.add(detalle.Producto__c);
+                productosExistentes.add(detalle.Product__c);
             }
         }
         return comprasFiltradas;
@@ -46,9 +46,9 @@ public class ICB_PrecioServiceImpl{
     * Método para calcular precios de compras considerando pricebooks y precios especiales
     * @author Rodrigo Carvallo
     * @param String sucursal - Sucursal del cliente para identificar pricebook
-    * @param List<Detalle__c> comprasMaestradePrecios - Lista de compras a procesar
+    * @param List<Detalle_Factura__c> comprasMaestradePrecios - Lista de compras a procesar
     **/
-    public static void calcularPreciosCompras(String sucursal, List<Detalle__c> comprasMaestradePrecios){
+    public static void calcularPreciosCompras(String sucursal, List<Detalle_Factura__c> comprasMaestradePrecios){
         // Extraer la parte relevante de la sucursal
         String codigoSucursal = sucursal.split(' ')[0];
         // Construir el nombre de la Pricebook
@@ -61,12 +61,12 @@ public class ICB_PrecioServiceImpl{
         Set<Id> productIds = new Set<Id>();
         Set<Id> clienteIds = new Set<Id>();
         
-        for (Detalle__c detalle : comprasMaestradePrecios) {
-            if (detalle.Producto__c != null) {
-                productIds.add(detalle.Producto__c);
+        for (Detalle_Factura__c detalle : comprasMaestradePrecios) {
+            if (detalle.Product__c != null) {
+                productIds.add(detalle.Product__c);
             }
-            if (detalle.Venta__r.Cliente__c != null) {
-                clienteIds.add(detalle.Venta__r.Cliente__c);
+            if (detalle.Factura__r.Cliente__c != null) {
+                clienteIds.add(detalle.Factura__r.Cliente__c);
             }
         }
         
@@ -93,31 +93,31 @@ public class ICB_PrecioServiceImpl{
         }
         
         
-        for (Detalle__c detalle : comprasMaestradePrecios) {
+        for (Detalle_Factura__c detalle : comprasMaestradePrecios) {
             // Inicializa el valor neto a 0 como valor por defecto
             detalle.Valor_Neto__c = 0;
-            detalle.Error_Precio__c = '';  // Limpiar cualquier mensaje de error previo
+            // Error_Precio__c no existe en Detalle_Factura__c, campo eliminado
             
             // Verificar si hay un precio en el mapa por cliente y producto
             Boolean precioEncontrado = false;
-            if (preciosPorClienteYProducto.containsKey(detalle.Venta__r.Cliente__c) &&
-                preciosPorClienteYProducto.get(detalle.Venta__r.Cliente__c).containsKey(detalle.Producto__c)) {
+            if (preciosPorClienteYProducto.containsKey(detalle.Factura__r.Cliente__c) &&
+                preciosPorClienteYProducto.get(detalle.Factura__r.Cliente__c).containsKey(detalle.Product__c)) {
                     // Asignar el valor del Precio_de_lista__c encontrado en el mapa
                     detalle.Valor_Neto__c = (Integer.valueOf(preciosPorClienteYProducto
-                                                             .get(detalle.Venta__r.Cliente__c)
-                                                             .get(detalle.Producto__c)
+                                                             .get(detalle.Factura__r.Cliente__c)
+                                                             .get(detalle.Product__c)
                                                              .Precio_de_lista__c));
                     precioEncontrado = true;
-                } else if (pricebookEntriesMap.containsKey(detalle.Producto__c)) {
+                } else if (pricebookEntriesMap.containsKey(detalle.Product__c)) {
                     // Si no se encontró en `Precios__c`, se verifica en el `PricebookEntry`
-                    detalle.Valor_Neto__c = (Integer.valueOf(pricebookEntriesMap.get(detalle.Producto__c)));
+                    detalle.Valor_Neto__c = (Integer.valueOf(pricebookEntriesMap.get(detalle.Product__c)));
                     precioEncontrado = true;
                 }
             
-            // Si no se encontró precio, asignar el mensaje de error
+            // Si no se encontró precio, mantener Valor_Neto__c en 0
             if (!precioEncontrado) {
                 detalle.Valor_Neto__c = 0;
-                detalle.Error_Precio__c = 'No existe precio para este producto';
+                // Error_Precio__c no existe en Detalle_Factura__c, campo eliminado
             }
         }
     }
@@ -126,13 +126,14 @@ public class ICB_PrecioServiceImpl{
     * Método para obtener el precio final de una compra específica
     * @author Rodrigo Carvallo
     * @param Id detalleId - ID del detalle de compra a consultar
-    * @param List<Detalle__c> comprasMaestradePrecios - Lista donde buscar la compra
+    * @param List<Detalle_Factura__c> comprasMaestradePrecios - Lista donde buscar la compra
     * @return Decimal - Precio final de la compra o 0 si no se encuentra
     **/
-    public static Decimal getPrecioFinalCompras(Id detalleId, List<Detalle__c> comprasMaestradePrecios){
-        for (Detalle__c detalle : comprasMaestradePrecios) {
+    public static Decimal getPrecioFinalCompras(Id detalleId, List<Detalle_Factura__c> comprasMaestradePrecios){
+        for (Detalle_Factura__c detalle : comprasMaestradePrecios) {
             if (detalle.Id == detalleId) {
-                return detalle.Precio_Final__c != null ? detalle.Precio_Final__c : 0;
+                // Precio_Final__c nunca tuvo valor, usar Valor_Neto__c
+                return detalle.Valor_Neto__c != null ? detalle.Valor_Neto__c : 0;
             }
         }
         return 0; // Retorna 0 si no se encuentra el registro

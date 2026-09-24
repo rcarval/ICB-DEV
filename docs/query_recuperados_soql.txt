@@ -1,0 +1,24 @@
+-- Clientes RECUPERADOS (alguna vez facturaron, el mes pasado no facturaron, este mes sí facturaron).
+-- "Alguna vez" = tienen al menos una factura en los últimos 24 meses fuera de este mes y del anterior.
+-- Si quieres más historial, cambia LAST_N_MONTHS:24 por LAST_N_MONTHS:36 o 48.
+
+SELECT Id, Name, OwnerId, Owner.Name
+FROM Account
+WHERE Id IN (
+    SELECT Cliente__c
+    FROM Facturas__c
+    WHERE Fecha_de_Documento__c = THIS_MONTH
+)
+AND Id NOT IN (
+    SELECT Cliente__c
+    FROM Facturas__c
+    WHERE Fecha_de_Documento__c = LAST_MONTH
+)
+AND Id IN (
+    SELECT Cliente__c
+    FROM Facturas__c
+    WHERE Fecha_de_Documento__c = LAST_N_MONTHS:24
+    AND NOT (Fecha_de_Documento__c = THIS_MONTH)
+    AND NOT (Fecha_de_Documento__c = LAST_MONTH)
+)
+ORDER BY Owner.Name, Name

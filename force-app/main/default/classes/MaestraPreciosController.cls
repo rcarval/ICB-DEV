@@ -12,9 +12,9 @@ No. Fecha                Autor                     Descripción
 **********************************************************************************/
 public class MaestraPreciosController {
     public Account acc { get; set; }
-    public List<Detalle__c> comprasMaestradePrecios { get; set; }
+    public List<Detalle_Factura__c> comprasMaestradePrecios { get; set; }
     public List<Descuento_Cliente__c> descuentosClienteMaestradePrecios { get; set; }
-    public Detalle__c newComprasMaestraPrecio { get; set; }
+    public Detalle_Factura__c newComprasMaestraPrecio { get; set; }
     public Descuento_cliente__c newDescuentosMaestraPrecio { get; set; }
     public Map<Id, Decimal> preciosClienteNeto { get; set; }
     public Map<Id, Decimal> precioFinal { get; set; }
@@ -44,7 +44,7 @@ public class MaestraPreciosController {
         this.descuentosClienteMaestradePrecios = ICB_DescuentoServiceImpl.getDescuentosMaestraPrecios(acc.Id, productosExistentes);
         this.comprasMaestradePrecios = ICB_PrecioServiceImpl.getComprasMaestraPrecios(acc.Id, productosExistentes);
         ICB_CostoServiceImpl.buscarCostosParaProductos(costosProductosMap, comprasMaestradePrecios, descuentosClienteMaestradePrecios);
-        this.newComprasMaestraPrecio = new Detalle__c();
+        this.newComprasMaestraPrecio = new Detalle_Factura__c();
         this.newDescuentosMaestraPrecio = new Descuento_Cliente__c();
         this.preciosClienteNeto = new Map<Id, Decimal>();
         this.precioFinal = new Map<Id, Decimal>();
@@ -119,9 +119,10 @@ public class MaestraPreciosController {
         
         MaestraPreciosController instance = new MaestraPreciosController(new ApexPages.StandardController(new Account(Id = accountId)));
         List<ICB_RegistroUnificadoWrapper> registrosUnificados = new List<ICB_RegistroUnificadoWrapper>();
-        for (Detalle__c detalle : instance.comprasMaestradePrecios) {
-            detalle.Precio_Final__c = ICB_PrecioServiceImpl.getPrecioFinalCompras(detalle.Id, instance.comprasMaestradePrecios);
-            Decimal costo = ICB_CostoServiceImpl.obtenerCostoProducto(detalle.Producto__c, instance.costosProductosMap);
+        for (Detalle_Factura__c detalle : instance.comprasMaestradePrecios) {
+            // Precio_Final__c nunca tuvo valor, el método getPrecioFinalCompras ahora retorna basado en Valor_Neto__c
+            // No es necesario asignar a un campo que no existe
+            Decimal costo = ICB_CostoServiceImpl.obtenerCostoProducto(detalle.Product__c, instance.costosProductosMap);
             registrosUnificados.add(new ICB_RegistroUnificadoWrapper(detalle, costo));
         }
         for (Descuento_Cliente__c descuento : instance.descuentosClienteMaestradePrecios) {
