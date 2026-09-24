@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Calificación de atención --></label>
+    <name>Calificacion_de_atenci_n__c</name>
+    <picklistValues>
+        <masterLabel>Buena</masterLabel>
+        <translation><!-- Buena --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mala</masterLabel>
+        <translation><!-- Mala --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Muy buena</masterLabel>
+        <translation><!-- Muy buena --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Muy mala</masterLabel>
+        <translation><!-- Muy mala --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Regular</masterLabel>
+        <translation><!-- Regular --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

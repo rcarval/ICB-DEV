@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_Categoria__c</fullName>
+    <label>Causa</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Categoria__c</controllingField>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Caja con Unidades menos</fullName>
+                <default>false</default>
+                <label>Caja con Unidades menos</label>
+            </value>
+            <value>
+                <fullName>Caja Rota</fullName>
+                <default>false</default>
+                <label>Caja Rota</label>
+            </value>
+            <value>
+                <fullName>Color/Olor no característicos</fullName>
+                <default>false</default>
+                <label>Color/Olor no característicos</label>
+            </value>
+            <value>
+                <fullName>Contaminación Física ( Metálico, plástico, etc.)</fullName>
+                <default>false</default>
+                <label>Contaminación Física ( Metálico, plástico, etc.)</label>
+            </value>
+            <value>
+                <fullName>Corta Vida Útil</fullName>
+                <default>false</default>
+                <label>Corta Vida Útil</label>
+            </value>
+            <value>
+                <fullName>Envase Roto</fullName>
+                <default>false</default>
+                <label>Envase Roto</label>
+            </value>
+            <value>
+                <fullName>Error en la digitación del pedido</fullName>
+                <default>false</default>
+                <label>Error en la digitación del pedido</label>
+            </value>
+            <value>
+                <fullName>Error en la entrega del pedido</fullName>
+                <default>false</default>
+                <label>Error en la entrega del pedido</label>
+            </value>
+            <value>
+                <fullName>Falta de Información Nutricional</fullName>
+                <default>false</default>
+                <label>Falta de Información Nutricional</label>
+            </value>
+            <value>
+                <fullName>Información del Envase Incorrecto o Ilegible</fullName>
+                <default>false</default>
+                <label>Información del Envase Incorrecto o Ilegible</label>
+            </value>
+            <value>
+                <fullName>Motivo directo — sin causa</fullName>
+                <default>false</default>
+                <label>Motivo directo — sin causa</label>
+            </value>
+            <value>
+                <fullName>No conforme con características</fullName>
+                <default>false</default>
+                <label>No conforme con características</label>
+            </value>
+            <value>
+                <fullName>No cumple Textura</fullName>
+                <default>false</default>
+                <label>No cumple Textura</label>
+            </value>
+            <value>
+                <fullName>Pérdida de Cadena de Frio ( Temperatura no Cumple)</fullName>
+                <default>false</default>
+                <label>Pérdida de Cadena de Frio ( Temperatura no Cumple)</label>
+            </value>
+            <value>
+                <fullName>Pérdida de Vacío</fullName>
+                <default>false</default>
+                <label>Pérdida de Vacío</label>
+            </value>
+            <value>
+                <fullName>Presencia de Escarcha</fullName>
+                <default>false</default>
+                <label>Presencia de Escarcha</label>
+            </value>
+            <value>
+                <fullName>Presencia de Hongos</fullName>
+                <default>false</default>
+                <label>Presencia de Hongos</label>
+            </value>
+            <value>
+                <fullName>Producto con Humedad</fullName>
+                <default>false</default>
+                <label>Producto con Humedad</label>
+            </value>
+            <value>
+                <fullName>Producto descongelado</fullName>
+                <default>false</default>
+                <label>Producto descongelado</label>
+            </value>
+            <value>
+                <fullName>Producto Filtrado</fullName>
+                <default>false</default>
+                <label>Producto Filtrado</label>
+            </value>
+            <value>
+                <fullName>Producto no apto para uso</fullName>
+                <default>false</default>
+                <label>Producto no apto para uso</label>
+            </value>
+            <value>
+                <fullName>Producto Sucio</fullName>
+                <default>false</default>
+                <label>Producto Sucio</label>
+            </value>
+            <value>
+                <fullName>Producto Vencido</fullName>
+                <default>false</default>
+                <label>Producto Vencido</label>
+            </value>
+            <value>
+                <fullName>Rechazo parcial</fullName>
+                <default>false</default>
+                <label>Rechazo parcial</label>
+            </value>
+            <value>
+                <fullName>Rechazo total</fullName>
+                <default>false</default>
+                <label>Rechazo total</label>
+            </value>
+            <value>
+                <fullName>Sin datos de fecha de Elaboración y Vencimiento</fullName>
+                <default>false</default>
+                <label>Sin datos de fecha de Elaboración y Vencimiento</label>
+            </value>
+            <value>
+                <fullName>Tamaño/Cantidad/Peso No cumple con Producto</fullName>
+                <default>false</default>
+                <label>Tamaño/Cantidad/Peso No cumple con Producto</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Desviación de Temperatura</controllingFieldValue>
+            <valueName>Pérdida de Cadena de Frio ( Temperatura no Cumple)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Desviación de Temperatura</controllingFieldValue>
+            <valueName>Presencia de Escarcha</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Desviación de Temperatura</controllingFieldValue>
+            <valueName>Producto descongelado</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pedido recibido con diferencias</controllingFieldValue>
+            <valueName>Error en la digitación del pedido</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pedido recibido con diferencias</controllingFieldValue>
+            <valueName>Error en la entrega del pedido</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Error en Información del envase</controllingFieldValue>
+            <valueName>Información del Envase Incorrecto o Ilegible</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Error en Información del envase</controllingFieldValue>
+            <valueName>Sin datos de fecha de Elaboración y Vencimiento</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Insatisfacción con el producto</controllingFieldValue>
+            <valueName>No conforme con características</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Insatisfacción con el producto</controllingFieldValue>
+            <valueName>Producto no apto para uso</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Presencia de Cuerpo extraño</controllingFieldValue>
+            <valueName>Contaminación Física ( Metálico, plástico, etc.)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Rechazo de pedido</controllingFieldValue>
+            <valueName>Rechazo parcial</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Rechazo de pedido</controllingFieldValue>
+            <valueName>Rechazo total</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Presencia de Hongos</controllingFieldValue>
+            <valueName>Presencia de Hongos</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Producto no cumple con lo solicitado</controllingFieldValue>
+            <valueName>Color/Olor no característicos</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Producto no cumple con lo solicitado</controllingFieldValue>
+            <valueName>Falta de Información Nutricional</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Producto no cumple con lo solicitado</controllingFieldValue>
+            <valueName>No cumple Textura</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Producto no cumple con lo solicitado</controllingFieldValue>
+            <valueName>Tamaño/Cantidad/Peso No cumple con Producto</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Productos en mal Estado</controllingFieldValue>
+            <valueName>Caja Rota</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Productos en mal Estado</controllingFieldValue>
+            <valueName>Envase Roto</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Productos en mal Estado</controllingFieldValue>
+            <valueName>Pérdida de Vacío</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Productos en mal Estado</controllingFieldValue>
+            <valueName>Producto con Humedad</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Productos en mal Estado</controllingFieldValue>
+            <valueName>Producto Filtrado</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Productos en mal Estado</controllingFieldValue>
+            <valueName>Producto Sucio</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Unidades faltantes</controllingFieldValue>
+            <valueName>Caja con Unidades menos</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Vida útil</controllingFieldValue>
+            <valueName>Corta Vida Útil</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Vida útil</controllingFieldValue>
+            <valueName>Producto Vencido</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

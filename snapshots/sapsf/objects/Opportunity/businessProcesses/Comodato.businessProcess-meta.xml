@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BusinessProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Comodato</fullName>
+    <isActive>true</isActive>
+    <values>
+        <fullName>Activo Instalado</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Activo y Contrato Creado</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Documento firmado</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>En proceso de Firma</fullName>
+        <default>false</default>
+    </values>
+</BusinessProcess>

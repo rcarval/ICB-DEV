@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Zona__c</fullName>
+    <description>Zona a la que aplica el precio</description>
+    <label>Zona</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Suc Santiago</fullName>
+                <default>false</default>
+                <label>Suc Santiago</label>
+            </value>
+            <value>
+                <fullName>Suc Coquimbo</fullName>
+                <default>false</default>
+                <label>Suc Coquimbo</label>
+            </value>
+            <value>
+                <fullName>Suc Temuco</fullName>
+                <default>false</default>
+                <label>Suc Temuco</label>
+            </value>
+            <value>
+                <fullName>Suc Concepción</fullName>
+                <default>false</default>
+                <label>Suc Concepción</label>
+            </value>
+            <value>
+                <fullName>Suc Antofagasta</fullName>
+                <default>false</default>
+                <label>Suc Antofagasta</label>
+            </value>
+            <value>
+                <fullName>Suc Puerto Montt</fullName>
+                <default>false</default>
+                <label>Suc Puerto Montt</label>
+            </value>
+            <value>
+                <fullName>Suc Iquique</fullName>
+                <default>false</default>
+                <label>Suc Iquique</label>
+            </value>
+            <value>
+                <fullName>Suc Curicó</fullName>
+                <default>false</default>
+                <label>Suc Curicó</label>
+            </value>
+            <value>
+                <fullName>Suc Calama</fullName>
+                <default>false</default>
+                <label>Suc Calama</label>
+            </value>
+            <value>
+                <fullName>Suc Viña del Mar</fullName>
+                <default>false</default>
+                <label>Suc Viña del Mar</label>
+            </value>
+            <value>
+                <fullName>Centro</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Centro</label>
+            </value>
+            <value>
+                <fullName>Norte</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Norte</label>
+            </value>
+            <value>
+                <fullName>Sur</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Sur</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

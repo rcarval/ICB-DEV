@@ -1,0 +1,43 @@
+<template>
+    <div class="box">
+        <label class="label">{label}</label>
+
+        <lightning-input
+            type="text"
+            value={searchText}
+            placeholder={placeholder}
+            onchange={handleChange}
+            onfocus={handleFocus}>
+        </lightning-input>
+
+        <template if:true={loading}>
+            <div class="hint">Buscando…</div>
+        </template>
+
+        <template if:true={showList}>
+            <div class="list">
+                <template for:each={results} for:item="r">
+                    <div
+                        key={r.id}
+                        class="item"
+                        data-id={r.id}
+                        data-label={r.label}
+                        onclick={handlePick}>
+                        {r.label}
+                    </div>
+                </template>
+
+                <template if:true={noResults}>
+                    <div class="item muted">Sin resultados</div>
+                </template>
+            </div>
+        </template>
+
+        <template if:true={selectedRecordId}>
+            <div class="selected">
+                Seleccionado: <b>{selectedRecordName}</b>
+                <button class="clear" onclick={clearSelection} type="button">Quitar</button>
+            </div>
+        </template>
+    </div>
+</template>

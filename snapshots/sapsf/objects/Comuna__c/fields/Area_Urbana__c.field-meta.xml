@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Area_Urbana__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Ciudad</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <filterItems>
+            <field>Area_Urbana__c.Region__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Region_Geografica__c</valueField>
+        </filterItems>
+        <filterItems>
+            <field>Area_Urbana__c.Activa__c</field>
+            <operation>equals</operation>
+            <value>true</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Area_Urbana__c</referenceTo>
+    <relationshipLabel>Comunas</relationshipLabel>
+    <relationshipName>Comunas</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

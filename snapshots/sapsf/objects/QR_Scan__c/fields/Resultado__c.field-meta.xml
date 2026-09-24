@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Resultado__c</fullName>
+    <label>Resultado</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>OK</fullName>
+                <default>false</default>
+                <label>OK</label>
+            </value>
+            <value>
+                <fullName>TOKEN INVALIDO</fullName>
+                <default>false</default>
+                <label>TOKEN INVALIDO</label>
+            </value>
+            <value>
+                <fullName>ERROR SISTEMA</fullName>
+                <default>false</default>
+                <label>ERROR SISTEMA</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

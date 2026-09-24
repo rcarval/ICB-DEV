@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Comuna_Geo_Despacho__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <inlineHelpText>Los resultados se filtran según la ciudad seleccionada.</inlineHelpText>
+    <label>Comuna despacho</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <filterItems>
+            <field>Comuna__c.Area_Urbana__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Area_Urbana_Geo_Despacho__c</valueField>
+        </filterItems>
+        <filterItems>
+            <field>Comuna__c.Activa__c</field>
+            <operation>equals</operation>
+            <value>true</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Comuna__c</referenceTo>
+    <relationshipLabel>Lead - Comuna despacho</relationshipLabel>
+    <relationshipName>Lead_Despacho_Comunas</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Lookup</type>
+</CustomField>

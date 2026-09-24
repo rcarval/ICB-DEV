@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>68.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <description>Flujo programado diario que revisa las cargas de lista de precios cuya fecha de vigencia está a 7 días, y notifica por correo y notificación a los asesores cuando hay productos con cambio de precio</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Fecha en que se debe notificar el cambio de precio: 7 días antes de la fecha de vigencia</description>
+        <name>forD_FechaAviso</name>
+        <dataType>Date</dataType>
+        <expression>TODAY() + 7</expression>
+    </formulas>
+    <interviewLabel>Cambio Lista Precios Schedule: Notificar Cambios {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Cambio Lista Precios Schedule: Notificar Cambios</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Obtener información Producto</description>
+        <name>Get_Informacion_Producto</name>
+        <label>Get Información Producto</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Cambio_Lista_Precios__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Informacion_Producto__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Informacion_Producto</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Fecha_de_cambio__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Cambio_Lista_Precios__c</object>
+        <schedule>
+            <dayOfMonthToRun>0</dayOfMonthToRun>
+            <frequency>Once</frequency>
+            <frequencyNumber>0</frequencyNumber>
+            <startDate>2026-09-22</startDate>
+            <startTime>08:00:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Draft</status>
+</Flow>

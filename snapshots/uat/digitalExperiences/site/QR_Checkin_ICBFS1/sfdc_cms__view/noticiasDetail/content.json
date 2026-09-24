@@ -1,0 +1,61 @@
+{
+  "type" : "sfdc_cms__view",
+  "title" : "Noticias Detail",
+  "contentBody" : {
+    "component" : {
+      "children" : [ {
+        "children" : [ {
+          "attributes" : {
+            "backgroundImageConfig" : "",
+            "backgroundImageOverlay" : "rgba(0,0,0,0)",
+            "componentSpacerSize" : "",
+            "layoutDirectionDesktop" : "row",
+            "layoutDirectionMobile" : "column",
+            "layoutDirectionTablet" : "column",
+            "maxContentWidth" : "",
+            "sectionColumnGutterWidth" : "",
+            "sectionConfig" : "{\"UUID\":\"1b1b3019-f41b-4d4b-b3cc-fad01bd3cf2a\",\"columns\":[{\"UUID\":\"d6bf6cbd-a518-45c0-af8b-8875e4c2d31e\",\"columnName\":\"Column 1\",\"columnKey\":\"col1\",\"columnWidth\":\"12\",\"seedComponents\":[]}]}",
+            "sectionMinHeight" : "",
+            "sectionVerticalAlign" : "flex-start"
+          },
+          "children" : [ {
+            "id" : "d6bf6cbd-a518-45c0-af8b-8875e4c2d31e",
+            "name" : "col1",
+            "title" : "Columna 1",
+            "type" : "region"
+          } ],
+          "definition" : "community_layout:section",
+          "id" : "1b1b3019-f41b-4d4b-b3cc-fad01bd3cf2a",
+          "type" : "component"
+        } ],
+        "id" : "5d493993-d122-4ba3-bf5e-64848d80f723",
+        "name" : "content",
+        "title" : "Contenido",
+        "type" : "region"
+      }, {
+        "children" : [ {
+          "attributes" : {
+            "customHeadTags" : "",
+            "description" : "",
+            "pageTitle" : "{!Content.contentTypeLabel}.{!Content.title}",
+            "recordId" : "{!recordId}"
+          },
+          "definition" : "community_builder:seoAssistant",
+          "id" : "0e8524ae-4d5c-4abe-90aa-ba5b9d5acb1f",
+          "type" : "component"
+        } ],
+        "id" : "2828cc6e-d257-44af-bead-7835c733a5ea",
+        "name" : "sfdcHiddenRegion",
+        "title" : "sfdcHiddenRegion",
+        "type" : "region"
+      } ],
+      "definition" : "community_layout:sldsFlexibleLayout",
+      "id" : "348f8e04-fb45-4906-8941-53b529092596",
+      "type" : "component"
+    },
+    "dataProviders" : [ ],
+    "themeLayoutType" : "Inner",
+    "viewType" : "managed-content-sfdc_cms__news"
+  },
+  "urlName" : "noticias-detail"
+}

@@ -1,0 +1,111 @@
+/* ── KPI Cards (reuse same pattern as messagingDashboard) ─────────────────── */
+.kpi-card {
+    padding: 1rem 1.25rem;
+    border-radius: 0.6rem;
+    text-align: center;
+    border: 1px solid #e0e5ee;
+    border-left-width: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    transition: box-shadow 0.2s ease;
+}
+.kpi-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+.kpi-value {
+    font-size: 2.25rem;
+    font-weight: 800;
+    margin: 0 0 0.3rem 0;
+    line-height: 1;
+    letter-spacing: -0.5px;
+}
+.kpi-label {
+    font-size: 0.72rem;
+    color: #706e6b;
+    margin: 0;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.kpi-total  { background: #f8f8f8; border-left-color: #9aa0a8; }
+.kpi-active { background: #eaf4fd; border-left-color: #1565c0; }
+.kpi-ended  { background: #f0faf2; border-left-color: #2e7d32; }
+.kpi-new    { background: #fffbea; border-left-color: #f59e0b; }
+
+/* ── Tabla ────────────────────────────────────────────────────────────────── */
+.table-wrap { overflow-x: auto; }
+
+.scorecard-table th,
+.scorecard-table td {
+    vertical-align: middle;
+}
+
+.sc-th {
+    background: #032d60;
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 0.65rem 0.9rem;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+}
+.sc-th:hover { background: #05447f; }
+.sc-th-num { text-align: right; }
+
+.th-sub {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 400;
+    opacity: 0.75;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.sc-row:hover td { background: #eef5ff; }
+
+.agent-cell {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #032d60;
+}
+
+.num-cell {
+    text-align: right;
+    font-size: 0.875rem;
+    color: #3e3e3c;
+}
+
+.score-cell {
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* ── Score badges ─────────────────────────────────────────────────────────── */
+.score-badge {
+    display: inline-block;
+    padding: 0.2rem 0.55rem;
+    border-radius: 0.85rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+.score-good    { background: #e8f5e9; color: #1b5e20; border: 1px solid #a5d6a7; }
+.score-warn    { background: #fff8e1; color: #e65100; border: 1px solid #ffe082; }
+.score-bad     { background: #ffebee; color: #b71c1c; border: 1px solid #ef9a9a; }
+.score-neutral { background: #f5f5f5; color: #9e9e9e; border: 1px solid #e0e0e0; }
+
+.score-sub {
+    font-size: 0.7rem;
+    color: #aeaeae;
+    margin-left: 0.3rem;
+}
+
+/* ── Sortable header indicator ────────────────────────────────────────────── */
+.sortable-header { position: relative; }
+
+/* ── Leyenda ──────────────────────────────────────────────────────────────── */
+.legend-bar {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: 0.75rem;
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntitlementProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <SObjectType>Case</SObjectType>
+    <active>true</active>
+    <businessHours>sla comodato</businessHours>
+    <entryStartDateField>Case.CreatedDate</entryStartDateField>
+    <exitCriteriaFilterItems>
+        <field>Case.IsClosed</field>
+        <operation>equals</operation>
+        <value>false</value>
+    </exitCriteriaFilterItems>
+    <isVersionDefault>true</isVersionDefault>
+    <milestones>
+        <businessHours>sla comodato</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Tipo_de_Requerimiento__c</field>
+            <operation>equals</operation>
+            <value>Comodato</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Fecha Compromiso</milestoneName>
+        <minutesToComplete>14400</minutesToComplete>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <name>sla comodato</name>
+    <versionMaster>552O400000hshiN</versionMaster>
+    <versionNumber>4</versionNumber>
+</EntitlementProcess>

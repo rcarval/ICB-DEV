@@ -1,0 +1,30 @@
+<template>
+    <lightning-card title="Cola de Impresión QR" icon-name="utility:print">
+        <div class="slds-p-horizontal_medium slds-p-vertical_small">
+            <lightning-button
+                label="Refrescar cola"
+                title="Refrescar cola"
+                variant="brand"
+                onclick={refreshScans}
+                class="slds-m-bottom_small">
+            </lightning-button>
+        </div>
+        <div class="slds-p-around_medium">
+            <template if:true={scans.data}>
+                <lightning-datatable
+                    key-field="scanId"
+                    data={scans.data}
+                    columns={columns}
+                    onrowaction={handlePrint}
+                    hide-checkbox-column>
+                </lightning-datatable>
+            </template>
+            <template if:true={scans.error}>
+                <p class="slds-text-color_error">Error cargando escaneos: {errorMessage}</p>
+            </template>
+            <template if:true={noScans}>
+                <p>No hay escaneos pendientes de impresión.</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

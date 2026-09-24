@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Catalogo_Curic</fullName>
+    <columns>NAME</columns>
+    <columns>Oportunidad__c</columns>
+    <columns>OWNER.FIRST_NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Candidato__c</columns>
+    <columns>Cliente__c</columns>
+    <columns>Contacto__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Campa_a__c</field>
+        <operation>equals</operation>
+        <value>Open Day Curico</value>
+    </filters>
+    <label>Catalogo Curicó</label>
+</ListView>

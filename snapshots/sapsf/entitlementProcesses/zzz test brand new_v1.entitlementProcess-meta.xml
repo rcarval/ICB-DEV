@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntitlementProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <SObjectType>Case</SObjectType>
+    <active>true</active>
+    <businessHours>Default</businessHours>
+    <entryStartDateField>Case.CreatedDate</entryStartDateField>
+    <exitCriteriaFilterItems>
+        <field>Case.IsClosed</field>
+        <operation>equals</operation>
+        <value>false</value>
+    </exitCriteriaFilterItems>
+    <isVersionDefault>false</isVersionDefault>
+    <milestones>
+        <businessHours>Default</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.IsClosed</field>
+            <operation>equals</operation>
+            <value>false</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Fecha Compromiso</milestoneName>
+        <minutesToComplete>14400</minutesToComplete>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <name>zzz test brand new</name>
+    <versionMaster>552O400000htYbN</versionMaster>
+    <versionNumber>1</versionNumber>
+</EntitlementProcess>

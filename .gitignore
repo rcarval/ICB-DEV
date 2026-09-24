@@ -46,3 +46,8 @@ $RECYCLE.BIN/
 **/__pycache__/
 **/.venv/
 **/venv/
+
+# Large org snapshots (source); keep reports deliverable
+snapshots/uat/
+snapshots/sapsf/
+snapshots/reports/cache/

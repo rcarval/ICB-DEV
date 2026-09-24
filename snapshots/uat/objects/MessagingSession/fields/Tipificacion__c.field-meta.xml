@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tipificacion__c</fullName>
+    <label>Tipo de consulta</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Consulta</fullName>
+                <default>false</default>
+                <label>Consulta</label>
+            </value>
+            <value>
+                <fullName>Reclamo</fullName>
+                <default>false</default>
+                <label>Reclamo</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

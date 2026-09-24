@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>tr</name>
+    <style>none</style>
+    <subject>Tu QR de Check-in</subject>
+    <textOnly>Tu QR de Check-in
+
+Check-in
+ICB Food Service
+Hola,
+Aquí tienes tu QR de check-in. Muéstralo al llegar.
+
+Abrir mi QR / Check-in
+
+Si tu correo bloquea imágenes, usa el botón de arriba o copia y pega este link:
+https://energy-saas-7178--uat.sandbox.my.site.com/qricbfs/?token={!CampaignMember.QR_Token__c}
+Este QR es personal. Si lo reenvías, cualquiera con el link podría usarlo.
+
+Mensaje automático • ICB Food Service</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

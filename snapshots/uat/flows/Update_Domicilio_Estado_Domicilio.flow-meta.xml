@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <name>Validar_Fecha_actual</name>
+        <label>Validar Fecha actual</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>La_fecha_esta_dentro_del_rango</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>validarRango3Meses</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Cartera_Activa</targetReference>
+            </connector>
+            <label>La fecha esta dentro del rango?</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>validarRango3Meses</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+    NOT( ISBLANK({!$Record.Fecha_de_Documento__c} ) ),
+   {!$Record.Fecha_de_Documento__c} &gt;= DATE(
+        YEAR(TODAY()),
+        MONTH(TODAY()) - 3,
+        DAY(TODAY())
+    )
+)</expression>
+    </formulas>
+    <interviewLabel>Update Domicilio - Estado Domicilio {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Update Domicilio - Estado Domicilio</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>getDomicilios</name>
+        <label>getDomicilios</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Validar_Fecha_actual</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Domicilio_Cliente__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Domicilio_de_Cliente__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Cartera_Activa</name>
+        <label>Update - Cartera Activa</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Domicilio_Cliente__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Estado_Domicilio__c</field>
+            <value>
+                <stringValue>Cartera Activa</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Domicilio_de_Cliente__c</object>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>getDomicilios</targetReference>
+        </connector>
+        <object>Facturas__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Draft</status>
+</Flow>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Asignar_buena</name>
+        <label>Asignar buena</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>valorRespuestaText</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Buena 😊</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>asignar_evaluacion</name>
+        <label>asignar evaluacion</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>valorRespuestaText</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Muy mala 😡</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>asignar_evaluacion_v2</name>
+        <label>asignar evaluacion v2</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>valorRespuestaText</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Mala 😠</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Asignar_muy_buena</name>
+        <label>Asignar muy buena</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>valorRespuestaText</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Muy buena 😍</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Asignar_regular</name>
+        <label>Asignar regular</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>valorRespuestaText</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Regular 🙄</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>Clasificar_Encuesta</name>
+        <label>Clasificar Encuesta</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Muy_mala_Evaluaci_n</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>varRespuestaClienteV1</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>1</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>asignar_evaluacion</targetReference>
+            </connector>
+            <label>Muy mala Evaluación</label>
+        </rules>
+        <rules>
+            <name>Evaluacion_mala</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>varRespuestaClienteV1</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>2</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>asignar_evaluacion_v2</targetReference>
+            </connector>
+            <label>Evaluacion mala</label>
+        </rules>
+        <rules>
+            <name>Evaluaci_n_Regular</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>varRespuestaClienteV1</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>3</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Asignar_regular</targetReference>
+            </connector>
+            <label>Evaluación Regular</label>
+        </rules>
+        <rules>
+            <name>Evaluacion_buena</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>varRespuestaClienteV1</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>4</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Asignar_buena</targetReference>
+            </connector>
+            <label>Evaluacion buena</label>
+        </rules>
+        <rules>
+            <name>Evaluaci_n_muy_buena</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>varRespuestaClienteV1</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>5</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Asignar_muy_buena</targetReference>
+            </connector>
+            <label>Evaluación muy buena</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>numberFive</name>
+        <dataType>Number</dataType>
+        <expression>5</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>numberFour</name>
+        <dataType>Number</dataType>
+        <expression>4</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>numberOne</name>
+        <dataType>Number</dataType>
+        <expression>1</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>numberTree</name>
+        <dataType>Number</dataType>
+        <expression>3</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>numberTwo</name>
+        <dataType>Number</dataType>
+        <expression>2</expression>
+        <scale>0</scale>
+    </formulas>
+    <interviewLabel>Bot - Evaluación respuesta calificación {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Bot - Evaluación respuesta calificación</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Clasificar_Encuesta</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>valorRespuestaText</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>varRespuestaClienteV1</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

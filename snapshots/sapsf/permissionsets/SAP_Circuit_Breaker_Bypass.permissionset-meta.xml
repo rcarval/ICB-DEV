@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>Bypass_Control_Flujos_SAP</name>
+    </customPermissions>
+    <description>Exime del Circuit Breaker SAP. SOLO identidades de integracion (ej. el usuario del connected app QuickSight_IAD_Prod). No asignar a usuarios humanos: quien lo tenga puede propagar masivamente a SAP sin contencion.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>SAP Circuit Breaker Bypass</label>
+</PermissionSet>

@@ -1,0 +1,4 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false"
+           contentType="application/json; charset=UTF-8" cache="false">
+{"ok":false,"servicio":"ICBFS Calificador Callback","mensaje":"Use el endpoint REST documentado"}
+</apex:page>

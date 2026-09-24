@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Lista configurable de destinatarios de correo para la notificacion de Caso nuevo Comodato (Torre de Control). Un registro por destinatario. Sin registros cargados el mecanismo no falla: simplemente no envia a nadie hasta que se cargue el primero (A10, pendiente de definicion de negocio).</description>
+    <label>Notificacion Comodato</label>
+    <pluralLabel>Notificaciones Comodato</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

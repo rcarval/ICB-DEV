@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unidad_de_Medida_Ajustada__c</fullName>
+    <description>Unidad de Medida ajustada excepcionalmente (mismos valores que Comodato__c.Unidad_de_Medida__c). Vacio = no se ajusto, se usa el valor original.</description>
+    <label>Unidad de Medida Ajustada</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Kilos</fullName>
+                <default>false</default>
+                <label>Kilos</label>
+            </value>
+            <value>
+                <fullName>Cajas</fullName>
+                <default>false</default>
+                <label>Cajas</label>
+            </value>
+            <value>
+                <fullName>Unidades</fullName>
+                <default>false</default>
+                <label>Unidades</label>
+            </value>
+            <value>
+                <fullName>Litros</fullName>
+                <default>false</default>
+                <label>Litros</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

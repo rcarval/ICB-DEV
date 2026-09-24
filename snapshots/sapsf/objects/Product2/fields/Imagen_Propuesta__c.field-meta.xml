@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Imagen_Propuesta__c</fullName>
+    <description>Imagen de la máquina para la propuesta de comodato. Sube la imagen arrastrando y soltando en este campo.</description>
+    <label>Imagen Propuesta</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <type>Html</type>
+    <visibleLines>10</visibleLines>
+</CustomField>

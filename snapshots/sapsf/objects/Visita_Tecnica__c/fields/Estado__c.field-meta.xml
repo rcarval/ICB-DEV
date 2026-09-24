@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Estado__c</fullName>
+    <label>Estado</label>
+    <required>true</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Programada</fullName>
+                <default>true</default>
+                <label>Programada</label>
+            </value>
+            <value>
+                <fullName>Confirmada</fullName>
+                <default>false</default>
+                <label>Confirmada</label>
+            </value>
+            <value>
+                <fullName>En Ruta</fullName>
+                <default>false</default>
+                <label>En Ruta</label>
+            </value>
+            <value>
+                <fullName>Realizada</fullName>
+                <default>false</default>
+                <label>Realizada</label>
+            </value>
+            <value>
+                <fullName>Cancelada</fullName>
+                <default>false</default>
+                <label>Cancelada</label>
+            </value>
+            <value>
+                <fullName>No Realizada</fullName>
+                <default>false</default>
+                <label>No Realizada</label>
+            </value>
+            <value>
+                <fullName>Reprogramada</fullName>
+                <default>false</default>
+                <label>Reprogramada</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

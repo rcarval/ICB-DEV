@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tipo_de_Asociacion__c</fullName>
+    <description>Categoría del producto asociado en la propuesta de comodato.</description>
+    <label>Tipo de Asociación</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Insumo Mensual</fullName>
+                <default>true</default>
+                <label>Insumo Mensual</label>
+            </value>
+            <value>
+                <fullName>Aporte de Marca</fullName>
+                <default>false</default>
+                <label>Aporte de Marca</label>
+            </value>
+            <value>
+                <fullName>Servicio</fullName>
+                <default>false</default>
+                <label>Servicio</label>
+            </value>
+            <value>
+                <fullName>Merchandising</fullName>
+                <default>false</default>
+                <label>Merchandising</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

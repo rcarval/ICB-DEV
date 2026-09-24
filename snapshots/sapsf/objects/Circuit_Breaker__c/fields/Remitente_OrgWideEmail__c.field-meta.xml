@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Remitente_OrgWideEmail__c</fullName>
+    <description>Address de un Org-Wide Email Address a usar como remitente de la alerta (ej. info@icbfs.cl). Si está vacío o no existe, se envía sin remitente organizacional.</description>
+    <externalId>false</externalId>
+    <label>Remitente Org-Wide Email</label>
+    <length>80</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

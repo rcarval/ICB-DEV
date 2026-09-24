@@ -1,0 +1,63 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; background:#f5f5f5; height:auto; min-height:auto;">
+<table border="0" cellpadding="0" cellspacing="0" style="background:#f5f5f5; padding:30px 0;" width="100%">
+	
+		<tr>
+			<td align="center">
+			<table border="0" cellpadding="0" cellspacing="0" style="background:#ffffff; border-radius:12px; overflow:hidden;" width="640">
+				
+					<tr>
+						<td align="center" style="padding:20px 30px; font-size:22px; font-weight:bold; color:#333;"><br />
+						¡Bienvenido a ICB Food Service!</td>
+					</tr>
+					<tr>
+						<td style="padding:10px 30px; font-size:15px; line-height:1.6; color:#555 !important; text-decoration:none !important;"><span class="x-apple-data-detectors" style="color:inherit !important; text-decoration:none !important;">Hola <strong style="color:#333 !important;">{{{Account.Nombre_de_contacto__c}}}</strong> de <strong style="color:#333 !important;">{{{Account.Nombre_de_Fantasia__c}}}</strong>, </span><br />
+						<br />
+						<span style="color:#555 !important; text-decoration:none !important;">Gracias por confiar en <strong style="color:#333 !important;">ICB Food Service</strong>. Desde ahora tu negocio puede gestionar sus compras de manera rápida, segura y con acceso directo a nuestra plataforma <strong style="color:#333 !important;">PIA</strong>. </span></td>
+					</tr>
+					<tr>
+						<td align="center" style="padding:20px;"><a href="https://pia.icbfs.cl" style="background:#d32f2f; color:#fff !important; text-decoration:none; padding:12px 28px; border-radius:6px; font-size:16px; font-weight:bold; display:inline-block;" target="_blank">Ir a PIA </a></td>
+					</tr>
+					<tr>
+						<td style="padding:20px 30px; font-size:14px; line-height:1.6; background:#f9f9f9; color:#444;"><strong>Tu asesor de negocios</strong><br />
+						<span style="color:#444;">Nombre: Benjamín Fravega</span><br />
+						<span style="color:#444;">Correo: </span><a href="mailto:bfravega@icbfs.cl" style="color:#1976d2 !important; text-decoration:none;">bfravega@icbfs.cl</a></td>
+					</tr>
+					<tr>
+						<td style="padding:20px 30px; font-size:14px; color:#444; line-height:1.6;"><strong>Centro de Contacto al Cliente (CCC)</strong><br />
+						Correo: <a href="mailto:ccc@icbfs.cl" style="color:#1976d2 !important; text-decoration:none;">ccc@icbfs.cl</a><br />
+						Teléfono: <span class="x-apple-data-detectors" style="color:#444 !important; text-decoration:none !important;">+56 2 2760 4090</span></td>
+					</tr>
+					<tr>
+						<td style="padding:15px 30px; font-size:14px; line-height:1.6; background:#fafafa; color:#555 !important;">Tu cuenta fue creada con <strong style="color:#333 !important;">Pago por Transferencia o&nbsp;OneClick</strong>.<br />
+						Si deseas solicitar otra condición de pago, <a href="https://icbfs.cl/solicitar-credito" style="color:#1976d2 !important; font-weight:bold; text-decoration:none;" target="_blank">haz clic aquí</a>.</td>
+					</tr>
+					<tr>
+						<td align="center" style="padding:20px; font-size:12px; color:#999;">¡Gracias por preferir ICB Food Service!<br />
+						<a href="https://www.icbfs.cl" style="color:#d32f2f !important; text-decoration:none;" target="_blank">www.icbfs.cl</a><br />
+						<br />
+						<em>Este mensaje fue enviado automáticamente, por favor no respondas.</em></td>
+					</tr>
+				
+			</table>
+			</td>
+		</tr>
+	
+</table>
+
+<div id="" style="left: 782.167px; top: 50px;">&nbsp;</div>
+
+<div id="" style="left: 782.167px; top: 50px;">&nbsp;</div>
+
+<div id="" style="left: 782.167px; top: 50px;">&nbsp;</div>
+
+<div id="" style="left: 782.167px; top: 50px;">&nbsp;</div>
+
+<div id="" style="left: 783.667px; top: 992.833px;">&nbsp;</div>
+
+<div id="" style="left: 783.667px; top: 992.833px;">&nbsp;</div>
+</body>
+</html>

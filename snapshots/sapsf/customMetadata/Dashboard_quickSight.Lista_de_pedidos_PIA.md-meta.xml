@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Lista de pedidos PIA</label>
+    <protected>false</protected>
+    <values>
+        <field>Activo__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Nombre_dashboard__c</field>
+        <value xsi:type="xsd:string">Lista de pedidos PIA</value>
+    </values>
+    <values>
+        <field>id_dashboard__c</field>
+        <value xsi:type="xsd:string">562a025f-fd7f-4f14-90b3-80243f92ff5b</value>
+    </values>
+</CustomMetadata>

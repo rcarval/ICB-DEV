@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Contenido reutilizable para cuando incrusta un vínculo en una encuesta en un mensaje de correo electrónico. No puede incrustar una pregunta de encuesta si modifica los campos de combinación o elimina esta plantilla.</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Embed_a_Survey_Question</name>
+    <relatedEntityType>SurveyQuestion</relatedEntityType>
+    <style>none</style>
+    <subject>Sus comentarios son importantes. Ayúdenos a mejorar realizando esta encuesta.</subject>
+    <type>custom</type>
+    <uiType>SFX</uiType>
+</EmailTemplate>

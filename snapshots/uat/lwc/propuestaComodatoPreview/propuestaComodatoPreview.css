@@ -1,0 +1,99 @@
+.preview-container {
+    background: white;
+    padding: 30px;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.header {
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.propuesta-badge {
+    background-color: #0000A0;
+    color: white;
+    font-weight: bold;
+    padding: 8px 16px;
+    font-size: 14pt;
+    letter-spacing: 2px;
+}
+.lavazza-logo {
+    height: 50px;
+}
+.product-image-section {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.product-image-section img {
+    max-width: 300px;
+    height: auto;
+}
+.product-name {
+    text-align: center;
+    font-size: 14pt;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+.table-container {
+    margin-bottom: 30px;
+    border: 1px solid #0000A0;
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.table th {
+    background-color: #0000A0;
+    color: white;
+    text-align: left;
+    padding: 12px 15px;
+    font-size: 10pt;
+    text-transform: uppercase;
+}
+.table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #EEE;
+    font-size: 10pt;
+}
+.aportes-section {
+    margin-top: 20px;
+}
+.aportes-title {
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 11pt;
+}
+.disclaimer {
+    margin-top: 50px;
+    font-size: 9pt;
+    text-align: center;
+    color: #666;
+    line-height: 1.5;
+    font-style: italic;
+}
+.footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 40px;
+}
+.icb-logo-box {
+    background-color: #E41F2D;
+    padding: 12px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.icb-logo-img {
+    width: 45px;
+}

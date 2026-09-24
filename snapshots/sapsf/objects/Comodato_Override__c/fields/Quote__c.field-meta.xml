@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quote__c</fullName>
+    <deleteConstraint>Cascade</deleteConstraint>
+    <description>Presupuesto (Quote) para el cual aplica este ajuste. El ajuste es exclusivo de esta propuesta: no afecta otras Quotes que usen la misma maquina.</description>
+    <label>Presupuesto</label>
+    <referenceTo>Quote</referenceTo>
+    <relationshipLabel>Ajustes Excepcionales Comodato</relationshipLabel>
+    <relationshipName>Ajustes_Excepcionales_Comodato</relationshipName>
+    <required>true</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

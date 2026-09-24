@@ -1,0 +1,1378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Seleccione la comuna donde se encuentra ubicada la dirección del cliente. --></help>
+    <label><!-- Comuna Despacho --></label>
+    <name>ICBFS_Comuna__c</name>
+    <picklistValues>
+        <masterLabel>Algarrobo</masterLabel>
+        <translation><!-- Algarrobo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Alhué</masterLabel>
+        <translation><!-- Alhué --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Alto Biobío</masterLabel>
+        <translation><!-- Alto Biobío --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Alto Hospicio</masterLabel>
+        <translation><!-- Alto Hospicio --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Alto del Carmen</masterLabel>
+        <translation><!-- Alto del Carmen --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ancud</masterLabel>
+        <translation><!-- Ancud --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Andacollo</masterLabel>
+        <translation><!-- Andacollo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Angol</masterLabel>
+        <translation><!-- Angol --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Antofagasta</masterLabel>
+        <translation><!-- Antofagasta --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Antuco</masterLabel>
+        <translation><!-- Antuco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Arauco</masterLabel>
+        <translation><!-- Arauco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Arica</masterLabel>
+        <translation><!-- Arica --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Aysén</masterLabel>
+        <translation><!-- Aysén --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Buin</masterLabel>
+        <translation><!-- Buin --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Bulnes</masterLabel>
+        <translation><!-- Bulnes --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cabildo</masterLabel>
+        <translation><!-- Cabildo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cabrero</masterLabel>
+        <translation><!-- Cabrero --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Calama</masterLabel>
+        <translation><!-- Calama --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Calbuco</masterLabel>
+        <translation><!-- Calbuco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Caldera</masterLabel>
+        <translation><!-- Caldera --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Calera de Tango</masterLabel>
+        <translation><!-- Calera de Tango --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Calle Larga</masterLabel>
+        <translation><!-- Calle Larga --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Camarones</masterLabel>
+        <translation><!-- Camarones --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Camiña</masterLabel>
+        <translation><!-- Camiña --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Canela</masterLabel>
+        <translation><!-- Canela --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carahue</masterLabel>
+        <translation><!-- Carahue --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cartagena</masterLabel>
+        <translation><!-- Cartagena --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Casablanca</masterLabel>
+        <translation><!-- Casablanca --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Castro</masterLabel>
+        <translation><!-- Castro --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Catemu</masterLabel>
+        <translation><!-- Catemu --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cauquenes</masterLabel>
+        <translation><!-- Cauquenes --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cañete</masterLabel>
+        <translation><!-- Cañete --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cerrillos</masterLabel>
+        <translation><!-- Cerrillos --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cerro Navia</masterLabel>
+        <translation><!-- Cerro Navia --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Chaitén</masterLabel>
+        <translation><!-- Chaitén --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Chanco</masterLabel>
+        <translation><!-- Chanco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Chañaral</masterLabel>
+        <translation><!-- Chañaral --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Chiguayante</masterLabel>
+        <translation><!-- Chiguayante --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Chile Chico</masterLabel>
+        <translation><!-- Chile Chico --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Chillán</masterLabel>
+        <translation><!-- Chillán --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Chillán Viejo</masterLabel>
+        <translation><!-- Chillán Viejo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Chimbarongo</masterLabel>
+        <translation><!-- Chimbarongo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cholchol</masterLabel>
+        <translation><!-- Cholchol --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Chonchi</masterLabel>
+        <translation><!-- Chonchi --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Chépica</masterLabel>
+        <translation><!-- Chépica --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cisnes</masterLabel>
+        <translation><!-- Cisnes --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cobquecura</masterLabel>
+        <translation><!-- Cobquecura --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cochamó</masterLabel>
+        <translation><!-- Cochamó --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cochrane</masterLabel>
+        <translation><!-- Cochrane --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Codegua</masterLabel>
+        <translation><!-- Codegua --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Coelemu</masterLabel>
+        <translation><!-- Coelemu --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Coihueco</masterLabel>
+        <translation><!-- Coihueco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Coinco</masterLabel>
+        <translation><!-- Coinco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Colbún</masterLabel>
+        <translation><!-- Colbún --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Colchane</masterLabel>
+        <translation><!-- Colchane --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Colina</masterLabel>
+        <translation><!-- Colina --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Collipulli</masterLabel>
+        <translation><!-- Collipulli --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Coltauco</masterLabel>
+        <translation><!-- Coltauco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Combarbalá</masterLabel>
+        <translation><!-- Combarbalá --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Concepción</masterLabel>
+        <translation><!-- Concepción --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Conchalí</masterLabel>
+        <translation><!-- Conchalí --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Concón</masterLabel>
+        <translation><!-- Concón --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Constitución</masterLabel>
+        <translation><!-- Constitución --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Contulmo</masterLabel>
+        <translation><!-- Contulmo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Copiapó</masterLabel>
+        <translation><!-- Copiapó --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Coquimbo</masterLabel>
+        <translation><!-- Coquimbo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Coronel</masterLabel>
+        <translation><!-- Coronel --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Corral</masterLabel>
+        <translation><!-- Corral --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Coyhaique</masterLabel>
+        <translation><!-- Coyhaique --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cunco</masterLabel>
+        <translation><!-- Cunco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Curacautín</masterLabel>
+        <translation><!-- Curacautín --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Curacaví</masterLabel>
+        <translation><!-- Curacaví --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Curaco de Vélez</masterLabel>
+        <translation><!-- Curaco de Vélez --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Curanilahue</masterLabel>
+        <translation><!-- Curanilahue --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Curarrehue</masterLabel>
+        <translation><!-- Curarrehue --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Curepto</masterLabel>
+        <translation><!-- Curepto --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Curicó</masterLabel>
+        <translation><!-- Curicó --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Dalcahue</masterLabel>
+        <translation><!-- Dalcahue --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Diego de Almagro</masterLabel>
+        <translation><!-- Diego de Almagro --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Doñihue</masterLabel>
+        <translation><!-- Doñihue --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>El Bosque</masterLabel>
+        <translation><!-- El Bosque --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>El Carmen</masterLabel>
+        <translation><!-- El Carmen --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>El Monte</masterLabel>
+        <translation><!-- El Monte --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>El Quisco</masterLabel>
+        <translation><!-- El Quisco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>El Tabo</masterLabel>
+        <translation><!-- El Tabo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Empedrado</masterLabel>
+        <translation><!-- Empedrado --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ercilla</masterLabel>
+        <translation><!-- Ercilla --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Estación Central</masterLabel>
+        <translation><!-- Estación Central --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Florida</masterLabel>
+        <translation><!-- Florida --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Freire</masterLabel>
+        <translation><!-- Freire --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Freirina</masterLabel>
+        <translation><!-- Freirina --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fresia</masterLabel>
+        <translation><!-- Fresia --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Frutillar</masterLabel>
+        <translation><!-- Frutillar --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Futaleufú</masterLabel>
+        <translation><!-- Futaleufú --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Futrono</masterLabel>
+        <translation><!-- Futrono --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Galvarino</masterLabel>
+        <translation><!-- Galvarino --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>General Lagos</masterLabel>
+        <translation><!-- General Lagos --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Gorbea</masterLabel>
+        <translation><!-- Gorbea --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Graneros</masterLabel>
+        <translation><!-- Graneros --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Guaitecas</masterLabel>
+        <translation><!-- Guaitecas --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hijuelas</masterLabel>
+        <translation><!-- Hijuelas --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hualaihué</masterLabel>
+        <translation><!-- Hualaihué --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hualañé</masterLabel>
+        <translation><!-- Hualañé --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hualpén</masterLabel>
+        <translation><!-- Hualpén --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hualqui</masterLabel>
+        <translation><!-- Hualqui --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Huara</masterLabel>
+        <translation><!-- Huara --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Huasco</masterLabel>
+        <translation><!-- Huasco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Huechuraba</masterLabel>
+        <translation><!-- Huechuraba --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Illapel</masterLabel>
+        <translation><!-- Illapel --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Independencia</masterLabel>
+        <translation><!-- Independencia --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Iquique</masterLabel>
+        <translation><!-- Iquique --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Isla de Maipo</masterLabel>
+        <translation><!-- Isla de Maipo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Isla de Pascua</masterLabel>
+        <translation><!-- Isla de Pascua --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Juan Fernández</masterLabel>
+        <translation><!-- Juan Fernández --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>La Calera</masterLabel>
+        <translation><!-- La Calera --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>La Cisterna</masterLabel>
+        <translation><!-- La Cisterna --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>La Cruz</masterLabel>
+        <translation><!-- La Cruz --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>La Estrella</masterLabel>
+        <translation><!-- La Estrella --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>La Florida</masterLabel>
+        <translation><!-- La Florida --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>La Granja</masterLabel>
+        <translation><!-- La Granja --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>La Higuera</masterLabel>
+        <translation><!-- La Higuera --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>La Ligua</masterLabel>
+        <translation><!-- La Ligua --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>La Pintana</masterLabel>
+        <translation><!-- La Pintana --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>La Reina</masterLabel>
+        <translation><!-- La Reina --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>La Serena</masterLabel>
+        <translation><!-- La Serena --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>La Unión</masterLabel>
+        <translation><!-- La Unión --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lago Ranco</masterLabel>
+        <translation><!-- Lago Ranco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lago Verde</masterLabel>
+        <translation><!-- Lago Verde --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Laguna Blanca</masterLabel>
+        <translation><!-- Laguna Blanca --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Laja</masterLabel>
+        <translation><!-- Laja --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lampa</masterLabel>
+        <translation><!-- Lampa --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lanco</masterLabel>
+        <translation><!-- Lanco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Las Cabras</masterLabel>
+        <translation><!-- Las Cabras --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Las Condes</masterLabel>
+        <translation><!-- Las Condes --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lautaro</masterLabel>
+        <translation><!-- Lautaro --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lebu</masterLabel>
+        <translation><!-- Lebu --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Licantén</masterLabel>
+        <translation><!-- Licantén --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Limache</masterLabel>
+        <translation><!-- Limache --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Linares</masterLabel>
+        <translation><!-- Linares --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Litueche</masterLabel>
+        <translation><!-- Litueche --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Llaillay</masterLabel>
+        <translation><!-- Llaillay --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Llanquihue</masterLabel>
+        <translation><!-- Llanquihue --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lo Barnechea</masterLabel>
+        <translation><!-- Lo Barnechea --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lo Espejo</masterLabel>
+        <translation><!-- Lo Espejo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lo Prado</masterLabel>
+        <translation><!-- Lo Prado --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lolol</masterLabel>
+        <translation><!-- Lolol --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Loncoche</masterLabel>
+        <translation><!-- Loncoche --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Longaví</masterLabel>
+        <translation><!-- Longaví --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lonquimay</masterLabel>
+        <translation><!-- Lonquimay --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Los Andes</masterLabel>
+        <translation><!-- Los Andes --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Los Lagos</masterLabel>
+        <translation><!-- Los Lagos --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Los Muermos</masterLabel>
+        <translation><!-- Los Muermos --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Los Sauces</masterLabel>
+        <translation><!-- Los Sauces --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Los Vilos</masterLabel>
+        <translation><!-- Los Vilos --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Los Álamos</masterLabel>
+        <translation><!-- Los Álamos --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Los Ángeles</masterLabel>
+        <translation><!-- Los Ángeles --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lota</masterLabel>
+        <translation><!-- Lota --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lumaco</masterLabel>
+        <translation><!-- Lumaco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Machalí</masterLabel>
+        <translation><!-- Machalí --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Macul</masterLabel>
+        <translation><!-- Macul --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Maipú</masterLabel>
+        <translation><!-- Maipú --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Malloa</masterLabel>
+        <translation><!-- Malloa --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Marchigüe</masterLabel>
+        <translation><!-- Marchigüe --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mariquina</masterLabel>
+        <translation><!-- Mariquina --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>María Elena</masterLabel>
+        <translation><!-- María Elena --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>María Pinto</masterLabel>
+        <translation><!-- María Pinto --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Maule</masterLabel>
+        <translation><!-- Maule --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Maullín</masterLabel>
+        <translation><!-- Maullín --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mejillones</masterLabel>
+        <translation><!-- Mejillones --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Melipeuco</masterLabel>
+        <translation><!-- Melipeuco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Melipilla</masterLabel>
+        <translation><!-- Melipilla --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Molina</masterLabel>
+        <translation><!-- Molina --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Monte Patria</masterLabel>
+        <translation><!-- Monte Patria --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mostazal</masterLabel>
+        <translation><!-- Mostazal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mulchén</masterLabel>
+        <translation><!-- Mulchén --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Máfil</masterLabel>
+        <translation><!-- Máfil --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Nacimiento</masterLabel>
+        <translation><!-- Nacimiento --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Nancagua</masterLabel>
+        <translation><!-- Nancagua --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Natales</masterLabel>
+        <translation><!-- Natales --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Navidad</masterLabel>
+        <translation><!-- Navidad --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Negrete</masterLabel>
+        <translation><!-- Negrete --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ninhue</masterLabel>
+        <translation><!-- Ninhue --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Nogales</masterLabel>
+        <translation><!-- Nogales --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Nueva Imperial</masterLabel>
+        <translation><!-- Nueva Imperial --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>O&apos;Higgins</masterLabel>
+        <translation><!-- O&apos;Higgins --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Olivar</masterLabel>
+        <translation><!-- Olivar --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ollagüe</masterLabel>
+        <translation><!-- Ollagüe --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Olmué</masterLabel>
+        <translation><!-- Olmué --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Osorno</masterLabel>
+        <translation><!-- Osorno --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ovalle</masterLabel>
+        <translation><!-- Ovalle --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Padre Hurtado</masterLabel>
+        <translation><!-- Padre Hurtado --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Padre Las Casas</masterLabel>
+        <translation><!-- Padre Las Casas --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Paihuano</masterLabel>
+        <translation><!-- Paihuano --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Paillaco</masterLabel>
+        <translation><!-- Paillaco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Paine</masterLabel>
+        <translation><!-- Paine --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Palena</masterLabel>
+        <translation><!-- Palena --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Palmilla</masterLabel>
+        <translation><!-- Palmilla --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Panguipulli</masterLabel>
+        <translation><!-- Panguipulli --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Panquehue</masterLabel>
+        <translation><!-- Panquehue --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Papudo</masterLabel>
+        <translation><!-- Papudo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Paredones</masterLabel>
+        <translation><!-- Paredones --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Parral</masterLabel>
+        <translation><!-- Parral --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pedro Aguirre Cerda</masterLabel>
+        <translation><!-- Pedro Aguirre Cerda --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pelarco</masterLabel>
+        <translation><!-- Pelarco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pelluhue</masterLabel>
+        <translation><!-- Pelluhue --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pemuco</masterLabel>
+        <translation><!-- Pemuco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pencahue</masterLabel>
+        <translation><!-- Pencahue --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Penco</masterLabel>
+        <translation><!-- Penco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Peralillo</masterLabel>
+        <translation><!-- Peralillo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Perquenco</masterLabel>
+        <translation><!-- Perquenco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Petorca</masterLabel>
+        <translation><!-- Petorca --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Peumo</masterLabel>
+        <translation><!-- Peumo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Peñaflor</masterLabel>
+        <translation><!-- Peñaflor --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Peñalolén</masterLabel>
+        <translation><!-- Peñalolén --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pica</masterLabel>
+        <translation><!-- Pica --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pichidegua</masterLabel>
+        <translation><!-- Pichidegua --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pichilemu</masterLabel>
+        <translation><!-- Pichilemu --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pinto</masterLabel>
+        <translation><!-- Pinto --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pirque</masterLabel>
+        <translation><!-- Pirque --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pitrufquén</masterLabel>
+        <translation><!-- Pitrufquén --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Placilla</masterLabel>
+        <translation><!-- Placilla --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Portezuelo</masterLabel>
+        <translation><!-- Portezuelo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Porvenir</masterLabel>
+        <translation><!-- Porvenir --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pozo Almonte</masterLabel>
+        <translation><!-- Pozo Almonte --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Primavera</masterLabel>
+        <translation><!-- Primavera --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Providencia</masterLabel>
+        <translation><!-- Providencia --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Puchuncaví</masterLabel>
+        <translation><!-- Puchuncaví --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pucón</masterLabel>
+        <translation><!-- Pucón --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pudahuel</masterLabel>
+        <translation><!-- Pudahuel --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Puente Alto</masterLabel>
+        <translation><!-- Puente Alto --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Puerto Montt</masterLabel>
+        <translation><!-- Puerto Montt --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Puerto Octay</masterLabel>
+        <translation><!-- Puerto Octay --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Puerto Varas</masterLabel>
+        <translation><!-- Puerto Varas --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pumanque</masterLabel>
+        <translation><!-- Pumanque --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Punitaqui</masterLabel>
+        <translation><!-- Punitaqui --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Punta Arenas</masterLabel>
+        <translation><!-- Punta Arenas --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Puqueldón</masterLabel>
+        <translation><!-- Puqueldón --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Purranque</masterLabel>
+        <translation><!-- Purranque --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Purén</masterLabel>
+        <translation><!-- Purén --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Putaendo</masterLabel>
+        <translation><!-- Putaendo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Putre</masterLabel>
+        <translation><!-- Putre --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Puyehue</masterLabel>
+        <translation><!-- Puyehue --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Queilén</masterLabel>
+        <translation><!-- Queilén --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Quellón</masterLabel>
+        <translation><!-- Quellón --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Quemchi</masterLabel>
+        <translation><!-- Quemchi --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Quilaco</masterLabel>
+        <translation><!-- Quilaco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Quilicura</masterLabel>
+        <translation><!-- Quilicura --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Quilleco</masterLabel>
+        <translation><!-- Quilleco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Quillota</masterLabel>
+        <translation><!-- Quillota --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Quillón</masterLabel>
+        <translation><!-- Quillón --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Quilpué</masterLabel>
+        <translation><!-- Quilpué --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Quinchao</masterLabel>
+        <translation><!-- Quinchao --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Quinta Normal</masterLabel>
+        <translation><!-- Quinta Normal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Quinta de Tilcoco</masterLabel>
+        <translation><!-- Quinta de Tilcoco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Quintero</masterLabel>
+        <translation><!-- Quintero --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Quirihue</masterLabel>
+        <translation><!-- Quirihue --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rancagua</masterLabel>
+        <translation><!-- Rancagua --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rauco</masterLabel>
+        <translation><!-- Rauco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Recoleta</masterLabel>
+        <translation><!-- Recoleta --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Renaico</masterLabel>
+        <translation><!-- Renaico --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Renca</masterLabel>
+        <translation><!-- Renca --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rengo</masterLabel>
+        <translation><!-- Rengo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Requínoa</masterLabel>
+        <translation><!-- Requínoa --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Retiro</masterLabel>
+        <translation><!-- Retiro --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rinconada</masterLabel>
+        <translation><!-- Rinconada --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Romeral</masterLabel>
+        <translation><!-- Romeral --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ránquil</masterLabel>
+        <translation><!-- Ránquil --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Río Bueno</masterLabel>
+        <translation><!-- Río Bueno --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Río Claro</masterLabel>
+        <translation><!-- Río Claro --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Río Hurtado</masterLabel>
+        <translation><!-- Río Hurtado --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Río Ibáñez</masterLabel>
+        <translation><!-- Río Ibáñez --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Río Negro</masterLabel>
+        <translation><!-- Río Negro --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Río Verde</masterLabel>
+        <translation><!-- Río Verde --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Saavedra</masterLabel>
+        <translation><!-- Saavedra --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sagrada Familia</masterLabel>
+        <translation><!-- Sagrada Familia --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Salamanca</masterLabel>
+        <translation><!-- Salamanca --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Antonio</masterLabel>
+        <translation><!-- San Antonio --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Bernardo</masterLabel>
+        <translation><!-- San Bernardo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Carlos</masterLabel>
+        <translation><!-- San Carlos --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Clemente</masterLabel>
+        <translation><!-- San Clemente --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Esteban</masterLabel>
+        <translation><!-- San Esteban --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Fabián</masterLabel>
+        <translation><!-- San Fabián --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Felipe</masterLabel>
+        <translation><!-- San Felipe --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Fernando</masterLabel>
+        <translation><!-- San Fernando --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Gregorio</masterLabel>
+        <translation><!-- San Gregorio --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Ignacio</masterLabel>
+        <translation><!-- San Ignacio --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Javier</masterLabel>
+        <translation><!-- San Javier --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Joaquín</masterLabel>
+        <translation><!-- San Joaquín --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San José de Maipo</masterLabel>
+        <translation><!-- San José de Maipo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Juan de la Costa</masterLabel>
+        <translation><!-- San Juan de la Costa --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Miguel</masterLabel>
+        <translation><!-- San Miguel --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Nicolás</masterLabel>
+        <translation><!-- San Nicolás --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Pablo</masterLabel>
+        <translation><!-- San Pablo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Pedro</masterLabel>
+        <translation><!-- San Pedro --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Pedro de Atacama</masterLabel>
+        <translation><!-- San Pedro de Atacama --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Pedro de la Paz</masterLabel>
+        <translation><!-- San Pedro de la Paz --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Rafael</masterLabel>
+        <translation><!-- San Rafael --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Ramón</masterLabel>
+        <translation><!-- San Ramón --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Rosendo</masterLabel>
+        <translation><!-- San Rosendo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>San Vicente</masterLabel>
+        <translation><!-- San Vicente --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Santa Bárbara</masterLabel>
+        <translation><!-- Santa Bárbara --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Santa Cruz</masterLabel>
+        <translation><!-- Santa Cruz --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Santa Juana</masterLabel>
+        <translation><!-- Santa Juana --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Santa María</masterLabel>
+        <translation><!-- Santa María --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Santiago</masterLabel>
+        <translation><!-- Santiago --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Santo Domingo</masterLabel>
+        <translation><!-- Santo Domingo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sierra Gorda</masterLabel>
+        <translation><!-- Sierra Gorda --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Talagante</masterLabel>
+        <translation><!-- Talagante --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Talca</masterLabel>
+        <translation><!-- Talca --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Talcahuano</masterLabel>
+        <translation><!-- Talcahuano --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Taltal</masterLabel>
+        <translation><!-- Taltal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Temuco</masterLabel>
+        <translation><!-- Temuco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Teno</masterLabel>
+        <translation><!-- Teno --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Teodoro Schmidt</masterLabel>
+        <translation><!-- Teodoro Schmidt --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tierra Amarilla</masterLabel>
+        <translation><!-- Tierra Amarilla --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tiltil</masterLabel>
+        <translation><!-- Tiltil --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Timaukel</masterLabel>
+        <translation><!-- Timaukel --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tirúa</masterLabel>
+        <translation><!-- Tirúa --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tocopilla</masterLabel>
+        <translation><!-- Tocopilla --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Toltén</masterLabel>
+        <translation><!-- Toltén --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tomé</masterLabel>
+        <translation><!-- Tomé --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Torres del Paine</masterLabel>
+        <translation><!-- Torres del Paine --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tortel</masterLabel>
+        <translation><!-- Tortel --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Traiguén</masterLabel>
+        <translation><!-- Traiguén --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Trehuaco</masterLabel>
+        <translation><!-- Trehuaco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tucapel</masterLabel>
+        <translation><!-- Tucapel --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Valdivia</masterLabel>
+        <translation><!-- Valdivia --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vallenar</masterLabel>
+        <translation><!-- Vallenar --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Valparaíso</masterLabel>
+        <translation><!-- Valparaíso --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vichuquén</masterLabel>
+        <translation><!-- Vichuquén --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Victoria</masterLabel>
+        <translation><!-- Victoria --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vicuña</masterLabel>
+        <translation><!-- Vicuña --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vilcún</masterLabel>
+        <translation><!-- Vilcún --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Villa Alemana</masterLabel>
+        <translation><!-- Villa Alemana --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Villarrica</masterLabel>
+        <translation><!-- Villarrica --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vitacura</masterLabel>
+        <translation><!-- Vitacura --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Viña del Mar</masterLabel>
+        <translation><!-- Viña del Mar --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Yerbas Buenas</masterLabel>
+        <translation><!-- Yerbas Buenas --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Yumbel</masterLabel>
+        <translation><!-- Yumbel --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Yungay</masterLabel>
+        <translation><!-- Yungay --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Zapallar</masterLabel>
+        <translation><!-- Zapallar --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ñiquén</masterLabel>
+        <translation><!-- Ñiquén --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ñuñoa</masterLabel>
+        <translation><!-- Ñuñoa --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

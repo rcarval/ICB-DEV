@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Zona --></label>
+    <name>Zona__c</name>
+    <picklistValues>
+        <masterLabel>RANCAGUA</masterLabel>
+        <translation><!-- RANCAGUA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>REGIÓN</masterLabel>
+        <translation><!-- REGIÓN --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>STGO</masterLabel>
+        <translation><!-- STGO --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

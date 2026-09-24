@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Grupo_venta_digital_MessagingSession</fullName>
+    <filterScope>Queue</filterScope>
+    <label>Grupo venta digital</label>
+    <queue>Grupo_venta_digital</queue>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

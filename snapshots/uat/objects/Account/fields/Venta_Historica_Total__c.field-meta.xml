@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Venta_Historica_Total__c</fullName>
+    <description>Suma del total neto de las facturas del cliente</description>
+    <label>Venta Histórica Total</label>
+    <summarizedField>Facturas__c.Total_Venta__c</summarizedField>
+    <summaryForeignKey>Facturas__c.Cliente__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>

@@ -1,0 +1,219 @@
+<template>
+    <div class="slds-card slds-p-around_small">
+
+        <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center slds-m-bottom_small">
+            <div>
+                <div class="slds-text-heading_small">Ajuste excepcional de valores</div>
+                <template if:true={hasLineas}>
+                    <div class="slds-text-body_small slds-text-color_weak">{resumenGeneral}</div>
+                </template>
+            </div>
+            <template if:true={hayVariosEquipos}>
+                <lightning-button-group>
+                    <lightning-button label="Expandir todo" onclick={handleExpandirTodo}></lightning-button>
+                    <lightning-button label="Contraer todo" onclick={handleContraerTodo}></lightning-button>
+                </lightning-button-group>
+            </template>
+        </div>
+
+        <template if:true={isLoading}>
+            <div class="slds-align_absolute-center slds-p-vertical_large">
+                <lightning-spinner alternative-text="Cargando" size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:true={hasError}>
+            <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+                <span class="slds-assistive-text">Error</span>
+                <h2>{errorMessage}</h2>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <template if:true={hasLineas}>
+
+                <template for:each={grupos} for:item="grupo">
+                    <div key={grupo.maquinaId} class="grupo-maquina slds-m-bottom_x-small">
+
+                        <!-- Cabecera: click para desplegar/contraer -->
+                        <button
+                            class="grupo-cabecera"
+                            data-maquina={grupo.maquinaId}
+                            onclick={handleToggleGrupo}
+                            aria-expanded={grupo.abierto}
+                        >
+                            <lightning-icon
+                                icon-name={grupo.iconoToggle}
+                                size="x-small"
+                                class="slds-m-right_x-small"
+                            ></lightning-icon>
+                            <span class="grupo-nombre">{grupo.maquinaNombre}</span>
+                            <span class="grupo-resumen slds-text-body_small">{grupo.resumen}</span>
+                            <template if:true={grupo.tieneAjustes}>
+                                <lightning-badge
+                                    label={grupo.etiquetaAjustes}
+                                    class="slds-theme_warning slds-m-left_x-small"
+                                ></lightning-badge>
+                            </template>
+                        </button>
+
+                        <!-- Detalle -->
+                        <template if:true={grupo.abierto}>
+                            <div class="grupo-detalle">
+                                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                    <thead>
+                                        <tr class="slds-line-height_reset">
+                                            <th scope="col" class="col-producto">Producto asociado</th>
+                                            <th scope="col" class="col-tipo">Tipo</th>
+                                            <th scope="col" class="col-cantidad">Cantidad</th>
+                                            <th scope="col" class="col-precio">Precio unitario</th>
+                                            <th scope="col" class="col-acciones">&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template for:each={grupo.lineas} for:item="linea">
+                                            <tr key={linea.key} class={linea.claseFila}>
+                                                <td class="col-producto" title={linea.productoAsociadoNombre}>
+                                                    {linea.productoAsociadoNombre}
+                                                </td>
+                                                <td class="col-tipo">{linea.tipoDeAsociacion}</td>
+                                                <td class="col-cantidad">
+                                                    {linea.cantidadLabel}
+                                                    <template if:true={linea.cantidadFueAjustada}>
+                                                        <span class="valor-anterior">antes {linea.cantidadOriginalLabel}</span>
+                                                    </template>
+                                                </td>
+                                                <td class="col-precio">
+                                                    {linea.precioLabel}
+                                                    <template if:true={linea.precioFueAjustado}>
+                                                        <span class="valor-anterior">antes {linea.precioOriginalLabel}</span>
+                                                    </template>
+                                                </td>
+                                                <td class="col-acciones">
+                                                    <lightning-button-group>
+                                                        <lightning-button
+                                                            label={linea.etiquetaBoton}
+                                                            data-key={linea.key}
+                                                            onclick={handleAjustarClick}
+                                                        ></lightning-button>
+                                                        <template if:true={linea.tieneAjuste}>
+                                                            <lightning-button
+                                                                label="Revertir"
+                                                                variant="destructive-text"
+                                                                data-key={linea.key}
+                                                                disabled={isSaving}
+                                                                onclick={handleRevertirClick}
+                                                            ></lightning-button>
+                                                        </template>
+                                                    </lightning-button-group>
+                                                </td>
+                                            </tr>
+                                            <template if:true={linea.tieneMotivo}>
+                                                <tr key={linea.motivoKey} class="fila-motivo">
+                                                    <td colspan="5">
+                                                        <span class="slds-text-color_weak">Motivo:</span>
+                                                        {linea.motivoAjuste}
+                                                    </td>
+                                                </tr>
+                                            </template>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </template>
+
+            <template if:false={hasLineas}>
+                <div class="slds-text-align_center slds-text-color_weak slds-p-vertical_medium">
+                    No hay máquinas seleccionadas para ajustar.
+                </div>
+            </template>
+        </template>
+
+        <template if:true={modalAbierto}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open modal-ajuste" aria-modal="true">
+                <div class="slds-modal__container modal-ajuste__container">
+                    <header class="slds-modal__header modal-ajuste__header">
+                        <button
+                            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Cerrar"
+                            onclick={handleCerrarModal}
+                        >
+                            <lightning-icon icon-name="utility:close" size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Cerrar</span>
+                        </button>
+                        <h2 class="slds-text-heading_small">Ajustar valores</h2>
+                        <p class="modal-ajuste__subtitulo">{tituloLineaEnEdicion}</p>
+                    </header>
+                    <div class="slds-modal__content modal-ajuste__contenido">
+
+                        <div class="slds-grid slds-gutters_x-small slds-wrap">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input
+                                    type="number"
+                                    label="Cantidad"
+                                    step="0.01"
+                                    value={draftCantidad}
+                                    onchange={handleDraftCantidadChange}
+                                ></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-combobox
+                                    label="Unidad"
+                                    options={unidadOptions}
+                                    value={draftUnidad}
+                                    onchange={handleDraftUnidadChange}
+                                ></lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-m-top_x-small">
+                                <lightning-input
+                                    type="number"
+                                    label="Precio unitario"
+                                    step="1"
+                                    formatter="currency"
+                                    value={draftPrecio}
+                                    onchange={handleDraftPrecioChange}
+                                ></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-m-top_x-small">
+                                <div class="modal-ajuste__original">
+                                    <span class="modal-ajuste__original-titulo">Valor original</span>
+                                    {resumenOriginal}
+                                </div>
+                            </div>
+                        </div>
+
+                        <lightning-textarea
+                            label="Motivo del ajuste (opcional)"
+                            placeholder="Por qué se ajusta esta línea"
+                            value={draftMotivo}
+                            onchange={handleDraftMotivoChange}
+                            class="slds-m-top_x-small"
+                        ></lightning-textarea>
+
+                        <p class="modal-ajuste__nota">
+                            Aplica sólo a esta propuesta. La configuración maestra de la máquina no se modifica.
+                        </p>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button
+                            label="Cancelar"
+                            onclick={handleCerrarModal}
+                            disabled={isSaving}
+                        ></lightning-button>
+                        <lightning-button
+                            label="Guardar"
+                            variant="brand"
+                            class="slds-m-left_x-small"
+                            disabled={puedeGuardarDeshabilitado}
+                            onclick={handleGuardarAjuste}
+                        ></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    </div>
+</template>

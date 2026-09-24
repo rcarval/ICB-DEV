@@ -1,0 +1,81 @@
+.chat-modal .slds-modal__container {
+    max-width: 34rem;
+    width: 90%;
+}
+
+.chat-scroll {
+    max-height: 65vh;
+    overflow-y: auto;
+    background-color: #e5ddd5;
+    padding: 0.75rem 1rem;
+}
+
+.chat-row {
+    display: flex;
+    margin-bottom: 0.2rem;
+}
+
+.chat-row_left {
+    justify-content: flex-start;
+}
+
+.chat-row_right {
+    justify-content: flex-end;
+}
+
+.chat-row_center {
+    justify-content: center;
+}
+
+.chat-bubble {
+    max-width: 78%;
+    padding: 0.4rem 0.65rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.chat-bubble_enduser {
+    background-color: #ffffff;
+    border-top-left-radius: 0;
+}
+
+.chat-bubble_agent {
+    background-color: #d9fdd3;
+    border-top-right-radius: 0;
+}
+
+.chat-bubble_bot {
+    background-color: #d9edff;
+    border-top-right-radius: 0;
+}
+
+.chat-bubble_system {
+    background-color: #f0f0f0;
+    font-style: italic;
+    text-align: center;
+    max-width: 90%;
+}
+
+.sender-label {
+    display: block;
+    font-weight: 700;
+    font-size: 0.7rem;
+    margin-bottom: 0.15rem;
+    text-transform: uppercase;
+}
+
+.chat-bubble_enduser .sender-label {
+    color: #075e54;
+}
+
+.chat-bubble_agent .sender-label,
+.chat-bubble_bot .sender-label {
+    color: #128c7e;
+}
+
+.bubble-timestamp {
+    font-size: 0.7rem;
+    color: #6b6b6b;
+    text-align: right;
+    margin-top: 0.15rem;
+}

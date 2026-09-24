@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IndustriesSettings xmlns="http://soap.sforce.com/2006/04/metadata">
+    <enableAccountScoreEnabled>false</enableAccountScoreEnabled>
+    <enableActionPlanTaskComment>false</enableActionPlanTaskComment>
+    <enableCBSFAnyWordSearch>false</enableCBSFAnyWordSearch>
+    <enableCriteriaBasedSearchAndFilter>false</enableCriteriaBasedSearchAndFilter>
+    <enableDiscoveryFrameworkMetadata>false</enableDiscoveryFrameworkMetadata>
+    <enableDontSharePartyprofWPortalOrgPref>false</enableDontSharePartyprofWPortalOrgPref>
+    <enableEinsteinVisits>false</enableEinsteinVisits>
+    <enableEnhancedQuestionCreation>true</enableEnhancedQuestionCreation>
+    <enableEpcDeleteAccess>false</enableEpcDeleteAccess>
+    <enableIndustriesAssessment>false</enableIndustriesAssessment>
+    <enableIndustriesAssessmentPrefill>false</enableIndustriesAssessmentPrefill>
+    <enableNewTimelineSetupFlow>false</enableNewTimelineSetupFlow>
+    <enablePCMConfigRules>false</enablePCMConfigRules>
+    <enablePartyProfileParentSharingOrgPref>false</enablePartyProfileParentSharingOrgPref>
+    <enablePartyprofParentMultiSharingOrgPref>false</enablePartyprofParentMultiSharingOrgPref>
+    <enableRecordAlertCustomSharingPref>false</enableRecordAlertCustomSharingPref>
+    <enableTimelineCachePref>true</enableTimelineCachePref>
+    <enableTimelinePref>false</enableTimelinePref>
+    <enableVisitCalendarSync>true</enableVisitCalendarSync>
+    <enableVisitInventoryEnabled>false</enableVisitInventoryEnabled>
+    <partyProfMultiShrPrtnrsOrgPref>false</partyProfMultiShrPrtnrsOrgPref>
+    <rlaEditIfAccHasEdit>false</rlaEditIfAccHasEdit>
+</IndustriesSettings>

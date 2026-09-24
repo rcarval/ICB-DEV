@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Se debe ingresar solo en nombre de la calle sin el número --></help>
+    <label><!-- Calle Despacho --></label>
+    <name>CBFD_Calle__c</name>
+</CustomFieldTranslation>

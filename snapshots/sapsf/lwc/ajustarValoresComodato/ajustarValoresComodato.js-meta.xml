@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Ajuste Excepcional de Valores Comodato</masterLabel>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="machineSelectionsJson"
+                      type="String"
+                      label="Machine Selections JSON"
+                      description="JSON [{machineId, quantity}] emitido por el selector multi-maquina." />
+            <property name="machineIdUnico"
+                      type="String"
+                      label="Id de maquina (modo guiado)"
+                      description="Maquina unica cuando el flujo va por el filtro guiado, sin multi-seleccion." />
+            <property name="quoteId"
+                      type="String"
+                      label="Quote Id"
+                      description="Id de la Quote ya creada para esta propuesta." />
+            <property name="recordId"
+                      type="String"
+                      label="Record Id"
+                      description="Fallback: Opportunity o Quote de contexto." />
+            <property name="ajustesJson"
+                      type="String"
+                      label="Ajustes capturados (JSON)"
+                      description="Entrada y salida. Sale con lo ajustado y vuelve a entrar si el usuario navega hacia atras, para no perder el trabajo. El Flow lo persiste como Comodato_Override__c despues de crear la Quote." />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

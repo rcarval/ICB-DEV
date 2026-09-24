@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fecha_Apertura__c</fullName>
+    <description>Momento en que el breaker se abrió por última vez. Base para calcular si ya venció el enfriamiento (Enfriamiento_Minutos__c).</description>
+    <label>Fecha Apertura</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

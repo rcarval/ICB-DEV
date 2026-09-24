@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Enfriamiento_Minutos__c</fullName>
+    <defaultValue>15</defaultValue>
+    <description>Minutos que el breaker permanece Abierto antes de auto-cerrarse solo (self-heal), medidos desde Fecha_Apertura__c.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Minutos que el breaker queda frenado antes de reabrirse solo. Puedes forzar el cierre antes desde el Panel (&quot;Reactivar ahora&quot;).</inlineHelpText>
+    <label>Enfriamiento Minutos</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

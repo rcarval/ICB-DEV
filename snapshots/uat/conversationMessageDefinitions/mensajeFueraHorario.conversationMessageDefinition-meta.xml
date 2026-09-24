@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConversationMessageDefinition xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <constants>
+        <constantType>Image</constantType>
+        <primitiveValues>
+            <contentAssetName>logo</contentAssetName>
+            <type>ImageAsset</type>
+        </primitiveValues>
+    </constants>
+    <constants>
+        <constantType>Title</constantType>
+        <primitiveValues>
+            <textValue>El título de su vínculo aquí</textValue>
+            <type>Text</type>
+        </primitiveValues>
+    </constants>
+    <constants>
+        <constantType>Url</constantType>
+        <primitiveValues>
+            <type>Url</type>
+            <urlValue>https://www.example.com</urlValue>
+        </primitiveValues>
+    </constants>
+    <label>mensajeFueraHorario</label>
+    <language>es</language>
+    <messageLayouts>
+        <formatType>Text</formatType>
+        <layoutItems>
+            <collectionType>None</collectionType>
+            <name>text</name>
+            <primitiveValues>
+                <formulaTemplate>Hola! 👋 Gracias por escribir a ICB Food Service
+Estamos fuera de horario, pero no te preocupes 😊
+
+🕐 Nos puedes encontrar: 
+Lunes a viernes: 09:00 a 19:00 hrs.
+Sábados: 09:00 a 14:00 hrs.
+
+🛒 ¿Necesitas hacer un pedido? 
+¡Puedes hacerlo ahora mismo hasta las 23:59 hrs y recibirlo al día siguiente! 
+
+👉  https://www.pia.icbfs.cl/login
+
+Para hablar con un ejecutivo, escríbenos en horario hábil y te atendemos de inmediato 🙌</formulaTemplate>
+                <type>FormulaTemplate</type>
+            </primitiveValues>
+        </layoutItems>
+        <layoutVariant xsi:nil="true"/>
+        <messageType>StaticContent</messageType>
+    </messageLayouts>
+    <type>Notification</type>
+</ConversationMessageDefinition>

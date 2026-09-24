@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unidad_de_Medida__c</fullName>
+    <description>Unidad en la que se mide la cantidad mínima (Kilos, Cajas, Unidades, etc.).</description>
+    <label>Unidad de Medida</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Kilos</fullName>
+                <default>false</default>
+                <label>Kilos</label>
+            </value>
+            <value>
+                <fullName>Cajas</fullName>
+                <default>false</default>
+                <label>Cajas</label>
+            </value>
+            <value>
+                <fullName>Unidades</fullName>
+                <default>false</default>
+                <label>Unidades</label>
+            </value>
+            <value>
+                <fullName>Litros</fullName>
+                <default>false</default>
+                <label>Litros</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

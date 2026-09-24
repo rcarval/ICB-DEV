@@ -1,0 +1,156 @@
+/* ── Layout ───────────────────────────────────────────────────────────────── */
+.slds-box {
+    border-radius: 4px;
+}
+.table-wrap {
+    overflow-x: auto;
+}
+.summary-bar {
+    font-size: 0.8rem;
+}
+
+/* ── Paginación ──────────────────────────────────────────────────────────── */
+.pagination-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 0.5rem 0.25rem;
+}
+.pagination-info {
+    font-size: 0.8rem;
+    color: #706e6b;
+}
+
+/* ── Panel CSAT ──────────────────────────────────────────────────────────── */
+.csat-panel {
+    background: #ffffff;
+    border: 1px solid #dddbda;
+    border-radius: 0.6rem;
+    padding: 1.25rem 1rem;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.csat-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #032d60;
+    margin: 0 0 0.4rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.csat-question {
+    font-size: 0.75rem;
+    color: #706e6b;
+    margin: 0 0 1rem 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ── Torta ───────────────────────────────────────────────────────────────── */
+.pie-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+}
+/* El div interior recibe el style={csatSummary.chartStyle} con conic-gradient */
+
+.csat-total {
+    font-size: 0.75rem;
+    color: #706e6b;
+    text-align: center;
+    margin: 0 0 0.75rem 0;
+}
+
+/* ── Leyenda ─────────────────────────────────────────────────────────────── */
+.csat-legend {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+}
+.legend-dot {
+    /* width/height/border-radius applied via inline style from JS */
+    flex-shrink: 0;
+}
+.legend-label {
+    flex: 1;
+    color: #3e3e3c;
+}
+.legend-pct {
+    font-weight: 700;
+    color: #032d60;
+    min-width: 34px;
+    text-align: right;
+}
+.legend-count {
+    color: #706e6b;
+    min-width: 28px;
+    text-align: right;
+}
+
+/* ── Chart tab navigation ─────────────────────────────────────────────────── */
+.chart-tab-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 0.75rem;
+}
+.chart-tab-btn {
+    flex: 1 1 auto;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    border: 1px solid #dddbda;
+    border-radius: 0.35rem;
+    background: #f3f3f3;
+    color: #3e3e3c;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.chart-tab-btn:hover {
+    background: #e8eef8;
+    border-color: #1b5297;
+    color: #032d60;
+}
+.chart-tab-btn-active {
+    background: #032d60;
+    border-color: #032d60;
+    color: #ffffff;
+}
+
+/* ── CSAT Satisfaction badge ─────────────────────────────────────────────── */
+.csat-satisfaction-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #eef4ff;
+    border: 1px solid #90b8f8;
+    border-radius: 0.6rem;
+    padding: 0.5rem 1rem 0.4rem;
+    margin-bottom: 0.85rem;
+}
+.csat-satisfaction-pct {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #1565c0;
+    line-height: 1;
+}
+.csat-satisfaction-label {
+    font-size: 0.68rem;
+    color: #706e6b;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-top: 0.2rem;
+}

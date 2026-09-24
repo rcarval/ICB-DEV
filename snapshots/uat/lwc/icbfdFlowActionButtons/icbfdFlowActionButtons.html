@@ -1,0 +1,29 @@
+<template>
+  <div class="icbfd-wrap">
+    <template if:true={title}>
+      <div class="icbfd-title">{title}</div>
+    </template>
+
+    <template if:true={helperText}>
+      <div class="icbfd-help">{helperText}</div>
+    </template>
+
+    <div class="icbfd-actions">
+      <lightning-button
+        class="icbfd-btn"
+        variant={scanButtonVariant}
+        label={scanLabel}
+        icon-name={scanIcon}
+        onclick={handleScan}
+      ></lightning-button>
+
+      <lightning-button
+        class="icbfd-btn"
+        variant={prodButtonVariant}
+        label={prodLabel}
+        icon-name={prodIcon}
+        onclick={handleProd}
+      ></lightning-button>
+    </div>
+  </div>
+</template>

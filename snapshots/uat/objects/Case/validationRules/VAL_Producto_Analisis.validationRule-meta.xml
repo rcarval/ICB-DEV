@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VAL_Producto_Analisis</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    ISPICKVAL(PRIORVALUE(Status), &quot;Análisis&quot;),
+  NOT(ISPICKVAL(Status, &quot;Análisis&quot;)),
+  OR(
+    ISBLANK(ProductId),
+    ISBLANK(Product.Name),
+    ISBLANK(UM_Unidad_de_Medida__c)
+  )
+)</errorConditionFormula>
+    <errorMessage>Selecciona Producto y Unidad de Medida.</errorMessage>
+</ValidationRule>

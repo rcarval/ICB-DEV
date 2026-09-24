@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Selector Multi Máquina</masterLabel>
+    <description>Componente para seleccionar múltiples máquinas/dispensadores con cantidad para propuestas de Comodato</description>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="tipoEquipo" label="Tipo de Equipo" type="String" description="Filtro: Máquina Café o Dispensador" role="inputOnly"/>
+            <property name="isSingleMode" label="Modo Una Máquina" type="Boolean" default="false" description="Si true, solo permite seleccionar 1 máquina" role="inputOnly"/>
+            <property name="machineSelectionsJson" label="Selecciones JSON" type="String" description="Output: JSON con [{machineId, quantity}]" role="outputOnly"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

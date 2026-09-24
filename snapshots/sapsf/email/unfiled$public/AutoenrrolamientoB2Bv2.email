@@ -1,0 +1,135 @@
+<messaging:emailTemplate subject="Bienvenido a ICB Food Service" recipientType="User" relatedToType="Account"><messaging:htmlEmailBody ><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="format-detection" content="telephone=no, date=no, address=no, email=no" /><meta name="color-scheme" content="light only" /><title>Bienvenido a ICB Food Service</title><style type="text/css">body,table,td,a{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}table,td{mso-table-lspace:0pt;mso-table-rspace:0pt;}img{-ms-interpolation-mode:bicubic;border:0;outline:none;text-decoration:none;display:block;}body{margin:0!important;padding:0!important;width:100%!important;background-color:#F4F2F0;}a{color:#E40147;text-decoration:none;}@media screen and (max-width:600px){.container{width:100%!important;}.pad{padding-left:24px!important;padding-right:24px!important;}.h1m{font-size:25px!important;line-height:30px!important;}.advtd{display:block!important;width:100%!important;}}</style></head><body style="margin:0;padding:0;background-color:#F4F2F0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;color:#333333;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F4F2F0;"><tr><td align="center" style="padding:36px 16px;">
+<table role="presentation" class="container" width="640" cellpadding="0" cellspacing="0" border="0" style="width:640px;max-width:640px;background-color:#FFFFFF;border-radius:14px;overflow:hidden;box-shadow:0 6px 26px rgba(0,0,0,.10);">
+
+<!-- HEADER -->
+<tr><td align="center" style="background-color:#E40147;padding:40px 40px 38px 40px;">
+<a href="https://www.icbfs.cl" style="text-decoration:none;line-height:0;display:inline-block;"><img src="https://energy-saas-7178.file.force.com/sfc/dist/version/renditionDownload?rendition=ORIGINAL_Png&versionId=068Pr00000j82yo&operationContext=DELIVERY&contentId=05TPr0000125hjF&page=0&d=/a/Pr00000BDWoZ/QkG4kBiHiM7RDDR3V9owEBhJAtF3zukVB5vyLOMY4iM&oid=00DHn000002V5Fi&dpt=null&viewId=" alt="ICB Food Service" height="128" style="display:block;height:128px;width:auto;border:0;" /></a>
+</td></tr>
+
+<!-- EYEBROW -->
+<tr><td align="center" style="padding:40px 44px 0 44px;">
+<p style="margin:0 0 14px 0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#E40147;">Tu cuenta ya esta activa</p>
+</td></tr>
+
+<!-- GREETING -->
+<tr><td align="center" style="padding:0 44px 10px 44px;">
+<p style="margin:0 0 10px 0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15.5px;line-height:23px;font-weight:500;color:#3D3D3D;">Hola, <strong style="color:#E40147;font-weight:800;">{!relatedTo.Name}</strong>,</p>
+<h1 class="h1m" style="margin:0 0 16px 0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:30px;font-weight:900;line-height:35px;color:#3D3D3D;letter-spacing:-0.01em;text-transform:uppercase;">&#161;Bienvenido a ICB Food Service!</h1>
+<p style="margin:0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15.5px;line-height:25px;font-weight:400;color:#3D3D3D;max-width:480px;">Nos alegra tenerte con nosotros en <strong style="color:#E40147;font-weight:700;">PIA</strong>, nuestra Plataforma Integral de Atencion. Para darte la mejor bienvenida, tenemos un regalo para ti.</p>
+</td></tr>
+
+<!-- DISCOUNT BOX -->
+<tr><td style="padding:26px 44px 6px 44px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #E6E6E6;border-top:4px solid #E40147;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.07);">
+<tr><td align="center" style="padding:26px 28px;background-color:#FFFFFF;">
+<p style="margin:0 0 8px 0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#3D3D3D;">Tu regalo de bienvenida</p>
+<p style="margin:0 0 6px 0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:38px;font-weight:900;line-height:40px;color:#E40147;letter-spacing:-0.02em;">20% de descuento</p>
+<p style="margin:0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14.5px;line-height:21px;font-weight:500;color:#3D3D3D;">en tu primera compra en PIA</p>
+</td></tr>
+</table>
+</td></tr>
+
+<!-- CTA -->
+<tr><td align="center" style="padding:28px 44px 6px 44px;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;">
+<tr><td align="center" bgcolor="#E40147" style="border-radius:6px;padding:18px 24px;text-align:center;">
+<a href="https://pia.icbfs.cl/login" style="font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#FFFFFF;text-decoration:none;">Quiero comprar</a>
+</td></tr>
+</table>
+</td></tr>
+
+<!-- SECTION LABEL: CATALOGO -->
+<tr><td style="padding:36px 44px 4px 44px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td style="font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#3D3D3D;white-space:nowrap;padding-right:16px;">Nuestro catalogo</td>
+<td style="width:100%;"><div style="height:2px;background-color:#E6E6E6;"></div></td></tr>
+</table>
+</td></tr>
+
+<!-- CATALOGO -->
+<tr><td align="center" class="pad" style="padding:14px 44px 4px 44px;">
+<h2 style="margin:0 0 10px 0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:22px;font-weight:900;line-height:27px;color:#333333;letter-spacing:-0.01em;">Mas de <span style="color:#E40147;">2.000 productos</span> para ti</h2>
+<p style="margin:0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14.5px;line-height:22px;font-weight:400;color:#3D3D3D;max-width:480px;">Carnes, pescados, quesos, congelados y mucho mas: todo lo que tu negocio necesita, en un solo lugar y con la calidad de siempre.</p>
+</td></tr>
+
+<!-- SECTION LABEL: VENTAJAS -->
+<tr><td style="padding:36px 44px 4px 44px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td style="font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#3D3D3D;white-space:nowrap;padding-right:16px;">Y todas estas ventajas</td>
+<td style="width:100%;"><div style="height:2px;background-color:#E6E6E6;"></div></td></tr>
+</table>
+</td></tr>
+
+<!-- VENTAJAS 2x2 -->
+<tr><td style="padding:22px 37px 8px 37px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+<td width="50%" style="vertical-align:top;padding:7px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #E6E6E6;border-radius:10px;background-color:#F4F2F0;height:140px;"><tr>
+<td width="40" valign="top" style="padding:16px 0 16px 14px;width:40px;"><div style="width:40px;height:40px;background-color:#FCEAE9;border-radius:20px;text-align:center;line-height:40px;font-size:20px;">&#128336;</div></td>
+<td valign="top" style="padding:16px 16px 16px 14px;">
+<p style="margin:0 0 4px 0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;font-weight:800;line-height:17px;color:#333333;">Compra hasta las 23:59</p>
+<p style="margin:0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;line-height:18px;font-weight:400;color:#3D3D3D;">Ingresa tus pedidos hasta la medianoche, todos los dias.</p>
+</td>
+</tr></table>
+</td>
+<td width="50%" style="vertical-align:top;padding:7px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #E6E6E6;border-radius:10px;background-color:#F4F2F0;height:140px;"><tr>
+<td width="40" valign="top" style="padding:16px 0 16px 14px;width:40px;"><div style="width:40px;height:40px;background-color:#FCEAE9;border-radius:20px;text-align:center;line-height:40px;font-size:20px;">&#128179;</div></td>
+<td valign="top" style="padding:16px 16px 16px 14px;">
+<p style="margin:0 0 4px 0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;font-weight:800;line-height:17px;color:#333333;">Multiples medios de pago</p>
+<p style="margin:0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;line-height:18px;font-weight:400;color:#3D3D3D;">Credito*, debito y credito via One Click, y transferencias bancarias.</p>
+</td>
+</tr></table>
+</td>
+</tr>
+<tr>
+<td width="50%" style="vertical-align:top;padding:7px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #E6E6E6;border-radius:10px;background-color:#F4F2F0;height:140px;"><tr>
+<td width="40" valign="top" style="padding:16px 0 16px 14px;width:40px;"><div style="width:40px;height:40px;background-color:#FCEAE9;border-radius:20px;text-align:center;line-height:40px;font-size:20px;">&#128230;</div></td>
+<td valign="top" style="padding:16px 16px 16px 14px;">
+<p style="margin:0 0 4px 0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;font-weight:800;line-height:17px;color:#333333;">Seguimiento del despacho</p>
+<p style="margin:0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;line-height:18px;font-weight:400;color:#3D3D3D;">Sigue el estado de tu pedido en tiempo real, desde la compra hasta la entrega.</p>
+</td>
+</tr></table>
+</td>
+<td width="50%" style="vertical-align:top;padding:7px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #E6E6E6;border-radius:10px;background-color:#F4F2F0;height:140px;"><tr>
+<td width="40" valign="top" style="padding:16px 0 16px 14px;width:40px;"><div style="width:40px;height:40px;background-color:#FCEAE9;border-radius:20px;text-align:center;line-height:40px;font-size:20px;">&#129534;</div></td>
+<td valign="top" style="padding:16px 16px 16px 14px;">
+<p style="margin:0 0 4px 0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;font-weight:800;line-height:17px;color:#333333;">Acceso a tus facturas</p>
+<p style="margin:0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12.5px;line-height:18px;font-weight:400;color:#3D3D3D;">Consulta el historial de tus comprobantes desde la plataforma cuando los necesites.</p>
+</td>
+</tr></table>
+</td>
+</tr>
+</table>
+</td></tr>
+
+<!-- NOTA LEGAL -->
+<tr><td class="pad" style="padding:14px 44px 4px 44px;">
+<p style="margin:0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:11px;line-height:17px;color:#9A9A9A;">*Pago con credito sujeto a evaluacion.</p>
+</td></tr>
+
+<!-- SIGN-OFF -->
+<tr><td align="center" style="padding:34px 44px 32px 44px;border-top:1px solid #E6E6E6;margin-top:28px;">
+<p style="margin:0 0 5px 0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:18px;font-weight:900;letter-spacing:0.01em;text-transform:uppercase;color:#E40147;">ICB Food Service</p>
+<p style="margin:0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;font-style:italic;font-weight:400;color:#3D3D3D;">Tu socio estrategico para tu negocio</p>
+</td></tr>
+
+<!-- FOOTER -->
+<tr><td style="background-color:#333333;padding:30px 40px;" align="center">
+<a href="https://www.icbfs.cl" style="text-decoration:none;line-height:0;display:inline-block;"><img src="https://energy-saas-7178.file.force.com/sfc/dist/version/renditionDownload?rendition=ORIGINAL_Png&versionId=068Pr00000j82yo&operationContext=DELIVERY&contentId=05TPr0000125hjF&page=0&d=/a/Pr00000BDWoZ/QkG4kBiHiM7RDDR3V9owEBhJAtF3zukVB5vyLOMY4iM&oid=00DHn000002V5Fi&dpt=null&viewId=" alt="ICB Food Service" height="78" style="display:block;height:78px;width:auto;border:0;margin:0 auto 18px auto;" /></a>
+<p style="margin:0 0 12px 0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12px;line-height:20px;font-weight:500;color:#FFFFFF;letter-spacing:0.02em;">
+<a href="https://www.instagram.com/icbfoodservice" style="color:#FFFFFF;text-decoration:none;">@icbfoodservice</a>
+<span style="color:#7a7a7a;padding:0 6px;">|</span> Centro Contacto Clientes
+<a href="mailto:ccc@icbfs.cl" style="color:#FFFFFF;text-decoration:underline;">ccc@icbfs.cl</a>
+<br />WhatsApp <a href="https://wa.me/56966490324" style="color:#FFFFFF;text-decoration:none;">+56 9 6649 0324</a>
+</p>
+<div style="margin:14px auto 0;padding-top:14px;border-top:1px solid #4a4a4a;max-width:460px;">
+<p style="margin:0;font-family:'Gotham','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:10px;line-height:16px;color:#9a9a9a;font-weight:400;">ICB Food Service - Santiago, Chile - Recibes este correo porque te registraste en ICB Food Service.</p>
+</div>
+</td></tr>
+
+</table>
+</td></tr></table></body></html></messaging:htmlEmailBody></messaging:emailTemplate>

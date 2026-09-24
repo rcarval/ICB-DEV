@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contador_Ventana__c</fullName>
+    <defaultValue>0</defaultValue>
+    <description>Cantidad de intentos contados dentro de la ventana vigente (Inicio_Ventana__c + Ventana_Segundos__c).</description>
+    <externalId>false</externalId>
+    <label>Contador Ventana</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

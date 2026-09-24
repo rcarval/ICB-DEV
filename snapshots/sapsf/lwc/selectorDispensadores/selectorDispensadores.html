@@ -1,0 +1,176 @@
+<template>
+    <div class="slds-p-around_small">
+
+        <div class="cabecera">
+            <div>
+                <div class="slds-text-heading_small">Selector de Dispensadores</div>
+                <div class="slds-text-body_small slds-text-color_weak">
+                    Busca por equipo o por el insumo que necesita el cliente
+                </div>
+            </div>
+            <template if:true={haySeleccion}>
+                <lightning-button label="Limpiar selección" onclick={handleLimpiar}></lightning-button>
+            </template>
+        </div>
+
+        <!-- Seleccionados: arriba y siempre visible, como en el flujo de café -->
+        <template if:true={haySeleccion}>
+            <div class="panel-seleccion">
+                <div class="panel-seleccion__titulo">
+                    Equipos seleccionados
+                    <span class="panel-seleccion__resumen">{resumenSeleccion}</span>
+                </div>
+                <table class="slds-table slds-table_bordered tabla-seleccion">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th scope="col">Equipo</th>
+                            <th scope="col" class="col-cantidad">Cantidad</th>
+                            <th scope="col" class="col-quitar">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={seleccionados} for:item="sel">
+                            <tr key={sel.id}>
+                                <td class="col-nombre">{sel.nombre}</td>
+                                <td class="col-cantidad">
+                                    <lightning-input
+                                        type="number"
+                                        min="1"
+                                        variant="label-hidden"
+                                        label="Cantidad"
+                                        value={sel.cantidad}
+                                        data-id={sel.id}
+                                        onchange={handleCantidad}
+                                        class="input-cantidad"
+                                    ></lightning-input>
+                                </td>
+                                <td class="col-quitar">
+                                    <lightning-button-icon
+                                        icon-name="utility:close"
+                                        variant="border-filled"
+                                        alternative-text="Quitar"
+                                        title="Quitar"
+                                        data-id={sel.id}
+                                        onclick={handleQuitar}
+                                    ></lightning-button-icon>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+                <p class="panel-seleccion__pie">
+                    Ajusta las cantidades y presiona <b>Siguiente</b> para continuar.
+                </p>
+            </div>
+        </template>
+
+        <!-- Búsqueda -->
+        <div class="barra-busqueda">
+            <lightning-input
+                type="search"
+                label="Buscar"
+                variant="label-hidden"
+                placeholder="Ej: ketchup, mayonesa, salsas…"
+                value={termino}
+                onchange={handleBuscar}
+            ></lightning-input>
+            <template if:true={hayOcultos}>
+                <lightning-button
+                    label={textoOcultos}
+                    variant="base"
+                    onclick={handleToggleOcultos}
+                    class="boton-ocultos"
+                ></lightning-button>
+            </template>
+        </div>
+
+        <template if:true={isLoading}>
+            <div class="slds-align_absolute-center slds-p-vertical_large">
+                <lightning-spinner alternative-text="Cargando" size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:true={hayError}>
+            <div class="slds-notify slds-notify_alert slds-theme_error" role="alert">
+                <h2>{errorMessage}</h2>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+
+            <template if:true={sinResultados}>
+                <div class="vacio">{mensajeVacio}</div>
+            </template>
+
+            <div class="grilla">
+                <template for:each={visibles} for:item="d">
+                    <article key={d.id} class={d.clase}>
+
+                        <header class="tarjeta__head">
+                            <div>
+                                <h3 class="tarjeta__nombre">{d.nombre}</h3>
+                                <template if:true={d.codigo}>
+                                    <p class="tarjeta__codigo">{d.codigo}</p>
+                                </template>
+                                <template if:true={d.descripcion}>
+                                    <p class="tarjeta__grafica">{d.descripcion}</p>
+                                </template>
+                            </div>
+                            <lightning-button
+                                label={d.etiquetaBoton}
+                                variant={d.variante}
+                                data-id={d.id}
+                                onclick={handleAgregar}
+                            ></lightning-button>
+                        </header>
+
+                        <!-- Lo que dispensa: es la razón por la que se elige el equipo -->
+                        <template if:true={d.tieneInsumos}>
+                            <div class="bloque">
+                                <span class="bloque__titulo">Insumos</span>
+                                <ul class="lista-insumos">
+                                    <template for:each={d.insumos} for:item="i">
+                                        <li key={i.productoId}>
+                                            <span class="insumo__nombre">{i.nombre}</span>
+                                            <span class="insumo__detalle">{i.cantidad} {i.unidad}</span>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </template>
+
+                        <template if:false={d.tieneInsumos}>
+                            <div class="aviso-sin-config">
+                                Sin configuración de comodato: no se puede proponer hasta cargarla.
+                            </div>
+                        </template>
+
+                        <template if:true={d.tieneServicios}>
+                            <div class="bloque">
+                                <span class="bloque__titulo">Servicios</span>
+                                <p class="aportes">
+                                    <template for:each={d.servicios} for:item="s">
+                                        <span key={s.productoId} class="chip">{s.nombre}</span>
+                                    </template>
+                                </p>
+                            </div>
+                        </template>
+
+                        <template if:true={d.tieneAportes}>
+                            <div class="bloque">
+                                <span class="bloque__titulo">Aporte de marca</span>
+                                <p class="aportes">
+                                    <template for:each={d.aportes} for:item="a">
+                                        <span key={a.productoId} class="chip">{a.cantidad} {a.nombre}</span>
+                                    </template>
+                                </p>
+                            </div>
+                        </template>
+
+                    </article>
+                </template>
+            </div>
+        </template>
+
+    </div>
+</template>

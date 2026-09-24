@@ -1,0 +1,13 @@
+<template>
+    <div class="slds-m-top_medium">
+        <lightning-button label="Descargar PDF" variant="brand" onclick={handleDownload} disabled={isDownloadUnavailable}>
+        </lightning-button>
+        <template lwc:if={isLoading}>
+            <lightning-spinner alternative-text="Preparando PDF" size="small"></lightning-spinner>
+        </template>
+        <p class="slds-text-body_small slds-m-top_x-small">{helpText}</p>
+        <template lwc:if={downloadError}>
+            <p class="slds-text-color_error slds-m-top_x-small">{downloadError}</p>
+        </template>
+    </div>
+</template>

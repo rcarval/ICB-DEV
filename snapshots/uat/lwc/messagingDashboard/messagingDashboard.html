@@ -1,0 +1,839 @@
+<template>
+  <!-- Anchor oculto para descarga de archivos (requerido por Lightning Web Security) -->
+  <a class="export-anchor" style="display: none"></a>
+  <lightning-card icon-name="standard:messaging_conversation">
+    <div slot="title" style="display: flex; align-items: center; gap: 5px">
+      <span>📊 Messaging Dashboard — ICB Food Service</span>
+      <lightning-button-icon
+        icon-name="utility:info"
+        variant="border-filled"
+        size="medium"
+        alternative-text="Acerca de este reporte"
+        title="Acerca de este reporte"
+        onclick={handleToggleHelp}
+      ></lightning-button-icon>
+    </div>
+    <!-- ── FILTROS GLOBALES ── -->
+    <div class="slds-var-m-around_medium slds-box slds-theme_shade">
+      <div class="slds-grid slds-gutters slds-wrap slds-grid_align-spread">
+        <div class="slds-col slds-size_1-of-5">
+          <lightning-input
+            type="date"
+            label="Desde"
+            value={dateFrom}
+            onchange={handleDateFromChange}
+          ></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-5">
+          <lightning-input
+            type="date"
+            label="Hasta"
+            value={dateTo}
+            onchange={handleDateToChange}
+          ></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-5">
+          <lightning-combobox
+            label="Ejecutivo"
+            value={selectedAgent}
+            options={agentOptions}
+            onchange={handleAgentChange}
+          ></lightning-combobox>
+        </div>
+        <div class="slds-col slds-size_1-of-5">
+          <lightning-combobox
+            label="Estado"
+            value={statusFilter}
+            options={statusOptions}
+            onchange={handleStatusChange}
+          ></lightning-combobox>
+        </div>
+        <div class="slds-col slds-size_1-of-5 slds-align-bottom">
+          <lightning-button
+            label="Buscar"
+            variant="brand"
+            icon-name="utility:search"
+            onclick={handleSearch}
+            disabled={isLoading}
+          ></lightning-button>
+          <lightning-button
+            label="Limpiar"
+            variant="neutral"
+            onclick={handleClearFilters}
+            disabled={isLoading}
+            class="slds-var-m-left_x-small"
+          ></lightning-button>
+        </div>
+      </div>
+    </div>
+
+    <template if:true={_showHelp}>
+      <div
+        class="slds-var-m-horizontal_medium slds-var-m-bottom_small slds-box"
+        style="border-left: 4px solid #1565c0; background: #f0f4ff"
+      >
+        <div class="slds-col slds-size_1-of-1">
+          <p class="slds-text-title slds-var-m-bottom_xx-small">
+            Messaging Dashboard — Panel Operativo Central
+          </p>
+          <p class="slds-text-body_small slds-var-m-bottom_xx-small">
+            Panel integrado con 4 módulos de operación de mensajería. Los
+            filtros globales (fecha, ejecutivo, estado) se aplican a la pestaña
+            Atención y propagan al resto de módulos.
+          </p>
+          <p class="slds-text-body_small slds-var-m-bottom_xx-small">
+            <strong>Pestañas:</strong> Atención (sesiones con gráficos de
+            distribución diaria y día-de-semana + detalle de mensajes) ·
+            Encuestas (FCR y CSAT extraídos del chat, por sesión) · Ejecutivos
+            (presencia en tiempo real e historial de conectividad) · Bitácora
+            (registro de work items)
+          </p>
+          <p class="slds-text-body_small">
+            <strong>Cómo usar:</strong> Aplica filtros globales y haz clic en
+            "Buscar". Las pestañas Encuestas y Bitácora cargan sus datos bajo
+            demanda. En Atención, expande un agente → luego una sesión para leer
+            los mensajes.
+          </p>
+        </div>
+      </div>
+    </template>
+
+    <!-- ── LOADING ── -->
+    <template if:true={isLoading}>
+      <div class="slds-var-m-around_medium slds-text-align_center">
+        <lightning-spinner
+          alternative-text="Cargando..."
+          size="medium"
+        ></lightning-spinner>
+      </div>
+    </template>
+
+    <!-- ── TABS ── -->
+    <template if:false={isLoading}>
+      <lightning-tabset
+        variant="scoped"
+        class="slds-var-m-around_medium"
+        onselect={handleTabSelect}
+      >
+        <!-- ═══════════ TAB 1: ATENCIÓN ═══════════ -->
+        <lightning-tab label="📋 Atención" value="atencion">
+          <!-- KPIs -->
+          <div
+            class="slds-grid slds-gutters slds-wrap slds-var-m-bottom_medium"
+          >
+            <div class="slds-col slds-size_1-of-6">
+              <div class="kpi-card kpi-total">
+                <p class="kpi-value">{dashboardData.totalSessions}</p>
+                <p class="kpi-label">Total Sesiones</p>
+              </div>
+            </div>
+            <div class="slds-col slds-size_1-of-6">
+              <div class="kpi-card kpi-ended">
+                <p class="kpi-value">{dashboardData.endedSessions}</p>
+                <p class="kpi-label">Finalizadas</p>
+              </div>
+            </div>
+            <div class="slds-col slds-size_1-of-6">
+              <div class="kpi-card kpi-active">
+                <p class="kpi-value">{dashboardData.activeSessions}</p>
+                <p class="kpi-label">Activas</p>
+              </div>
+            </div>
+            <div class="slds-col slds-size_1-of-6">
+              <div class="kpi-card kpi-new">
+                <p class="kpi-value">{dashboardData.newSessions}</p>
+                <p class="kpi-label">En cola</p>
+              </div>
+            </div>
+            <div class="slds-col slds-size_1-of-6">
+              <div class="kpi-card kpi-outofhours">
+                <p class="kpi-value">{dashboardData.outOfHoursSessions}</p>
+                <p class="kpi-label">Fuera Horario</p>
+                <p class="kpi-detail">{outOfHoursRate} del total</p>
+              </div>
+            </div>
+            <div class="slds-col slds-size_1-of-6">
+              <div class="kpi-card kpi-completion">
+                <p class="kpi-value">{completionRate}</p>
+                <p class="kpi-label">% Encuestas totales</p>
+                <p class="kpi-detail">{completionRateDetail}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comparativo por Ejecutivo -->
+          <template if:true={hasAgentComparison}>
+            <div class="slds-box slds-var-m-bottom_medium">
+              <div
+                class="slds-grid slds-grid_align-spread slds-var-m-bottom_small"
+              >
+                <h3 class="slds-text-heading_small">
+                  Comparativo por Ejecutivo
+                </h3>
+                <lightning-button-menu
+                  label="Exportar Excel"
+                  icon-name="utility:download"
+                  variant="neutral"
+                  onselect={handleExportAgentComparison}
+                >
+                  <lightning-menu-item
+                    value="all"
+                    label="Exportar datos"
+                  ></lightning-menu-item>
+                </lightning-button-menu>
+              </div>
+              <lightning-datatable
+                key-field="agentId"
+                data={agentComparisonRows}
+                columns={agentComparisonColumns}
+                sorted-by={comparisonSortedBy}
+                sorted-direction={comparisonSortedDirection}
+                onsort={handleComparisonSort}
+                hide-checkbox-column
+              ></lightning-datatable>
+            </div>
+          </template>
+
+          <!-- Gráficos: carga por ejecutivo (torta) + sesiones por hora + tendencia diaria -->
+          <template if:true={hasSessionCharts}>
+            <!-- Fila 1: Pie chart (1/3) + Sesiones por hora (2/3) -->
+            <div
+              class="slds-grid slds-gutters slds-var-m-bottom_medium slds-wrap"
+            >
+              <div class="slds-col slds-size_1-of-3">
+                <div class="slds-box agent-pie-panel">
+                  <h3 class="slds-text-heading_small slds-var-m-bottom_small">
+                    Carga por Ejecutivo
+                  </h3>
+                  <div class="agent-pie-body">
+                    <div class="agent-pie-canvas-wrap">
+                      <canvas class="agent-load-chart"></canvas>
+                    </div>
+                    <div class="agent-pie-legend">
+                      <template for:each={agentLoadListData} for:item="row">
+                        <div
+                          key={row.key}
+                          class="agent-pie-legend-item"
+                          data-index={row.index}
+                          title="Clic para mostrar/ocultar en el gráfico"
+                          onmouseenter={handleAgentLegendEnter}
+                          onmouseleave={handleAgentLegendLeave}
+                          onclick={handleAgentLegendClick}
+                        >
+                          <span
+                            class="agent-pie-dot"
+                            style={row.colorStyle}
+                          ></span>
+                          <span class="agent-pie-name">{row.agentName}</span>
+                          <span class="agent-pie-count"
+                            >{row.sessions} ses.</span
+                          >
+                          <span class="agent-pie-pct">({row.pct}%)</span>
+                        </div>
+                      </template>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="slds-col slds-size_2-of-3 hourly-col">
+                <div class="hourly-date-bar">
+                  <div class="hourly-filters-group">
+                    <lightning-input
+                      type="date"
+                      label="Seleccione un día"
+                      value={hourlyFilterDate}
+                      onchange={handleHourlyFilterDateChange}
+                      class="hourly-date-input"
+                    ></lightning-input>
+                    <lightning-checkbox-group
+                      name="comparePrevDay"
+                      options={_comparePreviousDayOption}
+                      value={_comparePreviousDayValue}
+                      onchange={handleComparePreviousDayChange}
+                      class="hourly-compare-checkbox"
+                    ></lightning-checkbox-group>
+                  </div>
+                </div>
+                <div class="hourly-row">
+                  <div class="slds-box hourly-chart-panel">
+                    <template if:true={hourlyChartLoading}>
+                      <div class="hourly-chart-spinner">
+                        <lightning-spinner
+                          alternative-text="Cargando..."
+                          size="small"
+                        ></lightning-spinner>
+                      </div>
+                    </template>
+                    <canvas class="hourly-sessions-chart"></canvas>
+                  </div>
+                  <div class="hourly-side-col">
+                    <template if:true={hasTopHours}>
+                      <div class="slds-box top-hours-panel">
+                        <h4 class="top-hours-title">Horarios con mayor carga</h4>
+                        <div class="top-hours-list">
+                          <template for:each={topHoursSummary} for:item="row">
+                            <div key={row.hour} class="top-hours-row">
+                              <span class="top-hours-rank"></span>
+                              <span class="top-hours-hour">{row.hour}</span>
+                              <span class="top-hours-count">{row.count}</span>
+                            </div>
+                          </template>
+                        </div>
+                      </div>
+                    </template>
+                    <div class="slds-box ooh-panel">
+                      <h4 class="top-hours-title">Fuera de horario del día</h4>
+                      <div class="ooh-count">{outOfHoursDayCount}</div>
+                      <div class="ooh-label">sesiones fuera de horario del día seleccionado</div>
+                      <div class="kpi-detail">{outOfHoursDayRate} del total del día</div>
+                    </div>
+                  </div>
+                  <!-- <template if:true={hasDailyHourlyData}>
+                    <div class="slds-box daily-hourly-section">
+                      <h4 class="daily-hourly-title">Detalle por día y hora</h4>
+                      <div class="daily-hourly-list">
+                        <template for:each={dailyHourlyBreakdown} for:item="day">
+                          <div key={day.dateStr} class="daily-hourly-day">
+                            <div class="daily-hourly-date">{day.dateStr} <span class="daily-hourly-total">({day.total})</span></div>
+                            <div class="daily-hourly-hours">
+                              <template for:each={day.hours} for:item="hr">
+                                <span key={hr.hour} class="daily-hourly-chip">{hr.hour} ({hr.count})</span>
+                              </template>
+                            </div>
+                          </div>
+                        </template>
+                      </div>
+                    </div>
+                  </template> -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Fila 2: Tendencia diaria (ancho completo) -->
+            <div
+              class="slds-grid slds-gutters slds-var-m-bottom_medium"
+            >
+              <div class="slds-col">
+                <div class="slds-box daily-trend-box">
+                  <canvas class="daily-trend-chart"></canvas>
+                </div>
+              </div>
+            </div>
+          </template>
+
+          <!-- Tabla de sesiones expandible -->
+          <!-- <template if:true={hasSessions}>
+            <div class="slds-var-m-bottom_x-small slds-text-align_right">
+              <lightning-button-menu
+                label="Exportar Excel"
+                icon-name="utility:download"
+                variant="neutral"
+                onselect={handleExportSessions}
+              >
+                <lightning-menu-item
+                  value="visible"
+                  label="Datos visibles (página actual)"
+                ></lightning-menu-item>
+                <lightning-menu-item
+                  value="all"
+                  label="Todos los datos"
+                ></lightning-menu-item>
+              </lightning-button-menu>
+            </div>
+            <div class="session-table-wrap slds-var-m-top_small">
+              <table
+                class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_fixed-layout"
+              >
+                <thead>
+                  <tr class="slds-line-height_reset">
+                    <th scope="col" style="width: 2.5rem"></th>
+                    <th scope="col">Inicio</th>
+                    <th scope="col">Fin</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Ejecutivo</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Duración</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template for:each={sessionRows} for:item="row">
+                    <tr key={row._key} class={row.rowClass}>
+                      <template if:true={row.isGroupHeader}>
+                        <td
+                          colspan="7"
+                          class="agent-group-header-cell"
+                          data-agent-key={row.agentKey}
+                          onclick={handleToggleGroup}
+                        >
+                          <lightning-icon
+                            icon-name={row.groupToggleIcon}
+                            size="x-small"
+                            class="agent-group-icon"
+                            alternative-text="Desplegar/Colapsar"
+                          ></lightning-icon>
+                          <span class="agent-group-label"
+                            >Ejecutivo: {row.agentName}</span
+                          >
+                          <span class="agent-group-count"
+                            >{row.sessionCount} sesión(es)</span
+                          >
+                        </td>
+                      </template>
+                      <template if:true={row.isSession}>
+                        <td class="slds-text-align_center">
+                          <lightning-button-icon
+                            icon-name={row.toggleIcon}
+                            variant="bare"
+                            size="small"
+                            alternative-text="Ver mensajes"
+                            data-session-id={row.sessionId}
+                            onclick={handleToggleRow}
+                          ></lightning-button-icon>
+                        </td>
+                        <td>{row.startTime}</td>
+                        <td>{row.endTime}</td>
+                        <td>{row.status}</td>
+                        <td>{row.agentName}</td>
+                        <td>{row.endUserPhone}</td>
+                        <td>{row.durationMinutes}</td>
+                      </template>
+                      <template if:true={row.isExpandedRow}>
+                        <td
+                          colspan="7"
+                          class="expanded-cell slds-var-p-around_small"
+                        >
+                          <template if:true={row.isLoadingMessages}>
+                            <lightning-spinner
+                              alternative-text="Cargando mensajes..."
+                              size="small"
+                            ></lightning-spinner>
+                          </template>
+                          <template if:false={row.isLoadingMessages}>
+                            <template if:true={row.hasMessages}>
+                              <div class="chat-container">
+                                <template
+                                  for:each={row.messages}
+                                  for:item="msg"
+                                >
+                                  <div
+                                    key={msg.messageId}
+                                    class={msg.bubbleClass}
+                                  >
+                                    <p class="msg-sender">
+                                      {msg.senderRole} · {msg.senderName}
+                                    </p>
+                                    <p class="msg-text">{msg.messageText}</p>
+                                    <p class="msg-time">{msg.formattedTime}</p>
+                </div>
+                                </template>
+                              </div>
+                            </template>
+                            <template if:false={row.hasMessages}>
+                              <p
+                                class="slds-text-color_weak slds-text-align_center slds-var-p-around_small"
+                              >
+                                Sin mensajes disponibles para esta sesión.
+                              </p>
+                            </template>
+                          </template>
+                        </td>
+                      </template>
+                    </tr>
+                  </template>
+                </tbody>
+              </table> -->
+          <!-- Paginación -->
+          <!-- <div class="pagination-bar">
+                <lightning-button-icon
+                  icon-name="utility:chevronleft"
+                  variant="border-filled"
+                  size="small"
+                  alternative-text="Anterior"
+                  disabled={prevDisabled}
+                  onclick={handlePrevPage}
+                ></lightning-button-icon>
+                <span>{pageInfo}</span>
+                <lightning-button-icon
+                  icon-name="utility:chevronright"
+                  variant="border-filled"
+                  size="small"
+                  alternative-text="Siguiente"
+                  disabled={nextDisabled}
+                  onclick={handleNextPage}
+                ></lightning-button-icon>
+              </div>
+            </div>
+          </template> -->
+
+          <template if:false={hasSessions}>
+            <div
+              class="slds-illustration slds-illustration_small slds-var-m-around_medium"
+            >
+              <p class="slds-text-color_weak slds-text-align_center">
+                Sin sesiones para el período seleccionado
+              </p>
+            </div>
+          </template>
+        </lightning-tab>
+
+        <!-- ═══════════ TAB 2: ENCUESTAS ═══════════ -->
+        <lightning-tab label="📊 Encuestas" value="encuestas">
+          <template if:false={surveyLoaded}>
+            <div class="slds-text-align_center slds-var-m-around_medium">
+              <p class="slds-text-color_weak slds-var-m-bottom_small">
+                Haz clic para cargar los datos de encuesta de las sesiones
+                filtradas.
+              </p>
+              <lightning-button
+                label="Cargar datos de encuesta"
+                variant="brand"
+                icon-name="utility:chart"
+                onclick={handleLoadSurveys}
+                disabled={isSurveyLoading}
+              ></lightning-button>
+            </div>
+          </template>
+
+          <template if:true={isSurveyLoading}>
+            <div class="slds-text-align_center slds-var-m-around_medium">
+              <lightning-spinner
+                alternative-text="Procesando encuestas..."
+                size="medium"
+              ></lightning-spinner>
+              <p class="slds-text-color_weak slds-var-m-top_small">
+                Cargando encuestas...
+              </p>
+            </div>
+          </template>
+
+          <template if:true={surveyLoaded}>
+            <!-- KPIs Encuesta -->
+            <div class="slds-grid slds-gutters slds-var-m-bottom_medium">
+              <div class="slds-col slds-size_1-of-5">
+                <div class="kpi-card kpi-ended">
+                  <p class="kpi-value">{surveyMetrics.completedCount}</p>
+                  <p class="kpi-label">Completadas</p>
+                  <p class="kpi-detail">
+                    {surveyMetrics.completedPct}% del total
+                  </p>
+                </div>
+              </div>
+              <div class="slds-col slds-size_1-of-5">
+                <div class="kpi-card kpi-incomplete">
+                  <p class="kpi-value">{surveyMetrics.incompleteCount}</p>
+                  <p class="kpi-label">Incompletas</p>
+                  <p class="kpi-detail">
+                    {surveyMetrics.incompletePct}% del total
+                  </p>
+                </div>
+              </div>
+              <div class="slds-col slds-size_1-of-5">
+                <div class="kpi-card kpi-ended">
+                  <p class="kpi-value">{surveyMetrics.fcrPercent}%</p>
+                  <p class="kpi-label">FCR — 1er contacto</p>
+                </div>
+              </div>
+              <div class="slds-col slds-size_1-of-5">
+                <div class="kpi-card kpi-active">
+                  <p class="kpi-value">{surveyMetrics.csatPercent}%</p>
+                  <p class="kpi-label">CSAT — Satisfacción</p>
+                </div>
+              </div>
+              <div class="slds-col slds-size_1-of-5">
+                <div class="kpi-card kpi-new">
+                  <p class="kpi-value">{surveyMetrics.csatAvgScore}</p>
+                  <p class="kpi-label">Promedio CSAT (1-5)</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Gráficos: Completitud + FCR + CSAT en la misma fila -->
+            <div class="slds-grid slds-gutters slds-var-m-bottom_medium">
+              <!-- Columna 1: Completadas vs Incompletas — ancho fijo al contenido -->
+              <div class="slds-col slds-no-flex">
+                <div class="donut-box">
+                  <h3 class="slds-text-heading_small slds-var-m-bottom_small">
+                    Completadas vs Incompletas
+                  </h3>
+                  <canvas
+                    class="completeness-chart"
+                    width="170"
+                    height="170"
+                  ></canvas>
+                </div>
+              </div>
+
+              <!-- Columna 2: FCR por Ejecutivo — ocupa espacio sobrante -->
+              <div class="slds-col">
+                <div class="slds-box" style="height: 100%">
+                  <h3 class="slds-text-heading_small slds-var-m-bottom_small">
+                    FCR por Ejecutivo
+                  </h3>
+                  <template for:each={surveyMetrics.fcrByAgent} for:item="row">
+                    <div
+                      key={row.agentName}
+                      class="chart-row slds-var-m-bottom_x-small"
+                    >
+                      <span class="chart-label">{row.agentName}</span>
+                      <div class="chart-track">
+                        <div
+                          class="chart-bar chart-bar-fcr"
+                          style={row.fcrBarStyle}
+                        ></div>
+                      </div>
+                      <span class="chart-value">{row.fcrPercent}%</span>
+                      <span class="chart-sub"
+                        >({row.fcrCount}/{row.totalCount})</span
+                      >
+                    </div>
+                  </template>
+                </div>
+              </div>
+
+              <!-- Columna 3: CSAT por Ejecutivo — ocupa espacio sobrante -->
+              <div class="slds-col">
+                <div class="slds-box" style="height: 100%">
+                  <h3 class="slds-text-heading_small slds-var-m-bottom_small">
+                    CSAT por Ejecutivo
+                  </h3>
+                  <template for:each={surveyMetrics.csatByAgent} for:item="row">
+                    <div
+                      key={row.agentName}
+                      class="chart-row slds-var-m-bottom_x-small"
+                    >
+                      <span class="chart-label">{row.agentName}</span>
+                      <div class="chart-track">
+                        <div
+                          class="chart-bar chart-bar-csat"
+                          style={row.csatBarStyle}
+                        ></div>
+                      </div>
+                      <span class="chart-value">{row.csatPercent}%</span>
+                      <span class="chart-sub">avg {row.avgScore}</span>
+                    </div>
+                  </template>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tabla detalle encuestas -->
+            <div class="slds-var-m-top_medium">
+              <div class="slds-var-m-bottom_x-small slds-text-align_right">
+                <lightning-button-menu
+                  label="Exportar Excel"
+                  icon-name="utility:download"
+                  variant="neutral"
+                  onselect={handleExportSurveys}
+                >
+                  <lightning-menu-item
+                    value="all"
+                    label="Exportar datos"
+                  ></lightning-menu-item>
+                </lightning-button-menu>
+              </div>
+              <lightning-datatable
+                key-field="sessionId"
+                data={surveyMetrics.surveyDetail}
+                columns={surveyColumns}
+                hide-checkbox-column
+              >
+              </lightning-datatable>
+            </div>
+          </template>
+        </lightning-tab>
+
+        <!-- ═══════════ TAB 3: EJECUTIVOS ═══════════ -->
+        <lightning-tab label="👥 Ejecutivos" value="ejecutivos">
+          <div class="slds-var-m-bottom_small slds-text-align_right">
+            <lightning-button
+              label="Actualizar"
+              variant="neutral"
+              icon-name="utility:refresh"
+              onclick={handleRefreshPresence}
+              disabled={isPresenceLoading}
+            ></lightning-button>
+          </div>
+          <template if:true={isPresenceLoading}>
+            <lightning-spinner
+              alternative-text="Cargando presencia..."
+              size="medium"
+            ></lightning-spinner>
+          </template>
+          <template if:false={isPresenceLoading}>
+            <!-- KPIs presencia -->
+            <div class="slds-grid slds-gutters slds-var-m-bottom_medium">
+              <div class="slds-col slds-size_1-of-3">
+                <div class="kpi-card kpi-available">
+                  <p class="kpi-value">{presenceKpis.available}</p>
+                  <p class="kpi-label">Disponibles</p>
+                </div>
+              </div>
+              <div class="slds-col slds-size_1-of-3">
+                <div class="kpi-card kpi-busy">
+                  <p class="kpi-value">{presenceKpis.busy}</p>
+                  <p class="kpi-label">Ocupados</p>
+                </div>
+              </div>
+              <div class="slds-col slds-size_1-of-3">
+                <div class="kpi-card kpi-offline">
+                  <p class="kpi-value">{presenceKpis.offline}</p>
+                  <p class="kpi-label">Offline / Pausa</p>
+                </div>
+              </div>
+            </div>
+            <div class="slds-var-m-bottom_x-small slds-text-align_right">
+              <lightning-button-menu
+                label="Exportar Excel"
+                icon-name="utility:download"
+                variant="neutral"
+                onselect={handleExportPresence}
+              >
+                <lightning-menu-item
+                  value="all"
+                  label="Exportar datos"
+                ></lightning-menu-item>
+              </lightning-button-menu>
+            </div>
+            <lightning-datatable
+              key-field="userId"
+              data={presenceData}
+              columns={presenceColumns}
+              hide-checkbox-column
+            >
+            </lightning-datatable>
+
+            <!-- ── Historial de Conectividad ── -->
+            <div class="slds-var-m-top_large">
+              <h3 class="slds-text-heading_small slds-var-m-bottom_small">
+                Historial de Conectividad
+              </h3>
+
+              <!-- Filtros historial -->
+              <div class="slds-box slds-theme_shade slds-var-m-bottom_small">
+                <div class="slds-grid slds-gutters slds-wrap">
+                  <div class="slds-col slds-size_1-of-4">
+                    <lightning-input
+                      type="date"
+                      label="Desde"
+                      value={presenceHistoryDateFrom}
+                      onchange={handlePresenceHistoryDateFromChange}
+                    ></lightning-input>
+                  </div>
+                  <div class="slds-col slds-size_1-of-4">
+                    <lightning-input
+                      type="date"
+                      label="Hasta"
+                      value={presenceHistoryDateTo}
+                      onchange={handlePresenceHistoryDateToChange}
+                    ></lightning-input>
+                  </div>
+                  <div class="slds-col slds-size_1-of-4">
+                    <lightning-combobox
+                      label="Ejecutivo"
+                      value={presenceHistoryAgent}
+                      options={presenceHistoryAgentOptions}
+                      onchange={handlePresenceHistoryAgentChange}
+                    ></lightning-combobox>
+                  </div>
+                  <div class="slds-col slds-size_1-of-4 slds-align-bottom">
+                    <lightning-button
+                      label="Cargar historial"
+                      variant="brand"
+                      icon-name="utility:search"
+                      onclick={handleLoadPresenceHistory}
+                      disabled={isPresenceHistoryLoading}
+                    ></lightning-button>
+                  </div>
+                </div>
+              </div>
+
+              <template if:true={isPresenceHistoryLoading}>
+                <div class="slds-text-align_center slds-var-m-around_small">
+                  <lightning-spinner
+                    alternative-text="Cargando historial..."
+                    size="small"
+                  ></lightning-spinner>
+                </div>
+              </template>
+
+              <template if:false={isPresenceHistoryLoading}>
+                <div class="slds-var-m-bottom_x-small slds-text-align_right">
+                  <lightning-button-menu
+                    label="Exportar Excel"
+                    icon-name="utility:download"
+                    variant="neutral"
+                    onselect={handleExportPresenceHistory}
+                  >
+                    <lightning-menu-item
+                      value="visible"
+                      label="Datos visibles (página actual)"
+                    ></lightning-menu-item>
+                    <lightning-menu-item
+                      value="all"
+                      label="Todos los datos"
+                    ></lightning-menu-item>
+                  </lightning-button-menu>
+                </div>
+                <lightning-datatable
+                  key-field="recordId"
+                  data={paginatedPresenceHistory}
+                  columns={presenceHistoryColumns}
+                  hide-checkbox-column
+                ></lightning-datatable>
+                <div class="pagination-bar">
+                  <lightning-button-icon
+                    icon-name="utility:chevronleft"
+                    alternative-text="Anterior"
+                    onclick={handlePhPrev}
+                    disabled={phPrevDisabled}
+                    size="small"
+                    variant="border-filled"
+                  ></lightning-button-icon>
+                  <span class="pagination-info">{phPageInfo}</span>
+                  <lightning-button-icon
+                    icon-name="utility:chevronright"
+                    alternative-text="Siguiente"
+                    onclick={handlePhNext}
+                    disabled={phNextDisabled}
+                    size="small"
+                    variant="border-filled"
+                  ></lightning-button-icon>
+                </div>
+              </template>
+            </div>
+          </template>
+        </lightning-tab>
+
+        <!-- ═══════════ TAB 4: BITÁCORA ═══════════ -->
+        <!-- <lightning-tab label="📝 Bitácora" value="bitacora">
+          <template if:false={bitacoraLoaded}>
+            <div class="slds-text-align_center slds-var-m-around_medium">
+              <lightning-button
+                label="Cargar bitácora"
+                variant="brand"
+                icon-name="utility:list"
+                onclick={handleLoadBitacora}
+                disabled={isBitacoraLoading}
+              ></lightning-button>
+            </div>
+          </template>
+          <template if:true={isBitacoraLoading}>
+            <lightning-spinner
+              alternative-text="Cargando bitácora..."
+              size="medium"
+            ></lightning-spinner>
+          </template>
+          <template if:true={bitacoraLoaded}>
+            <lightning-datatable
+              key-field="workId"
+              data={bitacoraData}
+              columns={bitacoraColumns}
+              hide-checkbox-column
+            >
+            </lightning-datatable>
+          </template>
+        </lightning-tab> -->
+      </lightning-tabset>
+    </template>
+  </lightning-card>
+</template>

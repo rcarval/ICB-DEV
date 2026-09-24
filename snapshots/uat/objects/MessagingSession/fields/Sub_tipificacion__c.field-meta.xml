@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_tipificacion__c</fullName>
+    <label>Motivo</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Tipificacion__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Pedido (ingreso, modificación)</fullName>
+                <default>false</default>
+                <label>Pedido (ingreso, modificación)</label>
+            </value>
+            <value>
+                <fullName>Estado de pedido / Despacho</fullName>
+                <default>false</default>
+                <label>Estado de pedido / Despacho</label>
+            </value>
+            <value>
+                <fullName>Productos y Stock (info, disponibilidad)</fullName>
+                <default>false</default>
+                <label>Productos y Stock (info, disponibilidad)</label>
+            </value>
+            <value>
+                <fullName>Precios / Cotización</fullName>
+                <default>false</default>
+                <label>Precios / Cotización</label>
+            </value>
+            <value>
+                <fullName>Pagos (confirmación, estado de cuenta)</fullName>
+                <default>false</default>
+                <label>Pagos (confirmación, estado de cuenta)</label>
+            </value>
+            <value>
+                <fullName>Datos de cliente (creación, actualización, vendedor)</fullName>
+                <default>false</default>
+                <label>Datos de cliente (creación, actualización, vendedor)</label>
+            </value>
+            <value>
+                <fullName>Tiendas / Contacto comercial</fullName>
+                <default>false</default>
+                <label>Tiendas / Contacto comercial</label>
+            </value>
+            <value>
+                <fullName>Café / Comodato (solicitud, mantención)</fullName>
+                <default>false</default>
+                <label>Café / Comodato (solicitud, mantención)</label>
+            </value>
+            <value>
+                <fullName>Producto en mal estado / Devolución</fullName>
+                <default>false</default>
+                <label>Producto en mal estado / Devolución</label>
+            </value>
+            <value>
+                <fullName>Problema con despacho (atraso, faltantes, no entrega)</fullName>
+                <default>false</default>
+                <label>Problema con despacho (atraso, faltantes, no entrega)</label>
+            </value>
+            <value>
+                <fullName>Problema con pedido (error, bloqueo, no ingreso)</fullName>
+                <default>false</default>
+                <label>Problema con pedido (error, bloqueo, no ingreso)</label>
+            </value>
+            <value>
+                <fullName>Problema con pago (cobro incorrecto, no aplicado)</fullName>
+                <default>false</default>
+                <label>Problema con pago (cobro incorrecto, no aplicado)</label>
+            </value>
+            <value>
+                <fullName>Documentos (nota de crédito, refacturación)</fullName>
+                <default>false</default>
+                <label>Documentos (nota de crédito, refacturación)</label>
+            </value>
+            <value>
+                <fullName>Problema con plataforma (autoenrolamiento, acceso)</fullName>
+                <default>false</default>
+                <label>Problema con plataforma (autoenrolamiento, acceso)</label>
+            </value>
+            <value>
+                <fullName>Café / Comodato</fullName>
+                <default>false</default>
+                <label>Café / Comodato</label>
+            </value>
+            <value>
+                <fullName>Otros</fullName>
+                <default>false</default>
+                <label>Otros</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Reclamo</controllingFieldValue>
+            <valueName>Producto en mal estado / Devolución</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reclamo</controllingFieldValue>
+            <valueName>Problema con despacho (atraso, faltantes, no entrega)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reclamo</controllingFieldValue>
+            <valueName>Problema con pedido (error, bloqueo, no ingreso)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reclamo</controllingFieldValue>
+            <valueName>Problema con pago (cobro incorrecto, no aplicado)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reclamo</controllingFieldValue>
+            <valueName>Documentos (nota de crédito, refacturación)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reclamo</controllingFieldValue>
+            <valueName>Problema con plataforma (autoenrolamiento, acceso)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reclamo</controllingFieldValue>
+            <valueName>Café / Comodato</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reclamo</controllingFieldValue>
+            <controllingFieldValue>Consulta</controllingFieldValue>
+            <valueName>Otros</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consulta</controllingFieldValue>
+            <valueName>Pedido (ingreso, modificación)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consulta</controllingFieldValue>
+            <valueName>Estado de pedido / Despacho</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consulta</controllingFieldValue>
+            <valueName>Productos y Stock (info, disponibilidad)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consulta</controllingFieldValue>
+            <valueName>Precios / Cotización</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consulta</controllingFieldValue>
+            <valueName>Pagos (confirmación, estado de cuenta)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consulta</controllingFieldValue>
+            <valueName>Datos de cliente (creación, actualización, vendedor)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consulta</controllingFieldValue>
+            <valueName>Tiendas / Contacto comercial</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consulta</controllingFieldValue>
+            <valueName>Café / Comodato (solicitud, mantención)</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

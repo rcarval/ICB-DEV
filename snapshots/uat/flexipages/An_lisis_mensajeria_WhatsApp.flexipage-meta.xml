@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>messagingDashboard</componentName>
+                <identifier>c_messagingDashboard</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>main</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <masterLabel>Análisis mensajeria WhatsApp</masterLabel>
+    <template>
+        <name>industries_common:homeTemplateOneRegion</name>
+    </template>
+    <type>HomePage</type>
+</FlexiPage>

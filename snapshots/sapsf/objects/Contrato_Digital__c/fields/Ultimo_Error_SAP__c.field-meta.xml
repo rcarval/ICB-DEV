@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ultimo_Error_SAP__c</fullName>
+    <description>Último error de validación o callout en el envío del comodato a SAP. No reutilizar Error_Message__c (es de Firma Digital / TuFirma).</description>
+    <label>Último Error SAP</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>5</visibleLines>
+</CustomField>

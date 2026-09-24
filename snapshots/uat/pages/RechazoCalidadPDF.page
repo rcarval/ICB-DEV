@@ -1,0 +1,105 @@
+<apex:page controller="seidor_CaseRechazoPdfInvocable" sidebar="false" showHeader="false" standardStylesheets="false" renderAs="pdf">
+
+<div style="width:80%; margin:0 auto;">
+
+    <!-- ================= ENCABEZADO ================= -->
+    <table style="width:100%; border:2px solid #000; padding:6px; margin-bottom:6px; border-collapse:collapse;">
+        <tr>
+            <td style="width:18%; vertical-align:middle; text-align:left;">
+                <apex:image url="https://energy-saas-7178--qa2--c.sandbox.vf.force.com/resource/1757015875000/imagenICB?" width="90" />
+            </td>
+            <td style="width:82%;">
+                <table style="width:100%; border-collapse:collapse;">
+                    <tr>
+                        <td style="text-align:left;">
+                            <div style="font-size:16px; font-family:Arial, sans-serif; font-weight:bold; background:#C0C0C0;">
+                                Formulario de Devoluci&#243;n y Retiro
+                            </div>
+                            <div style="font-size:13px; font-family:Arial, sans-serif; margin-top:1px; font-weight:bold;">
+                                {!IF(isRechazoTotal, 'DEVOLUCION RECHAZO TOTAL', 'DEVOLUCION RECHAZO PARCIAL')}
+                            </div>
+                        </td>
+                        <td style="width:25%; text-align:right; vertical-align:top; font-size:10px; font-family:Arial, sans-serif;">
+                            <table style="border-collapse:collapse; width:100%;">
+                                <tr>
+                                    <td style="border:1px solid #000; padding:3px 5px;">
+                                        <b>Solicitud N&#176;</b>
+                                    </td>
+                                    <td style="border:1px solid #000; padding:3px 5px;">
+                                        {!caso.CaseNumber}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <!-- ================= DATOS DEL CASO ================= -->
+    <div style="border:1px solid #000; margin-bottom:6px; font-family:Arial, sans-serif; font-size:10px;">
+        <div style="background:#C0C0C0; font-weight:bold; padding:4px 6px; border-bottom:1px solid #000;">
+            Datos del caso
+        </div>
+        <table style="width:100%; border-collapse:collapse;">
+            <tr>
+                <td style="padding:3px 5px; width:33%;"><b>N&#250;mero de factura</b></td>
+                <td style="border-bottom:1px solid #000; padding:3px 5px; width:33%;">{!caso.Factura__r.Name}</td>
+                <td style="padding:3px 5px; width:17%;"><b>Nombre cuenta</b></td>
+                <td style="border-bottom:1px solid #000; padding:3px 5px; width:17%;">{!caso.Account.Name}</td>
+            </tr>
+            <tr>
+                <td style="padding:3px 5px;"><b>Sucursal</b></td>
+                <td style="border-bottom:1px solid #000; padding:3px 5px;" colspan="3">{!caso.Factura__r.Sucursal__c}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- ================= TABLA PRODUCTOS ================= -->
+    <table style="width:100%; border-collapse:collapse; font-size:10px; font-family:Arial, sans-serif;">
+        <tr>
+            <th style="background:#C0C0C0; border:1px solid #000; padding:4px;">N&#176;</th>
+            <th style="background:#C0C0C0; border:1px solid #000; padding:4px;">C&#243;digo SAP</th>
+            <th style="background:#C0C0C0; border:1px solid #000; padding:4px;">Material</th>
+            <th style="background:#C0C0C0; border:1px solid #000; padding:4px;">Cantidad | Unidad de medida</th>
+            <th style="background:#C0C0C0; border:1px solid #000; padding:4px;">Valor Neto</th>
+        </tr>
+        <apex:repeat value="{!detallesWrapper}" var="dw">
+            <tr>
+                <td style="border:1px solid #000; padding:4px; text-align:center;">
+                    {!dw.rowNum}
+                </td>
+                <td style="border:1px solid #000; padding:4px; text-align:center;">
+                    {!dw.det.SKU__c}
+                </td>
+                <td style="border:1px solid #000; padding:4px;">
+                    <b>{!dw.det.Product__r.Name}</b>
+                </td>
+                <td style="border:1px solid #000; padding:4px; text-align:center;">
+                    {!dw.det.Cantidad__c} | {!dw.det.Unidad_de_Medida__c}
+                </td>
+                <td style="border:1px solid #000; padding:4px;">
+                    $
+                    <apex:outputText value="{0,number,#,##0}">
+                        <apex:param value="{!dw.det.Valor_Neto__c}" />
+                    </apex:outputText>
+                </td>
+            </tr>
+        </apex:repeat>
+        <tr>
+            <td colspan="4" style="border:1px solid #000; padding:4px; text-align:right; font-weight:bold; background:#C0C0C0;">
+                Total:
+            </td>
+            <td style="border:1px solid #000; padding:4px; font-weight:bold; background:#C0C0C0;">
+                $
+                <apex:outputText value="{0,number,#,##0}">
+                    <apex:param value="{!totalValorNeto}" />
+                </apex:outputText>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+</apex:page>

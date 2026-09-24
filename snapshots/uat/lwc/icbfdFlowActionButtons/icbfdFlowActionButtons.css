@@ -1,0 +1,20 @@
+.icbfd-wrap{
+  width: 100%;
+}
+.icbfd-title{
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: .25rem;
+}
+.icbfd-help{
+  color: #5c5c5c;
+  margin-bottom: .75rem;
+}
+.icbfd-actions{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .75rem;
+}
+.icbfd-btn{
+  width: 100%;
+}

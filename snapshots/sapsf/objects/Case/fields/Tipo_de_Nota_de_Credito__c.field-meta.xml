@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tipo_de_Nota_de_Credito__c</fullName>
+    <label>Tipo de Nota de Crédito</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Financiera</fullName>
+                <default>false</default>
+                <label>Financiera</label>
+            </value>
+            <value>
+                <fullName>Operacional</fullName>
+                <default>false</default>
+                <label>Operacional</label>
+            </value>
+            <value>
+                <fullName>Sin nota de crédito, acuerdo comercial</fullName>
+                <default>false</default>
+                <label>Sin nota de crédito, acuerdo comercial</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

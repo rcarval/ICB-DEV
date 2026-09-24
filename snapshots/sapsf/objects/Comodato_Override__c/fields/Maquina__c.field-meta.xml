@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Maquina__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Denormalizado desde Comodato_Original__r.Maquina__c para poder filtrar ajustes por maquina+Quote sin atravesar el lookup en SOQL (WHERE Quote__c = :q AND Maquina__c IN :ids).</description>
+    <label>Maquina</label>
+    <referenceTo>Product2</referenceTo>
+    <relationshipLabel>Ajustes Excepcionales Comodato (Maquina)</relationshipLabel>
+    <relationshipName>Ajustes_Excepcionales_Maquina</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Encuesta cliente</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Encuestas cliente</value>
+    </caseValues>
+    <gender>Feminine</gender>
+    <layouts>
+        <layout>Formato Encuesta cliente</layout>
+        <sections>
+            <label><!-- Información cliente --></label>
+            <section>Información cliente</section>
+        </sections>
+        <sections>
+            <label><!-- Información de sesión mensajeria --></label>
+            <section>Información de sesión mensajeria</section>
+        </sections>
+        <sections>
+            <label><!-- Respuesta de encuesta --></label>
+            <section>Respuesta de encuesta</section>
+        </sections>
+        <sections>
+            <label><!-- Vínculos personalizados --></label>
+            <section>Vínculos personalizados</section>
+        </sections>
+    </layouts>
+</CustomObjectTranslation>

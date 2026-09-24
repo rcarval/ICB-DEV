@@ -1,0 +1,23 @@
+<template>
+    <div class="tipo-equipo-container">
+        <div class="tipo-equipo-title">Seleccione el tipo de equipo para la propuesta de Comodato</div>
+        <div class="tipo-equipo-grid">
+            <article class={cafeClass} data-value="Máquina Café" onclick={handleSelect}>
+                <template if:true={isCafe}>
+                    <lightning-icon icon-name="utility:check" size="x-small" class="tipo-check"></lightning-icon>
+                </template>
+                <img src={lavazzaIconUrl} class="tipo-icon-img" alt="Lavazza"/>
+                <div class="tipo-nombre">Máquina de Café</div>
+                <div class="tipo-desc">Cápsula, grano entero o grano molido.</div>
+            </article>
+            <article class={dispensadorClass} data-value="Dispensador" onclick={handleSelect}>
+                <template if:true={isDispensador}>
+                    <lightning-icon icon-name="utility:check" size="x-small" class="tipo-check"></lightning-icon>
+                </template>
+                <div class="tipo-icon" aria-hidden="true">🥤</div>
+                <div class="tipo-nombre">Dispensador</div>
+                <div class="tipo-desc">Dispensadores y sus insumos asociados.</div>
+            </article>
+        </div>
+    </div>
+</template>

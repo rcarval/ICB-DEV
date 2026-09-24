@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tipo_de_Negocio_Recomendado__c</fullName>
+    <description>Tipos de negocio recomendados para esta máquina.</description>
+    <label>Tipo de Negocio Recomendado</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>BANQUETERIA</fullName>
+                <default>false</default>
+                <label>Banquetería</label>
+            </value>
+            <value>
+                <fullName>RESTAURANTES</fullName>
+                <default>false</default>
+                <label>Restaurantes</label>
+            </value>
+            <value>
+                <fullName>OFICINAS</fullName>
+                <default>false</default>
+                <label>Oficinas</label>
+            </value>
+            <value>
+                <fullName>HOTELES</fullName>
+                <default>false</default>
+                <label>Hoteles</label>
+            </value>
+            <value>
+                <fullName>CADENAS</fullName>
+                <default>false</default>
+                <label>Cadenas</label>
+            </value>
+            <value>
+                <fullName>TO_GO</fullName>
+                <default>false</default>
+                <label>To Go</label>
+            </value>
+            <value>
+                <fullName>MINIMARKET</fullName>
+                <default>false</default>
+                <label>Minimarket</label>
+            </value>
+            <value>
+                <fullName>CAFETERIAS</fullName>
+                <default>false</default>
+                <label>Cafeterías</label>
+            </value>
+            <value>
+                <fullName>CLUB</fullName>
+                <default>false</default>
+                <label>Club</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

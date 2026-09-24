@@ -1,0 +1,6 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<div style="font-size: 12pt; text-align: left;"><font face="arial" size="6">Hola,</font></div><div style="font-size: 12pt; text-align: left;"><font face="arial" size="6">Este es tu QR para el check-in del evento.</font></div><div style="font-size: 12pt; text-align: left;"><font face="arial" size="6"><br></font></div><div style="font-size: 12pt; text-align: left;"><font face="arial" size="6">{!CampaignMember.IMG_QR__c}</font></div><div style="font-size: 12pt; text-align: left;"><font face="arial" size="6"><br></font></div><div style="font-size: 12pt; text-align: left;"><font face="arial" size="6">Si no puedes ver la imagen, usa este enlace:&nbsp;</font></div><div style="font-size: 12pt;"><br></div><div style=""><font size="6"><a href="https://api.qrserver.com/v1/create-qr-code/?size=300x300&amp;data=https://energy-saas-7178--uat.sandbox.my.site.com/qricbfs/?token={!QR_Token__c}">Entrar a link</a></font></div><div style="font-size: 12pt; text-align: left;"><font face="arial" size="6">&nbsp;</font></div>]]></td>
+</tr>
+</table>

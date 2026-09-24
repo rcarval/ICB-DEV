@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Objeto_API__c</fullName>
+    <description>Referencia informativa: API Name del objeto sobre el que actua este proceso (ej. Account). No dispara logica por si solo; sirve para identificar de un vistazo a que objeto pertenece cada proceso en el panel.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Solo referencia: API Name del objeto, ej: Account.</inlineHelpText>
+    <label>Objeto API</label>
+    <length>80</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,428 @@
+<apex:page controller="seidor_PDFController" sidebar="false" showHeader="false" standardStylesheets="false" renderAs="{!IF(isPreview, '', 'pdf')}">
+
+    <!-- ================= ENCABEZADO ================= -->
+    <table style="width:100%; border:2px solid #000; padding:10px; margin-bottom:12px; border-collapse:collapse;">
+        <tr>
+            <!-- LOGO IZQUIERDA -->
+            <td style="width:20%; vertical-align:middle; text-align:left; margin-right:-10px;">
+                <apex:image url="https://energy-saas-7178--qa2--c.sandbox.vf.force.com/resource/1757015875000/imagenICB?" width="120" />
+            </td>
+
+            <!-- CENTRO + DERECHA -->
+            <td style="width:100%;">
+
+                <!-- CONTENEDOR TITULO + SOLICITUD -->
+                <table style="width:100%; border-collapse:collapse;">
+                    <tr>
+                        <!-- TITULOS -->
+                        <td style="text-align:left;margin-left:-10px;">
+                            <div style="font-size:20px; font-family:Arial, sans-serif; font-weight:bold; background:#C0C0C0;">
+                                Formulario de Devolución y Retiro
+                            </div>
+                            <div style="font-size:17px; font-family:Arial, sans-serif; margin-top:4px; font-weight:bold;">
+                                RECLAMO CALIDAD
+                            </div>
+                        </td>
+
+                        <!-- SOLICITUD N° (DERECHA) -->
+                        <td style="width:30%; text-align:right; vertical-align:top; font-size:12px; font-family:Arial, sans-serif; margin-top:3px;">
+                            <table style="border-collapse:collapse; width:100%;margin-top:3px;">
+                                <tr>
+                                    <td style="border:1px solid #000;padding-right:4px;">
+                                        <b>Solicitud N°</b>
+                                    </td>
+                                    <td style="border:1px solid #000; padding-left:4px;">
+                                        {!caso.CaseNumber}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+    <table style="width:100%; border-collapse:collapse; font-size:12px; font-family:Arial, sans-serif; margin-top:10px;">
+
+        <!-- ENCABEZADOS -->
+        <tr>
+            <th style="background:#C0C0C0; border:1px solid #000; padding:4px;">N°</th>
+            <th style="background:#C0C0C0; border:1px solid #000; padding:4px;">Código SAP</th>
+            <th style="background:#C0C0C0; border:1px solid #000; padding:4px;">Material</th>
+            <!-- <th style="background:#C0C0C0; border:1px solid #000; padding:4px;">Cajas</th> -->
+            <th style="background:#C0C0C0; border:1px solid #000; padding:4px;">Cantidad | Unidad de medida</th>
+            <!-- <th style="background:#C0C0C0; border:1px solid #000; padding:4px;">Kilos</th> -->
+            <th style="background:#C0C0C0; border:1px solid #000; padding:4px;">Valor Neto</th>
+            <th style="background:#C0C0C0; border:1px solid #000; padding:4px;">Área</th>
+            <th style="background:#C0C0C0; border:1px solid #000; padding:4px;">Categoría</th>
+            <th style="background:#C0C0C0; border:1px solid #000; padding:4px;">Sub-categoría</th>
+            <th style="background:#C0C0C0; border:1px solid #000; padding:4px;">Motivo de la devolución</th>
+        </tr>
+
+        <!-- FILA DE DATOS -->
+        <tr>
+            <td style="border:1px solid #000; padding:4px; text-align:center;">
+                <!-- Definir numeración -->
+                1
+                <!-- {!caso.N_FDR__c}  -->
+            </td>
+
+            <td style="border:1px solid #000; padding:4px; text-align:center;">
+                {!caso.SKU__c}
+            </td>
+
+            <td style="border:1px solid #000; padding:4px;">
+                <b>{!detalleProductoFactura.Product__r.Name}</b>
+            </td>
+
+            <td style="border:1px solid #000; padding:4px; text-align:center;">
+                {!caso.Cantidad_reclamada__c} | {!caso.UM_Unidad_de_Medida__c}
+            </td>
+
+            <!-- <td style="border:1px solid #000; padding:4px; text-align:center;">
+                {!detalleProductoFactura.Cantidad__c}
+            Definir
+            </td> -->
+
+            <!-- <td style="border:1px solid #000; padding:4px; text-align:center;">
+                Definir
+            </td> -->
+
+            <!-- VALOR NETO (GRIS) -->
+            <td style="border:1px solid #000; padding:4px;">
+                <!-- $ {!detalleProductoFactura.Valor_Neto__c} -->
+                $
+                <apex:outputText value="{0,number,#,##0}">
+                    <apex:param value="{!caso.Valor_Neto__c}" />
+                </apex:outputText>
+            </td>
+
+            <!-- Área -->
+            <td style="border:1px solid #000; padding:4px; text-align:center;">
+                {!caso.Area__c}
+            </td>
+
+            <!-- A (GRIS) -->
+            <td style="border:1px solid #000; padding:4px; text-align:center;">
+                {!caso.Categoria__c}
+            </td>
+
+            <!-- B (GRIS) -->
+            <td style="border:1px solid #000; padding:4px;  text-align:center;">
+                {!caso.Sub_Categoria__c}
+            </td>
+
+            <!-- MOTIVO (AMARILLO) -->
+            <td style="border:1px solid #000; padding:6px; ">
+                {!caso.Motivo__c}
+            </td>
+        </tr>
+
+    </table>
+
+    <!-- ================= CLIENTE | PEDIDO ================= -->
+    <table style="width:100%; border-collapse:collapse; margin-bottom:12px; margin-top:12px;">
+        <tr>
+            <!-- ================= DATOS CLIENTE (IZQUIERDA) ================= -->
+            <td style="width:50%; vertical-align:top; padding-right:6px;">
+
+                <div style="border:1px solid #000;">
+                    <div style="background:#C0C0C0; font-weight:bold; padding:5px; border-bottom:1px solid #000; font-family:Arial, sans-serif;">
+                        Datos del cliente:
+                    </div>
+                    <div style="padding:6px;">
+                        <table style="width:100%; border-collapse:collapse; font-size:12px; font-family:Arial, sans-serif;">
+                            <tr>
+                                <td style="padding:4px;">
+                                    <b>Razón social</b>
+                                </td>
+                                <td style="border-bottom:1px solid #000; padding:4px;" colspan="3">
+                                    {!caso.Account.Name}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:4px;">
+                                    <b>Nombre de fantasia</b>
+                                </td>
+                                <td style="border-bottom:1px solid #000; padding:4px;" colspan="3">
+                                    {!caso.Account.Nombre_de_Fantasia__c}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:4px;">
+                                    <b>RUT</b>
+                                </td>
+                                <td style="border-bottom:1px solid #000; padding:4px;" colspan="3">
+                                    {!caso.Account.RUT__c}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:4px;">
+                                    <b>Código cliente despacho</b>
+                                </td>
+                                <td style="border-bottom:1px solid #000; padding:4px;" colspan="3">
+                                    {!caso.Direccion_de_Retiro__r.Cliente_Despacho__c}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:4px;">
+                                    <b>Dirección de retiro</b>
+                                </td>
+                                <td style="border-bottom:1px solid #000; padding:4px;" colspan="2">
+                                    <!-- {!caso.Direccion_de_Retiro__c} -->
+                                    <p>{!caso.Direccion_de_Retiro__r.Domicilio_Adicional__Street__s}</p>
+                                </td>
+                                <td style="border-bottom:1px solid #000; padding:4px;" colspan="1">
+                                    <!-- {!caso.Direccion_de_Retiro__c} -->
+                                    <p> | {!caso.Direccion_de_Retiro__r.Comuna_Despacho__r.Name}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:4px;">
+                                    <b>Nombre del contacto</b>
+                                </td>
+                                <td style="border-bottom:1px solid #000; padding:4px;" colspan="3">
+                                    {!caso.Contact.Name}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:4px;">
+                                    <b>Fono</b>
+                                </td>
+                                <td style="border-bottom:1px solid #000; padding:4px;">
+                                    {!caso.ContactMobile}
+                                </td>
+                                <td style="padding:4px;">
+                                    <b>Región</b>
+                                </td>
+                                <td style="border-bottom:1px solid #000; padding:4px;">
+                                    {!caso.Direccion_de_Retiro__r.Region__c}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:4px;">
+                                    <b>Procesado por</b>
+                                </td>
+                                <td style="border-bottom:1px solid #000; padding:4px;" colspan="3">
+                                    {!caso.Owner.Name}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:4px;">
+                                    <b>Horario retiro</b>
+                                </td>
+                                <td style="border-bottom:1px solid #000; padding:4px;" colspan="3">
+                                    {!caso.Horario_retiro__c}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            </td>
+
+            <!-- ================= DATOS PEDIDO (DERECHA) ================= -->
+            <td style="width:50%; vertical-align:top; padding-left:6px; height:100%;">
+
+                <div style="border:1px solid #000;">
+                    <div style="background:#C0C0C0; font-weight:bold; padding:5px; border-bottom:1px solid #000; font-family:Arial, sans-serif;">
+                        Datos del Pedido
+                    </div>
+                    <div style="padding:6px;">
+                        <table style="width:100%; border-collapse:collapse; font-size:12px; font-family:Arial, sans-serif;">
+                            <tr>
+                                <td style="padding:4px;">
+                                    <b>Fecha de solicitud</b>
+                                </td>
+                                <td style="border-bottom:1px solid #000; padding:4px;" colspan="3">
+                                    <!-- {!caso.CreatedDate} -->
+                                    <apex:outputText value="{0,date,dd-MM-yyyy}">
+                                        <apex:param value="{!caso.CreatedDate}" />
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:4px;">
+                                    <b>Factura N°</b>
+                                </td>
+                                <td style="border-bottom:1px solid #000;padding:4px;" colspan="3">
+                                    {!caso.N_Factura__c}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:4px;">
+                                    <b>Fecha factura</b>
+                                </td>
+                                <td style="border-bottom:1px solid #000; padding:4px;" colspan="3">
+                                    <apex:outputText value="{0,date,dd-MM-yyyy}">
+                                        <apex:param value="{!caso.Fecha_Factura__c}" />
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:4px;">
+                                    <b>Asesor</b>
+                                </td>
+                                <td style="border-bottom:1px solid #000; padding:4px;" colspan="3">
+                                    {!caso.Account.Owner.Name}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:4px;">
+                                    <b>Jefe de canal</b>
+                                </td>
+                                <td style="border-bottom:1px solid #000; padding:4px;" colspan="3">
+                                    {!supervisorName}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:4px;">
+                                    <b>Usuario digitación</b>
+                                </td>
+                                <td style="border-bottom:1px solid #000; padding:4px;">
+                                    {!caso.Owner.Name}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+
+    <!-- ================= DATOS DEL TRANSPORTE ================= -->
+    <table>
+        <div style="margin-left: 15px;">
+            <p style="font-size:12px; font-family:Arial, sans-serif;">*Información para ser completada por Logística*</p>
+        </div>
+        <div style="border:1px solid #000;">
+            <div style="background:#C0C0C0; font-family:Arial, sans-serif; font-weight:bold; padding:5px;">
+                Datos del transporte:
+            </div>
+
+
+            <div style="padding:6px;">
+                <!-- TABLA CONTENEDORA -->
+                <table style="width:100%; border-collapse:collapse; font-size:12px; font-family:Arial, sans-serif;">
+
+                    <tr>
+                        <!-- ================= IZQUIERDA: TRANSPORTE ================= -->
+                        <td style="width:40%; vertical-align:top; padding-right:10px;">
+
+                            <table style="width:100%; border-collapse:collapse;">
+                                <tr>
+                                    <td style="padding:4px;">
+                                        <b>Nombre del transporte</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-bottom:1px solid #000; padding:4px;">
+                                        {!caso.Transporte__r.Name}
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+
+                        <!-- ================= DERECHA: FECHAS / NC ================= -->
+                        <td style="width:30%; vertical-align:top; padding-left:10px;">
+
+                            <table style="width:100%; border-collapse:collapse;">
+                                <tr>
+                                    <td style="padding:4px; width:40%;">
+                                        <b>Fecha de retiro</b>
+                                    </td>
+                                    <td style="border-bottom:1px solid #000; padding:4px;">
+                                        <apex:outputText value="{0,date,dd-MM-yyyy}">
+                                            <apex:param value="{!caso.Fecha_retiro__c}" />
+                                        </apex:outputText>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding:4px;">
+                                        <b>Fecha de rendición</b>
+                                    </td>
+                                    <td style="border-bottom:1px solid #000; padding:4px;">
+                                        <!-- DD-MM-YYYY -->
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding:4px;">
+                                        <b>Nota de crédito</b>
+                                    </td>
+                                    <td style="border-bottom:1px solid #000; padding:4px;">
+                                        <!-- N° 00012345 -->
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                        <td>
+                            <!-- ================= DERECHA: ESTADO MERCADERÍA SAC ================= -->
+                            <table style="width:80%; border-collapse:collapse; font-size:12px; font-family:Arial, sans-serif; margin-left:30px; margin-top:-15px;">
+                                <tr>
+                                    <td colspan="2" style="border:1px solid #000; background:#C0C0C0; font-weight:bold; padding:4px; text-align:center;">
+                                        Estado de mercadería SAC
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border:1px solid #000; padding:4px; width:80%; background:#FFFF00;">
+                                        Producto en buen estado
+                                    </td>
+                                    <td style="border:1px solid #000; padding:4px; width:20%;"></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border:1px solid #000; padding:4px; width:80%; background:#FFFF00;">
+                                        Producto en malas condiciones
+                                    </td>
+                                    <td style="border:1px solid #000; padding:4px; width:20%;"></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- ================= ESTADO MERCADERÍA ================= -->
+                <div style="font-weight:bold; padding:8px 0; font-size:12px; font-family:Arial, sans-serif;">
+                    Estado de la mercadería:
+                </div>
+                <table style="width:80%; border-collapse:collapse; font-size:12px; font-family:Arial, sans-serif;">
+                    <tr>
+                        <td style="border:1px solid #000; padding:4px; width:20%;">
+                            <b>Bueno</b>
+                        </td>
+                        <td style="border:1px solid #000; padding:4px; width:80%;"></td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid #000; padding:4px;">
+                            <b>Malo</b>
+                        </td>
+                        <td style="border:1px solid #000; padding:4px;"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </table>
+
+    <!-- ================= OBSERVACIONES ================= -->
+    <div style="border:1px solid #000; margin-top:12px;">
+        <div style="background:#C0C0C0; font-family:Arial, sans-serif; font-weight:bold; padding:5px; border-bottom:1px solid #000;">
+            Observación:
+        </div>
+        <div style="padding:6px; font-size:12px; font-family:Arial, sans-serif;">
+            {!caso.Motivo__c}
+        </div>
+    </div>
+
+    <apex:outputPanel rendered="{!AND(isPreview, NOT(ISBLANK($CurrentPage.parameters.refresh)))}">
+        <meta http-equiv="refresh" content="{!$CurrentPage.parameters.refresh}" />
+    </apex:outputPanel>
+
+</apex:page>

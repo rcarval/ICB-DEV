@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ServiceChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <capacityModel>STATUS_BASED</capacityModel>
+    <doesCheckCapOnOwnerChange>false</doesCheckCapOnOwnerChange>
+    <doesCheckCapOnStatusChange>false</doesCheckCapOnStatusChange>
+    <doesMinimizeWidgetOnAccept>true</doesMinimizeWidgetOnAccept>
+    <hasAfterConvoWorkTimer>false</hasAfterConvoWorkTimer>
+    <hasAutoAcceptEnabled>false</hasAutoAcceptEnabled>
+    <isInterruptible>true</isInterruptible>
+    <label>Messaging</label>
+    <relatedEntityType>MessagingSession</relatedEntityType>
+    <serviceChannelStatusFieldMappings>
+        <type>COMPLETED</type>
+        <value>Terminado</value>
+    </serviceChannelStatusFieldMappings>
+    <serviceChannelStatusFieldMappings>
+        <type>COMPLETED</type>
+        <value>Error</value>
+    </serviceChannelStatusFieldMappings>
+    <serviceChannelStatusFieldMappings>
+        <type>IN_PROGRESS</type>
+        <value>Activo</value>
+    </serviceChannelStatusFieldMappings>
+    <serviceChannelStatusFieldMappings>
+        <type>IN_PROGRESS</type>
+        <value>Esperando</value>
+    </serviceChannelStatusFieldMappings>
+    <serviceChannelStatusFieldMappings>
+        <type>IN_PROGRESS</type>
+        <value>Consentimiento</value>
+    </serviceChannelStatusFieldMappings>
+    <serviceChannelStatusFieldMappings>
+        <type>PAUSED</type>
+        <value>Inactivo</value>
+    </serviceChannelStatusFieldMappings>
+    <serviceChannelStatusFieldMappings>
+        <type>PAUSED</type>
+        <value>Nuevo</value>
+    </serviceChannelStatusFieldMappings>
+    <serviceChannelStatusFieldMappings>
+        <type>PAUSED</type>
+        <value>En pausa</value>
+    </serviceChannelStatusFieldMappings>
+    <statusField>Status</statusField>
+</ServiceChannel>

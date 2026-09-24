@@ -1,0 +1,172 @@
+/* ── Tabla general ───────────────────────────────────────────────────────── */
+.table-wrap {
+    overflow-x: auto;
+}
+
+/* ── Celda cliente en filas de sesión ─────────────────────────────────────── */
+.eu-name    { font-weight: 600; font-size: 0.875rem; }
+.eu-phone   { font-size: 0.775rem; color: #555; }
+.eu-account { font-size: 0.775rem; color: #888; font-style: italic; }
+
+/* ── Fila cabecera de agente ─────────────────────────────────────────────── */
+.agent-group-header {
+    background: linear-gradient(90deg, #c0392b 0%, #96281b 100%);
+    color: black;
+}
+
+.agent-group-header-cell {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.65rem 0.9rem;
+    color: #ffffff;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    letter-spacing: 0.02em;
+}
+
+.agent-group-header-cell:hover {
+    background: rgba(0,0,0,0.15);
+    color: #000000;
+}
+
+/* ── Fila de sesión ──────────────────────────────────────────────────────── */
+.session-row {
+    background: #f8f9fa;
+    color: black;
+}
+
+.session-row:hover td {
+    background: #e8f0fe;
+    color: black;
+    cursor: pointer;
+}
+
+.session-row td {
+    border-bottom: 1px solid #e0e5ee;
+    padding: 0.4rem 0.75rem;
+}
+
+.session-icon-cell {
+    cursor: pointer;
+    padding: 0.4rem;
+    text-align: center;
+}
+
+/* ── Filas de mensaje ────────────────────────────────────────────────────── */
+.message-row td {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.75rem 0.3rem 2.5rem;
+}
+
+.msg-user td {
+    border-left: 3px solid #3498db;
+    background: #f0f7ff;
+    color: black;;
+}
+
+.msg-agent td {
+    border-left: 3px solid #27ae60;
+    background: #f0fff4;
+}
+
+.msg-bot td {
+    border-left: 3px solid #f39c12;
+    background: #fffbf0;
+}
+
+.msg-system td {
+    border-left: 3px solid #9b59b6;
+    background: #fdf5ff;
+    font-style: italic;
+}
+
+/* ── Celdas de tiempo de respuesta ───────────────────────────────────────── */
+.response-time-cell {
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.no-response-cell {
+    color: #aeaeae;
+}
+
+/* ── Panel lateral CSAT / Torta ──────────────────────────────────────────── */
+.csat-panel {
+    background: #ffffff;
+    border: 1px solid #dddbda;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+}
+
+.csat-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #032d60;
+    margin: 0 0 0.4rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* ── Torta ───────────────────────────────────────────────────────────────── */
+.pie-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+}
+
+.csat-total {
+    font-size: 0.75rem;
+    color: #706e6b;
+    text-align: center;
+    margin: 0 0 0.75rem 0;
+}
+
+/* ── Leyenda ─────────────────────────────────────────────────────────────── */
+.csat-legend {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+}
+
+.legend-dot {
+    flex-shrink: 0;
+}
+
+.legend-label {
+    flex: 1;
+    color: #3e3e3c;
+}
+
+.legend-pct {
+    font-weight: 700;
+    color: #032d60;
+    min-width: 34px;
+    text-align: right;
+}
+
+.legend-count {
+    color: #706e6b;
+    min-width: 28px;
+    text-align: right;
+}
+
+/* ── Hint ────────────────────────────────────────────────────────────────── */
+.hint-text {
+    text-align: center;
+    color: #706e6b;
+    font-size: 0.8rem;
+    padding: 1rem;
+}

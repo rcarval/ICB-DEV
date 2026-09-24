@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Checked_In_By__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Validado por</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Eventos_Check_ins</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

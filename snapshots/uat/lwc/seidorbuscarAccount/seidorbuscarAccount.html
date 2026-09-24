@@ -1,0 +1,117 @@
+<template>
+  <div class="seidor-buscar-cliente">
+    <!-- ── Barra de búsqueda ─────────────────────────────────────────────── -->
+    <div class="slds-grid slds-gutters_small slds-wrap">
+      <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12">
+        <lightning-input
+          type="text"
+          label="Buscar cliente"
+          placeholder="Ingresa RUT, código de cliente (ej: FS21312) o nombre…"
+          value={searchTerm}
+          onchange={handleInputChange}
+          onkeydown={handleKeyDown}
+          message-when-value-missing="Ingresa un término de búsqueda."
+          autocomplete="off"
+        ></lightning-input>
+      </div>
+
+      <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 btn-col">
+        <lightning-button
+          label="Buscar"
+          variant="brand"
+          icon-name="utility:search"
+          icon-position="left"
+          onclick={handleSearch}
+          disabled={isSearchDisabled}
+          class="buscar-btn"
+        ></lightning-button>
+      </div>
+    </div>
+
+    <!-- ── Spinner ──────────────────────────────────────────────────────── -->
+    <template if:true={isLoading}>
+      <div class="slds-m-top_medium slds-text-align_center">
+        <lightning-spinner
+          alternative-text="Buscando clientes…"
+          size="small"
+        ></lightning-spinner>
+      </div>
+    </template>
+
+    <!-- ── Error ────────────────────────────────────────────────────────── -->
+    <template if:true={errorMessage}>
+      <div class="slds-m-top_small">
+        <div
+          class="slds-notify slds-notify_alert slds-alert_error"
+          role="alert"
+        >
+          <lightning-icon
+            icon-name="utility:error"
+            size="x-small"
+            class="slds-m-right_x-small"
+          ></lightning-icon>
+          <span>{errorMessage}</span>
+        </div>
+      </div>
+    </template>
+
+    <!-- ── Sin resultados ────────────────────────────────────────────────── -->
+    <template if:true={showNoResults}>
+      <div
+        class="slds-m-top_medium slds-box slds-text-align_center no-results-box"
+      >
+        <lightning-icon
+          icon-name="utility:search"
+          size="small"
+          class="slds-m-bottom_x-small"
+        ></lightning-icon>
+        <p class="slds-text-color_weak slds-m-top_x-small">
+          Sin resultados para <strong>"{lastSearchTerm}"</strong>.<br />
+          Intenta con RUT, código de cliente o nombre de cuenta.
+        </p>
+      </div>
+    </template>
+
+    <!-- ── Tabla de resultados ───────────────────────────────────────────── -->
+    <template if:true={hasResults}>
+      <div class="slds-m-top_medium">
+        <lightning-datatable
+          key-field="Id"
+          data={results}
+          columns={columns}
+          max-row-selection="1"
+          selected-rows={selectedRowIds}
+          onrowselection={handleRowSelection}
+          column-widths-mode="auto"
+          resize-column-disabled
+        ></lightning-datatable>
+
+        <!-- Pie de tabla: contador + selección activa -->
+        <div class="slds-grid slds-gutters slds-m-top_x-small">
+          <div class="slds-col">
+            <p class="slds-text-body_small slds-text-color_weak">
+              {results.length} resultado(s) encontrado(s)
+              <template if:true={showResultLimit}>
+                &nbsp;— se muestran los primeros 50.
+              </template>
+            </p>
+          </div>
+          <template if:true={selectedAccountName}>
+            <div class="slds-col slds-text-align_right">
+              <p class="slds-text-body_small selected-info">
+                ✓ Seleccionado: <strong>{selectedAccountName}</strong>
+              </p>
+            </div>
+          </template>
+        </div>
+      </div>
+    </template>
+
+    <!-- ── Validación Flow (campo requerido) ────────────────────────────── -->
+    <template if:true={showValidationError}>
+      <p class="slds-form-element__help slds-m-top_x-small validation-error">
+        {validationErrorMsg}
+      </p>
+    </template>
+  </div>
+</template>

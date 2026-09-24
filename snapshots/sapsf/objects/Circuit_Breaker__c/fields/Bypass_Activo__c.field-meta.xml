@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bypass_Activo__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Permite una carga masiva legítima sin contar ni frenar, distinto de apagar Activo__c del todo. Se auto-desactiva al llegar Bypass_Hasta__c.</description>
+    <inlineHelpText>Deja pasar todo sin contar ni frenar (útil para una carga masiva planeada). Distinto de &quot;Activo&quot;: el breaker sigue prendido, solo se pausa por un rato definido en Bypass Hasta.</inlineHelpText>
+    <label>Bypass Activo</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

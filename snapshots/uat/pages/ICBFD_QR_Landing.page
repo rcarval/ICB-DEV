@@ -1,0 +1,18 @@
+<apex:page controller="ICBFD_QR_LandingController" showHeader="false" sidebar="false">
+    <div style="font-family: Arial; max-width: 720px; margin: 40px auto; padding: 24px; border: 1px solid #e5e7eb; border-radius: 14px;">
+        <div style="font-size: 26px; font-weight: 800; margin-bottom: 10px;">
+            {!titulo}
+        </div>
+
+        <div style="font-size: 16px; line-height: 1.6; margin-bottom: 18px;">
+            {!mensaje}
+        </div>
+
+        <div style="padding: 14px; border-radius: 12px; background: #f9fafb; border: 1px solid #e5e7eb;">
+            <b>Resultado:</b> {!resultado}<br/>
+            <span style="font-size: 12px; color: #6b7280;">
+                Seguridad: este proceso requiere iniciar sesión en Salesforce ✅
+            </span>
+        </div>
+    </div>
+</apex:page>

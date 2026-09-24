@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property
+                name="componentDeveloperName"
+                type="String"
+                label="Developer Name del Messaging Component"
+                default="encuestaPreguntaV1"
+            />
+            <property
+                name="buttonLabel"
+                type="String"
+                label="Texto del botón"
+                default="Enviar Encuesta"
+            />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

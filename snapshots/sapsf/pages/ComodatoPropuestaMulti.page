@@ -1,0 +1,129 @@
+<apex:page controller="ComodatoPropuestaMultiController" renderAs="{!IF($CurrentPage.parameters.renderPdf == 'true', 'pdf', '')}" applyBodyTag="false" applyHtmlTag="false" showHeader="false" sidebar="false" standardStylesheets="false">
+<html>
+<head>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 10pt;
+            color: #333;
+        }
+        .header-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        /* Marcas representadas, a continuacion de Lavazza en la misma linea.
+           Los archivos vienen recortados a su contenido, asi que la altura es la del logo
+           real. No van todas iguales: un emblema macizo --el ovalo de Kraft, el escudo de Don
+           Juan-- pesa mas que una palabra a igual altura, y el wordmark de Kraft Heinz es el
+           mas horizontal, asi que necesita algo menos para no comerse la linea. */
+        .marca { margin-left: 16px; vertical-align: middle; }
+        .marca-kraft      { height: 20px; }
+        .marca-kraftheinz { height: 18px; }
+        .marca-nutella    { height: 20px; }
+        .marca-donjuan    { height: 31px; }
+        .banner { background-color: #0000A0; color: white; text-align: center; padding: 8px 0; font-size: 14pt; font-weight: bold; letter-spacing: 3px; margin-bottom: 20px; }
+        .section-separator { border-top: 3px solid #0000A0; margin: 30px 0; }
+        .machine-name { text-align: center; font-size: 13pt; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
+        .qty-label { font-size: 11pt; color: #0000A0; }
+        .services-table { width: 100%; border-collapse: collapse; }
+        .services-table th { background: #0000A0; color: white; padding: 10px 14px; font-size: 9pt; text-align: left; }
+        .services-table td { padding: 10px 14px; border-bottom: 1px solid #eee; font-size: 9pt; }
+        .aportes { margin-top: 20px; page-break-inside: avoid; }
+        .aportes-title { font-weight: bold; margin-bottom: 12px; }
+        .ficha { margin-top: 24px; page-break-inside: avoid; }
+        .ficha-title { font-weight: bold; margin-bottom: 10px; font-size: 10pt; }
+        .ficha-content { font-size: 9pt; line-height: 1.5; }
+        .disclaimer { margin-top: 40px; font-size: 8pt; text-align: center; color: #666; }
+        .machine-image { text-align: center; margin: 20px 0; }
+        .machine-image img { max-width: 250px; max-height: 200px; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <table class="header-table">
+        <tr>
+            <td style="text-align:left;vertical-align:middle;"><apex:image url="{!$Resource.ICBLogo}" height="70px"/></td>
+            <td style="text-align:right;vertical-align:middle;"><apex:image url="{!$Resource.LavazzaLogo}" height="70px" style="vertical-align:middle;"/><apex:image url="{!$Resource.LogoKraft}" styleClass="marca marca-kraft" alt="Kraft"/><apex:image url="{!$Resource.LogoKraftHeinz}" styleClass="marca marca-kraftheinz" alt="Kraft Heinz"/><apex:image url="{!$Resource.LogoNutella}" styleClass="marca marca-nutella" alt="Nutella"/><apex:image url="{!$Resource.LogoDonJuan}" styleClass="marca marca-donjuan" alt="Don Juan"/></td>
+        </tr>
+    </table>
+
+    <!-- Banner -->
+    <div class="banner">PROPUESTA</div>
+
+    <!-- Secciones por máquina -->
+    <apex:repeat value="{!sections}" var="sec">
+        <apex:outputPanel rendered="{!sec != sections[0]}">
+            <div class="section-separator"></div>
+        </apex:outputPanel>
+
+        <!-- Imagen -->
+        <apex:outputPanel rendered="{!NOT(ISBLANK(sec.machineImage))}">
+            <div class="machine-image">
+                <apex:outputText value="{!sec.machineImage}" escape="false"/>
+            </div>
+        </apex:outputPanel>
+
+        <!-- Nombre + cantidad -->
+        <div class="machine-name">
+            {!sec.machineName}
+            <apex:outputPanel rendered="{!sec.quantity > 1}">
+                <span class="qty-label">(x{!sec.quantity} unidades)</span>
+            </apex:outputPanel>
+        </div>
+
+        <!-- Tabla de servicios -->
+        <apex:outputPanel rendered="{!sec.serviceLines.size > 0}">
+            <div style="border:1px solid #0000A0;margin-bottom:24px;">
+                <table class="services-table">
+                    <thead>
+                        <tr>
+                            <th style="width:40%;">DESCRIPCION</th>
+                            <th style="width:30%;">PRECIO UN NETO (KG)</th>
+                            <th style="width:30%;">CANTIDAD MINIMA MENSUAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!sec.serviceLines}" var="sl">
+                            <tr>
+                                <td>{!sl.serviceName}</td>
+                                <td>{!sl.formattedPrice}</td>
+                                <td>{!sl.formattedQty}</td>
+                            </tr>
+                        </apex:repeat>
+                    </tbody>
+                </table>
+            </div>
+        </apex:outputPanel>
+
+        <!-- Aportes -->
+        <apex:outputPanel rendered="{!sec.aporteLines.size > 0}">
+            <div class="aportes">
+                <p class="aportes-title">Aporte por Marca Lavazza:</p>
+                <ul style="padding-left:20px;">
+                    <apex:repeat value="{!sec.aporteLines}" var="aporte">
+                        <li style="margin-bottom:6px;">{!aporte}</li>
+                    </apex:repeat>
+                </ul>
+            </div>
+        </apex:outputPanel>
+
+        <!-- Ficha técnica -->
+        <apex:outputPanel rendered="{!NOT(ISBLANK(sec.fichaTecnica))}">
+            <div class="ficha">
+                <p class="ficha-title">FICHA TECNICA</p>
+                <div class="ficha-content">
+                    <apex:outputText value="{!sec.fichaTecnica}" escape="false"/>
+                </div>
+            </div>
+        </apex:outputPanel>
+    </apex:repeat>
+
+    <!-- Disclaimer -->
+    <div class="disclaimer">
+        "La entrega del equipo en comodato esta sujeta a la aprobacion de una linea de credito con la empresa.<br/>
+        El contrato de comodato tendra una vigencia de 3 anos."
+    </div>
+</body>
+</html>
+</apex:page>

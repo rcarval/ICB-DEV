@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <customErrors>
+        <description>Mensaje de error en caso de que no se actualice el registro</description>
+        <name>Error_actualizar_registro</name>
+        <label>Error actualizar registro</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <customErrorMessages>
+            <errorMessage>No se pudo actualizar este registro por favor contactar un Administrador del Sistema.</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <decisions>
+        <description>Verifica que el id de la cuenta no esté Nulo.</description>
+        <name>Id_Cliente_Nulo</name>
+        <label>Id Cliente Nulo</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Resultado predeterminado</defaultConnectorLabel>
+        <rules>
+            <name>No</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>get_data_cliente.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Domicilio_nuevo_con_Sucursal_Cliente</targetReference>
+            </connector>
+            <label>No</label>
+        </rules>
+    </decisions>
+    <description>Flujo para actualizar la sucursal cuando se crea un nuevo domicilio en la cuenta de un cliente siempre.
+
+V2: Se crean condiciones de entrada, elemento de decisión para validación de Null y ruta de error para cuando no se pueda actualizar.
+V3: Se cambia campo Número de registro en el elemento update por el campo Cliente que sea igual al Id. de la cuenta. Se elimina las condiciones de entrada del flujo.</description>
+    <environments>Default</environments>
+    <interviewLabel>Update Domicilio - Sucursal Cliente {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Update Domicilio - Sucursal Cliente</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Obtiene el id de la cuenta relacionada con el domicilio que gatilla la automatización</description>
+        <name>get_data_cliente</name>
+        <label>get data cliente</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Id_Cliente_Nulo</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Cliente__r.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Actualiza el campo sucursal del domicilio con la sucursal del cliente</description>
+        <name>Update_Domicilio_nuevo_con_Sucursal_Cliente</name>
+        <label>Update Domicilio nuevo con Sucursal Cliente</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <faultConnector>
+            <targetReference>Error_actualizar_registro</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Cliente__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>get_data_cliente.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Sucursal__c</field>
+            <value>
+                <elementReference>get_data_cliente.Sucursal__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Domicilio_de_Cliente__c</object>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>get_data_cliente</targetReference>
+        </connector>
+        <object>Domicilio_de_Cliente__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Obsolete</status>
+</Flow>

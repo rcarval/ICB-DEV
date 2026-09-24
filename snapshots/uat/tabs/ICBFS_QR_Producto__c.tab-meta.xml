@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customObject>true</customObject>
+    <description>Son productos creados sin logica en un evento, la idea es que posterior al dia de OPEN DAY puedan revisar y dejarlos relacionados a productos reales en Salesforce, terminado se genera una Cotizacion dentro de una Opp para su uso y negociación.</description>
+    <motif>Custom17: Sack</motif>
+</CustomTab>

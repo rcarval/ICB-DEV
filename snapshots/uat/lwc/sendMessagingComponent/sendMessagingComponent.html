@@ -1,0 +1,17 @@
+<!-- sendMessagingComponent.html -->
+<template>
+    <lightning-button
+        label={buttonLabel}
+        onclick={handleSend}
+        disabled={isDisabled}
+        icon-name="utility:send"
+        variant="brand"
+    ></lightning-button>
+
+    <template if:true={isLoading}>
+        <lightning-spinner
+            alternative-text="Enviando..."
+            size="small"
+        ></lightning-spinner>
+    </template>
+</template>

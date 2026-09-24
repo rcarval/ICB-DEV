@@ -1,0 +1,46 @@
+/* ── KPI Cards ────────────────────────────────────────────────────────────── */
+.kpi-card {
+    padding: 1rem 1.25rem;
+    border-radius: 0.6rem;
+    text-align: center;
+    border: 1px solid #e0e5ee;
+    border-left-width: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    transition: box-shadow 0.2s ease;
+}
+.kpi-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+.kpi-value {
+    font-size: 2.25rem;
+    font-weight: 800;
+    margin: 0 0 0.3rem 0;
+    line-height: 1;
+    letter-spacing: -0.5px;
+}
+.kpi-label {
+    font-size: 0.72rem;
+    color: #706e6b;
+    margin: 0;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.kpi-total  { background: #f8f8f8; border-left-color: #9aa0a8; }
+.kpi-active { background: #eaf4fd; border-left-color: #1565c0; }
+.kpi-ended  { background: #f0faf2; border-left-color: #2e7d32; }
+.kpi-csat   { background: #eef4ff; border-left-color: #1565c0; }
+
+/* ── Área del gráfico ─────────────────────────────────────────────────────── */
+.chart-wrap {
+    position: relative;
+    height: 340px;
+    background: #ffffff;
+    border: 1px solid #e0e5ee;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+canvas.trend-chart {
+    width: 100% !important;
+    height: 100% !important;
+}

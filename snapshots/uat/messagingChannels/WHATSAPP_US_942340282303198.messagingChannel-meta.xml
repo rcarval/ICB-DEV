@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MessagingChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <automatedResponses>
+        <autoResponseContentType>MessageDefinition</autoResponseContentType>
+        <messageDefinitionName>mensajeInicial</messageDefinitionName>
+        <type>AgentEngagedResponse</type>
+    </automatedResponses>
+    <automatedResponses>
+        <autoResponseContentType>MessageDefinition</autoResponseContentType>
+        <messageDefinitionName>mensajeDespedida</messageDefinitionName>
+        <type>AgentEndEngagementResponse</type>
+    </automatedResponses>
+    <automatedResponses>
+        <autoResponseContentType>TextResponse</autoResponseContentType>
+        <language>en_US</language>
+        <response>You&apos;ve opted out of receiving messages from us, so we won&apos;t contact you again.</response>
+        <type>OptOutConfirmation</type>
+    </automatedResponses>
+    <automatedResponses>
+        <autoResponseContentType>TextResponse</autoResponseContentType>
+        <language>es</language>
+        <response>Su solicitud de detener la mensajeria ha sido exitosa, no te enviaremos mas mensajes a este contacto.</response>
+        <type>OptOutConfirmation</type>
+    </automatedResponses>
+    <automatedResponses>
+        <autoResponseContentType>TextResponse</autoResponseContentType>
+        <language>en_US</language>
+        <response>Text STOP to opt out of further messages.</response>
+        <type>HelpResponse</type>
+    </automatedResponses>
+    <automatedResponses>
+        <autoResponseContentType>TextResponse</autoResponseContentType>
+        <language>en_US</language>
+        <response>Thanks for opting in and allowing us to send you messages.</response>
+        <type>OptInConfirmation</type>
+    </automatedResponses>
+    <channelUsages>
+        <channelConsentType>ImplicitOptIn</channelConsentType>
+        <deploymentType>DigitalEngagementConversation</deploymentType>
+    </channelUsages>
+    <countryCode>US</countryCode>
+    <externalAccountId>906576021873254</externalAccountId>
+    <isEstimatedWaitTimeEnabled>false</isEstimatedWaitTimeEnabled>
+    <isQueuePositionEnabled>false</isQueuePositionEnabled>
+    <isSynchronousChatEnabled>false</isSynchronousChatEnabled>
+    <masterLabel>+56 9 7129 2154</masterLabel>
+    <messagingChannelType>WhatsApp</messagingChannelType>
+    <messagingKeywords>
+        <keyword>yes</keyword>
+        <keywordType>OptIn</keywordType>
+        <language>en_US</language>
+    </messagingKeywords>
+    <messagingKeywords>
+        <keyword>cancel</keyword>
+        <keyword>end</keyword>
+        <keyword>quit</keyword>
+        <keyword>stop</keyword>
+        <keyword>stopall</keyword>
+        <keyword>unsubscribe</keyword>
+        <keywordType>OptOut</keywordType>
+        <language>en_US</language>
+    </messagingKeywords>
+    <messagingKeywords>
+        <keyword>cancelar</keyword>
+        <keyword>detener</keyword>
+        <keyword>finalizar</keyword>
+        <keyword>salir</keyword>
+        <keyword>terminar</keyword>
+        <keywordType>OptOut</keywordType>
+        <language>es</language>
+    </messagingKeywords>
+    <messagingKeywords>
+        <keyword>help</keyword>
+        <keywordType>Help</keywordType>
+        <language>en_US</language>
+    </messagingKeywords>
+    <platformKey>942340282303198</platformKey>
+    <sessionHandlerFlow>Route_to_Asistente_ICBFS</sessionHandlerFlow>
+    <sessionHandlerQueue>Grupo_venta_digital</sessionHandlerQueue>
+    <sessionHandlerType>Flow</sessionHandlerType>
+</MessagingChannel>

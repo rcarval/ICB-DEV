@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <defaultLandingTab>standard-Contact</defaultLandingTab>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <tabs>standard-Contact</tabs>
+    <tabs>standard-Account</tabs>
+    <tabs>standard-report</tabs>
+    <tabs>standard-Dashboard</tabs>
+    <tabs>standard-Chatter</tabs>
+    <tabs>standard-File</tabs>
+    <tabs>Descuento_Cliente__c</tabs>
+    <tabs>Comuna__c</tabs>
+    <tabs>Facturas__c</tabs>
+    <tabs>Detalle_Factura__c</tabs>
+    <tabs>QR_Scan__c</tabs>
+    <tabs>QR_Catalogo_productos__c</tabs>
+    <tabs>ICBFS_QR_Producto__c</tabs>
+    <tabs>Marca__c</tabs>
+    <tabs>Cambio_Lista_Precios__c</tabs>
+</CustomApplication>

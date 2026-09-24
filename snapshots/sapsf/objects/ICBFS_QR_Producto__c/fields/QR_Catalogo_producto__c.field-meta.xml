@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>QR_Catalogo_producto__c</fullName>
+    <label>QR Catalogo producto</label>
+    <referenceTo>QR_Catalogo_productos__c</referenceTo>
+    <relationshipLabel>QR Productos</relationshipLabel>
+    <relationshipName>QR_Productos</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

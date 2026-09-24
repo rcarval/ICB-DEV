@@ -1,0 +1,439 @@
+<template>
+  <lightning-card icon-name="standard:account">
+    <div slot="title" style="display: flex; align-items: center; gap: 5px">
+      <span>Sucursales sin contacto directo</span>
+      <lightning-button-icon
+        icon-name="utility:refresh"
+        variant="border-filled"
+        size="medium"
+        alternative-text="Recargar datos"
+        title="Recargar datos"
+        onclick={handleRefresh}
+      ></lightning-button-icon>
+    </div>
+
+    <!-- FILTRO GLOBAL (server-side) -->
+    <div class="slds-var-m-around_medium slds-box slds-theme_shade">
+      <div class="slds-grid slds-gutters slds-wrap slds-var-m-bottom_small">
+        <div class="slds-col slds-size_2-of-3">
+          <lightning-input
+            type="search"
+            label="Buscar"
+            placeholder="Sucursal o cuenta principal: nombre, RUT, código de cliente, fantasía"
+            value={searchTerm}
+            onchange={handleSearchChange}>
+          </lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-3 slds-align-bottom slds-text-align_right">
+          <lightning-button
+            label="Exportar Excel"
+            icon-name="utility:download"
+            variant="neutral"
+            disabled={exportando}
+            onclick={handleExport}>
+          </lightning-button>
+        </div>
+      </div>
+      <div class="slds-grid slds-wrap">
+        <span class="slds-badge slds-theme_error slds-var-m-right_xx-small slds-var-m-bottom_xx-small">Sucursales sin contacto directo: {totalHijasTxt}</span>
+        <span class="slds-badge slds-theme_warning slds-var-m-right_xx-small slds-var-m-bottom_xx-small">Con contactos en cliente principal: {conRespaldoTxt}</span>
+        <span class="slds-badge slds-var-m-bottom_xx-small">Sin ningún contacto: {sinRespaldoTxt}</span>
+      </div>
+
+      <!-- TABLA RESUMEN (métricas + top asesores lado a lado) -->
+      <div class="resumen-fila slds-var-m-top_small">
+        <div>
+          <div class="resumen-title">Resumen</div>
+          <table class="slds-table slds-table_cell-buffer slds-table_bordered resumen-table">
+            <thead>
+              <tr class="slds-line-height_reset">
+                <th class="acc-th">Indicador</th>
+                <th class="acc-th">Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template for:each={resumenMetricas} for:item="m">
+                <tr key={m.key}>
+                  <td>{m.label}</td>
+                  <td class="resumen-valor">{m.valor}</td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+
+        <template if:true={hayTopAsesores}>
+          <div>
+            <div class="resumen-title">Top 5 asesores con sucursales sin contacto directo</div>
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered resumen-table">
+              <thead>
+                <tr class="slds-line-height_reset">
+                  <th class="acc-th">Asesor</th>
+                  <th class="acc-th">Sucursales</th>
+                </tr>
+              </thead>
+              <tbody>
+                <template for:each={topAsesoresVisibles} for:item="ta">
+                  <tr key={ta.nombre}>
+                    <td>{ta.nombre}</td>
+                    <td class="resumen-valor">{ta.cantidad}</td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <!-- LOADING -->
+    <template if:true={isLoading}>
+      <div class="slds-var-m-around_medium slds-text-align_center">
+        <lightning-spinner alternative-text="Cargando sucursales..." size="medium"></lightning-spinner>
+      </div>
+    </template>
+
+    <template if:false={isLoading}>
+      <template if:true={hasData}>
+
+        <!-- TABLA AGRUPADA POR CUENTA PRINCIPAL -->
+        <div class="table-wrap slds-var-m-horizontal_medium slds-var-m-bottom_x-small">
+          <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered acc-table">
+            <thead>
+              <tr class="slds-line-height_reset">
+                <th class="acc-th">Asesor</th>
+                <th class="acc-th">Cuenta Principal</th>
+                <th class="acc-th">Sucursal</th>
+                <th class="acc-th">Detalle</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template for:each={gruposPlanos} for:item="f">
+                <tr key={f.key} class="slds-hint-parent acc-row">
+
+                  <!-- FILA RESUMEN (grupo colapsado) -->
+                  <template if:true={f.esFilaResumen}>
+                    <td class="asesor-cell">
+                      <div
+                        class="asesor-toggle"
+                        role="button"
+                        tabindex="0"
+                        aria-expanded="false"
+                        data-key={f.grupoKey}
+                        onclick={handleToggleGrupo}
+                        onkeydown={handleToggleGrupoKey}
+                        title="Clic para expandir las sucursales de este asesor"
+                      >
+                        <lightning-icon
+                          icon-name="utility:chevronright"
+                          size="xx-small"
+                          alternative-text="Expandir"
+                        ></lightning-icon>
+                        <span class="asesor-nombre">{f.asesorNombre}</span>
+                      </div>
+                    </td>
+                    <td class="grupo-colapsado" colspan="3">
+                      {f.totalOcultas} sucursales agrupadas · clic en el asesor para expandir
+                    </td>
+                  </template>
+
+                  <template if:false={f.esFilaResumen}>
+
+                    <!-- Celda combinada del asesor (solo primera fila del grupo) -->
+                    <template if:true={f.esPrimera}>
+                      <td class="asesor-cell" rowspan={f.spanAsesor}>
+                        <div
+                          class="asesor-toggle"
+                          role="button"
+                          tabindex="0"
+                          aria-expanded="true"
+                          data-key={f.grupoKey}
+                          onclick={handleToggleGrupo}
+                          onkeydown={handleToggleGrupoKey}
+                          title="Clic para colapsar las sucursales de este asesor"
+                        >
+                          <lightning-icon
+                            icon-name="utility:chevrondown"
+                            size="xx-small"
+                            alternative-text="Colapsar"
+                          ></lightning-icon>
+                          <span class="asesor-nombre">{f.asesorNombre}</span>
+                        </div>
+                        <template if:true={f.asesorEmail}>
+                          <div class="notificar-wrap">
+                            <button
+                              class="btn-notificar"
+                              data-grupo={f.grupoIdx}
+                              onclick={handleAbrirCorreo}
+                              title="Envía al asesor una notificación por correo con las sucursales sin contacto directo visibles"
+                            >
+                              <lightning-icon
+                                icon-name="utility:email"
+                                size="x-small"
+                                alternative-text="Notificar por correo"
+                              ></lightning-icon>
+                              <span class="btn-notificar-txt">Notificar por correo</span>
+                            </button>
+                          </div>
+                        </template>
+                      </td>
+                    </template>
+
+                    <!-- Celda combinada de cuenta principal (primer bloque del principal) -->
+                    <template if:true={f.esPrimeraDePrincipal}>
+                      <td class="parent-cell" rowspan={f.spanPrincipal}>
+                        <a
+                          href="#"
+                          class="account-link"
+                          data-id={f.row.parentAccountId}
+                          onclick={handleAccountClick}
+                          title="Ver cuenta principal"
+                          >{f.row.parentAccountName}</a
+                        >
+                        <div class="account-meta">
+                          <template if:true={f.row.parentRut}><div>RUT: {f.row.parentRut}</div></template>
+                          <template if:true={f.row.parentCodigoCliente}><div>Cód. cliente: {f.row.parentCodigoCliente}</div></template>
+                          <template if:true={f.row.parentNombreFantasia}><div>Fantasía: {f.row.parentNombreFantasia}</div></template>
+                        </div>
+                      </td>
+                    </template>
+
+                    <td class="child-cell">
+                      <a
+                        href="#"
+                        class="account-link"
+                        data-id={f.row.accountId}
+                        onclick={handleAccountClick}
+                        title="Ver cuenta"
+                        >{f.row.accountName}</a
+                      >
+                      <div class="account-meta">
+                        <template if:true={f.row.nombreFantasia}><div>{f.row.nombreFantasia}</div></template>
+                        <template if:true={f.row.codigoCliente}><div>{f.row.codigoCliente}</div></template>
+                      </div>
+                    </td>
+
+                    <!-- DETALLE -->
+                    <td class="detalle-cell">
+                      <template if:true={f.row.padreConContactos}>
+                        <p class="detalle-msg">
+                          Esta cuenta de tipo de registro <b>{f.row.recordTypeName}</b> no posee contactos directos
+                        </p>
+                        <p class="detalle-sub">
+                          Contactos asociados a la cuenta principal «{f.row.parentAccountName}»: {f.row.contactoCountPadre}
+                        </p>
+                        <template for:each={f.row.contactosPadre} for:item="con">
+                          <div key={con.id} class="contact-item">
+                            <span class="contact-name">{con.name}</span>
+                            <template if:true={con.email}>
+                              <span class="contact-email">{con.email}</span>
+                            </template>
+                          </div>
+                        </template>
+                      </template>
+                      <template if:false={f.row.padreConContactos}>
+                        <span class="no-contacts">Sin contactos asociados</span>
+                      </template>
+                    </td>
+
+                  </template>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- CARGA INCREMENTAL -->
+        <div class="slds-var-m-horizontal_medium slds-var-m-bottom_medium footer-nav">
+          <span class="slds-text-body_small contador">{contadorTxt}</span>
+          <lightning-button
+            label={labelCargarMas}
+            icon-name={iconoCargarMas}
+            variant="neutral"
+            disabled={cargarMasDisabled}
+            onclick={handleCargarMas}>
+          </lightning-button>
+        </div>
+
+      </template>
+
+      <template if:false={hasData}>
+        <div class="slds-var-m-around_x-large slds-text-align_center empty-state">
+          <p class="slds-text-heading_small">No hay sucursales sin contacto directo que coincidan con la búsqueda</p>
+          <p class="slds-text-body_small slds-var-m-top_small">
+            Ajusta el término de búsqueda o recarga los datos.
+          </p>
+        </div>
+      </template>
+    </template>
+
+  </lightning-card>
+
+  <!-- MODAL: ENVIAR CORREO AL ASESOR -->
+  <template if:true={correo.abierto}>
+    <section
+      role="dialog"
+      tabindex="-1"
+      aria-modal="true"
+      aria-labelledby="correo-titulo"
+      class="slds-modal slds-fade-in-open"
+    >
+      <div class="slds-modal__container correo-modal">
+        <header class="slds-modal__header">
+          <lightning-button-icon
+            class="slds-modal__close"
+            icon-name="utility:close"
+            alternative-text="Cerrar"
+            title="Cerrar"
+            variant="border"
+            onclick={handleCerrarCorreo}
+          ></lightning-button-icon>
+          <h2 id="correo-titulo" class="slds-modal__title slds-text-heading_medium">
+            Enviar correo al asesor
+          </h2>
+        </header>
+
+        <div class="slds-modal__content slds-var-p-around_medium">
+          <template if:true={correo.preparando}>
+            <div class="slds-is-relative correo-loading">
+              <lightning-spinner alternative-text="Preparando correo..." size="small"></lightning-spinner>
+            </div>
+          </template>
+
+          <template if:false={correo.preparando}>
+            <div class="slds-grid slds-wrap slds-gutters_xx-small">
+              <div class="slds-col slds-size_1-of-2 slds-var-p-right_x-small">
+                <lightning-input
+                  type="email"
+                  label="De"
+                  value={correo.de}
+                  readonly>
+                </lightning-input>
+              </div>
+              <div class="slds-col slds-size_1-of-2">
+                <lightning-input
+                  type="email"
+                  label="Para"
+                  value={correo.para}
+                  required>
+                </lightning-input>
+              </div>
+            </div>
+
+            <!-- CC -->
+            <div class="cc-bloque">
+              <label class="slds-form-element__label">En copia (CC)</label>
+              <div class="cc-chips">
+                <template for:each={correo.cc} for:item="c" for:index="i">
+                  <span key={c} class="cc-chip">
+                    <span class="cc-chip-label">{c}</span>
+                    <button
+                      class="cc-chip-remove"
+                      data-idx={i}
+                      onclick={handleQuitarCc}
+                      title="Quitar"
+                    >
+                      ×
+                    </button>
+                  </span>
+                </template>
+                <lightning-input
+                  type="email"
+                  placeholder="Agregar correo y presionar Enter"
+                  value={correo.ccInput}
+                  variant="label-hidden"
+                  onchange={handleCcChange}
+                  onkeydown={handleCcKeydown}
+                  onblur={handleCcBlur}>
+                </lightning-input>
+              </div>
+            </div>
+
+            <lightning-input
+              label="Asunto"
+              value={correo.asunto}
+              maxlength="200"
+              onchange={handleAsuntoChange}>
+            </lightning-input>
+
+            <div class="correo-preview-label">Cuerpo del correo</div>
+            <div class="correo-preview">
+              <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-no-row-hover">
+                <thead>
+                  <tr class="slds-line-height_reset">
+                    <th scope="col">Cuenta Principal</th>
+                    <th scope="col">Sucursal</th>
+                    <th scope="col">Detalle</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template for:each={correoFilas} for:item="fr">
+                    <tr key={fr.key} class="slds-hint-parent">
+                      <template if:true={fr.esPrimeraDePrincipal}>
+                        <td rowspan={fr.spanPrincipal}>
+                          <span class="account-link">{fr.row.parentAccountName}</span>
+                          <div class="account-meta">
+                            <template if:true={fr.row.parentRut}><div>RUT: {fr.row.parentRut}</div></template>
+                            <template if:true={fr.row.parentCodigoCliente}><div>Cód. cliente: {fr.row.parentCodigoCliente}</div></template>
+                          </div>
+                        </td>
+                      </template>
+                      <td>
+                        {fr.row.accountName}
+                        <div class="account-meta">
+                          <template if:true={fr.row.nombreFantasia}><div>{fr.row.nombreFantasia}</div></template>
+                          <template if:true={fr.row.codigoCliente}><div>{fr.row.codigoCliente}</div></template>
+                        </div>
+                      </td>
+                      <td class="detalle-cell">
+                        <template if:true={fr.row.padreConContactos}>
+                          <p class="detalle-msg">
+                            Esta cuenta de tipo de registro <b>{fr.row.recordTypeName}</b> no posee contactos directos
+                          </p>
+                          <p class="detalle-sub">
+                            Contactos asociados a la cuenta principal «{fr.row.parentAccountName}»: {fr.row.contactoCountPadre}
+                          </p>
+                          <template for:each={fr.row.contactosPadre} for:item="con">
+                            <div key={con.id} class="contact-item">
+                              <span class="contact-name">{con.name}</span>
+                              <template if:true={con.email}>
+                                <span class="contact-email">{con.email}</span>
+                              </template>
+                            </div>
+                          </template>
+                        </template>
+                        <template if:false={fr.row.padreConContactos}>
+                          <span class="no-contacts">Sin contactos asociados</span>
+                        </template>
+                      </td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="correo-nota">
+              Se envía desde comunicaciones@icbfs.cl · Las respuestas llegarán a tu correo ({correo.de})
+            </p>
+          </template>
+        </div>
+
+        <footer class="slds-modal__footer">
+          <lightning-button
+            label="Cancelar"
+            onclick={handleCerrarCorreo}
+            disabled={correo.enviando}>
+          </lightning-button>
+          <lightning-button
+            label={enviarLabel}
+            icon-name="utility:send"
+            variant="brand"
+            disabled={enviarDisabled}
+            onclick={handleEnviarCorreo}>
+          </lightning-button>
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+</template>

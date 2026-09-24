@@ -1,0 +1,122 @@
+<template>
+    <lightning-card title="Seleccionar Equipos" icon-name="standard:product">
+        <!-- Búsqueda -->
+        <div class="slds-p-around_medium">
+            <template if:true={canAddMore}>
+                <lightning-input
+                    type="search"
+                    label={searchPlaceholder}
+                    placeholder={searchPlaceholder}
+                    value={searchTerm}
+                    onchange={handleSearchChange}
+                ></lightning-input>
+
+                <!-- Resultados de búsqueda -->
+                <template if:true={searchResults.length}>
+                    <div class="slds-dropdown_container slds-is-open">
+                        <ul class="slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid" role="listbox">
+                            <template for:each={searchResults} for:item="result">
+                                <li key={result.Id}
+                                    class="slds-listbox__item"
+                                    role="option"
+                                    data-id={result.Id}
+                                    data-name={result.Name}
+                                    onclick={handleSelectMachine}>
+                                    <div class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta">
+                                        <span class="slds-media__figure slds-listbox__option-icon">
+                                            <lightning-icon icon-name="standard:product" size="small"></lightning-icon>
+                                        </span>
+                                        <span class="slds-media__body">
+                                            <span class="slds-listbox__option-text slds-listbox__option-text_entity">
+                                                {result.Name}
+                                            </span>
+                                            <span class="slds-listbox__option-meta slds-listbox__option-meta_entity">
+                                                {result.TextoCategoria__c}
+                                                <template if:true={result.isAlreadySelected}>
+                                                    &nbsp;— <strong>Ya seleccionada</strong>
+                                                </template>
+                                            </span>
+                                        </span>
+                                    </div>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </template>
+
+                <template if:true={isSearching}>
+                    <lightning-spinner alternative-text="Buscando..." size="small"></lightning-spinner>
+                </template>
+            </template>
+
+            <!-- Resumen de selección -->
+            <template if:true={hasSelections}>
+                <div class="slds-m-top_medium">
+                    <h3 class="slds-text-heading_small slds-m-bottom_x-small">
+                        Equipos seleccionados ({totalMachines})
+                    </h3>
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th scope="col"><div class="slds-truncate">Equipo</div></th>
+                                <th scope="col" style="width:120px;"><div class="slds-truncate">Cantidad</div></th>
+                                <th scope="col" style="width:80px;"><div class="slds-truncate">Acción</div></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={selectedMachines} for:item="machine">
+                                <tr key={machine.key}>
+                                    <td><div class="slds-truncate">{machine.machineName}</div></td>
+                                    <td>
+                                        <lightning-input
+                                            type="number"
+                                            min="1"
+                                            value={machine.quantity}
+                                            data-key={machine.key}
+                                            onchange={handleQuantityChange}
+                                            variant="label-hidden"
+                                        ></lightning-input>
+                                    </td>
+                                    <td>
+                                        <lightning-button-icon
+                                            icon-name="utility:delete"
+                                            alternative-text="Eliminar"
+                                            data-key={machine.key}
+                                            onclick={handleRemoveMachine}
+                                            variant="bare"
+                                            size="small"
+                                        ></lightning-button-icon>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Botón preview -->
+                <div class="slds-m-top_medium slds-text-align_center">
+                    <lightning-button
+                        label="Vista Previa de Propuesta"
+                        variant="brand"
+                        onclick={handlePreview}
+                        icon-name="utility:preview"
+                    ></lightning-button>
+                </div>
+            </template>
+
+            <!-- Preview -->
+            <template if:true={showPreview}>
+                <div class="slds-m-top_large slds-box">
+                    <template if:true={isLoadingPreview}>
+                        <div class="slds-align_absolute-center slds-p-around_large">
+                            <lightning-spinner alternative-text="Generando vista previa..."></lightning-spinner>
+                        </div>
+                    </template>
+                    <template if:false={isLoadingPreview}>
+                        <div class="preview-container" lwc:dom="manual"></div>
+                    </template>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,9 @@
+.btn-col {
+    display: flex;
+    align-items: center;
+    padding-top: 1.4rem;
+}
+
+.buscar-btn {
+    width: 100%;
+}

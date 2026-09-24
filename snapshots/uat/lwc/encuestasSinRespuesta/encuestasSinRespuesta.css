@@ -1,0 +1,145 @@
+/* ── KPI Cards ────────────────────────────────────────────────────────────── */
+.kpi-card {
+    padding: 1rem 1.25rem;
+    border-radius: 0.6rem;
+    text-align: center;
+    border: 1px solid #e0e5ee;
+    border-left-width: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+.kpi-value {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0 0 0.25rem 0;
+    line-height: 1;
+}
+.kpi-label {
+    font-size: 0.72rem;
+    color: #706e6b;
+    margin: 0;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.kpi-total  { background: #f8f8f8; border-left-color: #9aa0a8; }
+.kpi-sin-respuesta { background: #fffbea; border-left-color: #f59e0b; }
+.kpi-sub    { font-size: 0.68rem; color: #9aa0a8; margin: 0.2rem 0 0; }
+
+/* ── Tabla ────────────────────────────────────────────────────────────────── */
+.table-wrap { overflow-x: auto; }
+
+.enc-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.enc-table th,
+.enc-table td {
+    vertical-align: middle;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.enc-th {
+    background: #032d60;
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 0.65rem 0.5rem;
+}
+.enc-th-center { text-align: center; }
+
+.enc-table th:nth-child(1),
+.enc-table td:nth-child(1) { width: 13%; }
+.enc-table th:nth-child(2),
+.enc-table td:nth-child(2) { width: 10%; }
+.enc-table th:nth-child(3),
+.enc-table td:nth-child(3) { width: 10%; }
+.enc-table th:nth-child(4),
+.enc-table td:nth-child(4) { width: 10%; }
+.enc-table th:nth-child(5),
+.enc-table td:nth-child(5) { width: 11%; }
+.enc-table th:nth-child(6),
+.enc-table td:nth-child(6) { width: 10%; }
+.enc-table th:nth-child(7),
+.enc-table td:nth-child(7) { width: 11%; }
+.enc-table th:nth-child(8),
+.enc-table td:nth-child(8) { width: 17%; }
+.enc-table th:nth-child(9),
+.enc-table td:nth-child(9) { width: 8%; }
+
+.enc-row:hover td { background: #eef5ff; }
+
+.num-cell    { font-size: 0.8rem; color: #1565c0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.session-link {
+    color: #1565c0;
+    text-decoration: none;
+    cursor: pointer;
+}
+.session-link:hover,
+.session-link:focus {
+    text-decoration: underline;
+    color: #0b3d82;
+}
+.agent-cell  { font-weight: 600; font-size: 0.82rem; color: #032d60; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.client-cell { font-size: 0.82rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.date-cell   { font-size: 0.78rem; color: #706e6b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.center-cell { text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mejorar-cell { font-size: 0.78rem; color: #3e3e3c; word-wrap: break-word; overflow-wrap: break-word; white-space: normal; }
+
+/* ── Pills de respuesta ───────────────────────────────────────────────────── */
+.pill-answer {
+    display: inline-block;
+    padding: 0.15rem 0.55rem;
+    border-radius: 0.85rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    background: #eaf4fd;
+    color: #032d60;
+    border: 1px solid #b3d4f0;
+}
+
+.no-answer { color: #c8c8c8; font-size: 0.85rem; }
+
+/* ── Badges de estado ─────────────────────────────────────────────────────── */
+.badge-completada {
+    display: inline-block;
+    padding: 0.2rem 0.55rem;
+    border-radius: 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: #e8f5e9;
+    color: #1b5e20;
+    border: 1px solid #a5d6a7;
+}
+.badge-incompleta {
+    display: inline-block;
+    padding: 0.2rem 0.55rem;
+    border-radius: 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: #fff8e1;
+    color: #e65100;
+    border: 1px solid #ffe082;
+}
+.badge-sin-respuesta {
+    display: inline-block;
+    padding: 0.2rem 0.55rem;
+    border-radius: 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: #fffbea;
+    color: #92400e;
+    border: 1px solid #fcd34d;
+}
+/* ── Paginación ───────────────────────────────────────────────────────────── */
+.pagination-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 0.5rem 0.25rem;
+    font-size: 0.8rem;
+    color: #706e6b;
+}

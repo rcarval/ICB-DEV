@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tipo_Equipo__c</fullName>
+    <description>Clasifica el producto como Máquina de Café, Dispensador u Otro para el proceso de Comodato.</description>
+    <label>Tipo de Equipo</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Máquina Café</fullName>
+                <default>false</default>
+                <label>Máquina Café</label>
+            </value>
+            <value>
+                <fullName>Dispensador</fullName>
+                <default>false</default>
+                <label>Dispensador</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

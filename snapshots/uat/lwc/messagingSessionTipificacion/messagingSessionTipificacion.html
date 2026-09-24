@@ -1,0 +1,92 @@
+<template>
+  <template lwc:if={showModal}>
+    <div class="tipificacion-panel" onkeydown={handleKeyDown}>
+      <div
+        class="tipificacion-panel__header"
+        onmousedown={handleDragStart}
+        role="toolbar"
+        aria-label="Arrastrar panel"
+      >
+        <div class="tipificacion-panel__drag-indicator">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <circle cx="5" cy="4" r="1.5" />
+            <circle cx="11" cy="4" r="1.5" />
+            <circle cx="5" cy="8" r="1.5" />
+            <circle cx="11" cy="8" r="1.5" />
+            <circle cx="5" cy="12" r="1.5" />
+            <circle cx="11" cy="12" r="1.5" />
+          </svg>
+        </div>
+        <div>
+          <h2 id="panel-heading">Tipo de atención</h2>
+          <h3>Registra el tipo de atención antes de continuar.</h3>
+        </div>
+      </div>
+
+      <div class="tipificacion-panel__content">
+        <lightning-combobox
+          name="tipificacion"
+          label="Tipo de consulta"
+          value={tipificacion}
+          placeholder="Selecciona una opción"
+          options={tipificacionOptions}
+          onchange={handleTipChange}
+          required
+          message-when-value-missing="Campo obligatorio"
+        >
+        </lightning-combobox>
+
+        <div class="slds-m-top_small">
+          <lightning-combobox
+            name="subTipificacion"
+            label="Motivo"
+            value={subTipificacion}
+            placeholder={subPlaceholder}
+            options={subTipificacionOptions}
+            onchange={handleSubTipChange}
+            disabled={subDisabled}
+            required
+            message-when-value-missing="Campo obligatorio"
+          >
+          </lightning-combobox>
+        </div>
+
+        <template lwc:if={mostrarComentario}>
+          <div class="slds-m-top_small">
+            <lightning-textarea
+              name="comentario"
+              label="Comentario"
+              value={comentario}
+              placeholder="Describe el motivo..."
+              onchange={handleComentarioChange}
+              max-length="500"
+              required
+              message-when-value-missing="El comentario es obligatorio cuando seleccionas Otros"
+            >
+            </lightning-textarea>
+          </div>
+        </template>
+
+        <template lwc:if={errorMessage}>
+          <div class="slds-text-color_error slds-m-top_small" role="alert">
+            {errorMessage}
+          </div>
+        </template>
+
+        <div class="tipificacion-panel__actions">
+          <lightning-button
+            label="Guardar tipificación"
+            variant="brand"
+            onclick={handleSave}
+            disabled={saving}
+          >
+          </lightning-button>
+          <template lwc:if={saving}>
+            <lightning-spinner alternative-text="Guardando..." size="small">
+            </lightning-spinner>
+          </template>
+        </div>
+      </div>
+    </div>
+  </template>
+</template>

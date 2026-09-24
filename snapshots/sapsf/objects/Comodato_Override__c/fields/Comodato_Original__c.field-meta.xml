@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Comodato_Original__c</fullName>
+    <deleteConstraint>Cascade</deleteConstraint>
+    <description>El registro Comodato__c (configuracion maestra) que este ajuste excepcional sobrescribe SOLO para la Quote indicada. Comodato__c en si nunca se modifica.</description>
+    <label>Comodato Original</label>
+    <referenceTo>Comodato__c</referenceTo>
+    <relationshipLabel>Ajustes Excepcionales</relationshipLabel>
+    <relationshipName>Ajustes_Excepcionales</relationshipName>
+    <required>true</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

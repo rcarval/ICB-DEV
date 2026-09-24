@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Ingrese información adicional que permita ubicar con mayor precisión la dirección del cliente, por ejemplo: parcela, lote, kilómetro de carretera, referencia visual o indicaciones para llegar. --></help>
+    <label><!-- Referencia Despacho --></label>
+    <name>ICBFS_Referencia__c</name>
+</CustomFieldTranslation>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Ingrese las coordenadas en formato latitud, longitud. Ejemplo: -33.426180, -70.621251. Este valor puede copiarse directamente desde Google Maps. El formato debe incluir ambos valores separados por una coma. --></help>
+    <label><!-- Latitud y Longitud --></label>
+    <name>ICBFS_Latitud_Longitud__c</name>
+</CustomFieldTranslation>

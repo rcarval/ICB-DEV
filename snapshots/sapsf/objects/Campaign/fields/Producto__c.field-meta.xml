@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Producto__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Producto</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Product2.IsActive</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Product2</referenceTo>
+    <relationshipLabel>Campañas</relationshipLabel>
+    <relationshipName>Campa_as</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cargo_en_la_Empresa__c</fullName>
+    <label>Cargo en la Empresa</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Representante Legal</fullName>
+                <default>false</default>
+                <label>Representante Legal</label>
+            </value>
+            <value>
+                <fullName>Trabajador</fullName>
+                <default>false</default>
+                <label>Trabajador</label>
+            </value>
+            <value>
+                <fullName>Gerente</fullName>
+                <default>false</default>
+                <label>Gerente</label>
+            </value>
+            <value>
+                <fullName>Sub Gerente</fullName>
+                <default>false</default>
+                <label>Sub Gerente</label>
+            </value>
+            <value>
+                <fullName>Jefe de Área</fullName>
+                <default>false</default>
+                <label>Jefe de Área</label>
+            </value>
+            <value>
+                <fullName>Otro</fullName>
+                <default>false</default>
+                <label>Otro</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

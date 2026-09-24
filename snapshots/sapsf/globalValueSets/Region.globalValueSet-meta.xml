@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Arica y Parinacota</fullName>
+        <default>false</default>
+        <label>Arica y Parinacota</label>
+    </customValue>
+    <customValue>
+        <fullName>Tarapacá</fullName>
+        <default>false</default>
+        <label>Tarapacá</label>
+    </customValue>
+    <customValue>
+        <fullName>Antofagasta</fullName>
+        <default>false</default>
+        <label>Antofagasta</label>
+    </customValue>
+    <customValue>
+        <fullName>Atacama</fullName>
+        <default>false</default>
+        <label>Atacama</label>
+    </customValue>
+    <customValue>
+        <fullName>Coquimbo</fullName>
+        <default>false</default>
+        <label>Coquimbo</label>
+    </customValue>
+    <customValue>
+        <fullName>Valparaíso</fullName>
+        <default>false</default>
+        <label>Valparaíso</label>
+    </customValue>
+    <customValue>
+        <fullName>Metropolitana de Santiago</fullName>
+        <default>false</default>
+        <label>Metropolitana de Santiago</label>
+    </customValue>
+    <customValue>
+        <fullName>O&apos;Higgins</fullName>
+        <default>false</default>
+        <label>O&apos;Higgins</label>
+    </customValue>
+    <customValue>
+        <fullName>Maule</fullName>
+        <default>false</default>
+        <label>Maule</label>
+    </customValue>
+    <customValue>
+        <fullName>Ñuble</fullName>
+        <default>false</default>
+        <label>Ñuble</label>
+    </customValue>
+    <customValue>
+        <fullName>Biobío</fullName>
+        <default>false</default>
+        <label>Biobío</label>
+    </customValue>
+    <customValue>
+        <fullName>La Araucanía</fullName>
+        <default>false</default>
+        <label>La Araucanía</label>
+    </customValue>
+    <customValue>
+        <fullName>Los Ríos</fullName>
+        <default>false</default>
+        <label>Los Ríos</label>
+    </customValue>
+    <customValue>
+        <fullName>Los Lagos</fullName>
+        <default>false</default>
+        <label>Los Lagos</label>
+    </customValue>
+    <customValue>
+        <fullName>Aysén del General Carlos Ibáñez del Campo</fullName>
+        <default>false</default>
+        <label>Aysén del General Carlos Ibáñez del Campo</label>
+    </customValue>
+    <customValue>
+        <fullName>Magallanes y de la Antártica Chilena</fullName>
+        <default>false</default>
+        <label>Magallanes y de la Antártica Chilena</label>
+    </customValue>
+    <masterLabel>Región</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

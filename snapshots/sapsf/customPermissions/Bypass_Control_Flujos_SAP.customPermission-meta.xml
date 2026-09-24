@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Exime al usuario del Circuit Breaker SAP: sus guardados de Account no se cuentan ni se bloquean. Solo para identidades de integracion. Asignar via el Permission Set SAP_Circuit_Breaker_Bypass. Sin el permiso el comportamiento es el actual.</description>
+    <isLicensed>false</isLicensed>
+    <label>Bypass Control de Flujos SAP</label>
+</CustomPermission>

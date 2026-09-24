@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contrato_Digital_Firmado__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Contrato Digital Firmado</label>
+    <referenceTo>Contrato_Digital__c</referenceTo>
+    <relationshipLabel>Oportunidades (Contrato Digital Firmado)</relationshipLabel>
+    <relationshipName>Oportunidades_Contrato_Digital</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Lookup</type>
+</CustomField>

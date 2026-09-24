@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Horario_retiro__c</fullName>
+    <label>Horario retiro</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>De 08:00 A 12:00</fullName>
+                <default>false</default>
+                <label>De 08:00 A 12:00</label>
+            </value>
+            <value>
+                <fullName>De 12:00 A 18:00</fullName>
+                <default>false</default>
+                <label>De 12:00 A 18:00</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

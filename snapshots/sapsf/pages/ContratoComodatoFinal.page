@@ -1,0 +1,932 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<apex:page controller="ContratoComodatoController"
+           renderAs="pdf"
+           applyBodyTag="false"
+           showHeader="false"
+           standardStylesheets="false"
+           docType="HTML-5.0">
+    <head>
+        <style type="text/css">
+            @page {
+                size: A4;
+                margin: 16mm 16mm 18mm 16mm;
+            }
+            body {
+                font-family: Georgia, "Times New Roman", serif;
+                font-size: 9.5pt;
+                color: #1d2433;
+                margin: 0;
+            }
+            .page-shell {
+                border-top: 5px solid #0f2d66;
+            }
+            .header {
+                margin-bottom: 16px;
+                padding-top: 10px;
+            }
+            .header-table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            .header-table td {
+                vertical-align: top;
+            }
+            .logo-cell-left img {
+                height: 50px;
+            }
+            .logo-cell-right {
+                text-align: right;
+            }
+            .logo-cell-right img {
+                height: 54px;
+                vertical-align: middle;
+            }
+            /* Marcas representadas, a continuacion de Lavazza en la misma linea.
+               Mismas proporciones que en la propuesta, a escala: aqui Lavazza va a 54px. */
+            .logo-cell-right img.marca {
+                margin-left: 12px;
+            }
+            .logo-cell-right img.marca-kraft      { height: 15px; }
+            .logo-cell-right img.marca-kraftheinz { height: 14px; }
+            .logo-cell-right img.marca-nutella    { height: 15px; }
+            .logo-cell-right img.marca-donjuan    { height: 24px; }
+            .header-meta {
+                margin-top: 12px;
+                border-top: 1px solid #d8deea;
+                border-bottom: 1px solid #d8deea;
+                padding: 7px 0;
+                font-family: Arial, sans-serif;
+                font-size: 7.5pt;
+                color: #5c667a;
+                letter-spacing: 0.3px;
+                text-transform: uppercase;
+            }
+            .title-block {
+                margin: 18px 0 16px 0;
+            }
+            .title-kicker {
+                font-family: Arial, sans-serif;
+                font-size: 8pt;
+                font-weight: bold;
+                letter-spacing: 1.5px;
+                color: #0f2d66;
+                text-transform: uppercase;
+                margin-bottom: 4px;
+            }
+            .title-main {
+                font-size: 18pt;
+                font-weight: bold;
+                color: #15213d;
+                margin: 0 0 6px 0;
+            }
+            .title-sub {
+                font-family: Arial, sans-serif;
+                font-size: 8.5pt;
+                color: #5d6780;
+                line-height: 1.45;
+            }
+            .summary-panel {
+                width: 100%;
+                border-collapse: separate;
+                border-spacing: 0;
+                background: #f5f7fb;
+                border: 1px solid #d8deea;
+                margin-bottom: 18px;
+            }
+            .summary-panel td {
+                width: 25%;
+                padding: 10px 12px;
+                vertical-align: top;
+                border-right: 1px solid #d8deea;
+            }
+            .summary-panel td:last-child {
+                border-right: none;
+            }
+            .summary-label {
+                display: block;
+                font-family: Arial, sans-serif;
+                font-size: 7pt;
+                font-weight: bold;
+                color: #6c768f;
+                text-transform: uppercase;
+                letter-spacing: 0.6px;
+                margin-bottom: 4px;
+            }
+            .summary-value {
+                display: block;
+                font-size: 9pt;
+                line-height: 1.35;
+                color: #1d2433;
+            }
+            .intro {
+                font-size: 9pt;
+                line-height: 1.65;
+                margin-bottom: 18px;
+                text-align: justify;
+            }
+            .section {
+                margin-bottom: 18px;
+                page-break-inside: auto;
+            }
+            .section-title {
+                font-family: Arial, sans-serif;
+                font-weight: bold;
+                font-size: 9pt;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: #0f2d66;
+                border-top: 1px solid #cdd5e5;
+                padding-top: 8px;
+                margin: 0 0 10px 0;
+                page-break-after: avoid;
+            }
+            .subsection-title {
+                font-family: Arial, sans-serif;
+                font-weight: bold;
+                font-size: 8.5pt;
+                color: #223252;
+                margin: 12px 0 6px 0;
+            }
+            .legal-heading {
+                font-family: Arial, sans-serif;
+                font-weight: bold;
+                font-size: 9pt;
+                color: #1d2433;
+                margin: 12px 0 8px 0;
+            }
+            .legal-letter {
+                margin: 0 0 6px 22px;
+                text-indent: -18px;
+                line-height: 1.45;
+            }
+            .roman-list {
+                list-style-type: lower-roman;
+                margin: 4px 0 10px 44px;
+                padding-left: 18px;
+            }
+            .roman-list li {
+                margin-bottom: 4px;
+                line-height: 1.45;
+                text-align: justify;
+            }
+            .card {
+                border: 1px solid #d8deea;
+                background: #ffffff;
+                margin-bottom: 10px;
+            }
+            .card-body {
+                padding: 12px 14px;
+            }
+            .identity-table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            .identity-table td {
+                width: 25%;
+                padding: 7px 10px 9px 0;
+                vertical-align: top;
+            }
+            .field-label {
+                display: block;
+                font-family: Arial, sans-serif;
+                font-size: 7pt;
+                font-weight: bold;
+                color: #6c768f;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                margin-bottom: 3px;
+            }
+            .field-value {
+                display: block;
+                font-size: 8.9pt;
+                line-height: 1.4;
+                color: #1d2433;
+            }
+            .machine-highlight {
+                border: 1px solid #ccd5e8;
+                background: #f8faff;
+                margin-bottom: 12px;
+            }
+            .machine-highlight td {
+                padding: 12px 14px;
+                vertical-align: top;
+            }
+            .machine-highlight .left {
+                width: 58%;
+            }
+            .machine-highlight .right {
+                width: 42%;
+                border-left: 1px solid #dde4f1;
+            }
+            .machine-name {
+                font-size: 13pt;
+                font-weight: bold;
+                color: #15213d;
+                margin: 0 0 6px 0;
+            }
+            .machine-note {
+                font-size: 8.5pt;
+                color: #5d6780;
+                line-height: 1.5;
+            }
+            .machine-meta {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            .machine-meta td {
+                padding: 0 0 8px 0;
+                border: none;
+            }
+            .main-table {
+                width: 100%;
+                border-collapse: collapse;
+                border: 1px solid #d5ddea;
+                margin-bottom: 8px;
+            }
+            .main-table thead {
+                display: table-header-group;
+            }
+            .main-table tr,
+            .main-table td,
+            .main-table th {
+                page-break-inside: avoid;
+            }
+            .main-table th {
+                background: #203761;
+                color: #ffffff;
+                text-align: left;
+                padding: 8px 9px;
+                font-family: Arial, sans-serif;
+                font-size: 7.3pt;
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
+            }
+            .main-table td {
+                padding: 8px 9px;
+                border-bottom: 1px solid #edf1f7;
+                font-size: 8.2pt;
+                line-height: 1.35;
+                vertical-align: top;
+            }
+            .main-table tr:nth-child(even) td {
+                background: #fafbfd;
+            }
+            .empty-state {
+                border: 1px dashed #ccd5e8;
+                padding: 10px 12px;
+                font-size: 8.3pt;
+                color: #5d6780;
+                margin-bottom: 8px;
+            }
+            .footnote {
+                font-family: Arial, sans-serif;
+                font-size: 7pt;
+                color: #6a738b;
+                font-style: italic;
+                margin: 2px 0 12px 0;
+            }
+            .legal-block {
+                border-left: 3px solid #d3dbeb;
+                padding-left: 12px;
+                margin-top: 10px;
+            }
+            .clausulas {
+                font-size: 8.35pt;
+                line-height: 1.55;
+                text-align: justify;
+                page-break-inside: auto;
+            }
+            .clausulas p {
+                margin: 0 0 8px 0;
+                orphans: 3;
+                widows: 3;
+            }
+            .clausulas ol,
+            .clausulas ul {
+                margin: 0 0 10px 0;
+                padding-left: 18px;
+            }
+            .clausulas li {
+                margin-bottom: 5px;
+            }
+            .note-box {
+                background: #fbfcfe;
+                border: 1px solid #d9dfeb;
+                padding: 10px 12px;
+                margin-top: 10px;
+                font-size: 8pt;
+                color: #44506a;
+            }
+            .signatures {
+                margin-top: 28px;
+                page-break-inside: avoid;
+            }
+            .signatures-title {
+                font-family: Arial, sans-serif;
+                font-size: 8pt;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: #0f2d66;
+                margin-bottom: 36px;
+                letter-spacing: 0.6px;
+            }
+            .signatures-table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            .signatures-table td {
+                width: 33%;
+                text-align: center;
+                vertical-align: bottom;
+                padding: 24px 10px 0 10px;
+            }
+            .signature-line {
+                border-top: 1px solid #2f3748;
+                padding-top: 8px;
+                min-height: 56px;
+            }
+            .signature-role {
+                font-family: Arial, sans-serif;
+                font-size: 7.6pt;
+                font-weight: bold;
+                color: #1d2433;
+                text-transform: uppercase;
+                margin-bottom: 3px;
+            }
+            .signature-name {
+                font-size: 8.4pt;
+                color: #1d2433;
+                line-height: 1.4;
+            }
+            .signature-image {
+                margin-bottom: -6px;
+                text-align: center;
+            }
+            .signature-image img {
+                height: 45px;
+                max-width: 85%;
+            }
+            /* Gerente de Ventas: tamano ajustado al circulo de referencia (~2.2x el anterior) */
+            .signature-image--ventas img {
+                height: 160px;
+                max-width: 100%;
+            }
+            /* Gerente Negocios: tamano ajustado al circulo de referencia (~2.4x el anterior) */
+            .signature-image--negocios img {
+                height: 140px;
+                max-width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="page-shell">
+            <div class="header">
+                <table class="header-table">
+                    <tr>
+                        <td class="logo-cell-left">
+                            <img src="{!URLFOR($Resource.ICBLogo)}" alt="ICB Food Service"/>
+                        </td>
+                        <td class="logo-cell-right">
+                            <img src="{!URLFOR($Resource.LavazzaLogo)}" alt="Lavazza"/>
+                            <img class="marca marca-kraft" src="{!URLFOR($Resource.LogoKraft)}" alt="Kraft"/>
+                            <img class="marca marca-kraftheinz" src="{!URLFOR($Resource.LogoKraftHeinz)}" alt="Kraft Heinz"/>
+                            <img class="marca marca-nutella" src="{!URLFOR($Resource.LogoNutella)}" alt="Nutella"/>
+                            <img class="marca marca-donjuan" src="{!URLFOR($Resource.LogoDonJuan)}" alt="Don Juan"/>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="header-meta">
+                    Documento contractual de comodato | Flujo automatico Lavazza | Version generada desde Salesforce
+                </div>
+            </div>
+
+            <div class="title-block">
+                <div class="title-kicker">Comodato Comercial</div>
+                <div class="title-main">Contrato de Comodato</div>
+                <div class="title-sub">
+                    Documento de formalizacion comercial para la entrega de equipos, accesorios y condiciones asociadas
+                    al servicio de cafe bajo modalidad de comodato.
+                </div>
+            </div>
+
+            <table class="summary-panel">
+                <tr>
+                    <td>
+                        <span class="summary-label">Cliente</span>
+                        <span class="summary-value"><apex:outputText value="{!opp.Account.Name}"/></span>
+                    </td>
+                    <td>
+                        <span class="summary-label">RUT Cliente</span>
+                        <span class="summary-value"><apex:outputText value="{!opp.Account.RUT__c}"/></span>
+                    </td>
+                    <td>
+                        <span class="summary-label">Fecha del Contrato</span>
+                        <span class="summary-value"><apex:outputText value="{!fechaContratoLarga}"/></span>
+                    </td>
+                    <td>
+                        <span class="summary-label">Ejecutivo Responsable</span>
+                        <span class="summary-value"><apex:outputText value="{!opp.Owner.Name}"/></span>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="intro">
+                <apex:outputText value="En {0}, con fecha {1}, comparecen por una parte ">
+                    <apex:param value="{!ciudadContrato}"/>
+                    <apex:param value="{!fechaContratoLarga}"/>
+                </apex:outputText>
+                <b><apex:outputText value="{!opp.Account.Name}"/></b>
+                <apex:outputText value=", RUT N° {0}, en adelante el ">
+                    <apex:param value="{!opp.Account.RUT__c}"/>
+                </apex:outputText>
+                <b>Cliente</b>
+                <apex:outputText value=", y por la otra "/>
+                <b><apex:outputText value="{!razonSocialICB}"/></b>
+                <apex:outputText value=", RUT N° {0}, en adelante ">
+                    <apex:param value="{!rutICB}"/>
+                </apex:outputText>
+                <b>ICBFS</b>
+                <apex:outputText value=", quienes vienen en celebrar el presente contrato de comodato, sujeto a los antecedentes comerciales, operativos y legales que se detallan a continuacion."/>
+            </div>
+
+            <div class="section">
+                <div class="section-title">I. Identificacion de las Partes</div>
+                <div class="card">
+                    <div class="card-body">
+                        <table class="identity-table">
+                            <tr>
+                                <td>
+                                    <span class="field-label">Fecha del contrato</span>
+                                    <span class="field-value"><apex:outputText value="{!fechaContrato}"/></span>
+                                </td>
+                                <td>
+                                    <span class="field-label">Vendedor que atiende</span>
+                                    <span class="field-value"><apex:outputText value="{!opp.Owner.Name}"/></span>
+                                </td>
+                                <td>
+                                    <span class="field-label">Codigo cliente SAP</span>
+                                    <span class="field-value"><apex:outputText value="{!opp.Account.C_digo_de_cliente__c}"/></span>
+                                </td>
+                                <td>
+                                    <span class="field-label">Nombre de fantasia</span>
+                                    <span class="field-value"><apex:outputText value="{!opp.Account.Nombre_de_Fantasia__c}"/></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="field-label">Razon social</span>
+                                    <span class="field-value"><apex:outputText value="{!opp.Account.Name}"/></span>
+                                </td>
+                                <td>
+                                    <span class="field-label">RUT razon social</span>
+                                    <span class="field-value"><apex:outputText value="{!opp.Account.RUT__c}"/></span>
+                                </td>
+                                <td>
+                                    <span class="field-label">Tipo de negocio*</span>
+                                    <span class="field-value"><apex:outputText value="{!tipoDeNegocio}"/></span>
+                                </td>
+                                <td>
+                                    <span class="field-label">Direccion de despacho</span>
+                                    <span class="field-value"><apex:outputText value="{!direccionDespacho}"/></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="field-label">Representante legal</span>
+                                    <span class="field-value"><apex:outputText value="{!representanteLegal.Name}"/></span>
+                                </td>
+                                <td>
+                                    <span class="field-label">RUT representante legal</span>
+                                    <span class="field-value">
+                                        <apex:outputText value="{!IF(ISBLANK(representanteLegal.Rut__c), representanteLegal.RUT_Contacto__c, representanteLegal.Rut__c)}"/>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="field-label">Contacto comercial</span>
+                                    <span class="field-value"><apex:outputText value="{!contactoComercial.Name}"/></span>
+                                </td>
+                                <td>
+                                    <span class="field-label">Mail / celular de contacto</span>
+                                    <span class="field-value">
+                                        <apex:outputText value="{!contactoComercial.Email}"/> /
+                                        <apex:outputText value="{!contactoComercial.MobilePhone}"/>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="footnote">*Ej. cafeteria, restaurante, hotel, minimarket, club u otra categoria comercial aplicable.</div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">II. Equipos, Accesorios y Elementos Entregados</div>
+
+                <!-- MULTI-MAQUINA: iterar secciones -->
+                <apex:outputPanel rendered="{!esMultiMaquina}">
+                    <apex:repeat value="{!seccionesMaquinas}" var="sec">
+                        <table class="machine-highlight">
+                            <tr>
+                                <td class="left">
+                                    <div class="field-label">Equipo en comodato</div>
+                                    <div class="machine-name">
+                                        <apex:outputText value="{!sec.nombreMaquina}"/>
+                                        <apex:outputPanel rendered="{!sec.cantidad > 1}">
+                                            <span style="font-size:10pt;color:#0f2d66;"> {!sec.cantidadLabel}</span>
+                                        </apex:outputPanel>
+                                    </div>
+                                </td>
+                                <td class="right">
+                                    <table class="machine-meta">
+                                        <tr><td><span class="field-label">Cantidad</span><span class="field-value">{!sec.cantidad}</span></td></tr>
+                                        <tr>
+                                            <td>
+                                                <span class="field-label">Codigo</span>
+                                                <span class="field-value"><apex:outputText value="{!sec.codigoMaquina}"/></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="field-label">Valor lista referencial</span>
+                                                <span class="field-value"><apex:outputText value="{!sec.valorListaMaquina}"/></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <apex:outputPanel rendered="{!sec.accesorios.size > 0}">
+                            <div class="subsection-title">Accesorios y aportes - {!sec.nombreMaquina}</div>
+                            <table class="main-table">
+                                <thead>
+                                    <tr>
+                                        <th width="15%">Cantidad</th>
+                                        <th width="20%">Codigo</th>
+                                        <th width="45%">Descripcion</th>
+                                        <th width="20%">Tipo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:repeat value="{!sec.accesorios}" var="linea">
+                                        <tr>
+                                            <td><apex:outputText value="{!linea.cantidad}"/></td>
+                                            <td><apex:outputText value="{!linea.codigo}"/></td>
+                                            <td><apex:outputText value="{!linea.descripcion}"/></td>
+                                            <td><apex:outputText value="{!linea.tipoDeEquipo}"/></td>
+                                        </tr>
+                                    </apex:repeat>
+                                </tbody>
+                            </table>
+                        </apex:outputPanel>
+                    </apex:repeat>
+                </apex:outputPanel>
+
+                <!-- SINGLE MAQUINA: comportamiento original -->
+                <apex:outputPanel rendered="{!!esMultiMaquina}">
+                    <apex:outputPanel rendered="{!lineasMaquina.size > 0}">
+                        <table class="machine-highlight">
+                            <tr>
+                                <td class="left">
+                                    <div class="field-label">Equipo principal en comodato</div>
+                                    <div class="machine-name"><apex:outputText value="{!maquina.Name}"/></div>
+                                    <div class="machine-note">
+                                        Este equipo corresponde al activo principal asociado a la propuesta comercial aprobada
+                                        y constituye la base del presente comodato.
+                                    </div>
+                                </td>
+                                <td class="right">
+                                    <table class="machine-meta">
+                                        <tr>
+                                            <td>
+                                                <span class="field-label">Codigo</span>
+                                                <span class="field-value"><apex:outputText value="{!lineasMaquina[0].codigo}"/></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="field-label">Tipo de equipo</span>
+                                                <span class="field-value"><apex:outputText value="{!lineasMaquina[0].tipoDeEquipo}"/></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="field-label">Valor lista referencial</span>
+                                                <span class="field-value"><apex:outputText value="{!lineasMaquina[0].valorLista}"/></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </apex:outputPanel>
+
+                    <div class="subsection-title">Equipos entregados en comodato</div>
+                    <table class="main-table">
+                        <thead>
+                            <tr>
+                                <th width="9%">Cantidad</th>
+                                <th width="14%">Codigo</th>
+                                <th width="34%">Descripcion</th>
+                                <th width="15%">Tipo de equipo</th>
+                                <th width="14%">N° Serie</th>
+                                <th width="14%">Valor lista</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <apex:repeat value="{!lineasMaquina}" var="linea">
+                                <tr>
+                                    <td><apex:outputText value="{!linea.cantidad}"/></td>
+                                    <td><apex:outputText value="{!linea.codigo}"/></td>
+                                    <td><apex:outputText value="{!linea.descripcion}"/></td>
+                                    <td><apex:outputText value="{!linea.tipoDeEquipo}"/></td>
+                                    <td><apex:outputText value="{!linea.numeroSerie}"/></td>
+                                    <td><apex:outputText value="{!linea.valorLista}"/></td>
+                                </tr>
+                            </apex:repeat>
+                        </tbody>
+                    </table>
+
+                    <div class="subsection-title">Accesorios, aportes y elementos complementarios</div>
+                    <apex:outputPanel rendered="{!lineasAccesorios.size = 0}">
+                        <div class="empty-state">
+                            No se registran accesorios o aportes de marca vinculados a esta maquina en la configuracion actual del comodato.
+                        </div>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!lineasAccesorios.size > 0}">
+                        <table class="main-table">
+                            <thead>
+                                <tr>
+                                    <th width="15%">Cantidad</th>
+                                    <th width="20%">Codigo</th>
+                                    <th width="45%">Descripcion</th>
+                                    <th width="20%">Tipo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <apex:repeat value="{!lineasAccesorios}" var="linea">
+                                    <tr>
+                                        <td><apex:outputText value="{!linea.cantidad}"/></td>
+                                        <td><apex:outputText value="{!linea.codigo}"/></td>
+                                        <td><apex:outputText value="{!linea.descripcion}"/></td>
+                                        <td><apex:outputText value="{!linea.tipoDeEquipo}"/></td>
+                                    </tr>
+                                </apex:repeat>
+                            </tbody>
+                        </table>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                <div class="footnote">Ejemplos habituales: tazas, platos, vasos, insumos de apoyo, elementos promocionales u otros aportes asociados.</div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">III. Ubicacion Contractual de Equipos y Accesorios</div>
+                <table class="main-table">
+                    <thead>
+                        <tr>
+                            <th width="15%">Codigo</th>
+                            <th width="10%">Cantidad</th>
+                            <th width="35%">Descripcion</th>
+                            <th width="40%">Direccion de despacho</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!lineasUbicacion}" var="linea">
+                            <tr>
+                                <td><apex:outputText value="{!linea.codigo}"/></td>
+                                <td><apex:outputText value="{!linea.cantidad}"/></td>
+                                <td><apex:outputText value="{!linea.descripcion}"/></td>
+                                <td><apex:outputText value="{!linea.direccionDespacho}"/></td>
+                            </tr>
+                        </apex:repeat>
+                    </tbody>
+                </table>
+
+                <div class="legal-block clausulas">
+                    <p>
+                        El Cliente debera informar por escrito el destino definitivo de ubicacion que se dara a los equipos y
+                        accesorios antes individualizados, especificando sus respectivos codigos y la direccion exacta del local
+                        o punto de operacion en que permaneceran.
+                    </p>
+                    <p>
+                        Queda expresamente prohibido trasladar los equipos o accesorios a una direccion distinta de la informada
+                        sin la autorizacion previa y por escrito de <apex:outputText value="{!razonSocialICB}"/>.
+                    </p>
+                </div>
+
+                <div class="subsection-title">Mantencion, servicio tecnico y obligaciones operativas</div>
+                <div class="clausulas">
+                    <p><b>Responsabilidades de <apex:outputText value="{!razonSocialICB}"/>:</b></p>
+                    <ol type="a">
+                        <li>Instalar correctamente los equipos y/o accesorios antes detallados.</li>
+                        <li>Capacitación inicial para la operación de los equipos al personal del cliente, de forma presencial.</li>
+                        <li>Mantención periódica de los equipos (periodicidad sujeta a ubicación del cliente y disponibilidad del personal de Servicio al Cliente), preferencialmente cada 6 meses (semestral).</li>
+                        <li>Reparación de equipos (en caso de fallas internas, no atribuibles al cliente). En caso de que se determine que la falla fue producto de mala manipulación por parte del cliente (rotura de piezas, sobrecalentamiento, etc.), el servicio (y eventuales repuestos) tendrá un costo que deberá ser cubierto por el Cliente.</li>
+                    </ol>
+                    <p><b>Obligaciones del Cliente:</b></p>
+                    <ol type="a">
+                        <li>Disponer de las condiciones tecnicas necesarias para la correcta operacion de los equipos (energia, conexion de agua, espacio y seguridad).</li>
+                        <li>Operar las maquinas autonomas exclusivamente con agua tratada o purificada, quedando prohibido el uso directo de agua de la llave cuando la especificacion tecnica asi lo exija.</li>
+                        <li>Conectar las maquinas que operen a red de agua junto con el filtro depurador correspondiente.</li>
+                        <li>Transferir la capacitacion recibida a cualquier nuevo operador que intervenga en el uso del equipo.</li>
+                        <li>Informar oportunamente cualquier falla o comportamiento anormal de operacion.</li>
+                        <li>Responder por el costo de reparacion o reposicion cuando el dano sea atribuible a personal del Cliente.</li>
+                        <li>Entregar los equipos cuando su propietario lo requiera conforme a las causales del presente contrato.</li>
+                        <li>No manipular ni trasladar los equipos sin autorizacion previa.</li>
+                        <li>No ejecutar actos u omisiones que afecten reputacionalmente a <apex:outputText value="{!razonSocialICB}"/> o a las marcas que distribuye.</li>
+                        <li>Cumplir en todo momento con la normativa legal y reglamentaria aplicable al desarrollo de su giro.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">IV. Condiciones Comerciales</div>
+
+                <!-- MULTI-MAQUINA -->
+                <apex:outputPanel rendered="{!esMultiMaquina}">
+                    <apex:repeat value="{!seccionesMaquinas}" var="sec">
+                        <div class="subsection-title">{!sec.nombreMaquina} {!sec.cantidadLabel}</div>
+                        <apex:outputPanel rendered="{!sec.condiciones.size = 0}">
+                            <div class="empty-state">
+                                No se registran lineas de consumo mensual configuradas para esta maquina.
+                            </div>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!sec.condiciones.size > 0}">
+                            <table class="main-table">
+                                <thead>
+                                    <tr>
+                                        <th width="32%">Producto asociado</th>
+                                        <th width="24%">Consumo minimo mensual</th>
+                                        <th width="22%">Precio acordado</th>
+                                        <th width="22%">Politica de precios</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:repeat value="{!sec.condiciones}" var="linea">
+                                        <tr>
+                                            <td><apex:outputText value="{!linea.productoAsociado}"/></td>
+                                            <td><apex:outputText value="{!linea.consumoMinimoMensual}"/></td>
+                                            <td><apex:outputText value="{!linea.precioAcordado}"/></td>
+                                            <td><apex:outputText value="{!linea.politicaDePrecios}"/></td>
+                                        </tr>
+                                    </apex:repeat>
+                                </tbody>
+                            </table>
+                        </apex:outputPanel>
+                    </apex:repeat>
+                </apex:outputPanel>
+
+                <!-- SINGLE MAQUINA -->
+                <apex:outputPanel rendered="{!!esMultiMaquina}">
+                    <apex:outputPanel rendered="{!lineasCondicionesComerciales.size = 0}">
+                        <div class="empty-state">
+                            No se registran lineas de consumo mensual configuradas para esta maquina en la estructura actual del comodato.
+                        </div>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!lineasCondicionesComerciales.size > 0}">
+                        <table class="main-table">
+                            <thead>
+                                <tr>
+                                    <th width="32%">Producto asociado</th>
+                                    <th width="24%">Consumo minimo mensual</th>
+                                    <th width="22%">Precio acordado</th>
+                                    <th width="22%">Politica de precios</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <apex:repeat value="{!lineasCondicionesComerciales}" var="linea">
+                                    <tr>
+                                        <td><apex:outputText value="{!linea.productoAsociado}"/></td>
+                                        <td><apex:outputText value="{!linea.consumoMinimoMensual}"/></td>
+                                        <td><apex:outputText value="{!linea.precioAcordado}"/></td>
+                                        <td><apex:outputText value="{!linea.politicaDePrecios}"/></td>
+                                    </tr>
+                                </apex:repeat>
+                            </tbody>
+                        </table>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+            </div>
+
+            <div class="section">
+                <div class="section-title">V. Clausulas Contractuales</div>
+                <div class="clausulas">
+                    <p>
+                        El presente contrato regula la entrega en comodato de los equipos y accesorios detallados en las secciones
+                        precedentes, los que permanecen de propiedad de <apex:outputText value="{!razonSocialICB}"/> y se entregan
+                        al Cliente para su uso exclusivo en el domicilio indicado, en el marco de la relacion comercial asociada a
+                        la propuesta aprobada.
+                    </p>
+                    <p>
+                        La entrega del equipo queda sujeta a la aprobacion de linea de credito, validaciones internas y cumplimiento
+                        de las condiciones comerciales pactadas. La vigencia inicial del presente contrato sera de 3 anos, salvo
+                        que el documento o sus anexos indiquen expresamente otra regla especifica aprobada por las partes.
+                    </p>
+
+                    <div class="legal-heading">2. Clausulas por incumplimiento de las partes:</div>
+                    <p class="legal-letter">
+                        <b>a. No consumo del volumen comprometido:</b> ICB Food Service realizara monitoreos
+                        mensualmente el cumplimiento de las condiciones de consumo establecidas en la Seccion D. Si el Cliente
+                        registra un consumo menor al 75% del acordado por mas de 3 meses consecutivos, se procedera de la
+                        siguiente forma segun se acuerde entre las partes:
+                    </p>
+                    <ol class="roman-list">
+                        <li>Cliente compra el equipo entregado en comodato asociado al producto con incumplimiento (quedando asi liberado de cualquier exigencia de consumo futuro asociada a ese equipo). En este caso, el Cliente debera restituir los fondos por aporte de marca que hasta esa fecha se le hubieren entregado, debidamente reajustados. Adicionalmente, debera restituir el valor de los accesorios entregados durante la vigencia del contrato considerando los valores indicados en la clausula II anterior.</li>
+                        <li>Se establece un fee mensual que equivale a un 50% mas del valor lista de la maquina correspondiente a este contrato de comodato, que compense el menor consumo.</li>
+                        <li>Se aumenta el precio de venta del producto asociado a ese equipo.</li>
+                        <li>Se retira el equipo entregado en comodato. En este caso, el Cliente debera restituir los fondos por aporte de marca que hasta esa fecha se le hubieren entregado, debidamente reajustados. Adicionalmente, debera restituir el valor de los accesorios entregados durante la vigencia del contrato considerando los valores indicados en la clausula II anterior.</li>
+                    </ol>
+                    <p class="legal-letter">
+                        <b>b. Quiebres:</b> si ocurre quiebre de stock de un producto asociado, <apex:outputText value="{!razonSocialICB}"/>
+                        ofrecera un sustituto en condiciones equivalentes o mejores. Si no existiere sustituto disponible, el Cliente
+                        quedara eximido temporalmente del cumplimiento del consumo comprometido respecto de ese producto mientras dure
+                        la contingencia de abastecimiento.
+                    </p>
+                    <p class="legal-letter">
+                        <b>c. Termino anticipado:</b> si el Cliente decide poner termino anticipado al contrato, debera restituir los
+                        equipos entregados en comodato, los aportes de marca y los accesorios recibidos, ademas de responder por las
+                        obligaciones economicas pactadas o derivadas del incumplimiento, segun corresponda. Del mismo modo,
+                        <apex:outputText value="{!razonSocialICB}"/> podra poner termino al contrato ante incumplimiento grave del
+                        Cliente, procediendo al retiro inmediato de los equipos.
+                    </p>
+
+                    <div class="subsection-title">3. Ajuste de consumo acordado</div>
+                    <p>
+                        El Cliente podra solicitar la revision del consumo mensual comprometido cuando sus condiciones reales de
+                        operacion difieran de las proyectadas originalmente. Todo ajuste debera formalizarse mediante un nuevo acuerdo
+                        o anexo suscrito por ambas partes.
+                    </p>
+
+                    <div class="subsection-title">4. Prevencion de delitos y cumplimiento</div>
+                    <p>
+                        Las partes declaran conocer que <apex:outputText value="{!razonSocialICB}"/> mantiene un Modelo de Prevencion
+                        de Delitos conforme a la Ley N°20.393, incluyendo politicas, procedimientos y canales de denuncia.
+                    </p>
+                    <p>
+                        El Cliente se obliga a ajustar su conducta y la de sus dependientes a la normativa aplicable, absteniendose
+                        de ejecutar actos de cohecho, corrupcion, lavado de activos, financiamiento del terrorismo, fraude,
+                        administracion desleal u otros ilicitos vinculados a la relacion contractual. Asimismo, debera reportar
+                        oportunamente cualquier hecho o indicio de infraccion que tome conocimiento.
+                    </p>
+                    <p>
+                        Por su parte, ICBFS se obliga a mantener vigente su modelo de prevencion, facilitar el acceso a sus politicas
+                        y canales de denuncia, y actuar con probidad, transparencia y estricto apego a la normativa vigente.
+                    </p>
+                    <p>
+                        El incumplimiento de esta clausula por cualquiera de las partes sera considerado una infraccion grave y
+                        habilitara a la contraparte para poner termino inmediato al contrato, sin perjuicio de las demas acciones que
+                        legalmente correspondan.
+                    </p>
+
+                    <div class="subsection-title">5. Consideraciones adicionales</div>
+                    <p>
+                        El plazo del contrato se entendera renovado automaticamente por periodos sucesivos de un ano, salvo aviso en
+                        contrario comunicado por cualquiera de las partes con al menos 3 meses de anticipacion al vencimiento del
+                        periodo en curso. El consumo comprometido podra ser reevaluado ante aperturas de nuevos locales o cambios
+                        relevantes del negocio. Las activaciones comerciales y aportes adicionales quedaran siempre sujetas a
+                        confirmacion expresa de condiciones, alcance y oportunidad.
+                    </p>
+
+                    <div class="note-box">
+                        Nota contractual: los costos de reparacion por region, precios de compra de equipo y el detalle integral del
+                        Anexo I del contrato de referencia no forman parte de esta version automatica y, cuando corresponda, deberan
+                        documentarse en anexo complementario validado por negocio y por el area legal.
+                    </div>
+                </div>
+            </div>
+
+            <div class="signatures">
+                <div class="signatures-title">VI. Aceptacion y firmas</div>
+                <table class="signatures-table">
+                    <tr>
+                        <td>
+                            <div class="signature-image signature-image--ventas">
+                                <img src="{!URLFOR($Resource.Firma_RafaelFelix)}" alt="Firma Rafael Félix"/>
+                            </div>
+                            <div class="signature-line">
+                                <div class="signature-role">Gerente de Ventas</div>
+                                <div class="signature-name">Rafael Félix</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="signature-image signature-image--negocios">
+                                <img src="{!URLFOR($Resource.Firma_BeltranFranzani)}" alt="Firma Beltrán Franzani"/>
+                            </div>
+                            <div class="signature-line">
+                                <div class="signature-role">Gerente Negocios</div>
+                                <div class="signature-name">Beltrán Franzani</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="signature-line">
+                                <div class="signature-role">Representante Legal</div>
+                                <div class="signature-name"><apex:outputText value="{!representanteLegal.Name}"/></div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </body>
+</apex:page>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Alerta_finanzas</fullName>
+        <description>Alerta finanzas</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>clopez@icbfs.uat.cl</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>firarrazabal@icbfs.uat.cl</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/AlertaFinanzas</template>
+    </alerts>
+    <alerts>
+        <fullName>Correo_de_Bienvenida</fullName>
+        <description>Correo de Bienvenida B2B</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>info@icbfs.cl</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Correo_Bienvenida_1755710494088</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>CP_Aplicar_Condicion_Pago_Solicitada</fullName>
+        <description>Aplica el valor solicitado de condicion de pago cuando la aprobacion termina en aprobado.</description>
+        <field>condicion_pago__c</field>
+        <formula>TEXT(Condicion_Pago_Solicitada__c)</formula>
+        <name>CP Aplicar Condicion Pago Solicitada</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>CP_Clear_Condicion_Pago_Solicitada</fullName>
+        <description>Limpia el valor solicitado al cerrar la aprobacion.</description>
+        <field>Condicion_Pago_Solicitada__c</field>
+        <name>CP Clear Condicion Pago Solicitada</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>CP_Set_Estado_Aprobada</fullName>
+        <description>Setea el estado de aprobacion a Aprobada al terminar el proceso.</description>
+        <field>Estado_Aprobacion_Condicion_Pago__c</field>
+        <literalValue>Aprobada</literalValue>
+        <name>CP Set Estado Aprobada</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+</Workflow>

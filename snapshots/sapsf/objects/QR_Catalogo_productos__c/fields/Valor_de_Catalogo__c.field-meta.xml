@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Valor_de_Catalogo__c</fullName>
+    <label>Valor de Catalogo</label>
+    <summarizedField>ICBFS_QR_Producto__c.Valor_Aproximado__c</summarizedField>
+    <summaryForeignKey>ICBFS_QR_Producto__c.QR_Catalogo_producto__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

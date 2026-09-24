@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Motivo_Comodato__c</fullName>
+    <description>Submotivo del Caso de Comodato (Torre de Control). No usar el campo Motivo__c existente: ya está en uso como texto libre genérico, sin relación con este proceso.</description>
+    <label>Motivo Comodato</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Retiro de Máquina</fullName>
+                <default>false</default>
+                <label>Retiro de Máquina</label>
+            </value>
+            <value>
+                <fullName>Cambio de Ubicación</fullName>
+                <default>false</default>
+                <label>Cambio de Ubicación</label>
+            </value>
+            <value>
+                <fullName>Reparación</fullName>
+                <default>false</default>
+                <label>Reparación</label>
+            </value>
+            <value>
+                <fullName>Mantención</fullName>
+                <default>false</default>
+                <label>Mantención</label>
+            </value>
+            <value>
+                <fullName>Instalación de Adicional</fullName>
+                <default>false</default>
+                <label>Instalación de Adicional</label>
+            </value>
+            <value>
+                <fullName>Otro</fullName>
+                <default>false</default>
+                <label>Otro</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

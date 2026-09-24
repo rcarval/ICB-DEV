@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ajustado_Por__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Usuario que realizo el ajuste excepcional. Se autocompleta via Apex (nunca por el usuario en pantalla) para trazabilidad.</description>
+    <label>Ajustado Por</label>
+    <referenceTo>User</referenceTo>
+    <relationshipLabel>Ajustes Excepcionales Comodato Realizados</relationshipLabel>
+    <relationshipName>Ajustes_Comodato_Realizados</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

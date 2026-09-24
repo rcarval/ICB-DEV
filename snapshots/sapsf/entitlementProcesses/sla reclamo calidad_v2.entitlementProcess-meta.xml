@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntitlementProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <SObjectType>Case</SObjectType>
+    <active>true</active>
+    <businessHours>Default</businessHours>
+    <entryStartDateField>Case.CreatedDate</entryStartDateField>
+    <exitCriteriaFilterItems>
+        <field>Case.IsClosed</field>
+        <operation>equals</operation>
+        <value>false</value>
+    </exitCriteriaFilterItems>
+    <isVersionDefault>true</isVersionDefault>
+    <milestones>
+        <businessHours>Default</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>Análisis</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Area__c</field>
+            <operation>equals</operation>
+            <value>Calidad</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>SLA Primera respuesta</milestoneName>
+        <minutesToComplete>4320</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>Case.Update_prioridad</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>5</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>Case.Alerta_por_incumplimiento_de_contacto</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>-15</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Default</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>Escalamiento</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Escalate Case</milestoneName>
+        <minutesToComplete>12960</minutesToComplete>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <name>sla reclamo calidad_v2</name>
+    <versionMaster>552Pr00000ZUQc7</versionMaster>
+    <versionNumber>1</versionNumber>
+</EntitlementProcess>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validar_Campos_Requeridos_AntesConvertir</fullName>
+    <active>true</active>
+    <description>Impide la conversión de un Lead de tipo &quot;Empresa&quot; cuando uno o más campos obligatorios están vacíos. Aplica únicamente al momento de la conversión (IsConverted = TRUE) y solo para el Record Type &quot;Empresa&quot;</description>
+    <errorConditionFormula>AND(
+  IsConverted = TRUE,
+  RecordType.DeveloperName = &quot;Empresa&quot;,
+  OR(
+    ISBLANK(Company),
+    ISBLANK(Email),
+    ISBLANK(Phone),
+    ISBLANK(RUT__c),
+    ISPICKVAL(Gerencia__c, &quot;&quot;),
+    ISPICKVAL(Grupo_Cliente__c, &quot;&quot;),
+    ISPICKVAL(Centro_de_Abastecimiento__c, &quot;&quot;),
+    ISBLANK(Tipo_de_Contacto__c),
+    ISPICKVAL(Regi_n__c, &quot;&quot;),
+    ISBLANK(Comunas__c)
+  )
+)</errorConditionFormula>
+    <errorMessage>No se puede convertir el Lead. Completa los campos requeridos</errorMessage>
+</ValidationRule>

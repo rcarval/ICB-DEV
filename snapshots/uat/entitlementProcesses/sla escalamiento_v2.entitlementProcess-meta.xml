@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntitlementProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <SObjectType>Case</SObjectType>
+    <active>true</active>
+    <businessHours>Default</businessHours>
+    <description>SLA de Escalamiento, si el caso debe ser escalado el SLA cambia</description>
+    <entryStartDateField>Case.CreatedDate</entryStartDateField>
+    <exitCriteriaFilterItems>
+        <field>Case.IsClosed</field>
+        <operation>equals</operation>
+        <value>false</value>
+    </exitCriteriaFilterItems>
+    <milestones>
+        <businessHours>Default</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>Escalamiento</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Escalamiento Calidad</milestoneName>
+        <minutesToComplete>12960</minutesToComplete>
+        <timeTriggers>
+            <timeLength>5</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <timeLength>-15</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+</EntitlementProcess>

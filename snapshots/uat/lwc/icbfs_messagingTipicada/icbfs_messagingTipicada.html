@@ -1,0 +1,48 @@
+<template>
+    <template lwc:if={hasAnyBanner}>
+        <div class="wrapper">
+            <template lwc:if={showTipicada}>
+                <div class="container">
+                    <article class="card card-tipicada">
+                        <div class="accent-bar"></div>
+                        <div class="card-body">
+                            <div class="icon-col">
+                                <span class="icon-circle icon-circle-green">
+                                    <lightning-icon icon-name="utility:check" size="small"></lightning-icon>
+                                </span>
+                            </div>
+                            <div class="text-col">
+                                <h2 class="title">Sesión Tipificada</h2>
+                                <p class="description">
+                                    Esta sesión de mensajería ha sido marcada como tipificada.
+                                    Los datos serán considerados en los procesos de análisis y reportería.
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </template>
+            <template lwc:if={showNoAsociado}>
+                <div class="container">
+                    <article class="card card-noasociado">
+                        <div class="accent-bar"></div>
+                        <div class="card-body">
+                            <div class="icon-col">
+                                <span class="icon-circle icon-circle-amber">
+                                    <lightning-icon icon-name="utility:warning" size="small"></lightning-icon>
+                                </span>
+                            </div>
+                            <div class="text-col">
+                                <h2 class="title">Contacto nuevo - No asociado a cliente </h2>
+                                <p class="description">
+                                    Este contacto de whatsApp no está asociada a un cliente.
+                                    Los datos no podrán ser vinculados automáticamente.
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </template>
+        </div>
+    </template>
+</template>

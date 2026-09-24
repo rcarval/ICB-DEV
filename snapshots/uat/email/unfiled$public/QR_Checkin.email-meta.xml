@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <letterhead>opendaySantiago</letterhead>
+    <name>QR Checkin</name>
+    <style>freeForm</style>
+    <subject>Tu QR de Check-in</subject>
+    <textOnly>Hola,
+Este es tu QR para el check-in del evento.
+
+{!CampaignMember.IMG_QR__c}
+
+Si no puedes ver la imagen, usa este enlace:
+
+Entrar a link</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

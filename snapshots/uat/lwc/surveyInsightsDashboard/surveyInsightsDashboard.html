@@ -1,0 +1,99 @@
+<template>
+  <lightning-card title="Análisis de Respuestas de Encuesta" icon-name="utility:metrics">
+
+    <!-- FILTROS -->
+    <div class="slds-var-m-around_medium slds-box slds-theme_shade">
+      <div class="slds-grid slds-gutters slds-wrap">
+        <div class="slds-col slds-size_1-of-5">
+          <lightning-input type="date" label="Desde" value={dateFrom} onchange={handleDateFromChange}></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-5">
+          <lightning-input type="date" label="Hasta" value={dateTo} onchange={handleDateToChange}></lightning-input>
+        </div>
+        <div class="slds-col slds-size_2-of-5">
+          <lightning-combobox
+            label="Pregunta a analizar"
+            value={selectedQuestion}
+            options={questionOptions}
+            onchange={handleQuestionChange}
+          ></lightning-combobox>
+        </div>
+        <div class="slds-col slds-size_1-of-5 slds-align-bottom">
+          <lightning-button label="Cargar" variant="brand" icon-name="utility:search" onclick={handleLoad} disabled={isLoading}></lightning-button>
+        </div>
+      </div>
+      <div class="slds-text-align_right" style="margin-top:4px;">
+        <lightning-button-icon icon-name="utility:info" variant="bare" size="small" alternative-text="Acerca de este reporte" title="Acerca de este reporte" onclick={handleToggleHelp}></lightning-button-icon>
+      </div>
+    </div>
+
+    <template if:true={_showHelp}>
+      <div class="slds-var-m-horizontal_medium slds-var-m-bottom_small slds-box" style="border-left:4px solid #1565c0;background:#f0f4ff;">
+        <div class="slds-col slds-size_1-of-1">
+          <p class="slds-text-title slds-var-m-bottom_xx-small">Análisis de Respuestas de Encuesta</p>
+          <p class="slds-text-body_small slds-var-m-bottom_xx-small">Analiza la frecuencia de cada respuesta a una pregunta de encuesta específica. Útil para entender cómo se distribuyen las opiniones de los clientes en preguntas abiertas o de opción múltiple.</p>
+          <p class="slds-text-body_small slds-var-m-bottom_xx-small"><strong>Métricas:</strong> Total de respuestas a la pregunta seleccionada · Cantidad de respuestas únicas · Frecuencia de cada respuesta (gráfico de barras horizontales)</p>
+          <p class="slds-text-body_small"><strong>Cómo usar:</strong> Selecciona la pregunta a analizar en el desplegable → "Cargar". Ajusta "Mostrar" para ver el Top N de respuestas más frecuentes. El gráfico se actualiza en tiempo real al cambiar la selección.</p>
+        </div>
+      </div>
+    </template>
+
+    <!-- LOADING -->
+    <template if:true={isLoading}>
+      <div class="slds-var-m-around_medium slds-text-align_center">
+        <lightning-spinner alternative-text="Cargando análisis..." size="medium"></lightning-spinner>
+      </div>
+    </template>
+
+    <template if:false={isLoading}>
+      <template if:true={hasData}>
+
+        <!-- KPIs -->
+        <div class="slds-grid slds-gutters slds-wrap slds-var-m-horizontal_medium slds-var-m-bottom_small">
+          <div class="slds-col slds-size_1-of-3">
+            <div class="kpi-card kpi-total">
+              <p class="kpi-value">{filteredAnswerCount}</p>
+              <p class="kpi-label">Respuestas a pregunta</p>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-3">
+            <div class="kpi-card kpi-active">
+              <p class="kpi-value">{uniqueAnswerCount}</p>
+              <p class="kpi-label">Respuestas únicas</p>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-3 slds-align-middle">
+            <div class="topn-selector">
+              <lightning-combobox
+                label="Mostrar"
+                value={topN}
+                options={topNOptions}
+                onchange={handleTopNChange}
+              ></lightning-combobox>
+            </div>
+          </div>
+        </div>
+
+        <!-- Título de la pregunta seleccionada -->
+        <template if:true={hasQuestion}>
+          <div class="question-label slds-var-m-horizontal_medium slds-var-m-bottom_x-small">
+            <p class="question-text">{selectedQuestion}</p>
+          </div>
+
+          <!-- Gráfico de barras horizontales -->
+          <div class="chart-wrap slds-var-m-horizontal_medium slds-var-m-bottom_medium">
+            <canvas class="insights-chart"></canvas>
+          </div>
+        </template>
+
+      </template>
+
+      <template if:false={hasData}>
+        <div class="slds-var-m-around_medium slds-text-align_center">
+          <p class="slds-text-color_weak">Sin datos para los filtros seleccionados. Haz clic en "Cargar".</p>
+        </div>
+      </template>
+    </template>
+
+  </lightning-card>
+</template>

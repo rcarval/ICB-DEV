@@ -1,0 +1,176 @@
+<template>
+  <lightning-card icon-name="standard:individual">
+    <div slot="title" style="display:flex;align-items:center;gap:5px;">
+      <span>Scorecard Ejecutivos - Comparativa de duración por ejecutivo</span>
+      <lightning-button-icon
+        icon-name="utility:info"
+        variant="border-filled"
+        size="medium"
+        alternative-text="Acerca de este reporte"
+        title="Acerca de este reporte"
+        onclick={handleToggleHelp}
+      ></lightning-button-icon>
+    </div>
+
+    <!-- FILTROS -->
+    <div class="slds-var-m-around_medium slds-box slds-theme_shade">
+      <div class="slds-grid slds-gutters slds-wrap">
+        <div class="slds-col slds-size_1-of-4">
+          <lightning-input type="date" label="Desde" value={dateFrom} onchange={handleDateFromChange}></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-4">
+          <lightning-input type="date" label="Hasta" value={dateTo} onchange={handleDateToChange}></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-4 slds-align-bottom">
+          <lightning-button label="Cargar" variant="brand" icon-name="utility:search" onclick={handleLoad} disabled={isLoading}></lightning-button>
+        </div>
+      </div>
+    </div>
+
+    <template if:true={_showHelp}>
+      <div class="slds-var-m-horizontal_medium slds-var-m-bottom_small slds-box" style="border-left:4px solid #1565c0;background:#f0f4ff;">
+        <div class="slds-col slds-size_1-of-1">
+          <p class="slds-text-title slds-var-m-bottom_xx-small">Scorecard Ejecutivos</p>
+          <p class="slds-text-body_small slds-var-m-bottom_xx-small">Comparativa de rendimiento de todos los ejecutivos en un cuadro unificado. Cruza datos de sesiones de atención con respuestas de encuestas para dar una vista integral por agente.</p>
+          <p class="slds-text-body_small slds-var-m-bottom_xx-small"><strong>Métricas:</strong> Sesiones atendidas · Duración promedio de sesión · CSAT promedio (1–5) · FCR % (resolución primer contacto) · Gráficos comparativos de CSAT y FCR</p>
+          <p class="slds-text-body_small"><strong>Cómo usar:</strong> Haz clic en el encabezado de cualquier columna para ordenar. Los colores semáforo indican rendimiento: verde ≥ 4.0 / 80% · amarillo ≥ 3.0 / 60% · rojo bajo umbral.</p>
+        </div>
+      </div>
+    </template>
+
+    <!-- LOADING -->
+    <template if:true={isLoading}>
+      <div class="slds-var-m-around_medium slds-text-align_center">
+        <lightning-spinner alternative-text="Cargando scorecard..." size="medium"></lightning-spinner>
+      </div>
+    </template>
+
+    <template if:false={isLoading}>
+      <template if:true={hasData}>
+
+        <!-- KPIs de resumen -->
+        <div class="slds-grid slds-gutters slds-wrap slds-var-m-horizontal_medium slds-var-m-bottom_small">
+          <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4">
+            <div class="kpi-card kpi-total">
+              <p class="kpi-value">{totalAgents}</p>
+              <p class="kpi-label">Ejecutivos</p>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4">
+            <div class="kpi-card kpi-active">
+              <p class="kpi-value">{totalSessions}</p>
+              <p class="kpi-label">Sesiones totales</p>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4">
+            <div class="kpi-card kpi-ended">
+              <p class="kpi-value">{overallCsat}</p>
+              <p class="kpi-label">CSAT global / 5</p>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4">
+            <div class="kpi-card kpi-new">
+              <p class="kpi-value">{overallFcr}</p>
+              <p class="kpi-label">FCR global</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXPORT -->
+        <div class="slds-var-m-horizontal_medium slds-var-m-bottom_x-small slds-text-align_right">
+          <lightning-button-menu
+            label="Exportar Excel"
+            icon-name="utility:download"
+            variant="neutral"
+            onselect={handleExport}
+          >
+            <lightning-menu-item value="visible" label="Datos visibles (orden actual)"></lightning-menu-item>
+            <lightning-menu-item value="all"     label="Todos los datos"></lightning-menu-item>
+          </lightning-button-menu>
+        </div>
+
+        <!-- Tabla scorecard -->
+        <div class="table-wrap slds-var-m-horizontal_medium slds-var-m-bottom_medium">
+          <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered scorecard-table">
+            <thead>
+              <tr class="slds-line-height_reset">
+                <th class="sc-th sortable-header" data-field="agentName" onclick={handleSort}>
+                  Ejecutivo
+                </th>
+                <th class="sc-th sc-th-num sortable-header" data-field="totalSessions" onclick={handleSort}>
+                  Sesiones
+                </th>
+                <th class="sc-th sc-th-num sortable-header" data-field="avgDuration" onclick={handleSort}>
+                  Duración Prom.
+                </th>
+                <th class="sc-th sc-th-num sortable-header" data-field="csatAvg" onclick={handleSort}>
+                  CSAT <span class="th-sub">califica</span>
+                </th>
+                <th class="sc-th sc-th-num sortable-header" data-field="fcrPct" onclick={handleSort}>
+                  FCR <span class="th-sub">solicitud resuelta</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <template for:each={sortedRows} for:item="row">
+                <tr key={row.agentName} class="slds-hint-parent sc-row">
+                  <td class="agent-cell">{row.agentName}</td>
+                  <td class="num-cell">{row.totalSessions}</td>
+                  <td class="num-cell">{row.avgDurationFmt}</td>
+                  <td class="score-cell">
+                    <span class={row.csatClass}>{row.csatFmt}</span>
+                    <span class="score-sub">({row.csatCount} resp.)</span>
+                  </td>
+                  <td class="score-cell">
+                    <span class={row.fcrClass}>{row.fcrFmt}</span>
+                    <span class="score-sub">({row.fcrSi}/{row.fcrTotal})</span>
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Leyenda de colores -->
+        <div class="legend-bar slds-var-m-horizontal_medium slds-var-m-bottom_medium">
+          <span class="score-badge score-good">Verde ≥ 4.0 / 80%</span>
+          <span class="score-badge score-warn">Amarillo ≥ 3.0 / 60%</span>
+          <span class="score-badge score-bad">Rojo &lt; 3.0 / 60%</span>
+          <span class="score-badge score-neutral">— Sin respuestas</span>
+        </div>
+
+        <!-- Gráficos de barras por ejecutivo -->
+        <template if:true={hasCsatBarChart}>
+          <div class="slds-grid slds-gutters slds-var-m-horizontal_medium slds-var-m-bottom_medium">
+            <div class="slds-col slds-size_1-of-2">
+              <div class="slds-box">
+                <p class="slds-text-heading_x-small slds-var-m-bottom_x-small">CSAT Promedio por Ejecutivo</p>
+                <div style="height:200px;position:relative;">
+                  <canvas class="sc-csat-bar"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+              <template if:true={hasFcrBarChart}>
+                <div class="slds-box">
+                  <p class="slds-text-heading_x-small slds-var-m-bottom_x-small">FCR % por Ejecutivo</p>
+                  <div style="height:200px;position:relative;">
+                    <canvas class="sc-fcr-bar"></canvas>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+        </template>
+
+      </template>
+
+      <template if:false={hasData}>
+        <div class="slds-var-m-around_medium slds-text-align_center">
+          <p class="slds-text-color_weak">Sin datos para los filtros seleccionados. Haz clic en "Cargar".</p>
+        </div>
+      </template>
+    </template>
+
+  </lightning-card>
+</template>

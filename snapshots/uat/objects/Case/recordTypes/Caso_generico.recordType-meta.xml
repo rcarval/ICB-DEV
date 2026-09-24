@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Caso_generico</fullName>
+    <active>true</active>
+    <businessProcess>Caso generico</businessProcess>
+    <label>Caso generico</label>
+    <picklistValues>
+        <picklist>Area__c</picklist>
+        <values>
+            <fullName>Calidad</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Area_asignada__c</picklist>
+        <values>
+            <fullName>Comercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Logística</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Categoria__c</picklist>
+        <values>
+            <fullName>Desviación de Temperatura</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Error en Información del envase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Presencia de Cuerpo extraño</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Presencia de Hongos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Producto no cumple con lo solicitado</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Productos en mal Estado</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unidades faltantes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vida útil</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Cumple_los_plazos__c</picklist>
+        <values>
+            <fullName>NO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SI</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Dias_cerrados__c</picklist>
+        <values>
+            <fullName>Jueves</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lunes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Martes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Miércoles</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sábado</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Viernes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Estado_Nota_de_Credito__c</picklist>
+        <values>
+            <fullName>Lista</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No lista</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Estado_de_Producto__c</picklist>
+        <values>
+            <fullName>Cobro transporte</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Merma</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Otro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Producto acorde</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Producto no acorde</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Horario_retiro__c</picklist>
+        <values>
+            <fullName>De 08%3A00 A 12%3A00</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>De 12%3A00 A 18%3A00</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Origin</picklist>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Priority</picklist>
+        <values>
+            <fullName>High</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Procede_el_Reclamo__c</picklist>
+        <values>
+            <fullName>No%2C no procede</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Si%2C con retiro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Si%2C sin retiro</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason</picklist>
+        <values>
+            <fullName>Funcionalidad compleja</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Instrucciones no claras</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nuevo tema de base de conocimiento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Problema existente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Problema nuevo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Se requiere entrenamiento de uso</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Region_Cliente__c</picklist>
+        <values>
+            <fullName>RM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Regiones</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Requiere_Reasignaci_n__c</picklist>
+        <values>
+            <fullName>NO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SI</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Requiere_escalamiento__c</picklist>
+        <values>
+            <fullName>NO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SI</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Responsable_de_Respuesta__c</picklist>
+        <values>
+            <fullName>Calidad</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Respuesta_Proveedor__c</picklist>
+        <values>
+            <fullName>NO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SI</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sub_Area__c</picklist>
+        <values>
+            <fullName>Operacione</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proveedor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transporte</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sub_Categoria__c</picklist>
+        <values>
+            <fullName>Caja Rota</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Caja con Unidades menos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Color%2FOlor no característicos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contaminación Física %28 Metálico%2C plástico%2C etc%2E%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Corta Vida Útil</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Envase Roto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Falta de Información Nutricional</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Información del Envase Incorrecto o Ilegible</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No cumple Textura</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Presencia de Escarcha</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Presencia de Hongos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Producto Filtrado</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Producto Sucio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Producto Vencido</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Producto con Humedad</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Producto descongelado</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pérdida de Cadena de Frio %28 Temperatura no Cumple%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pérdida de Vacío</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sin datos de fecha de Elaboración y Vencimiento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tamaño%2FCantidad%2FPeso No cumple con Producto</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Tipo_UM_Reclamo__c</picklist>
+        <values>
+            <fullName>Caja</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unidad</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Tipo_de_Nota_de_Credito__c</picklist>
+        <values>
+            <fullName>Financiera</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operacional</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sin nota de crédito%2C acuerdo comercial</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Tipo_de_Reclamo__c</picklist>
+        <values>
+            <fullName>Calidad</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operaciones</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transporte</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Tipo_de_Requerimiento__c</picklist>
+        <values>
+            <fullName>Reclamo</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Feature Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Problem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Question</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

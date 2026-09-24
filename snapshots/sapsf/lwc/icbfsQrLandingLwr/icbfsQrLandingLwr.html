@@ -1,0 +1,33 @@
+<!--
+ICB Food Service
+Desarrollado por: José Illanes
+Fecha: 2026-02-12
+Descripción: Landing QR (Experience Cloud LWR) que lee ?token= desde la URL
+             y ejecuta el Screen Flow "QR pantalla se accion" pasando varToken.
+-->
+<template>
+    <lightning-card title="Check-in">
+        <div class="slds-p-around_medium">
+
+            <template if:true={loading}>
+                <lightning-spinner alternative-text="Cargando..."></lightning-spinner>
+            </template>
+
+            <template if:false={loading}>
+                <template if:true={token}>
+                    <lightning-flow
+                        flow-api-name={flowApiName}
+                        flow-input-variables={inputVariables}>
+                    </lightning-flow>
+                </template>
+
+                <template if:false={token}>
+                    <p class="slds-text-color_error slds-text-heading_small">
+                        ERROR: No se encontró token en la URL.
+                    </p>
+                </template>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bot xmlns="http://soap.sforce.com/2006/04/metadata">
+    <agentDSLEnabled>false</agentDSLEnabled>
+    <botMlDomain>
+        <label>Asistente ICBFS</label>
+        <mlIntents>
+            <developerName>Hacer_pedido_y_seguimiento</developerName>
+            <label>Hacer pedido y seguimiento</label>
+        </mlIntents>
+        <mlIntents>
+            <developerName>Main_Menu</developerName>
+            <label>Main Menu</label>
+        </mlIntents>
+        <mlIntents>
+            <developerName>Transfer_To_Agent</developerName>
+            <label>Transfer To Agent</label>
+        </mlIntents>
+        <mlIntents>
+            <developerName>Welcome</developerName>
+            <label>Welcome</label>
+        </mlIntents>
+        <mlSlotClasses>
+            <dataType>Text</dataType>
+            <developerName>respuestaEncuestaV1</developerName>
+            <extractionType>Value</extractionType>
+            <label>respuestaEncuestaV1</label>
+        </mlSlotClasses>
+        <mlSlotClasses>
+            <dataType>Text</dataType>
+            <developerName>TextoRespuesta</developerName>
+            <extractionType>Value</extractionType>
+            <label>TextoRespuesta</label>
+        </mlSlotClasses>
+        <mlSlotClasses>
+            <dataType>Text</dataType>
+            <developerName>tipoMensaje</developerName>
+            <extractionType>Value</extractionType>
+            <label>tipoMensaje</label>
+        </mlSlotClasses>
+        <name>Asistente_ICBFS</name>
+    </botMlDomain>
+    <botSource>None</botSource>
+    <botUser>sebastian.albornoz@seidor.com.icbfs.uat</botUser>
+    <contextVariables>
+        <contextVariableMappings>
+            <SObjectType>MessagingEndUser</SObjectType>
+            <fieldName>MessagingEndUser.ContactId</fieldName>
+            <messageType>EmbeddedMessaging</messageType>
+        </contextVariableMappings>
+        <dataType>Id</dataType>
+        <description>This variable may also be referred to as MessagingEndUser ContactId</description>
+        <developerName>ContactId</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Contact Id</label>
+    </contextVariables>
+    <contextVariables>
+        <contextVariableMappings>
+            <SObjectType>MessagingSession</SObjectType>
+            <fieldName>MessagingSession.MessagingEndUserId</fieldName>
+            <messageType>EmbeddedMessaging</messageType>
+        </contextVariableMappings>
+        <dataType>Id</dataType>
+        <description>This variable may also be referred to as MessagingEndUser Id</description>
+        <developerName>EndUserId</developerName>
+        <includeInPrompt>true</includeInPrompt>
+        <label>End User Id</label>
+    </contextVariables>
+    <contextVariables>
+        <contextVariableMappings>
+            <SObjectType>MessagingSession</SObjectType>
+            <fieldName>MessagingSession.Id</fieldName>
+            <messageType>EmbeddedMessaging</messageType>
+        </contextVariableMappings>
+        <dataType>Id</dataType>
+        <description>This variable may also be referred to as MessagingSession Id</description>
+        <developerName>RoutableId</developerName>
+        <includeInPrompt>true</includeInPrompt>
+        <label>Routable Id</label>
+    </contextVariables>
+    <contextVariables>
+        <contextVariableMappings>
+            <SObjectType>VoiceCall</SObjectType>
+            <fieldName>VoiceCall.Id</fieldName>
+            <messageType>EmbeddedMessaging</messageType>
+        </contextVariableMappings>
+        <dataType>Id</dataType>
+        <description>This variable may also be referred to as VoiceCall Id</description>
+        <developerName>VoiceCallId</developerName>
+        <includeInPrompt>true</includeInPrompt>
+        <label>Voice Call Id</label>
+    </contextVariables>
+    <defaultOutboundFlow>Sesi_n_de_mensajeria_Enrutar_sesiones_colas</defaultOutboundFlow>
+    <description>A bot from scratch.</description>
+    <label>Asistente ICBFS</label>
+    <logPrivateConversationData>true</logPrivateConversationData>
+    <richContentEnabled>true</richContentEnabled>
+    <sessionTimeout>0</sessionTimeout>
+    <type>Bot</type>
+</Bot>

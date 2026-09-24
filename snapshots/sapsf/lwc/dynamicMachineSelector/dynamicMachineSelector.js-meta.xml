@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <!-- Entradas del Flow -->
+            <property name="allowDynamicFilters" type="Boolean" label="Mostrar Filtros Dinámicos (solo admins)" role="inputOnly"/>
+            <property name="initialBusinessFilter" type="String" label="Filtro Inicial de Negocio" role="inputOnly"/>
+            <property name="pricebookId" type="String" label="ID de Lista de Precios" role="inputOnly"/>
+            <property name="preSelectedMachineId" type="String" label="ID Máquina Pre-seleccionada (restaurar al volver)" role="inputOnly"/>
+            <property name="tipoEquipo" type="String" label="Tipo de Equipo (Máquina Café / Dispensador)" role="inputOnly"/>
+            <property name="allowMultiSelect" type="Boolean" label="Permitir selección múltiple" role="inputOnly"/>
+            <!-- Salidas al Flow -->
+            <property name="selectedMachineId" type="String" label="ID de la Máquina Seleccionada" role="outputOnly"/>
+            <property name="selectedMachineName" type="String" label="Nombre de la Máquina Seleccionada" role="outputOnly"/>
+            <property name="machineSelectionsJson" type="String" label="Selecciones Multi-Máquina JSON"/>
+            <!-- Solicitud especial: bidireccional, igual que machineSelectionsJson, para que
+                 sobreviva a un retroceso del usuario (LL-014, salesforce-flow-surgery) -->
+            <property name="esSolicitudEspecial" type="Boolean" label="Es Solicitud Especial"/>
+            <property name="solicitudEspecialTexto" type="String" label="Texto de Solicitud Especial"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

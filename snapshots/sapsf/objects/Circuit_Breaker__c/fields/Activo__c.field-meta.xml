@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Activo__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Interruptor maestro del breaker para este proceso. En false (kill-switch), el invocable siempre permite continuar sin tocar contadores (fail-open), igual al comportamiento actual sin protección.</description>
+    <inlineHelpText>Interruptor maestro. Desmarcado = el breaker no hace nada (comportamiento normal, sin protección). Marcado = frena si se supera el umbral.</inlineHelpText>
+    <label>Activo</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

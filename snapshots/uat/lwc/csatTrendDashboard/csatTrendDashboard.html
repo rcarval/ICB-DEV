@@ -1,0 +1,134 @@
+<template>
+  <lightning-card icon-name="utility:chart">
+    <div slot="title" style="display: flex; align-items: center; gap: 5px">
+      <span>Tendencia CSAT y FCR Semanal</span>
+      <lightning-button-icon
+        icon-name="utility:info"
+        variant="border-filled"
+        size="medium"
+        alternative-text="Acerca de este reporte"
+        title="Acerca de este reporte"
+        onclick={handleToggleHelp}
+      ></lightning-button-icon>
+    </div>
+
+    <!-- FILTROS -->
+    <div class="slds-var-m-around_medium slds-box slds-theme_shade">
+      <div class="slds-grid slds-gutters slds-wrap">
+        <div class="slds-col slds-size_1-of-4">
+          <lightning-input
+            type="date"
+            label="Desde"
+            value={dateFrom}
+            onchange={handleDateFromChange}
+          ></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-4">
+          <lightning-input
+            type="date"
+            label="Hasta"
+            value={dateTo}
+            onchange={handleDateToChange}
+          ></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-4 slds-align-bottom">
+          <lightning-button
+            label="Cargar"
+            variant="brand"
+            icon-name="utility:search"
+            onclick={handleLoad}
+            disabled={isLoading}
+          ></lightning-button>
+        </div>
+      </div>
+    </div>
+
+    <template if:true={_showHelp}>
+      <div
+        class="slds-var-m-horizontal_medium slds-var-m-bottom_small slds-box"
+        style="border-left: 4px solid #1565c0; background: #f0f4ff"
+      >
+        <div class="slds-col slds-size_1-of-1">
+          <p class="slds-text-title slds-var-m-bottom_xx-small">
+            Tendencia CSAT y FCR Semanal
+          </p>
+          <p class="slds-text-body_small slds-var-m-bottom_xx-small">
+            Muestra la evolución semanal de la calidad de atención en el período
+            seleccionado. Permite detectar tendencias, semanas críticas y
+            correlación entre satisfacción y resolución.
+          </p>
+          <p class="slds-text-body_small slds-var-m-bottom_xx-small">
+            <strong>Métricas:</strong> CSAT promedio semanal (escala 1–5) · FCR
+            % semanal (resolución en primer contacto) · Volumen de sesiones por
+            semana (barras moradas)
+          </p>
+          <p class="slds-text-body_small">
+            <strong>Cómo usar:</strong> El rango por defecto es los últimos 90
+            días. Ajusta las fechas y haz clic en "Cargar". Los KPIs de resumen
+            se muestran sobre el gráfico.
+          </p>
+        </div>
+      </div>
+    </template>
+
+    <!-- LOADING -->
+    <template if:true={isLoading}>
+      <div class="slds-var-m-around_medium slds-text-align_center">
+        <lightning-spinner
+          alternative-text="Cargando tendencia..."
+          size="medium"
+        ></lightning-spinner>
+      </div>
+    </template>
+
+    <template if:false={isLoading}>
+      <template if:true={hasData}>
+        <!-- KPIs de resumen del período -->
+        <div
+          class="slds-grid slds-gutters slds-wrap slds-var-m-horizontal_medium slds-var-m-bottom_small"
+        >
+          <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4">
+            <div class="kpi-card kpi-total">
+              <p class="kpi-value">{totalResponses}</p>
+              <p class="kpi-label">Total Encuestas</p>
+              <h4 class="kpi-label">Completas - Incompletas</h4>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4">
+            <div class="kpi-card kpi-active">
+              <p class="kpi-value">{overallCsat}</p>
+              <p class="kpi-label">CSAT global / 5</p>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4">
+            <div class="kpi-card kpi-ended">
+              <p class="kpi-value">{overallFcr}</p>
+              <p class="kpi-label">FCR global</p>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4">
+            <div class="kpi-card kpi-csat">
+              <p class="kpi-value">{overallCsatPct}</p>
+              <p class="kpi-label">Satisfacción CSAT (4-5)</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gráfico de tendencia -->
+        <div
+          class="chart-wrap slds-var-m-horizontal_medium slds-var-m-bottom_medium"
+        >
+          <canvas class="trend-chart"></canvas>
+        </div>
+      </template>
+
+      <template if:false={hasData}>
+        <div class="slds-var-m-around_medium slds-text-align_center">
+          <p class="slds-text-color_weak">
+            Sin datos para los filtros seleccionados. Haz clic en "Cargar".
+          </p>
+        </div>
+      </template>
+    </template>
+  </lightning-card>
+</template>

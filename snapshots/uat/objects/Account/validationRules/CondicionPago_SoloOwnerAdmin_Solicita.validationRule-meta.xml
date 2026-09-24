@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CondicionPago_SoloOwnerAdmin_Solicita</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+NOT($Permission.Bypass_Condicion_Pago_Aprobacion),
+ISCHANGED(condicion_pago__c),
+OR(
+AND(PRIORVALUE(condicion_pago__c) = &quot;ZD01&quot;, TEXT(condicion_pago__c) = &quot;ZE01&quot;),
+AND(PRIORVALUE(condicion_pago__c) = &quot;ZE01&quot;, TEXT(condicion_pago__c) = &quot;ZD01&quot;)
+),
+$User.Id &lt;&gt; OwnerId
+)</errorConditionFormula>
+    <errorMessage>Solo el propietario de la cuenta o un administrador puede solicitar este cambio.</errorMessage>
+</ValidationRule>

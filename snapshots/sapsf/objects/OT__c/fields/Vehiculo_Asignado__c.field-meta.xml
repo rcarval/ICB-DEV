@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Vehiculo_Asignado__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Vehiculo Asignado</label>
+    <referenceTo>Vehiculo__c</referenceTo>
+    <relationshipLabel>OTs</relationshipLabel>
+    <relationshipName>OTs</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

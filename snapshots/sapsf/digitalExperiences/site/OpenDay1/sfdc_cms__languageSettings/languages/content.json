@@ -1,0 +1,14 @@
+{
+  "type" : "sfdc_cms__languageSettings",
+  "title" : "LanguageContent",
+  "contentBody" : {
+    "languages" : [ {
+      "locale" : "es",
+      "label" : "Spanish ()",
+      "isActive" : true,
+      "isAuthoringOnly" : false
+    } ],
+    "defaultLocale" : "es"
+  },
+  "urlName" : "languagecontent"
+}

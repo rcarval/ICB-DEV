@@ -1,0 +1,398 @@
+<template>
+    <div class="selector-container">
+        <!-- Modo de Selección: solo visible para perfiles admin -->
+        <template if:true={allowDynamicFilters}>
+            <div class="mode-selector">
+                <button class={dynamicClass} data-mode="dynamic" onclick={handleModeChange}>
+                    Desplegar filtros dinámicos
+                </button>
+                <button class={guidedClass} data-mode="guided" onclick={handleModeChange}>
+                    Filtro guiado
+                </button>
+            </div>
+        </template>
+
+        <!-- Banner de selección activa (solo modo single) -->
+        <template if:false={isMultiMode}>
+            <template if:true={selectedMachine}>
+                <div class="selection-banner">
+                    <lightning-icon icon-name="utility:check_circle" size="small" class="banner-icon"></lightning-icon>
+                    <span class="banner-text">Seleccionada: <strong>{selectedMachine.Name}</strong></span>
+                    <button class="banner-clear-btn" onclick={clearSelection}>✕ Cambiar</button>
+                </div>
+            </template>
+        </template>
+
+        <!-- Banner multi-selección -->
+        <template if:true={isMultiMode}>
+            <template if:true={hasMultiSelections}>
+                <div class="multi-selection-panel">
+                    <h3 class="multi-title">✅ Equipos seleccionados ({totalSelectedCount}) — Ajusta las cantidades antes de continuar</h3>
+                    <table class="multi-table">
+                        <thead>
+                            <tr>
+                                <th>Equipo</th>
+                                <th style="width:120px;">Cantidad</th>
+                                <th style="width:80px;">Quitar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={selectedMachinesList} for:item="sel">
+                                <tr key={sel.Id}>
+                                    <td><strong>{sel.Name}</strong></td>
+                                    <td>
+                                        <input type="number" min="1" value={sel.quantity}
+                                            data-id={sel.Id} onchange={handleMultiQuantityChange}
+                                            class="qty-input"/>
+                                    </td>
+                                    <td>
+                                        <button class="remove-btn" data-id={sel.Id} onclick={handleRemoveMultiMachine}>✕</button>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                    <p class="multi-confirm-text">Ajusta las cantidades y presiona "Siguiente" para generar la propuesta.</p>
+                </div>
+            </template>
+        </template>
+
+        <!-- Encabezado -->
+        <div class="selector-header">
+            <lightning-icon icon-name="standard:product" size="medium"></lightning-icon>
+            <h2>Selector de Máquina</h2>
+            <p class="subtitle">Filtra y selecciona la máquina ideal para el cliente</p>
+            <template if:true={isMultiMode}>
+                <p class="subtitle" style="color: #0070d2; font-weight: bold;">Modo multi-máquina: haz clic en cada equipo para agregarlo</p>
+            </template>
+        </div>
+
+        <!-- FILTROS DINÁMICOS -->
+        <template if:true={isDynamicMode}>
+            <div class="filters-grid">
+                <div class="filter-item">
+                    <label class="filter-label">1. Tipo de Negocio</label>
+                    <select class="filter-select" value={filterNegocio} onchange={handleTipoNegocioChange}>
+                        <option value="">— Todos —</option>
+                        <template for:each={tiposNegocio} for:item="opt">
+                            <option key={opt.value} value={opt.value}>{opt.label}</option>
+                        </template>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label class="filter-label">2. Metodología de Café</label>
+                    <select class="filter-select" value={filterMetodologia} onchange={handleMetodologiaChange}>
+                        <option value="">— Todas —</option>
+                        <template for:each={availableMetodologias} for:item="opt">
+                            <option key={opt.value} value={opt.value}>{opt.label}</option>
+                        </template>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label class="filter-label">3. Tipo de Flujo</label>
+                    <select class="filter-select" value={filterFlujo} onchange={handleFlujoChange}>
+                        <option value="">— Todos —</option>
+                        <template for:each={availableFlujos} for:item="opt">
+                            <option key={opt.value} value={opt.value}>{opt.label}</option>
+                        </template>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label class="filter-label">4. Volumen Diario</label>
+                    <select class="filter-select" value={filterVolumen} onchange={handleVolumenChange}>
+                        <option value="">— Todos —</option>
+                        <template for:each={availableVolumenes} for:item="opt">
+                            <option key={opt.value} value={opt.value}>{opt.label}</option>
+                        </template>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label class="filter-label">Tipo de Leche</label>
+                    <select class="filter-select" value={filterLeche} onchange={handleTipoLecheChange}>
+                        <option value="">— Todos —</option>
+                        <template for:each={availableLeches} for:item="opt">
+                            <option key={opt.value} value={opt.value}>{opt.label}</option>
+                        </template>
+                    </select>
+                </div>
+                <div class="filter-item filter-search">
+                    <label class="filter-label">Buscar por Nombre</label>
+                    <div class="search-wrapper">
+                        <lightning-icon icon-name="utility:search" size="x-small" class="search-icon"></lightning-icon>
+                        <input type="text" class="filter-input" placeholder="Ej: KREA TOUCH..." oninput={handleSearchChange}/>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- FILTRO GUIADO -->
+        <template if:true={isGuidedMode}>
+            <div class="guided-container">
+                <!-- Paso 0: Pregunta Multi-Máquina (PRIMERO) -->
+                <template if:true={showMultiQuestionInGuided}>
+                    <div class="guided-step multi-question">
+                        <div class="filter-item">
+                            <label class="filter-label">¿Necesita más de una máquina?</label>
+                            <select class="filter-select" onchange={handleMultiAnswer}>
+                                <option value="" selected={respuestaEsVacia}>— Seleccionar —</option>
+                                <option value="maquina" selected={respuestaEsMaquina}>Seleccionar Máquina</option>
+                                <option value="especial" selected={respuestaEsEspecial}>Solicitud especial</option>
+                            </select>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Paso 0b: Solicitud especial (reemplaza el resto del guiado) -->
+                <template if:true={showSolicitudEspecialStep}>
+                    <div class="guided-step">
+                        <div class="filter-item">
+                            <label class="filter-label">Describe tu solicitud</label>
+                            <lightning-textarea
+                                label="Describe tu solicitud"
+                                value={solicitudEspecialTexto}
+                                onchange={handleSolicitudEspecialChange}
+                                variant="label-hidden"
+                            ></lightning-textarea>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Paso 1: Negocio (después de responder multi) -->
+                <template if:true={showNegocioStep}>
+                    <div class="guided-step">
+                        <div class="filter-item">
+                            <label class="filter-label">¿Cuál es el tipo de negocio del cliente?</label>
+                            <select class="filter-select" value={filterNegocio} onchange={handleTipoNegocioChange}>
+                                <option value="">— Seleccionar —</option>
+                                <template for:each={tiposNegocio} for:item="opt">
+                                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                </template>
+                            </select>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Paso 2: Metodología (solo si no es multi o ya respondió "no") -->
+                <template if:true={showStep2}>
+                    <div class="guided-step">
+                        <div class="filter-item">
+                            <label class="filter-label">¿Qué metodología de café prefieren?</label>
+                            <select class="filter-select" value={filterMetodologia} onchange={handleMetodologiaChange}>
+                                <option value="">— Seleccionar —</option>
+                                <template for:each={availableMetodologias} for:item="opt">
+                                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                </template>
+                            </select>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Paso 3: Flujo -->
+                <template if:true={showStep3}>
+                    <div class="guided-step">
+                        <div class="filter-item">
+                            <label class="filter-label">¿Cuál es el flujo de atención esperado?</label>
+                            <select class="filter-select" value={filterFlujo} onchange={handleFlujoChange}>
+                                <option value="">— Seleccionar —</option>
+                                <template for:each={availableFlujos} for:item="opt">
+                                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                </template>
+                            </select>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Paso 4: Volumen -->
+                <template if:true={showStep4}>
+                    <div class="guided-step">
+                        <div class="filter-item">
+                            <label class="filter-label">¿Cuál es el volumen diario estimado?</label>
+                            <select class="filter-select" value={filterVolumen} onchange={handleVolumenChange}>
+                                <option value="">— Seleccionar —</option>
+                                <template for:each={availableVolumenes} for:item="opt">
+                                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                </template>
+                            </select>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Paso 5: Leche -->
+                <template if:true={showStep5}>
+                    <div class="guided-step">
+                        <div class="filter-item">
+                            <label class="filter-label">¿Qué tipo de leche utilizarán?</label>
+                            <select class="filter-select" value={filterLeche} onchange={handleTipoLecheChange}>
+                                <option value="">— Seleccionar —</option>
+                                <template for:each={availableLeches} for:item="opt">
+                                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                </template>
+                            </select>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <!-- Conteo de resultados -->
+        <template if:true={showResults}>
+            <div class="results-bar">
+                <span class="results-count">
+                    <template if:true={isMultiMode}>
+                        {filteredMachines.length} equipos disponibles — haz clic para agregar
+                    </template>
+                    <template if:false={isMultiMode}>
+                        <template if:true={selectedMachine}>
+                            ✅ Máquina seleccionada: <strong>{selectedMachine.Name}</strong>
+                        </template>
+                        <template if:false={selectedMachine}>
+                            {filteredMachines.length} máquinas encontradas
+                        </template>
+                    </template>
+                </span>
+                <template if:false={isMultiMode}>
+                    <template if:true={selectedMachine}>
+                        <button class="clear-btn" onclick={clearSelection}>✕ Cambiar selección</button>
+                    </template>
+                </template>
+                <button class="clear-filters-btn-sm" onclick={clearFilters}>Limpiar filtros</button>
+            </div>
+        </template>
+
+        <!-- Loading -->
+        <template if:true={isLoading}>
+            <div class="loading-container">
+                <lightning-spinner alternative-text="Cargando..." size="medium"></lightning-spinner>
+                <p>Cargando máquinas...</p>
+            </div>
+        </template>
+
+        <!-- Sin resultados -->
+        <template if:true={noResults}>
+            <div class="no-results">
+                <lightning-icon icon-name="utility:error" size="large"></lightning-icon>
+                <p>No se encontraron máquinas con los filtros seleccionados.</p>
+                <button class="clear-filters-btn" onclick={clearFilters}>Limpiar filtros</button>
+            </div>
+        </template>
+
+        <!-- Tarjetas de máquinas -->
+        <template if:true={showResults}>
+            <template if:false={isLoading}>
+                <div class="machines-grid">
+                    <template for:each={filteredMachines} for:item="machine">
+                        <div key={machine.Id} class={machine.cardClass}
+                            onclick={handleSelectMachine}
+                            data-id={machine.Id} data-name={machine.Name}>
+                            <div class="card-icon">
+                                <template if:true={machine.thumbnailHtml}>
+                                    <div class="card-photo-wrap">
+                                        <lightning-formatted-rich-text value={machine.thumbnailHtml}></lightning-formatted-rich-text>
+                                    </div>
+                                </template>
+                                <template if:false={machine.thumbnailHtml}>
+                                    <lightning-icon icon-name="standard:product" size="large"></lightning-icon>
+                                </template>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="machine-name">{machine.Name}</h3>
+                                <template if:true={machine.Metodologia__c}>
+                                    <span class="badge badge-metodologia">{machine.Metodologia__c}</span>
+                                </template>
+                                <template if:true={machine.Tipo_de_Leche__c}>
+                                    <span class="badge badge-leche">{machine.Tipo_de_Leche__c}</span>
+                                </template>
+                                <template if:true={machine.Capacidad_Sugerida__c}>
+                                    <p class="machine-capacidad">📊 {machine.Capacidad_Sugerida__c}</p>
+                                </template>
+                                <button class="ver-detalle-btn" data-id={machine.Id} onclick={handleVerDetalle}>
+                                    Ver detalle
+                                </button>
+                            </div>
+                            <div class="card-check">
+                                <template if:true={machine.isSelected}>
+                                    <lightning-icon icon-name="utility:check" size="small" class="check-icon"></lightning-icon>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </template>
+
+        <!-- Popup "Ver detalle" -->
+        <template if:true={selectedDetailMachine}>
+            <div class="detalle-overlay" onclick={closeDetalle}>
+                <div class="detalle-modal" onclick={stopPropagation}>
+                    <button class="detalle-close" onclick={closeDetalle} title="Cerrar">✕</button>
+
+                    <template if:true={detalleTieneImagen}>
+                        <div class="detalle-imagen-wrap">
+                            <lightning-formatted-rich-text value={detalleImagenHtml}></lightning-formatted-rich-text>
+                        </div>
+                    </template>
+                    <template if:false={detalleTieneImagen}>
+                        <div class="detalle-sin-imagen">Sin imagen cargada para este equipo.</div>
+                    </template>
+
+                    <h2 class="detalle-titulo">{selectedDetailMachine.Name}</h2>
+
+                    <template if:true={selectedDetailMachine.Descripci_n_Larga__c}>
+                        <p class="detalle-descripcion">{selectedDetailMachine.Descripci_n_Larga__c}</p>
+                    </template>
+
+                    <div class="detalle-specs">
+                        <template if:true={detalleMetodologiaChips.length}>
+                            <div class="detalle-spec-grupo">
+                                <span class="detalle-spec-label">Metodología</span>
+                                <div class="detalle-chips">
+                                    <template for:each={detalleMetodologiaChips} for:item="chip">
+                                        <span key={chip.key} class="badge badge-metodologia">{chip.label}</span>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+
+                        <template if:true={detalleNegocioChips.length}>
+                            <div class="detalle-spec-grupo">
+                                <span class="detalle-spec-label">Tipo de Negocio Recomendado</span>
+                                <div class="detalle-chips">
+                                    <template for:each={detalleNegocioChips} for:item="chip">
+                                        <span key={chip.key} class="badge badge-negocio">{chip.label}</span>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+
+                        <template if:true={detalleCapacidadChips.length}>
+                            <div class="detalle-spec-grupo">
+                                <span class="detalle-spec-label">Capacidad Sugerida</span>
+                                <div class="detalle-chips">
+                                    <template for:each={detalleCapacidadChips} for:item="chip">
+                                        <span key={chip.key} class="badge badge-capacidad">{chip.label}</span>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+
+                        <template if:true={detalleLecheChips.length}>
+                            <div class="detalle-spec-grupo">
+                                <span class="detalle-spec-label">Tipo de Leche</span>
+                                <div class="detalle-chips">
+                                    <template for:each={detalleLecheChips} for:item="chip">
+                                        <span key={chip.key} class="badge badge-leche">{chip.label}</span>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+
+                    <div class="detalle-footer">
+                        <button class="detalle-btn-cerrar" onclick={closeDetalle}>Cerrar</button>
+                        <button class="detalle-btn-agregar" onclick={handleAgregarDesdeDetalle}>{detalleBotonLabel}</button>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

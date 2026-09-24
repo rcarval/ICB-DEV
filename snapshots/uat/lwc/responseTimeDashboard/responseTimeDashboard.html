@@ -1,0 +1,272 @@
+<template>
+  <lightning-card
+    icon-name="standard:agent_session"
+  >
+    <div slot="title" style="display:flex;align-items:center;gap:5px;">
+      <span>Tiempos de Respuesta por Ejecutivo</span>
+      <lightning-button-icon
+        icon-name="utility:info"
+        variant="border-filled"
+        size="medium"
+        alternative-text="Acerca de este reporte"
+        title="Acerca de este reporte"
+        onclick={handleToggleHelp}
+      ></lightning-button-icon>
+    </div>
+    <!-- ── FILTROS ── -->
+    <div class="slds-var-m-around_medium slds-box slds-theme_shade">
+      <div class="slds-grid slds-gutters slds-wrap slds-grid_align-spread">
+        <div class="slds-col slds-size_1-of-4">
+          <lightning-input
+            type="date"
+            label="Desde"
+            value={dateFrom}
+            onchange={handleDateFromChange}
+          ></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-4">
+          <lightning-input
+            type="date"
+            label="Hasta"
+            value={dateTo}
+            onchange={handleDateToChange}
+          ></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-4">
+          <lightning-combobox
+            label="Ejecutivo"
+            value={selectedAgent}
+            options={agentFilterOptions}
+            onchange={handleAgentChange}
+          ></lightning-combobox>
+        </div>
+        <div class="slds-col slds-size_1-of-4 slds-align-bottom">
+          <lightning-button
+            label="Buscar"
+            variant="brand"
+            icon-name="utility:search"
+            onclick={handleSearch}
+            disabled={isLoading}
+          ></lightning-button>
+        </div>
+      </div>
+    </div>
+
+    <template if:true={_showHelp}>
+      <div class="slds-var-m-horizontal_medium slds-var-m-bottom_small slds-box" style="border-left:4px solid #1565c0;background:#f0f4ff;">
+        <div class="slds-grid slds-gutters slds-wrap">
+          <div class="slds-col slds-size_1-of-1">
+            <p class="slds-text-title slds-var-m-bottom_xx-small">Tiempos de Respuesta por Ejecutivo</p>
+            <p class="slds-text-body_small slds-var-m-bottom_xx-small">Mide el tiempo transcurrido entre mensajes consecutivos dentro de cada sesión de mensajería, agrupado por ejecutivo. Permite identificar quién responde más rápido y detectar cuellos de botella.</p>
+            <p class="slds-text-body_small slds-var-m-bottom_xx-small"><strong>Métricas:</strong> Tiempo promedio de respuesta por sesión · Distribución por rangos (&lt;1min · 1–5min · 5–30min · 30–60min · &gt;60min) · Ranking visual de ejecutivos</p>
+            <p class="slds-text-body_small"><strong>Cómo usar:</strong> Selecciona rango de fechas y ejecutivo → "Buscar". Expande un agente en la tabla, luego una sesión específica para cargar sus mensajes y activar el gráfico de distribución y el ranking.</p>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <!-- ── LOADING ── -->
+    <template if:true={isLoading}>
+      <div class="slds-var-m-around_medium slds-text-align_center">
+        <lightning-spinner
+          alternative-text="Cargando sesiones..."
+          size="medium"
+        ></lightning-spinner>
+      </div>
+    </template>
+
+    <!-- ── CONTENIDO PRINCIPAL ── -->
+    <template if:false={isLoading}>
+
+      <!-- Con datos -->
+      <template if:true={hasData}>
+        <div class="slds-var-m-around_medium slds-grid slds-gutters slds-wrap">
+
+          <!-- ── Columna izquierda: tabla ── -->
+          <div class="slds-col slds-large-size_3-of-4 slds-size_1-of-1">
+            <div class="slds-var-m-bottom_x-small slds-text-align_right">
+              <lightning-button
+                label="Exportar Excel"
+                icon-name="utility:download"
+                variant="neutral"
+                onclick={handleExportResponseTime}
+              ></lightning-button>
+            </div>
+            <div class="table-wrap">
+              <table class="slds-table slds-table_cell-buffer slds-table_bordered" role="grid">
+                <thead>
+                  <tr class="slds-line-height_reset">
+                    <th scope="col" style="width:2.5rem;"></th>
+                    <th scope="col">
+                      <div class="slds-truncate" title="Cliente / Mensaje">Cliente / Nombre / Cuenta</div>
+                    </th>
+                    <th scope="col">
+                      <div class="slds-truncate" title="Inicio">Inicio</div>
+                    </th>
+                    <th scope="col">
+                      <div class="slds-truncate" title="Fin">Fin</div>
+                    </th>
+                    <th scope="col">
+                      <div class="slds-truncate" title="Duración">Duración</div>
+                    </th>
+                    <th scope="col">
+                      <div class="slds-truncate" title="T. Respuesta">T. Respuesta</div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template for:each={tableRows} for:item="row">
+
+                    <!-- Fila agente (banda acordeón) -->
+                    <template if:true={row.isAgent}>
+                      <tr key={row._key} class={row.rowClass}>
+                        <td colspan="6" class="agent-group-header-cell"
+                          data-agent-key={row.agentKey}
+                          onclick={handleToggleAgent}
+                        >
+                          <lightning-icon
+                            icon-name={row.icon}
+                            size="x-small"
+                            alternative-text="Expandir"
+                          ></lightning-icon>
+                          <strong class="slds-var-m-left_x-small">{row.agentName}</strong>
+                          <span class="slds-var-m-left_small slds-badge slds-badge_inverse">
+                            {row.totalSessions} sesiones
+                          </span>
+                          <span class="slds-var-m-left_small" style="font-size:0.8rem;opacity:0.9;">
+                            Prom: {row.avgResponse}
+                          </span>
+                        </td>
+                      </tr>
+                    </template>
+
+                    <!-- Fila sesión -->
+                    <template if:true={row.isSession}>
+                      <tr key={row._key} class={row.rowClass}>
+                        <td class="session-icon-cell"
+                          data-session-id={row.sessionId}
+                          data-conversation-uuid={row.conversationUUID}
+                          data-conversation-id={row.conversationId}
+                          onclick={handleToggleSession}
+                        >
+                          <lightning-icon
+                            icon-name={row.icon}
+                            size="x-small"
+                            alternative-text="Ver mensajes"
+                          ></lightning-icon>
+                        </td>
+                        <td>
+                          <div class="eu-name">{row.endUserName}</div>
+                          <div class="eu-phone">{row.endUserPhone}</div>
+                          <div class="eu-account">{row.accountName}</div>
+                        </td>
+                        <td>{row.startTime}</td>
+                        <td>{row.endTime}</td>
+                        <td>{row.duration}</td>
+                        <td>
+                          <template if:true={row.isExpanded}>
+                            <span class="response-time-cell">{row.avgResponse}</span>
+                          </template>
+                          <template if:false={row.isExpanded}>
+                            <span class="no-response-cell">—</span>
+                          </template>
+                        </td>
+                      </tr>
+                    </template>
+
+                    <!-- Fila de carga de mensajes -->
+                    <template if:true={row.isLoading}>
+                      <tr key={row._key} class={row.rowClass}>
+                        <td colspan="6" class="slds-text-align_center slds-var-p-around_small">
+                          <lightning-spinner
+                            alternative-text="Cargando mensajes..."
+                            size="x-small"
+                          ></lightning-spinner>
+                        </td>
+                      </tr>
+                    </template>
+
+                    <!-- Fila mensaje -->
+                    <template if:true={row.isMessage}>
+                      <tr key={row._key} class={row.rowClass}>
+                        <td></td>
+                        <td>
+                          <span class="slds-text-body_small slds-text-color_weak">[{row.senderLabel}]</span>
+                          <span class="slds-var-m-left_xx-small">{row.messageText}</span>
+                        </td>
+                        <td style="font-size:0.78rem;color:#706e6b;">{row.timestamp}</td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          <template if:true={row.hasResponse}>
+                            <span class="response-time-cell">{row.responseTime}</span>
+                          </template>
+                          <template if:false={row.hasResponse}>
+                            <span class="no-response-cell">—</span>
+                          </template>
+                        </td>
+                      </tr>
+                    </template>
+
+                  </template>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+          <!-- ── Columna derecha: panel de torta + ranking ── -->
+          <div class="slds-col slds-large-size_1-of-4 slds-size_1-of-1">
+
+            <template if:true={hasPieData}>
+              <div class="csat-panel">
+                <p class="csat-title">Distribución Tiempos</p>
+                <div class="pie-wrap">
+                  <canvas class="rt-pie-chart" width="140" height="140"></canvas>
+                </div>
+                <p class="csat-total">{pieData.total} intervalos medidos</p>
+                <ul class="csat-legend">
+                  <template for:each={pieData.segments} for:item="seg">
+                    <li key={seg.label} class="legend-item">
+                      <span class="legend-dot" style={seg.dotStyle}></span>
+                      <span class="legend-label">{seg.label}</span>
+                      <span class="legend-pct">{seg.pct}%</span>
+                      <span class="legend-count">({seg.count})</span>
+                    </li>
+                  </template>
+                </ul>
+              </div>
+            </template>
+
+            <template if:true={hasNoPieData}>
+              <div class="csat-panel">
+                <p class="csat-title">Distribución Tiempos</p>
+                <p class="hint-text">Expande sesiones para calcular tiempos de respuesta</p>
+              </div>
+            </template>
+
+            <template if:true={hasAgentBarData}>
+              <div class="csat-panel slds-var-m-top_small">
+                <p class="csat-title">Ranking Ejecutivos</p>
+                <div style="height:180px;position:relative;">
+                  <canvas class="agent-bar-chart"></canvas>
+                </div>
+              </div>
+            </template>
+
+          </div>
+        </div>
+      </template>
+
+      <!-- Sin datos -->
+      <template if:true={hasNoData}>
+        <div class="slds-var-m-around_medium slds-text-align_center">
+          <p class="slds-text-body_regular slds-text-color_weak">
+            No se encontraron sesiones finalizadas para el rango de fechas seleccionado.
+          </p>
+        </div>
+      </template>
+
+    </template>
+  </lightning-card>
+</template>

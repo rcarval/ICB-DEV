@@ -1,0 +1,114 @@
+# SAPSF Retrieve Summary
+
+- Generated: `2026-09-24T15:44:30.361659+00:00`
+- Org alias: `ICB-SAPSF`
+- Output: `snapshots/sapsf/`
+
+## Counts by folder (files)
+
+| Folder | Files |
+|--------|------:|
+| `customMetadata` | 6038 |
+| `objects` | 4094 |
+| `objectTranslations` | 1141 |
+| `reports` | 558 |
+| `classes` | 390 |
+| `layouts` | 220 |
+| `sharingRules` | 203 |
+| `email` | 201 |
+| `staticresources` | 171 |
+| `flows` | 163 |
+| `flowDefinitions` | 162 |
+| `settings` | 148 |
+| `lwc` | 120 |
+| `quickActions` | 108 |
+| `topicsForObjects` | 96 |
+| `flexipages` | 89 |
+| `reportTypes` | 81 |
+| `standardValueSets` | 58 |
+| `pages` | 56 |
+| `digitalExperiences` | 55 |
+| `globalValueSetTranslations` | 54 |
+| `dashboards` | 48 |
+| `permissionsets` | 41 |
+| `tabs` | 41 |
+| `applications` | 40 |
+| `profiles` | 34 |
+| `roles` | 34 |
+| `icons` | 20 |
+| `triggers` | 20 |
+| `moderation` | 18 |
+| `entitlementProcesses` | 17 |
+| `groups` | 16 |
+| `profilePasswordPolicies` | 14 |
+| `profileSessionSettings` | 14 |
+| `forecastingTypes` | 13 |
+| `milestoneTypes` | 11 |
+| `externalCredentials` | 10 |
+| `externalServiceRegistrations` | 10 |
+| `namedCredentials` | 10 |
+| `remoteSiteSettings` | 10 |
+| `pathAssistants` | 9 |
+| `userCriteria` | 9 |
+| `components` | 8 |
+| `duplicateRules` | 8 |
+| `installedPackages` | 7 |
+| `networkBranding` | 6 |
+| `notificationtypes` | 6 |
+| `aura` | 5 |
+| `matchingRules` | 5 |
+| `customindex` | 4 |
+| `navigationMenus` | 4 |
+| `siteDotComSites` | 4 |
+| `sites` | 4 |
+| `animationRules` | 3 |
+| `audience` | 3 |
+| `cleanDataServices` | 3 |
+| `customPermissions` | 3 |
+| `globalValueSets` | 3 |
+| `managedContentTypes` | 3 |
+| `managedTopics` | 3 |
+| `networks` | 3 |
+| `permissionsetgroups` | 3 |
+| `appMenus` | 2 |
+| `assignmentRules` | 2 |
+| `autoResponseRules` | 2 |
+| `certs` | 2 |
+| `cspTrustedSites` | 2 |
+| `documents` | 2 |
+| `externalClientApps` | 2 |
+| `extlClntAppOauthPolicies` | 2 |
+| `extlClntAppOauthSettings` | 2 |
+| `extlClntAppPolicies` | 2 |
+| `fieldRestrictionRules` | 2 |
+| `letterhead` | 2 |
+| `queues` | 2 |
+| `samlssoconfigs` | 2 |
+| `workflows` | 2 |
+| `ApplicationSubtypeDefinitions` | 1 |
+| `BusinessProcessTypeDefinitions` | 1 |
+| `ExplainabilityActionDefinitions` | 1 |
+| `ExplainabilityActionVersions` | 1 |
+| `LeadConvertSettings` | 1 |
+| `apexEmailNotifications` | 1 |
+| `approvalProcesses` | 1 |
+| `brandingSets` | 1 |
+| `campaignInfluenceModels` | 1 |
+| `communities` | 1 |
+| `connectedApps` | 1 |
+| `digitalExperienceConfigs` | 1 |
+| `emailservices` | 1 |
+| `escalationRules` | 1 |
+| `extlClntAppGlobalOauthSets` | 1 |
+| `forecastingSourceDefinitions` | 1 |
+| `forecastingTypeSources` | 1 |
+| `homePageLayouts` | 1 |
+| `iframeWhiteListUrlSettings` | 1 |
+| `labels` | 1 |
+| `lightningExperienceThemes` | 1 |
+| `notificationTypeConfig` | 1 |
+| `presenceUserConfigs` | 1 |
+| `serviceChannels` | 1 |
+| `timelineObjectDefinitions` | 1 |
+
+**Total files:** 14788

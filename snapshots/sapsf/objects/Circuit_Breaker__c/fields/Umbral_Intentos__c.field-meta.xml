@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Umbral_Intentos__c</fullName>
+    <defaultValue>20</defaultValue>
+    <description>Máximo de intentos de envío a SAP permitidos dentro de una ventana (Ventana_Segundos__c) antes de abrir el breaker.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Cuántos intentos se permiten dentro de la Ventana en Segundos antes de frenar. Ej: 20 intentos en 1 segundo.</inlineHelpText>
+    <label>Umbral Intentos</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

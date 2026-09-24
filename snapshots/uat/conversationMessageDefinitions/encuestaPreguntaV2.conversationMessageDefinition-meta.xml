@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConversationMessageDefinition xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <constants>
+        <compositeValues>
+            <constantItems>
+                <constantType>Title</constantType>
+                <primitiveValues>
+                    <textValue>No</textValue>
+                    <type>Text</type>
+                </primitiveValues>
+            </constantItems>
+            <identifier>94c28088-5096-bc32-723d-68ff54bd8744</identifier>
+        </compositeValues>
+        <constantType>Options</constantType>
+    </constants>
+    <constants>
+        <constantType>Title</constantType>
+        <primitiveValues>
+            <textValue>Queremos seguir mejorando Cuéntanos, ¿qué podríamos mejorar en nuestro servicio de atención?</textValue>
+            <type>Text</type>
+        </primitiveValues>
+    </constants>
+    <label>encuestaPreguntaV2</label>
+    <language>es</language>
+    <messageLayouts>
+        <formatType>Text</formatType>
+        <layoutItems>
+            <collectionType>None</collectionType>
+            <name>text</name>
+            <primitiveValues>
+                <formulaTemplate>{!$Constants.Title}
+
+Seleccione una opción:
+
+{!$ListTemplates.OptionsList}</formulaTemplate>
+                <mergeFields>
+                    <formulaTemplate>{!$ListItem.Index}. {!$ListItem.Value.Title}{!BR()}</formulaTemplate>
+                    <mergeFieldType>ListTemplate</mergeFieldType>
+                    <name>OptionsList</name>
+                    <valueSourceReference>Constants.Options</valueSourceReference>
+                </mergeFields>
+                <type>FormulaTemplate</type>
+            </primitiveValues>
+        </layoutItems>
+        <layoutVariant xsi:nil="true"/>
+        <messageType>StaticContent</messageType>
+    </messageLayouts>
+    <type>Picklist</type>
+</ConversationMessageDefinition>

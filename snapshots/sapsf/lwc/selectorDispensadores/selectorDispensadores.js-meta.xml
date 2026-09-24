@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Selector de Dispensadores</masterLabel>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="pricebookId"
+                      type="String"
+                      label="ID de Lista de Precios"
+                      role="inputOnly"
+                      description="Lista de precios que filtra los dispensadores disponibles." />
+            <property name="machineSelectionsJson"
+                      type="String"
+                      label="Selecciones JSON"
+                      description="Entrada y salida: [{machineId, quantity}]. Bidireccional para que la seleccion sobreviva al navegar hacia atras." />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

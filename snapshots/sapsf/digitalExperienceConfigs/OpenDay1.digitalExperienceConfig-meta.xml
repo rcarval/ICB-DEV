@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DigitalExperienceConfig xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>OpenDay</label>
+    <site>
+        <urlPathPrefix>openday</urlPathPrefix>
+    </site>
+    <space>site/OpenDay1</space>
+</DigitalExperienceConfig>

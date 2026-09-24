@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cantidad_Aporte__c</fullName>
+    <description>Cantidad de elementos entregados como aporte o merchandising (tazas, placas, termos).</description>
+    <externalId>false</externalId>
+    <label>Cantidad Aporte</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowTest xmlns="http://soap.sforce.com/2006/04/metadata">
+    <flowApiName>New_Flow_Latitud_Longitud</flowApiName>
+    <label>guardado</label>
+    <testPoints>
+        <elementApiName>Start</elementApiName>
+        <parameters>
+            <leftValueReference>$Record</leftValueReference>
+            <type>InputTriggeringRecordInitial</type>
+            <value>
+                <sobjectValue>{&quot;attributes&quot;:{&quot;type&quot;:&quot;Domicilio_de_Cliente__c&quot;},&quot;Cliente_Despacho__c&quot;:&quot;FS37980-3&quot;,&quot;Cliente__c&quot;:&quot;001Pr00000P4XWtIAN&quot;,&quot;Centro_de_Distribucion__c&quot;:&quot;FS00 - Santiago Maulén&quot;,&quot;Region__c&quot;:&quot;13 - Región Metropolitana&quot;,&quot;Comuna_Despacho__c&quot;:&quot;a04Hn00000xjmq7IAA&quot;,&quot;OwnerId&quot;:&quot;005Pr000005nDlfIAE&quot;}</sobjectValue>
+            </value>
+        </parameters>
+        <parameters>
+            <leftValueReference>$Record</leftValueReference>
+            <type>InputTriggeringRecordUpdated</type>
+            <value>
+                <sobjectValue>{&quot;attributes&quot;:{&quot;type&quot;:&quot;Domicilio_de_Cliente__c&quot;},&quot;Cliente_Despacho__c&quot;:&quot;FS37980-3&quot;,&quot;Cliente__c&quot;:&quot;001Pr00000P4XWtIAN&quot;,&quot;Centro_de_Distribucion__c&quot;:&quot;FS00 - Santiago Maulén&quot;,&quot;Region__c&quot;:&quot;05 - Valparaiso&quot;,&quot;Comuna_Despacho__c&quot;:&quot;a04Hn00000xjmq7IAA&quot;,&quot;OwnerId&quot;:&quot;005Pr000005nDlfIAE&quot;}</sobjectValue>
+            </value>
+        </parameters>
+    </testPoints>
+    <testPoints>
+        <assertions>
+            <conditions>
+                <leftValueReference>$Record.Ubicacion_Lat_Geo__Latitude__s</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+        </assertions>
+        <elementApiName>Finish</elementApiName>
+    </testPoints>
+</FlowTest>

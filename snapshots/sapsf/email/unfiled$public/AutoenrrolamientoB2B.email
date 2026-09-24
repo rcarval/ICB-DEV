@@ -1,0 +1,241 @@
+<messaging:emailTemplate subject="¡Bienvenido a PIA, {!recipient.FirstName}!" recipientType="Contact" relatedToType="Account">
+  <messaging:htmlEmailBody >
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { background-color: #F0EEEB; font-family: Arial, sans-serif; color: #333333; }
+      a { text-decoration: none; }
+    </style>
+
+    <!-- WRAPPER -->
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#F0EEEB; padding:32px 0;">
+      <tr><td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px; background:#ffffff; border-radius:4px; overflow:hidden;">
+
+          <!-- HEADER -->
+          <tr>
+            <td style="background-color:#333333; padding:28px 40px 24px; text-align:center;">
+              <table cellpadding="0" cellspacing="0" style="margin:0 auto 16px auto;">
+                <tr>
+                  <td style="border:2px solid #E40147; padding:6px 16px;">
+                    <span style="font-family:'Montserrat','Arial Black',Arial,sans-serif; font-size:11px; font-weight:900; letter-spacing:0.18em; color:#E40147; text-transform:uppercase;">ICB FOOD SERVICE</span>
+                  </td>
+                </tr>
+              </table>
+              <p style="font-family:'Montserrat',Arial,sans-serif; font-size:13px; color:#EA737C; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:10px;">PIA</p>
+              <p style="font-family:'Montserrat','Arial Black',Arial,sans-serif; font-size:24px; font-weight:900; color:#FFFFFF; line-height:1.3; text-transform:uppercase; letter-spacing:-0.3px;">
+                Hola, <span style="color:#E40147;">{!recipient.FirstName}</span><br/>
+                nos alegra tenerte<br/>con nosotros
+              </p>
+            </td>
+          </tr>
+
+          <!-- HERO DESCUENTO -->
+          <tr>
+            <td style="background-color:#E40147; padding:36px 40px; text-align:center; border-bottom:4px solid #88263A;">
+              <p style="font-family:'Montserrat',Arial,sans-serif; font-size:11px; font-weight:700; letter-spacing:0.2em; color:#F9D5D3; text-transform:uppercase; margin-bottom:6px;">&#127881; REGALO DE BIENVENIDA</p>
+              <p style="font-family:'Montserrat','Arial Black',Arial,sans-serif; font-size:72px; font-weight:900; color:#FFFFFF; line-height:1; letter-spacing:-3px; margin-bottom:4px;">
+                <span style="font-size:36px; vertical-align:super; letter-spacing:0; font-weight:900;">-</span>20<span style="font-size:36px; letter-spacing:0; font-weight:900;">%</span>
+              </p>
+              <p style="font-family:'Montserrat',Arial,sans-serif; font-size:14px; color:#F9D5D3; margin-bottom:28px; letter-spacing:0.03em;">de descuento para tu primera compra</p>
+              <table cellpadding="0" cellspacing="0" style="margin:0 auto;">
+                <tr>
+                  <td style="background-color:#FFFFFF; border-radius:999px; padding:0;">
+                    <a href="https://pia.icbfs.cl" style="display:inline-block; padding:14px 40px; font-family:'Montserrat','Arial Black',Arial,sans-serif; font-size:14px; font-weight:900; color:#333333; text-transform:uppercase; letter-spacing:0.08em; border-radius:999px;">
+                      QUIERO COMPRAR
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- INTRO -->
+          <tr>
+            <td style="padding:32px 40px 8px; background:#ffffff;">
+              <p style="font-family:'Montserrat',Arial,sans-serif; font-size:14px; color:#666666; line-height:1.7;">
+                Ahora que ya tienes tu descuento, descubre todo lo que <strong style="color:#333333;">PIA</strong> tiene para ti:
+              </p>
+            </td>
+          </tr>
+
+          <!-- DIVIDER LABEL -->
+          <tr>
+            <td style="padding:16px 40px 0; background:#ffffff;">
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="border-bottom:2px solid #E40147; padding-bottom:6px;">
+                    <span style="font-family:'Montserrat',Arial,sans-serif; font-size:10px; font-weight:700; letter-spacing:0.16em; color:#E40147; text-transform:uppercase;">BENEFICIOS DE LA PLATAFORMA</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- FEATURE 1 -->
+          <tr>
+            <td style="padding:20px 40px; background:#ffffff; border-bottom:1px solid #F0EEEB;">
+              <table cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td width="52" valign="top">
+                    <div style="width:40px; height:40px; background:#F9D5D3; border-radius:8px; text-align:center; line-height:40px; font-size:20px;">&#128722;</div>
+                  </td>
+                  <td valign="top" style="padding-left:14px;">
+                    <p style="font-family:'Montserrat','Arial Black',Arial,sans-serif; font-size:13px; font-weight:900; color:#333333; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.03em;">Un portafolio amplio para tu negocio</p>
+                    <p style="font-family:'Montserrat',Arial,sans-serif; font-size:12px; color:#666666; line-height:1.7;">Encuentra todo lo que necesitas en un solo lugar. Desde carnes y bollería hasta café y mucho más — una amplia variedad de categorías pensadas para abastecer tu negocio sin tener que buscar en varios proveedores.</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- FEATURE 2 -->
+          <tr>
+            <td style="padding:20px 40px; background:#ffffff; border-bottom:1px solid #F0EEEB;">
+              <table cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td width="52" valign="top">
+                    <div style="width:40px; height:40px; background:#F9D5D3; border-radius:8px; text-align:center; line-height:40px; font-size:20px;">&#128336;</div>
+                  </td>
+                  <td valign="top" style="padding-left:14px;">
+                    <p style="font-family:'Montserrat','Arial Black',Arial,sans-serif; font-size:13px; font-weight:900; color:#333333; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.03em;">Haz tus pedidos hasta las 23:59</p>
+                    <p style="font-family:'Montserrat',Arial,sans-serif; font-size:12px; color:#666666; line-height:1.7;">&#191;Se te pas&#243; el horario? Con PIA, eso ya no existe. Ingresa tus pedidos hasta la medianoche, todos los d&#237;as.</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- FEATURE 3 -->
+          <tr>
+            <td style="padding:20px 40px; background:#ffffff; border-bottom:1px solid #F0EEEB;">
+              <table cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td width="52" valign="top">
+                    <div style="width:40px; height:40px; background:#F9D5D3; border-radius:8px; text-align:center; line-height:40px; font-size:20px;">&#128179;</div>
+                  </td>
+                  <td valign="top" style="padding-left:14px;">
+                    <p style="font-family:'Montserrat','Arial Black',Arial,sans-serif; font-size:13px; font-weight:900; color:#333333; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.03em;">Paga como prefieras, con un solo clic</p>
+                    <p style="font-family:'Montserrat',Arial,sans-serif; font-size:12px; color:#666666; line-height:1.7;">D&#233;bito, cr&#233;dito o transferencia bancaria &#8212; elige el medio que m&#225;s te convenga.</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- FEATURE 4 -->
+          <tr>
+            <td style="padding:20px 40px; background:#ffffff; border-bottom:1px solid #F0EEEB;">
+              <table cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td width="52" valign="top">
+                    <div style="width:40px; height:40px; background:#F9D5D3; border-radius:8px; text-align:center; line-height:40px; font-size:20px;">&#128230;</div>
+                  </td>
+                  <td valign="top" style="padding-left:14px;">
+                    <p style="font-family:'Montserrat','Arial Black',Arial,sans-serif; font-size:13px; font-weight:900; color:#333333; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.03em;">Sigue tu pedido en tiempo real</p>
+                    <p style="font-family:'Montserrat',Arial,sans-serif; font-size:12px; color:#666666; line-height:1.7;">Desde que confirmas tu compra hasta que llega a tus manos, puedes ver el estado de despacho de tu pedido en todo momento.</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- FEATURE 5 -->
+          <tr>
+            <td style="padding:20px 40px 24px; background:#ffffff;">
+              <table cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td width="52" valign="top">
+                    <div style="width:40px; height:40px; background:#F9D5D3; border-radius:8px; text-align:center; line-height:40px; font-size:20px;">&#129534;</div>
+                  </td>
+                  <td valign="top" style="padding-left:14px;">
+                    <p style="font-family:'Montserrat','Arial Black',Arial,sans-serif; font-size:13px; font-weight:900; color:#333333; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.03em;">Tus facturas, siempre a la mano</p>
+                    <p style="font-family:'Montserrat',Arial,sans-serif; font-size:12px; color:#666666; line-height:1.7;">Accede al historial de tus comprobantes desde la plataforma, cuando los necesites. Sin llamadas, sin esperas.</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- CONTACT BLOCK -->
+          <tr>
+            <td style="padding:0 40px 32px; background:#ffffff;">
+              <table width="100%" cellpadding="0" cellspacing="0" style="background:#F9D5D3; border-radius:4px; padding:20px 24px;">
+                <tr>
+                  <td style="padding:20px 24px;">
+                    <p style="font-family:'Montserrat',Arial,sans-serif; font-size:12px; font-weight:700; color:#88263A; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:14px;">&#191;Tienes alguna duda? Estamos para ayudarte</p>
+                    <p style="font-family:'Montserrat',Arial,sans-serif; font-size:13px; color:#333333; margin-bottom:8px;">
+                      &#128242; <a href="https://wa.me/56927308510" style="color:#E40147; font-weight:700;">WhatsApp: +56 9 273 08510</a>
+                    </p>
+                    <p style="font-family:'Montserrat',Arial,sans-serif; font-size:13px; color:#333333;">
+                      &#128231; <a href="mailto:ccc@icbfs.cl" style="color:#E40147; font-weight:700;">ccc@icbfs.cl</a>
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- FOOTER -->
+          <tr>
+            <td style="background-color:#333333; padding:28px 40px; text-align:center;">
+              <table cellpadding="0" cellspacing="0" style="margin:0 auto 12px auto;">
+                <tr>
+                  <td style="border:1.5px solid #E40147; padding:4px 14px;">
+                    <span style="font-family:'Montserrat','Arial Black',Arial,sans-serif; font-size:10px; font-weight:900; letter-spacing:0.16em; color:#E40147; text-transform:uppercase;">ICB FOOD SERVICE</span>
+                  </td>
+                </tr>
+              </table>
+              <p style="font-family:'Montserrat',Arial,sans-serif; font-size:11px; color:#EA737C; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:16px;">Tu socio estrat&#233;gico para tu negocio</p>
+              <table width="40" cellpadding="0" cellspacing="0" style="margin:0 auto 16px auto;">
+                <tr><td style="border-bottom:1px solid #555555; font-size:0;">&nbsp;</td></tr>
+              </table>
+              <p style="font-family:'Montserrat',Arial,sans-serif; font-size:12px; color:#AAAAAA; margin-bottom:16px;">Saludos,<br/>El equipo de PIA</p>
+              <table width="40" cellpadding="0" cellspacing="0" style="margin:0 auto 16px auto;">
+                <tr><td style="border-bottom:1px solid #555555; font-size:0;">&nbsp;</td></tr>
+              </table>
+              <p style="font-family:'Montserrat',Arial,sans-serif; font-size:10px; color:#666666; line-height:1.6;">
+                Este correo fue enviado porque eres parte de la comunidad PIA.<br/>
+                ICB Food Service Chile &middot; Santiago, Chile
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td></tr>
+    </table>
+  </messaging:htmlEmailBody>
+
+  <messaging:plainTextEmailBody >
+Hola {!recipient.FirstName},
+
+Nos alegra tenerte con nosotros.
+
+** REGALO DE BIENVENIDA: 20% de descuento en tu primera compra **
+Ingresa a: https://pia.icbfs.cl
+
+--- LO QUE PIA TIENE PARA TI ---
+
+PORTAFOLIO AMPLIO
+Carnes, bolleria, cafe y mucho mas en un solo lugar.
+
+PEDIDOS HASTA LAS 23:59
+Ingresa tus pedidos hasta la medianoche, todos los dias.
+
+PAGA COMO PREFIERAS
+Debito, credito o transferencia bancaria.
+
+SEGUIMIENTO EN TIEMPO REAL
+Sigue el estado de tu despacho en todo momento.
+
+FACTURAS SIEMPRE A MANO
+Accede a tus comprobantes desde la plataforma, cuando los necesites.
+
+--- CONTACTO ---
+WhatsApp: +56 9 273 08510
+Correo: ccc@icbfs.cl
+
+Saludos,
+El equipo de PIA
+ICB Food Service Chile
+  </messaging:plainTextEmailBody>
+</messaging:emailTemplate>

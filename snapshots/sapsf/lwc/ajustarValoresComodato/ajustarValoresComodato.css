@@ -1,0 +1,152 @@
+:host {
+    display: block;
+    width: 100%;
+}
+
+/* ---------- Secciones por equipo ---------- */
+
+.grupo-maquina {
+    border: 1px solid #dddbda;
+    border-radius: 0.25rem;
+    overflow: hidden;
+}
+
+/* Cabecera clicable: ocupa todo el ancho y se comporta como fila de acordeon. */
+.grupo-cabecera {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: #f3f3f3;
+    border: 0;
+    cursor: pointer;
+    text-align: left;
+    font-size: 0.875rem;
+}
+
+.grupo-cabecera:hover {
+    background: #eef1f6;
+}
+
+.grupo-cabecera:focus {
+    outline: 2px solid #0176d3;
+    outline-offset: -2px;
+}
+
+.grupo-nombre {
+    font-weight: 700;
+    color: #181818;
+}
+
+.grupo-resumen {
+    margin-left: 0.75rem;
+    color: #706e6b;
+}
+
+.grupo-detalle {
+    padding: 0 0.5rem 0.5rem;
+    overflow-x: auto;
+}
+
+/* ---------- Tabla ---------- */
+
+/* Columnas cortas no se estiran; el producto se queda con el ancho sobrante. */
+.col-tipo,
+.col-cantidad,
+.col-precio {
+    white-space: nowrap;
+    width: 1%;
+}
+
+.col-acciones {
+    white-space: nowrap;
+    width: 1%;
+    text-align: right;
+}
+
+.col-producto {
+    white-space: normal;
+    word-break: break-word;
+}
+
+/* Valor original tachado junto al ajustado, para ver el cambio sin abrir nada. */
+.valor-anterior {
+    display: block;
+    font-size: 0.75rem;
+    color: #706e6b;
+    text-decoration: line-through;
+}
+
+.fila-ajustada {
+    background: #fef8e7;
+}
+
+.fila-motivo td {
+    padding-top: 0;
+    font-size: 0.75rem;
+    color: #514f4d;
+    background: #fef8e7;
+}
+
+/* ---------- Modal de edicion de una linea ---------- */
+
+/*
+ * El flujo ensancha el modal del Flow a 95vw. Ese estilo es global y alcanza tambien a
+ * este modal interno, que es solo un formulario de 4 campos y no necesita ese ancho.
+ * Aqui se le fija un tamano propio que gana por especificidad.
+ */
+.modal-ajuste .modal-ajuste__container {
+    max-width: 32rem !important;
+    width: 92% !important;
+    /* Sin esto el contenedor se estira a toda la altura aunque el formulario sea corto. */
+    height: auto !important;
+    max-height: 90vh !important;
+}
+
+/* El modal se centra en vez de ocupar la pantalla completa. */
+.modal-ajuste {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-ajuste__header {
+    padding: 0.75rem 1rem;
+}
+
+.modal-ajuste__subtitulo {
+    font-size: 0.75rem;
+    color: #706e6b;
+    margin-top: 0.125rem;
+    line-height: 1.3;
+}
+
+.modal-ajuste__contenido {
+    padding: 0.75rem 1rem 1rem;
+    max-height: 60vh !important;
+}
+
+/* Valor original al lado del precio, como referencia de lo que se esta cambiando. */
+.modal-ajuste__original {
+    background: #f3f3f3;
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.5rem;
+    font-size: 0.8125rem;
+    line-height: 1.3;
+    margin-top: 1.15rem;
+}
+
+.modal-ajuste__original-titulo {
+    display: block;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #706e6b;
+}
+
+.modal-ajuste__nota {
+    font-size: 0.6875rem;
+    color: #706e6b;
+    margin-top: 0.5rem;
+    line-height: 1.3;
+}

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tag__c</fullName>
+    <label>Tag</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Pizza</fullName>
+                <default>false</default>
+                <label>Pizza</label>
+            </value>
+            <value>
+                <fullName>Hamburguesa</fullName>
+                <default>false</default>
+                <label>Hamburguesa</label>
+            </value>
+            <value>
+                <fullName>Sándwich / Completo</fullName>
+                <default>false</default>
+                <label>Sándwich / Completo</label>
+            </value>
+            <value>
+                <fullName>Asado / Parrilla</fullName>
+                <default>false</default>
+                <label>Asado / Parrilla</label>
+            </value>
+            <value>
+                <fullName>Ensalada</fullName>
+                <default>false</default>
+                <label>Ensalada</label>
+            </value>
+            <value>
+                <fullName>Pasta / Italiana</fullName>
+                <default>false</default>
+                <label>Pasta / Italiana</label>
+            </value>
+            <value>
+                <fullName>Sushi / Cocina Japonesa</fullName>
+                <default>false</default>
+                <label>Sushi / Cocina Japonesa</label>
+            </value>
+            <value>
+                <fullName>Cocina Asiática</fullName>
+                <default>false</default>
+                <label>Cocina Asiática</label>
+            </value>
+            <value>
+                <fullName>Cocina Peruana</fullName>
+                <default>false</default>
+                <label>Cocina Peruana</label>
+            </value>
+            <value>
+                <fullName>Cocina India / Curry</fullName>
+                <default>false</default>
+                <label>Cocina India / Curry</label>
+            </value>
+            <value>
+                <fullName>Snack / Finger Food</fullName>
+                <default>false</default>
+                <label>Snack / Finger Food</label>
+            </value>
+            <value>
+                <fullName>Sopas / Caldos</fullName>
+                <default>false</default>
+                <label>Sopas / Caldos</label>
+            </value>
+            <value>
+                <fullName>Menú Restaurante</fullName>
+                <default>false</default>
+                <label>Menú Restaurante</label>
+            </value>
+            <value>
+                <fullName>Repostería / Pastelería</fullName>
+                <default>false</default>
+                <label>Repostería / Pastelería</label>
+            </value>
+            <value>
+                <fullName>Desayuno / Brunch</fullName>
+                <default>false</default>
+                <label>Desayuno / Brunch</label>
+            </value>
+            <value>
+                <fullName>Salmón</fullName>
+                <default>false</default>
+                <label>Salmón</label>
+            </value>
+            <value>
+                <fullName>Mariscos / Pescados</fullName>
+                <default>false</default>
+                <label>Mariscos / Pescados</label>
+            </value>
+            <value>
+                <fullName>Café / Espresso</fullName>
+                <default>false</default>
+                <label>Café / Espresso</label>
+            </value>
+            <value>
+                <fullName>Coctelería / Bebidas</fullName>
+                <default>false</default>
+                <label>Coctelería / Bebidas</label>
+            </value>
+            <value>
+                <fullName>Plant Based / Vegano</fullName>
+                <default>false</default>
+                <label>Plant Based / Vegano</label>
+            </value>
+            <value>
+                <fullName>Higiene / Limpieza</fullName>
+                <default>false</default>
+                <label>Higiene / Limpieza</label>
+            </value>
+            <value>
+                <fullName>Empaque / Packaging</fullName>
+                <default>false</default>
+                <label>Empaque / Packaging</label>
+            </value>
+            <value>
+                <fullName>Equipamiento</fullName>
+                <default>false</default>
+                <label>Equipamiento</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

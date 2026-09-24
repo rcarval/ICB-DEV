@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Estado_Aprobacion_Condicion_Pago__c</fullName>
+    <description>Estado del proceso de aprobacion para cambios en condicion_pago__c.</description>
+    <label>Estado de aprobacion condicion de pago</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Aprobada</fullName>
+                <default>true</default>
+                <label>Aprobada</label>
+            </value>
+            <value>
+                <fullName>En Proceso de Aprobacion</fullName>
+                <default>false</default>
+                <label>En Proceso de Aprobacion</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

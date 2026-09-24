@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>En espera de Número de Serie</fullName>
+        <default>true</default>
+        <label>En espera de Número de Serie</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Enviada</fullName>
+        <default>false</default>
+        <label>Enviada</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Instalada y Registrada</fullName>
+        <default>false</default>
+        <label>Instalada y Registrada</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Retirada</fullName>
+        <default>false</default>
+        <label>Retirada</label>
+    </standardValue>
+</StandardValueSet>

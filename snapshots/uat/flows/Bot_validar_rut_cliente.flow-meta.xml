@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>asignar_msj_saliente</name>
+        <label>asignar msj saliente</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>msjSalienteRutValido</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>OK</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>asignar_msj_saliente_error</name>
+        <label>asignar msj saliente error</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>msjSalienteRutValido</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>ERROR</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>formato_rut_valido</name>
+        <label>formato rut valido?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>asignar_msj_saliente_error</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Rut_correcto</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>validarRut</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>asignar_msj_saliente</targetReference>
+            </connector>
+            <label>Rut correcto</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>bodyMsj</name>
+        <dataType>String</dataType>
+        <expression>&apos;El Rut ingresado &apos; + {!rut} + &apos; es correcto, bienvenido Cliente &apos; + {!get_cliente.Name}</expression>
+    </formulas>
+    <formulas>
+        <name>validarRut</name>
+        <dataType>Boolean</dataType>
+        <expression>REGEX(
+{!rut},
+  &quot;^[0-9]{7,8}-[0-9kK]{1}$&quot;
+)</expression>
+    </formulas>
+    <interviewLabel>Bot - validar rut cliente {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Bot - validar rut cliente</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>get_cliente</name>
+        <label>get cliente</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>formato_rut_valido</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>RUT__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>rut</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>get_cliente</targetReference>
+        </connector>
+    </start>
+    <status>Draft</status>
+    <variables>
+        <name>msjSalienteRutValido</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>rut</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

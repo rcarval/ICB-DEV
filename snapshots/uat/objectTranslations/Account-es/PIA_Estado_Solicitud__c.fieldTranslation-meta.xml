@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- PIA Estado Solicitud --></label>
+    <name>PIA_Estado_Solicitud__c</name>
+    <picklistValues>
+        <masterLabel>Creado en PIA</masterLabel>
+        <translation><!-- Creado en PIA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Duplicado</masterLabel>
+        <translation><!-- Duplicado --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>En Proceso</masterLabel>
+        <translation><!-- En Proceso --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Error — Reintentar</masterLabel>
+        <translation><!-- Error — Reintentar --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pendiente</masterLabel>
+        <translation><!-- Pendiente --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

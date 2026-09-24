@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Por Asignar</fullName>
+        <default>false</default>
+        <label>Por Asignar</label>
+        <closed>false</closed>
+        <forecastCategory>Pipeline</forecastCategory>
+        <probability>10</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
+        <fullName>Asignado</fullName>
+        <default>false</default>
+        <label>Asignado</label>
+        <closed>false</closed>
+        <forecastCategory>Pipeline</forecastCategory>
+        <probability>20</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
+        <fullName>Cliente Contactado</fullName>
+        <default>false</default>
+        <label>Cliente Contactado</label>
+        <closed>false</closed>
+        <forecastCategory>Pipeline</forecastCategory>
+        <probability>35</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
+        <fullName>Visita Agendada</fullName>
+        <default>false</default>
+        <label>Visita Agendada</label>
+        <closed>false</closed>
+        <forecastCategory>Pipeline</forecastCategory>
+        <probability>45</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
+        <fullName>Visita Concertada</fullName>
+        <default>false</default>
+        <label>Visita Concertada</label>
+        <closed>false</closed>
+        <forecastCategory>Pipeline</forecastCategory>
+        <probability>55</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
+        <fullName>Propuesta Enviada</fullName>
+        <default>false</default>
+        <label>Propuesta Enviada</label>
+        <closed>false</closed>
+        <forecastCategory>BestCase</forecastCategory>
+        <probability>70</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
+        <fullName>Cierre Ganada</fullName>
+        <default>false</default>
+        <label>Cierre Ganada</label>
+        <closed>true</closed>
+        <forecastCategory>Closed</forecastCategory>
+        <probability>100</probability>
+        <won>true</won>
+    </standardValue>
+    <standardValue>
+        <fullName>Cierre Pérdida</fullName>
+        <default>false</default>
+        <label>Cierre Pérdida</label>
+        <closed>true</closed>
+        <forecastCategory>Omitted</forecastCategory>
+        <probability>0</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
+        <fullName>En proceso de Firma</fullName>
+        <default>false</default>
+        <label>En proceso de Firma</label>
+        <closed>false</closed>
+        <forecastCategory>Pipeline</forecastCategory>
+        <probability>85</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
+        <fullName>Documento firmado</fullName>
+        <default>false</default>
+        <label>Documento firmado</label>
+        <closed>false</closed>
+        <forecastCategory>Pipeline</forecastCategory>
+        <probability>90</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
+        <fullName>Activo y Contrato Creado</fullName>
+        <default>false</default>
+        <label>Activo y Contrato Creado</label>
+        <closed>false</closed>
+        <forecastCategory>Pipeline</forecastCategory>
+        <probability>95</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
+        <fullName>Activo Instalado</fullName>
+        <default>false</default>
+        <label>Activo Instalado</label>
+        <closed>true</closed>
+        <forecastCategory>Closed</forecastCategory>
+        <probability>100</probability>
+        <won>true</won>
+    </standardValue>
+</StandardValueSet>

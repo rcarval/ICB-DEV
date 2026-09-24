@@ -1,0 +1,205 @@
+<template>
+  <!-- Anchor oculto para descarga de archivos (requerido por Lightning Web Security) -->
+  <a class="export-anchor" style="display:none"></a>
+  <lightning-card icon-name="standard:survey">
+    <div slot="title" style="display:flex;align-items:center;gap:5px;">
+      <span>Reporte de Encuestas por Pregunta</span>
+      <lightning-button-icon
+        icon-name="utility:info"
+        variant="border-filled"
+        size="medium"
+        alternative-text="Acerca de este reporte"
+        title="Acerca de este reporte"
+        onclick={handleToggleHelp}
+      ></lightning-button-icon>
+    </div>
+
+    <!-- FILTROS -->
+    <div class="slds-var-m-around_medium slds-box slds-theme_shade">
+      <div class="slds-grid slds-gutters slds-wrap slds-grid_align-spread">
+        <div class="slds-col slds-size_1-of-4">
+          <lightning-input type="date" label="Desde" value={dateFrom} onchange={handleDateFromChange}></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-4">
+          <lightning-input type="date" label="Hasta" value={dateTo} onchange={handleDateToChange}></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-4">
+          <lightning-combobox label="Ejecutivo" value={selectedAgent} options={agentOptions} onchange={handleAgentChange}></lightning-combobox>
+        </div>
+        <div class="slds-col slds-size_1-of-4 slds-align-bottom">
+          <lightning-button label="Cargar" variant="brand" icon-name="utility:search" onclick={handleLoad} disabled={isLoading}></lightning-button>
+        </div>
+      </div>
+    </div>
+
+    <template if:true={_showHelp}>
+      <div class="slds-var-m-horizontal_medium slds-var-m-bottom_small slds-box" style="border-left:4px solid #1565c0;background:#f0f4ff;">
+        <div class="slds-col slds-size_1-of-1">
+          <p class="slds-text-title slds-var-m-bottom_xx-small">Reporte de Encuestas por Pregunta</p>
+          <p class="slds-text-body_small slds-var-m-bottom_xx-small">Tabla pivot que cruza cada sesión finalizada con sus respuestas de encuesta, una columna por pregunta detectada. Incluye gráficos de distribución CSAT, respuestas Sí/No y CSAT promedio por ejecutivo.</p>
+          <p class="slds-text-body_small slds-var-m-bottom_xx-small"><strong>Métricas:</strong> Distribución de calificaciones CSAT (doughnut) · Respuestas Sí/No agregadas · CSAT promedio por ejecutivo (barras) · Tabla completa exportable a Excel</p>
+          <p class="slds-text-body_small"><strong>Cómo usar:</strong> Filtra por ejecutivo y/o pregunta específica → "Cargar". Usa el menú "Exportar Excel" para descargar datos visibles o todos. Los gráficos se actualizan al cambiar el filtro de ejecutivo.</p>
+        </div>
+      </div>
+    </template>
+
+    <!-- LOADING -->
+    <template if:true={isLoading}>
+      <div class="slds-var-m-around_medium slds-text-align_center">
+        <lightning-spinner alternative-text="Cargando datos de encuestas..." size="medium"></lightning-spinner>
+      </div>
+    </template>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <template if:false={isLoading}>
+      <template if:true={hasData}>
+
+        <!-- Barra de resumen -->
+        <div class="slds-var-m-horizontal_medium slds-var-m-bottom_small summary-bar">
+          <span class="slds-text-color_weak">
+            {totalSessions} sesiones &middot; {totalResponded} con encuesta
+          </span>
+        </div>
+
+        <!-- Layout de dos columnas -->
+        <div class="slds-grid slds-gutters slds-var-m-horizontal_medium slds-wrap">
+
+          <!-- Columna izquierda: tabla + paginación -->
+          <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-4">
+            <div class="slds-var-m-bottom_x-small slds-text-align_right">
+              <lightning-button-menu
+                label="Exportar Excel"
+                icon-name="utility:download"
+                variant="neutral"
+                onselect={handleExportPivot}
+              >
+                <lightning-menu-item value="visible" label="Datos visibles (página actual)"></lightning-menu-item>
+                <lightning-menu-item value="all"     label="Todos los datos"></lightning-menu-item>
+              </lightning-button-menu>
+            </div>
+            <div class="table-wrap">
+              <lightning-datatable
+                key-field="_rowKey"
+                data={paginatedPivotData}
+                columns={pivotColumns}
+                hide-checkbox-column
+              ></lightning-datatable>
+            </div>
+
+            <!-- Paginación -->
+            <div class="pagination-bar">
+              <lightning-button-icon
+                icon-name="utility:chevronleft"
+                alternative-text="Anterior"
+                onclick={handlePrevPage}
+                disabled={prevDisabled}
+                size="small"
+                variant="border-filled"
+              ></lightning-button-icon>
+              <span class="pagination-info">{pageInfo}</span>
+              <lightning-button-icon
+                icon-name="utility:chevronright"
+                alternative-text="Siguiente"
+                onclick={handleNextPage}
+                disabled={nextDisabled}
+                size="small"
+                variant="border-filled"
+              ></lightning-button-icon>
+            </div>
+          </div>
+
+          <!-- Columna derecha: tabs manuales de gráficos -->
+          <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-4">
+
+            <!-- Navegación de tabs -->
+            <div class="chart-tab-bar">
+              <button class={tabBtnCsat}  data-tab="csat"  onclick={handleChartTabClick}>CSAT</button>
+              <button class={tabBtnSiNo}  data-tab="sino"  onclick={handleChartTabClick}>Sí / No</button>
+              <button class={tabBtnAgent} data-tab="agent" onclick={handleChartTabClick}>Ejecutivos</button>
+            </div>
+
+            <!-- Panel CSAT -->
+            <template if:true={tabCsatActive}>
+              <template if:true={hasCsatSummary}>
+                <div class="csat-panel">
+                  <p class="csat-title">CSAT — Calificación</p>
+                  <div class="csat-satisfaction-badge">
+                    <span class="csat-satisfaction-pct">{csatSatisfactionDisplay}</span>
+                    <span class="csat-satisfaction-label">satisfacción (4-5)</span>
+                  </div>
+                  <div class="pie-wrap">
+                    <canvas class="csat-pie-chart" width="140" height="140"></canvas>
+                  </div>
+                  <p class="csat-total">{csatSummary.total} respuestas</p>
+                  <ul class="csat-legend">
+                    <template for:each={csatSummary.segments} for:item="seg">
+                      <li key={seg.label} class="legend-item">
+                        <span class="legend-dot" style={seg.dotStyle}></span>
+                        <span class="legend-label">{seg.label}</span>
+                        <span class="legend-pct">{seg.pct}%</span>
+                        <span class="legend-count">({seg.count})</span>
+                      </li>
+                    </template>
+                  </ul>
+                </div>
+              </template>
+              <template if:false={hasCsatSummary}>
+                <p class="slds-text-color_weak slds-text-align_center slds-var-m-around_medium">Sin datos CSAT</p>
+              </template>
+            </template>
+
+            <!-- Panel Sí / No -->
+            <template if:true={tabSiNoActive}>
+              <template if:true={hasSiNoSummary}>
+                <div class="csat-panel">
+                  <p class="csat-title">Respuestas Sí / No</p>
+                  <p class="csat-question">Distribución sobre {siNoSummary.total} respuestas booleanas</p>
+                  <div class="pie-wrap">
+                    <canvas class="sino-pie-chart" width="140" height="140"></canvas>
+                  </div>
+                  <p class="csat-total">{siNoSummary.total} respuestas</p>
+                  <ul class="csat-legend">
+                    <template for:each={siNoSummary.segments} for:item="seg">
+                      <li key={seg.label} class="legend-item">
+                        <span class="legend-dot" style={seg.dotStyle}></span>
+                        <span class="legend-label">{seg.label}</span>
+                        <span class="legend-pct">{seg.pct}%</span>
+                        <span class="legend-count">({seg.count})</span>
+                      </li>
+                    </template>
+                  </ul>
+                </div>
+              </template>
+              <template if:false={hasSiNoSummary}>
+                <p class="slds-text-color_weak slds-text-align_center slds-var-m-around_medium">Sin datos Sí/No</p>
+              </template>
+            </template>
+
+            <!-- Panel CSAT Ejecutivos -->
+            <template if:true={tabAgentActive}>
+              <template if:true={hasAgentCsatData}>
+                <div class="csat-panel">
+                  <p class="csat-title">CSAT por Ejecutivo</p>
+                  <canvas class="agent-csat-bar-chart" width="200" height="160"></canvas>
+                </div>
+              </template>
+              <template if:false={hasAgentCsatData}>
+                <p class="slds-text-color_weak slds-text-align_center slds-var-m-around_medium">Sin datos por ejecutivo</p>
+              </template>
+            </template>
+
+          </div>
+
+        </div>
+      </template>
+
+      <!-- Sin datos -->
+      <template if:false={hasData}>
+        <div class="slds-var-m-around_medium slds-text-align_center">
+          <p class="slds-text-color_weak">Sin datos para los filtros seleccionados. Haz clic en "Cargar".</p>
+        </div>
+      </template>
+    </template>
+
+  </lightning-card>
+</template>

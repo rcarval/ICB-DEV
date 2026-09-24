@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VAL_Horario_Retiro_Analisis</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    ISPICKVAL(PRIORVALUE(Status), &quot;Análisis&quot;),
+    NOT(ISPICKVAL(Status, &quot;Análisis&quot;)),
+    ISBLANK(TEXT(Horario_retiro__c)),
+    NOT(ISPICKVAL(Cumple_los_plazos__c, &quot;NO&quot;))
+)</errorConditionFormula>
+    <errorMessage>“Selecciona el Horario de Retiro antes de continuar.”</errorMessage>
+</ValidationRule>

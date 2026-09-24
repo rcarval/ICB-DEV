@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata" fqn="icbfdFlowActionButtons">
+    <apiVersion>65.0</apiVersion>
+    <isExposed>true</isExposed>
+
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="title" type="String" label="Título" default="Elige una acción"/>
+            <property name="helperText" type="String" label="Texto de ayuda"/>
+
+            <property name="scanIcon" type="String" label="Icono Escaneo" default="utility:scan"/>
+            <property name="prodIcon" type="String" label="Icono Producto" default="utility:add"/>
+
+            <property name="scanLabel" type="String" label="Label botón Escaneo" default="Registrar escaneo"/>
+            <property name="prodLabel" type="String" label="Label botón Producto" default="Agregar producto"/>
+
+            <property name="scanValue" type="String" label="Valor para Escaneo" default="SCAN"/>
+            <property name="prodValue" type="String" label="Valor para Producto" default="PRODUCTO"/>
+
+            <property name="autoAdvance" type="Boolean" label="Avanzar automáticamente al seleccionar" default="false"/>
+
+            <!-- OUTPUT hacia Flow -->
+            <property name="value" type="String" label="Valor seleccionado" role="outputOnly"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

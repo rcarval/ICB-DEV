@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Default</label>
+    <protected>false</protected>
+    <values>
+        <field>Habilitado__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Owner_Username_Base__c</field>
+        <value xsi:type="xsd:string">usuario.integracion@icbfs.cl</value>
+    </values>
+    <values>
+        <field>Prefijo_Codigo__c</field>
+        <value xsi:type="xsd:string">FS</value>
+    </values>
+    <values>
+        <field>RecordType_Excluido__c</field>
+        <value xsi:type="xsd:string">Sucursal</value>
+    </values>
+    <values>
+        <field>Webhook_URL__c</field>
+        <value xsi:type="xsd:string">https://icbfs--sapsf.sandbox.my.salesforce-sites.com/calificador/services/apexrest/icbfs/calificador/callback</value>
+    </values>
+</CustomMetadata>

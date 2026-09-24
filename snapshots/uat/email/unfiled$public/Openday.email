@@ -1,0 +1,36 @@
+<messaging:emailTemplate subject="ICB Food Service OPENDAY"
+    recipientType="Contact"
+    relatedToType="CampaignMember">
+
+  <messaging:htmlEmailBody >
+    <html>
+      <body style="font-family: Arial, sans-serif; color: white; background-color: #1a1a1a; padding: 20px; text-align: center;">
+
+        <!-- ICBFD - José Illanes - 2026-02-11 -->
+
+        <img src="https://energy-saas-7178.file.force.com/sfc/dist/version/renditionDownload?rendition=ORIGINAL_Png&versionId=068Pr00000Rr1ua&operationContext=DELIVERY&contentId=05TPr00000ZeiQF&page=0&d=/a/Pr000004HTBN/pG9Q2_fRTmKy.84fSDF3.kt86U5BwSYAJmwnErLzQ80&oid=00DOx00000LlwMF&dpt=null&viewId="
+             alt="ICB Food Temuco Header" width="100%" style="margin-bottom: 20px;"/>
+
+        <center>
+          <p style="margin: 0 0 12px 0; font-size: 16px;">
+            Presenta este código al ingresar 👇
+          </p>
+
+          <img
+            src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={!recipient.Id}"
+            alt="Código QR"
+            width="300" height="300"
+            style="border: 1px solid #fff; border-radius: 8px;" />
+
+          <p style="margin-top: 12px; font-size: 12px; color: #cfcfcf;">
+            ID: {!recipient.Id}
+          </p>
+        </center>
+
+        <img src="https://energy-saas-7178.file.force.com/sfc/dist/version/renditionDownload?rendition=ORIGINAL_Png&versionId=068Pr00000Rr7F8&operationContext=DELIVERY&contentId=05TPr00000Zex0P&page=0&d=/a/Pr000004HTL3/o0Gi9nfipgYIhqSA6eokZcJf0cCgXR3Fx5a1NiGHBYo&oid=00DOx00000LlwMF&dpt=null&viewId="
+             alt="ICB Food Temuco Footer" width="100%" style="margin-top: 20px;" />
+
+      </body>
+    </html>
+  </messaging:htmlEmailBody>
+</messaging:emailTemplate>

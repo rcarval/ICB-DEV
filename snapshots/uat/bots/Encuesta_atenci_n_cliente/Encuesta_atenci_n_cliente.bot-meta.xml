@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bot xmlns="http://soap.sforce.com/2006/04/metadata">
+    <agentDSLEnabled>false</agentDSLEnabled>
+    <botMlDomain>
+        <label>Encuesta atención cliente</label>
+        <mlIntents>
+            <developerName>Encuesta_1</developerName>
+            <label>Encuesta 1</label>
+        </mlIntents>
+        <mlIntents>
+            <developerName>Main_Menu</developerName>
+            <label>Menu principal</label>
+        </mlIntents>
+        <mlIntents>
+            <developerName>Welcome</developerName>
+            <label>Bienvenida</label>
+        </mlIntents>
+        <mlSlotClasses>
+            <dataType>Text</dataType>
+            <developerName>TextoRespuesta</developerName>
+            <extractionType>Value</extractionType>
+            <label>TextoRespuesta</label>
+        </mlSlotClasses>
+        <name>Encuesta_atenci_n_cliente</name>
+    </botMlDomain>
+    <botSource>None</botSource>
+    <botUser>marcelo.pinto@seidor.com.icbfs.uat</botUser>
+    <contextVariables>
+        <contextVariableMappings>
+            <SObjectType>MessagingEndUser</SObjectType>
+            <fieldName>MessagingEndUser.ContactId</fieldName>
+            <messageType>EmbeddedMessaging</messageType>
+        </contextVariableMappings>
+        <dataType>Id</dataType>
+        <description>This variable may also be referred to as MessagingEndUser ContactId</description>
+        <developerName>ContactId</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Id. de Contacto</label>
+    </contextVariables>
+    <contextVariables>
+        <contextVariableMappings>
+            <SObjectType>MessagingSession</SObjectType>
+            <fieldName>MessagingSession.MessagingEndUserId</fieldName>
+            <messageType>EmbeddedMessaging</messageType>
+        </contextVariableMappings>
+        <dataType>Id</dataType>
+        <description>This variable may also be referred to as MessagingEndUser Id</description>
+        <developerName>EndUserId</developerName>
+        <includeInPrompt>true</includeInPrompt>
+        <label>Id. de Usuario final</label>
+    </contextVariables>
+    <contextVariables>
+        <contextVariableMappings>
+            <SObjectType>MessagingSession</SObjectType>
+            <fieldName>MessagingSession.Id</fieldName>
+            <messageType>EmbeddedMessaging</messageType>
+        </contextVariableMappings>
+        <dataType>Id</dataType>
+        <description>This variable may also be referred to as MessagingSession Id</description>
+        <developerName>RoutableId</developerName>
+        <includeInPrompt>true</includeInPrompt>
+        <label>Id. enrutable</label>
+    </contextVariables>
+    <contextVariables>
+        <contextVariableMappings>
+            <SObjectType>VoiceCall</SObjectType>
+            <fieldName>VoiceCall.Id</fieldName>
+            <messageType>EmbeddedMessaging</messageType>
+        </contextVariableMappings>
+        <dataType>Id</dataType>
+        <description>This variable may also be referred to as VoiceCall Id</description>
+        <developerName>VoiceCallId</developerName>
+        <includeInPrompt>true</includeInPrompt>
+        <label>Id. de Llamada de voz</label>
+    </contextVariables>
+    <description>Un bot desde cero.</description>
+    <label>Encuesta atención cliente</label>
+    <logPrivateConversationData>true</logPrivateConversationData>
+    <richContentEnabled>true</richContentEnabled>
+    <sessionTimeout>0</sessionTimeout>
+    <type>Bot</type>
+</Bot>

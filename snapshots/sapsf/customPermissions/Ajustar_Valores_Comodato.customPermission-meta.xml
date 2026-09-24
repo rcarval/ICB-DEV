@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Habilita el paso de ajuste excepcional (cantidad/unidad/precio) en el selector multi-maquina de Comodato. Solo asignado al Permission Set ADMIN_COMODATO. Sin este permiso, el flujo de propuesta funciona igual que hoy, sin la opcion de ajuste.</description>
+    <isLicensed>false</isLicensed>
+    <label>Ajustar Valores Excepcionales Comodato</label>
+</CustomPermission>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <name>validar_Rango_Fechas</name>
+        <label>validar Rango Fechas</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>loopFacturasConDomicilios</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Validar_rango</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>mesActual</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>loopFacturasConDomicilios.Mes_Factura__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>update</targetReference>
+            </connector>
+            <label>Validar rango</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>mesActual</name>
+        <dataType>String</dataType>
+        <expression>CASE(
+    MONTH(TODAY()),
+    1, &quot;Enero&quot;,
+    2, &quot;Febrero&quot;,
+    3, &quot;Marzo&quot;,
+    4, &quot;Abril&quot;,
+    5, &quot;Mayo&quot;,
+    6, &quot;Junio&quot;,
+    7, &quot;Julio&quot;,
+    8, &quot;Agosto&quot;,
+    9, &quot;Septiembre&quot;,
+    10, &quot;Octubre&quot;,
+    11, &quot;Noviembre&quot;,
+    12, &quot;Diciembre&quot;,
+    &quot;Desconocido&quot;
+)</expression>
+    </formulas>
+    <formulas>
+        <name>validarRangoFecha</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+    NOT( ISBLANK( {!loopFacturasConDomicilios.Fecha_de_Documento__c} ) ),
+    {!loopFacturasConDomicilios.Fecha_de_Documento__c} &gt;= DATE(
+        YEAR( TODAY() ),
+        MONTH( TODAY() ) - 3,
+        DAY( TODAY() )
+    )
+)</expression>
+    </formulas>
+    <interviewLabel>[Programado] Update Domicilio - Estado Domicilio {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>[Programado] Update Domicilio - Estado Domicilio</label>
+    <loops>
+        <name>loopFacturasConDomicilios</name>
+        <label>loopFacturasConDomicilios</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <collectionReference>get_Facturas</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>validar_Rango_Fechas</targetReference>
+        </nextValueConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>get_Facturas</name>
+        <label>get Facturas</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>loopFacturasConDomicilios</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Domicilio_Cliente__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Facturas__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>update</name>
+        <label>Update - Cartera Activa</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>loopFacturasConDomicilios</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>loopFacturasConDomicilios.Domicilio_Cliente__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Estado_Domicilio__c</field>
+            <value>
+                <stringValue>Cartera Activa</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Domicilio_de_Cliente__c</object>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>get_Facturas</targetReference>
+        </connector>
+        <object>Domicilio_de_Cliente__c</object>
+        <schedule>
+            <frequency>Daily</frequency>
+            <startDate>2025-10-01</startDate>
+            <startTime>07:30:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Draft</status>
+    <variables>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

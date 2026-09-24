@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Tipo de Asociación --></label>
+    <name>Tipo_de_Asociacion__c</name>
+    <picklistValues>
+        <masterLabel>Aporte de Marca</masterLabel>
+        <translation><!-- Aporte de Marca --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Insumo Mensual</masterLabel>
+        <translation><!-- Insumo Mensual --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Merchandising</masterLabel>
+        <translation><!-- Merchandising --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Servicio</masterLabel>
+        <translation><!-- Servicio --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

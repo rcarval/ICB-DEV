@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtlClntAppOauthSettings xmlns="http://soap.sforce.com/2006/04/metadata">
+    <commaSeparatedOauthScopes>Basic, Api, Full, RefreshToken</commaSeparatedOauthScopes>
+    <externalClientApplication>Open_Day_Scanner</externalClientApplication>
+    <isFirstPartyAppEnabled>false</isFirstPartyAppEnabled>
+    <label>Open_Day_Scanner_oauth</label>
+    <oauthLink>00DOx00000LlwMF:888Ox000000QCyP</oauthLink>
+</ExtlClntAppOauthSettings>

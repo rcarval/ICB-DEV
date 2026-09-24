@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PresenceUserConfig xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignments>
+        <users>
+            <user>aaranguiz@icbfs.uat.cl</user>
+            <user>cmerino@icbfs.uat.cl</user>
+            <user>firarrazabal@icbfs.uat.cl</user>
+            <user>jillanes@icbfs.cl</user>
+            <user>jsilvac@icbfs</user>
+            <user>mwilliamson@icbfs.cl</user>
+            <user>sebastian.albornoz@seidor.com.icbfs</user>
+            <user>vdiaz@icbfs.cl</user>
+        </users>
+    </assignments>
+    <capacity>25</capacity>
+    <enableAutoAccept>true</enableAutoAccept>
+    <enableDecline>false</enableDecline>
+    <enableDeclineReason>false</enableDeclineReason>
+    <enableDisconnectSound>true</enableDisconnectSound>
+    <enableRequestSound>true</enableRequestSound>
+    <hasAfterConvoWorkTimer>false</hasAfterConvoWorkTimer>
+    <label>Tiers1Agentes</label>
+</PresenceUserConfig>

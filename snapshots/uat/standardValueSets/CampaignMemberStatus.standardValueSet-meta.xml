@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>true</sorted>
+    <standardValue>
+        <fullName>Contactado - Interesado</fullName>
+        <default>false</default>
+        <label>Contactado - Interesado</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Contactado - Rechazado</fullName>
+        <default>false</default>
+        <label>Contactado - Rechazado</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Enviado</fullName>
+        <default>false</default>
+        <label>Enviado</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Por Contactar</fullName>
+        <default>false</default>
+        <label>Por Contactar</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Responded</fullName>
+        <default>false</default>
+        <label>Responded</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Respondida</fullName>
+        <default>false</default>
+        <label>Respondida</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Sent</fullName>
+        <default>false</default>
+        <label>Sent</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Venta Cerrada</fullName>
+        <default>false</default>
+        <label>Venta Cerrada</label>
+    </standardValue>
+</StandardValueSet>

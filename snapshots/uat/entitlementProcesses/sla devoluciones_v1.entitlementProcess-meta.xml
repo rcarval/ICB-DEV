@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntitlementProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <SObjectType>Case</SObjectType>
+    <active>true</active>
+    <entryStartDateField>Case.CreatedDate</entryStartDateField>
+    <exitCriteriaFilterItems>
+        <field>Case.IsClosed</field>
+        <operation>equals</operation>
+        <value>true</value>
+    </exitCriteriaFilterItems>
+    <milestones>
+        <businessHours>Default</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>En devolución</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>NC Normal %28Operaciones%29</milestoneName>
+        <minutesToComplete>2880</minutesToComplete>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>En devolución</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Tipo_de_Nota_de_Credito__c</field>
+            <operation>equals</operation>
+            <value>Operaciones</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>NC Normal %28Operaciones%29</milestoneName>
+        <minutesToComplete>2880</minutesToComplete>
+        <timeTriggers>
+            <timeLength>5</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <timeLength>-15</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>En devolución</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Tipo_de_Nota_de_Credito__c</field>
+            <operation>equals</operation>
+            <value>Financiera</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>NC Financiera</milestoneName>
+        <minutesToComplete>2880</minutesToComplete>
+        <timeTriggers>
+            <timeLength>-15</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <timeLength>5</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+</EntitlementProcess>

@@ -1,0 +1,76 @@
+{
+  "type" : "sfdc_cms__themeLayout",
+  "title" : "Scoped Header and Footer",
+  "contentBody" : {
+    "component" : {
+      "attributes" : {
+        "hideThemeFooter" : false,
+        "showThemeFooterAtBottom" : true,
+        "stickyThemeHeader" : false
+      },
+      "children" : [ {
+        "children" : [ {
+          "attributes" : {
+            "backgroundImageConfig" : "",
+            "backgroundImageOverlay" : "rgba(0,0,0,0)",
+            "componentSpacerSize" : "",
+            "layoutDirectionDesktop" : "row",
+            "layoutDirectionMobile" : "column",
+            "layoutDirectionTablet" : "column",
+            "maxContentWidth" : "",
+            "sectionColumnGutterWidth" : "",
+            "sectionConfig" : "{\"UUID\":\"8206615a-c13a-400e-a2ba-467ee752394a\",\"columns\":[{\"UUID\":\"862eb30b-f452-4ce6-baa8-93eb37618790\",\"columnName\":\"Column 1\",\"columnKey\":\"headerSection\",\"columnWidth\":\"12\",\"seedComponents\":null}]}",
+            "sectionMinHeight" : "",
+            "sectionVerticalAlign" : "flex-start"
+          },
+          "children" : [ {
+            "id" : "862eb30b-f452-4ce6-baa8-93eb37618790",
+            "name" : "headerSection",
+            "title" : "Encabezado de tema",
+            "type" : "region"
+          } ],
+          "definition" : "community_layout:section",
+          "id" : "8206615a-c13a-400e-a2ba-467ee752394a",
+          "type" : "component"
+        } ],
+        "id" : "f0208dcd-a45e-47b5-93bb-e8e042149fe9",
+        "name" : "header",
+        "title" : "Encabezado de tema",
+        "type" : "region"
+      }, {
+        "children" : [ {
+          "attributes" : {
+            "backgroundImageConfig" : "",
+            "backgroundImageOverlay" : "rgba(0,0,0,0)",
+            "componentSpacerSize" : "",
+            "layoutDirectionDesktop" : "row",
+            "layoutDirectionMobile" : "column",
+            "layoutDirectionTablet" : "column",
+            "maxContentWidth" : "",
+            "sectionColumnGutterWidth" : "",
+            "sectionConfig" : "{\"UUID\":\"b465c2aa-6400-4698-8092-1ece67f08797\",\"columns\":[{\"UUID\":\"eae440ea-384a-49fa-9794-61353d1f3026\",\"columnName\":\"Column 1\",\"columnKey\":\"footerSection\",\"columnWidth\":\"12\",\"seedComponents\":null}]}",
+            "sectionMinHeight" : "",
+            "sectionVerticalAlign" : "flex-start"
+          },
+          "children" : [ {
+            "id" : "eae440ea-384a-49fa-9794-61353d1f3026",
+            "name" : "footerSection",
+            "title" : "Pie de tema",
+            "type" : "region"
+          } ],
+          "definition" : "community_layout:section",
+          "id" : "b465c2aa-6400-4698-8092-1ece67f08797",
+          "type" : "component"
+        } ],
+        "id" : "0b18cef2-b71b-493f-aed5-329a772cb217",
+        "name" : "footer",
+        "title" : "Pie de tema",
+        "type" : "region"
+      } ],
+      "definition" : "community_byo:scopedHeaderAndFooter",
+      "id" : "44a30b6b-cbb0-48b4-8b7b-8417cb76dbeb",
+      "type" : "component"
+    }
+  },
+  "urlName" : "scoped-header-and-footer"
+}

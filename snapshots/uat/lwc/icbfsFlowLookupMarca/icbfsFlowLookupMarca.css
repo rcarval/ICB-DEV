@@ -1,0 +1,10 @@
+.box { width: 100%; }
+.label { display:block; font-weight: 600; margin-bottom: 6px; }
+.hint { margin-top: 6px; font-size: 12px; opacity: .8; }
+.list { margin-top: 8px; border: 1px solid #ddd; border-radius: 10px; overflow: hidden; }
+.item { padding: 14px 12px; border-top: 1px solid #eee; font-size: 15px; }
+.item:first-child { border-top: 0; }
+.item:active { background: #f3f3f3; }
+.muted { opacity: .7; }
+.selected { margin-top: 10px; font-size: 13px; }
+.clear { margin-left: 10px; background: transparent; border: 0; color: #1b96ff; font-weight: 600; }

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Auto_Enrolamiento</fullName>
+    <active>true</active>
+    <businessProcess>Auto_Enrolamiento</businessProcess>
+    <description>Record Type aislado para oportunidades de auto enrolamiento</description>
+    <label>Auto Enrolamiento</label>
+    <picklistValues>
+        <picklist>ForecastCategoryName</picklist>
+        <values>
+            <fullName>Best Case</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Omitted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pipeline</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>LeadSource</picklist>
+        <values>
+            <fullName>Advertisement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CCC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Carozzi</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Catalogo web</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chefworks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Event</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Employee Referral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Expocafe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>External Referral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Foodservice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Google AdWords</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lead CSM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lead Meta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OpenDay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OpenDayIquique</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OpenDayTemuco</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchased List</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Terreno</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trade Show</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Uscheese</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web Contactanos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web Hablemos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Webinar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Website</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Existing Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Business</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,166 @@
+:host { display: block; width: 100%; }
+
+.cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+/* ---------- panel de seleccionados ---------- */
+
+.panel-seleccion {
+    border: 1px solid #1b96ff;
+    background: #eef4ff;
+    border-radius: 0.25rem;
+    padding: 0.75rem 1rem 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.panel-seleccion__titulo {
+    font-weight: 700;
+    color: #032d60;
+    margin-bottom: 0.5rem;
+}
+
+.panel-seleccion__resumen {
+    font-weight: 400;
+    color: #56698d;
+    margin-left: 0.5rem;
+    font-size: 0.8125rem;
+}
+
+.tabla-seleccion { background: #fff; }
+.tabla-seleccion .col-nombre { font-weight: 600; }
+.col-cantidad { width: 7rem; }
+.col-quitar { width: 3rem; text-align: right; }
+.input-cantidad { max-width: 5.5rem; }
+
+.panel-seleccion__pie {
+    font-size: 0.75rem;
+    color: #56698d;
+    font-style: italic;
+    margin-top: 0.5rem;
+}
+
+/* ---------- busqueda ---------- */
+
+.barra-busqueda {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.barra-busqueda lightning-input { flex: 1 1 auto; }
+.boton-ocultos { flex: 0 0 auto; font-size: 0.8125rem; }
+
+/* ---------- grilla de equipos ---------- */
+
+.grilla {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+    gap: 0.75rem;
+}
+
+.tarjeta {
+    border: 1px solid #dddbda;
+    border-radius: 0.25rem;
+    padding: 0.85rem 1rem;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.tarjeta_elegida {
+    border-color: #1b96ff;
+    border-width: 2px;
+    background: #f4f9ff;
+}
+
+.tarjeta__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.tarjeta__nombre {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #181818;
+    margin: 0;
+}
+
+.tarjeta__codigo {
+    font-size: 0.6875rem;
+    color: #706e6b;
+    margin: 0.15rem 0 0;
+    letter-spacing: 0.02em;
+}
+
+.bloque__titulo {
+    display: block;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #706e6b;
+    margin-bottom: 0.3rem;
+}
+
+/* Los insumos son la razon por la que se elige el equipo: se listan, no se resumen. */
+.lista-insumos {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.8125rem;
+}
+.lista-insumos li {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.2rem 0;
+    border-bottom: 1px solid #f3f3f3;
+}
+.lista-insumos li:last-child { border-bottom: 0; }
+.insumo__nombre { color: #181818; }
+.insumo__detalle { color: #706e6b; white-space: nowrap; }
+
+.aportes { margin: 0; display: flex; flex-wrap: wrap; gap: 0.25rem; }
+.chip {
+    display: inline-block;
+    font-size: 0.6875rem;
+    background: #f3f3f3;
+    color: #514f4d;
+    border-radius: 0.75rem;
+    padding: 0.1rem 0.5rem;
+}
+
+.aviso-sin-config {
+    font-size: 0.75rem;
+    color: #8a6d3b;
+    background: #fef8e7;
+    border-radius: 0.25rem;
+    padding: 0.4rem 0.6rem;
+}
+
+.vacio {
+    text-align: center;
+    color: #706e6b;
+    padding: 2rem 1rem;
+}
+
+/* Rotulacion del equipo: distingue el dispensador neutro del que va con la
+   grafica de la marca, que es lo que decide cual ofrecer al cliente. */
+.tarjeta__grafica {
+    display: inline-block;
+    margin-top: 0.25rem;
+    padding: 0.05rem 0.4rem;
+    border: 1px solid #c9c7c5;
+    border-radius: 0.75rem;
+    font-size: 0.7rem;
+    color: #514f4d;
+    white-space: nowrap;
+}

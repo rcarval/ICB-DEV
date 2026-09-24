@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Campana_OpenDay__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Campaña OpenDay</label>
+    <referenceTo>Campaign</referenceTo>
+    <relationshipLabel>Leads OpenDay</relationshipLabel>
+    <relationshipName>Leads_OpenDay_OD</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Lookup</type>
+</CustomField>

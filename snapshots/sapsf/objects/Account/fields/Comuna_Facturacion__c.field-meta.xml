@@ -1,0 +1,1382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Comuna_Facturacion__c</fullName>
+    <label>Comuna Facturacion</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Regi_n_Facturacion__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetName>Comunas</valueSetName>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Alto Biobío</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Antuco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Arauco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Cabrero</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Cañete</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Chiguayante</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Concepción</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Contulmo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Coronel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Curanilahue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Florida</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Hualpén</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Hualqui</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Laja</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Lebu</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Los Álamos</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Los Ángeles</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Lota</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Mulchén</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Nacimiento</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Negrete</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Penco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Quilaco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Quilleco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>San Pedro de la Paz</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>San Rosendo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Santa Bárbara</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Santa Juana</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Talcahuano</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Tirúa</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Tomé</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Tucapel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Biobío</controllingFieldValue>
+            <valueName>Yumbel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Angol</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Carahue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Cholchol</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Collipulli</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Cunco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Curacautín</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Curarrehue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Ercilla</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Freire</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Galvarino</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Gorbea</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Lautaro</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Loncoche</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Lonquimay</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Los Sauces</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Lumaco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Melipeuco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Nueva Imperial</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Padre Las Casas</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Perquenco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Pitrufquén</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Pucón</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Purén</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Renaico</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Saavedra</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Temuco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Teodoro Schmidt</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Toltén</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Traiguén</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Victoria</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Vilcún</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>La Araucanía</controllingFieldValue>
+            <valueName>Villarrica</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Ríos</controllingFieldValue>
+            <valueName>Corral</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Ríos</controllingFieldValue>
+            <valueName>Futrono</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Ríos</controllingFieldValue>
+            <valueName>La Unión</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Ríos</controllingFieldValue>
+            <valueName>Lago Ranco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Ríos</controllingFieldValue>
+            <valueName>Lanco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Ríos</controllingFieldValue>
+            <valueName>Los Lagos</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Ríos</controllingFieldValue>
+            <valueName>Máfil</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Ríos</controllingFieldValue>
+            <valueName>Mariquina</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Ríos</controllingFieldValue>
+            <valueName>Paillaco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Ríos</controllingFieldValue>
+            <valueName>Panguipulli</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Ríos</controllingFieldValue>
+            <valueName>Río Bueno</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Ríos</controllingFieldValue>
+            <valueName>Valdivia</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Ancud</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Calbuco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Castro</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Chaitén</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Chonchi</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Cochamó</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Curaco de Vélez</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Dalcahue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Fresia</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Frutillar</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Futaleufú</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Hualaihué</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Llanquihue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Los Muermos</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Maullín</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Osorno</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Palena</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Puerto Montt</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Puerto Octay</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Puerto Varas</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Puqueldón</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Purranque</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Puyehue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Queilén</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Quellón</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Quemchi</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Quinchao</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>Río Negro</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>San Juan de la Costa</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Los Lagos</controllingFieldValue>
+            <valueName>San Pablo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Aysén del General Carlos Ibáñez del Campo</controllingFieldValue>
+            <valueName>Aysén</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Aysén del General Carlos Ibáñez del Campo</controllingFieldValue>
+            <valueName>Chile Chico</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Aysén del General Carlos Ibáñez del Campo</controllingFieldValue>
+            <valueName>Cisnes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Aysén del General Carlos Ibáñez del Campo</controllingFieldValue>
+            <valueName>Cochrane</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Aysén del General Carlos Ibáñez del Campo</controllingFieldValue>
+            <valueName>Coyhaique</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Aysén del General Carlos Ibáñez del Campo</controllingFieldValue>
+            <valueName>Guaitecas</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Aysén del General Carlos Ibáñez del Campo</controllingFieldValue>
+            <valueName>Lago Verde</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Aysén del General Carlos Ibáñez del Campo</controllingFieldValue>
+            <valueName>Río Ibáñez</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Aysén del General Carlos Ibáñez del Campo</controllingFieldValue>
+            <valueName>Tortel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Magallanes y de la Antártica Chilena</controllingFieldValue>
+            <valueName>Laguna Blanca</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Magallanes y de la Antártica Chilena</controllingFieldValue>
+            <valueName>Natales</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Magallanes y de la Antártica Chilena</controllingFieldValue>
+            <valueName>Porvenir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Magallanes y de la Antártica Chilena</controllingFieldValue>
+            <valueName>Primavera</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Magallanes y de la Antártica Chilena</controllingFieldValue>
+            <valueName>Punta Arenas</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Magallanes y de la Antártica Chilena</controllingFieldValue>
+            <valueName>Río Verde</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Magallanes y de la Antártica Chilena</controllingFieldValue>
+            <valueName>San Gregorio</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Magallanes y de la Antártica Chilena</controllingFieldValue>
+            <valueName>Timaukel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Magallanes y de la Antártica Chilena</controllingFieldValue>
+            <valueName>Torres del Paine</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Arica y Parinacota</controllingFieldValue>
+            <valueName>Arica</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Arica y Parinacota</controllingFieldValue>
+            <valueName>Camarones</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Arica y Parinacota</controllingFieldValue>
+            <valueName>General Lagos</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Arica y Parinacota</controllingFieldValue>
+            <valueName>Putre</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Tarapacá</controllingFieldValue>
+            <valueName>Alto Hospicio</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Tarapacá</controllingFieldValue>
+            <valueName>Camiña</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Tarapacá</controllingFieldValue>
+            <valueName>Colchane</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Tarapacá</controllingFieldValue>
+            <valueName>Huara</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Tarapacá</controllingFieldValue>
+            <valueName>Iquique</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Tarapacá</controllingFieldValue>
+            <valueName>Pica</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Tarapacá</controllingFieldValue>
+            <valueName>Pozo Almonte</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Antofagasta</controllingFieldValue>
+            <valueName>Antofagasta</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Antofagasta</controllingFieldValue>
+            <valueName>Calama</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Antofagasta</controllingFieldValue>
+            <valueName>María Elena</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Antofagasta</controllingFieldValue>
+            <valueName>Mejillones</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Antofagasta</controllingFieldValue>
+            <valueName>Ollagüe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Antofagasta</controllingFieldValue>
+            <valueName>San Pedro de Atacama</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Antofagasta</controllingFieldValue>
+            <valueName>Sierra Gorda</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Antofagasta</controllingFieldValue>
+            <valueName>Taltal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Antofagasta</controllingFieldValue>
+            <valueName>Tocopilla</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Atacama</controllingFieldValue>
+            <valueName>Alto del Carmen</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Atacama</controllingFieldValue>
+            <valueName>Caldera</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Atacama</controllingFieldValue>
+            <valueName>Chañaral</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Atacama</controllingFieldValue>
+            <valueName>Copiapó</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Atacama</controllingFieldValue>
+            <valueName>Diego de Almagro</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Atacama</controllingFieldValue>
+            <valueName>Freirina</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Atacama</controllingFieldValue>
+            <valueName>Huasco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Atacama</controllingFieldValue>
+            <valueName>Tierra Amarilla</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Atacama</controllingFieldValue>
+            <valueName>Vallenar</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Coquimbo</controllingFieldValue>
+            <valueName>Andacollo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Coquimbo</controllingFieldValue>
+            <valueName>Canela</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Coquimbo</controllingFieldValue>
+            <valueName>Combarbalá</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Coquimbo</controllingFieldValue>
+            <valueName>Coquimbo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Coquimbo</controllingFieldValue>
+            <valueName>Illapel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Coquimbo</controllingFieldValue>
+            <valueName>La Higuera</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Coquimbo</controllingFieldValue>
+            <valueName>La Serena</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Coquimbo</controllingFieldValue>
+            <valueName>Los Vilos</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Coquimbo</controllingFieldValue>
+            <valueName>Monte Patria</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Coquimbo</controllingFieldValue>
+            <valueName>Ovalle</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Coquimbo</controllingFieldValue>
+            <valueName>Paihuano</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Coquimbo</controllingFieldValue>
+            <valueName>Punitaqui</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Coquimbo</controllingFieldValue>
+            <valueName>Río Hurtado</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Coquimbo</controllingFieldValue>
+            <valueName>Salamanca</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Coquimbo</controllingFieldValue>
+            <valueName>Vicuña</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Algarrobo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Cabildo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Calle Larga</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Cartagena</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Casablanca</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Catemu</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Concón</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>El Quisco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>El Tabo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Hijuelas</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Isla de Pascua</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Juan Fernández</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>La Calera</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>La Cruz</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>La Ligua</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Limache</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Llaillay</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Los Andes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Nogales</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Olmué</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Panquehue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Papudo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Petorca</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Puchuncaví</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Putaendo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Quillota</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Quilpué</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Quintero</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Rinconada</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>San Antonio</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>San Esteban</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>San Felipe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Santa María</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Santo Domingo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Valparaíso</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Villa Alemana</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Viña del Mar</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Valparaíso</controllingFieldValue>
+            <valueName>Zapallar</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Alhué</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Buin</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Calera de Tango</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Cerrillos</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Cerro Navia</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Colina</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Conchalí</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Curacaví</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>El Bosque</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>El Monte</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Estación Central</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Huechuraba</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Independencia</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Isla de Maipo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>La Cisterna</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>La Florida</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>La Granja</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>La Pintana</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>La Reina</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Lampa</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Las Condes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Lo Barnechea</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Lo Espejo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Lo Prado</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Macul</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Maipú</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>María Pinto</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Melipilla</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Ñuñoa</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Padre Hurtado</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Paine</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Pedro Aguirre Cerda</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Peñaflor</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Peñalolén</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Pirque</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Providencia</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Pudahuel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Puente Alto</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Quilicura</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Quinta Normal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Recoleta</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Renca</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>San Bernardo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>San Joaquín</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>San José de Maipo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>San Miguel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>San Pedro</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>San Ramón</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Santiago</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Talagante</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Tiltil</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Metropolitana de Santiago</controllingFieldValue>
+            <valueName>Vitacura</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Chépica</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Chimbarongo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Codegua</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Coinco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Coltauco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Doñihue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Graneros</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>La Estrella</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Las Cabras</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Litueche</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Lolol</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Machalí</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Malloa</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Marchigüe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Mostazal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Nancagua</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Navidad</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Olivar</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Palmilla</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Paredones</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Peralillo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Peumo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Pichidegua</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Pichilemu</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Placilla</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Pumanque</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Quinta de Tilcoco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Rancagua</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Rengo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Requínoa</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>San Fernando</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>San Vicente</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>O&apos;Higgins</controllingFieldValue>
+            <valueName>Santa Cruz</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Cauquenes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Chanco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Colbún</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Constitución</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Curepto</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Curicó</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Empedrado</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Hualañé</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Licantén</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Linares</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Longaví</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Maule</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Molina</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Parral</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Pelarco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Pelluhue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Pencahue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Rauco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Retiro</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Río Claro</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Romeral</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Sagrada Familia</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>San Clemente</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>San Javier</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>San Rafael</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Talca</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Teno</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Vichuquén</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Maule</controllingFieldValue>
+            <valueName>Yerbas Buenas</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ñuble</controllingFieldValue>
+            <valueName>Bulnes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ñuble</controllingFieldValue>
+            <valueName>Chillán</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ñuble</controllingFieldValue>
+            <valueName>Chillán Viejo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ñuble</controllingFieldValue>
+            <valueName>Cobquecura</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ñuble</controllingFieldValue>
+            <valueName>Coelemu</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ñuble</controllingFieldValue>
+            <valueName>Coihueco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ñuble</controllingFieldValue>
+            <valueName>El Carmen</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ñuble</controllingFieldValue>
+            <valueName>Ninhue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ñuble</controllingFieldValue>
+            <valueName>Ñiquén</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ñuble</controllingFieldValue>
+            <valueName>Pemuco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ñuble</controllingFieldValue>
+            <valueName>Pinto</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ñuble</controllingFieldValue>
+            <valueName>Portezuelo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ñuble</controllingFieldValue>
+            <valueName>Quillón</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ñuble</controllingFieldValue>
+            <valueName>Quirihue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ñuble</controllingFieldValue>
+            <valueName>Ránquil</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ñuble</controllingFieldValue>
+            <valueName>San Carlos</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ñuble</controllingFieldValue>
+            <valueName>San Fabián</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ñuble</controllingFieldValue>
+            <valueName>San Ignacio</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ñuble</controllingFieldValue>
+            <valueName>San Nicolás</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ñuble</controllingFieldValue>
+            <valueName>Trehuaco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ñuble</controllingFieldValue>
+            <valueName>Yungay</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

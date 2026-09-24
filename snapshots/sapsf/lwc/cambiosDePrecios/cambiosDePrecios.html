@@ -1,0 +1,408 @@
+<template>
+    <section class="catalog-container">
+
+        <!-- HEADER -->
+        <header class="catalog-header">
+
+            <div class="header-content">
+                <h1>Cambios de Precios</h1>
+
+                    <p class="subtitle">
+                        Consulta, filtra y comparte la información vigente por zona.
+                    </p>
+
+            </div>
+
+            <div>
+                <button
+                    class="refresh-button"
+                    title="Actualizar"
+                    onclick={handleRefresh}
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M20 11a8.1 8.1 0 0 0-15.5-2M4 5v4h4"></path>
+                        <path d="M4 13a8.1 8.1 0 0 0 15.5 2M20 19v-4h-4"></path>
+                    </svg>
+                </button>
+            </div>
+
+
+        </header>
+
+
+        <!-- FILTROS -->
+        <div class="filters-container">
+
+                        <!-- ZONA -->
+            <div class="zone-container">
+
+                <span class="zone-label">ZONA</span>
+
+                <div class="columns-dropdown" onclick={handleDropdownClick}>
+
+                    <button
+                        class="zone-selector"
+                        aria-haspopup="true"
+                        aria-expanded={zoneMenuExpanded}
+                        onclick={handleToggleZoneMenu}
+                    >
+                        <span>{zone}</span>
+
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M6 9l6 6 6-6"></path>
+                        </svg>
+                    </button>
+
+                    <template if:true={showZoneMenu}>
+
+                        <div class="columns-menu" role="menu">
+
+                            <span class="columns-menu-title">Filtrar por zona</span>
+
+                            <label class="columns-menu-item columns-menu-all">
+
+                                <input
+                                    type="checkbox"
+                                    checked={allZonesSelected}
+                                    onchange={handleAllZonesChange}
+                                />
+
+                                <span>Todas</span>
+
+                            </label>
+
+                            <template for:each={zones} for:item="zona">
+
+                                <label key={zona.name} class="columns-menu-item">
+
+                                    <input
+                                        type="checkbox"
+                                        name={zona.name}
+                                        checked={zona.selected}
+                                        onchange={handleZoneSelection}
+                                    />
+
+                                    <span>{zona.label}</span>
+
+                                </label>
+
+                            </template>
+
+                        </div>
+
+                    </template>
+
+                </div>
+
+            </div>
+
+
+            <!-- FILTROS CATEGORÍA, FAMILIA, MARCA Y ESTADO: valores únicos que entrega Apex -->
+            <template for:each={filterList} for:item="filtro">
+
+                <div key={filtro.name} class="filter-select">
+
+                    <select
+                        name={filtro.name}
+                        title={filtro.label}
+                        aria-label={filtro.label}
+                        onchange={handleFilterChange}
+                    >
+                        <option value="">{filtro.placeholder}</option>
+
+                        <template for:each={filtro.options} for:item="opcion">
+                            <option
+                                key={opcion.value}
+                                value={opcion.value}
+                                selected={opcion.selected}
+                            >{opcion.value}</option>
+                        </template>
+                    </select>
+                    
+
+                    <svg viewBox="0 0 24 24">
+                        <path d="M6 9l6 6 6-6"></path>
+                    </svg>
+
+
+
+                </div>
+
+
+            </template>
+
+
+            <!-- RANGO DE FECHAS: última modificación de la información del producto -->
+            <div class="date-range" title="Fecha de última modificación">
+
+                <label class="date-field">
+                    <span>Desde</span>
+                    <input
+                        type="date"
+                        name="fechaDesde"
+                        value={dateFrom}
+                        max={dateTo}
+                        onchange={handleDateChange}
+                    />
+                </label>
+
+                <label class="date-field">
+                    <span>Hasta</span>
+                    <input
+                        type="date"
+                        name="fechaHasta"
+                        value={dateTo}
+                        min={dateFrom}
+                        onchange={handleDateChange}
+                    />
+                </label>
+
+            </div>
+
+                        <div class="toolbar-actions">
+
+                <!-- SELECTOR DE COLUMNAS -->
+                <div class="columns-dropdown" onclick={handleDropdownClick}>
+
+                    <button
+                        class="toolbar-button"
+                        aria-haspopup="true"
+                        aria-expanded={columnMenuExpanded}
+                        onclick={handleToggleColumnMenu}
+                    >
+
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="7" cy="7" r="2"></circle>
+                            <circle cx="7" cy="17" r="2"></circle>
+                            <path d="M11 7h9"></path>
+                            <path d="M11 17h9"></path>
+                        </svg>
+
+                        Columnas
+
+                    </button>
+
+                    <template if:true={showColumnMenu}>
+
+                        <div class="columns-menu" role="menu">
+
+                            <span class="columns-menu-title">Mostrar columnas</span>
+
+                            <template for:each={columns} for:item="column">
+
+                                <label key={column.name} class="columns-menu-item">
+
+                                    <input
+                                        type="checkbox"
+                                        name={column.name}
+                                        checked={column.visible}
+                                        onchange={handleColumnVisibility}
+                                    />
+
+                                    <span>{column.label}</span>
+
+                                </label>
+
+                            </template>
+
+                        </div>
+
+                    </template>
+
+                </div>
+
+                <!--
+                <button class="toolbar-button">
+
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 3v12"></path>
+                        <path d="m7 10 5 5 5-5"></path>
+                        <path d="M5 21h14"></path>
+                    </svg>
+
+                    Exportar
+
+                </button>
+                 -->
+
+            </div>
+
+
+            <!-- LIMPIAR -->
+            <button
+                class="clear-button"
+                onclick={handleClear}
+            >
+
+                <span class="clear-icon">×</span>
+
+                <span>Limpiar</span>
+
+            </button>
+
+        </div>
+
+
+        <!-- TABLA -->
+        <div class="table-wrapper" style="height: 534px !important;">
+
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Cargando productos" size="small"></lightning-spinner>
+            </template>
+
+            <table class="products-table" style={tableStyle}>
+
+                <thead>
+                    <tr>
+
+                        <!-- El encabezado se genera desde columns: solo las visibles y con su ancho -->
+                        <template for:each={visibleColumns} for:item="column">
+
+                            <th key={column.name} style={column.style} title={column.header}>
+
+                                <span class="th-label">{column.header}</span>
+
+                                <span
+                                    class="resize-handle"
+                                    data-name={column.name}
+                                    onmousedown={handleColumnResizeStart}
+                                ></span>
+
+                            </th>
+
+                        </template>
+
+                    </tr>
+                </thead>
+
+
+                <tbody>
+
+                    <template if:true={hasProducts}>
+
+                        <template for:each={products} for:item="product">
+
+                            <tr key={product.id}>
+
+                                <td class={codigoClass}>{product.codigo}</td>
+                                <td class={categoryClass}>{product.category}</td>
+                                <td class={jefeCategoriaClass}>{product.jefeCategoria}</td>
+                                <td class={categoriaClass}>{product.categoria}</td>
+                                <td class={familiaClass}>{product.familia}</td>
+                                <td class={descripcionClass}>
+                                    <template if:true={product.productoId}>
+                                        <a
+                                            href={product.productoUrl}
+                                            data-id={product.productoId}
+                                            title={product.descripcion}
+                                            onclick={handleProductClick}
+                                        >{product.descripcion}</a>
+                                    </template>
+                                </td>
+                                <td class={umvClass}>{product.umv}</td>
+                                <td  class={umbClass}>{product.umb}</td>
+                                <td class={descripcionUMVClass}>{product.descripcionUmv}</td>
+
+                                <td class={estadoClass}>
+                                    <template if:true={product.estado}>
+                                        <span class={product.estadoBadgeClass}>
+                                            <template if:true={product.esAlza}>
+                                                <svg class="estado-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path d="M12 19V5"></path>
+                                                    <path d="m6 11 6-6 6 6"></path>
+                                                </svg>
+                                            </template>
+                                            {product.estado}
+                                        </span>
+                                    </template>
+                                </td>
+                                <td class={precioClass}>{product.precio}</td>
+                                <td class={precioPorUnidadClass}>{product.precioUnidad}</td>
+                                <td class={feeAperturaClass}>{product.feeApertura}</td>
+                                <td class={ventasPorUnidadClass}>{product.ventasPorUnidad}</td>
+                                <td class={precioUnFeeClass}>{product.precioUnidadFee}</td>
+                                <td class={descuentoAutClass}>{product.descuentoAutonomo}</td>
+                                <td class={productoFocoClass}>{product.productoFoco}</td>
+                                <td class={baseClass}>{product.tipo}</td>
+                                <td class={zonaClass}>{product.zona}</td>
+                            </tr>
+
+                        </template>
+
+                    </template>
+
+
+                    <template if:false={hasProducts}>
+
+                        <tr class="empty-row">
+
+                            <td colspan={visibleColumnCount}>
+
+                                <div class="empty-state">
+
+                                    <span class="empty-title">
+                                        No hay productos para mostrar
+                                    </span>
+
+                                    <span class="empty-description">
+                                        Los productos aparecerán aquí cuando se cargue la información.
+                                    </span>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    </template>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- FOOTER TABLA -->
+        <div class="table-footer" >
+
+            <span style="
+    display: flex;
+    gap: 6px;">
+                Mostrando
+                <strong>{rangeStart}–{rangeEnd}</strong>
+                de
+                <strong>{productCount}</strong>
+                registros
+            </span>
+
+
+            <div class="pagination">
+
+                <button
+                    class={previousButtonClass}
+                    title="Página anterior"
+                    disabled={isFirstPage}
+                    onclick={handlePreviousPage}
+                >
+                    ‹
+                </button>
+
+                <span>Página {pageNumber} de {totalPages}</span>
+
+                <button
+                    class={nextButtonClass}
+                    title="Página siguiente"
+                    disabled={isLastPage}
+                    onclick={handleNextPage}
+                >
+                    ›
+                </button>
+
+            </div>
+
+        </div>
+
+
+    </section>
+</template>

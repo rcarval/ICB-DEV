@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ciudad_Geo_Principal__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <inlineHelpText>Los resultados se filtran segun la comuna seleccionada.</inlineHelpText>
+    <label>Localidad PIA principal</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <filterItems>
+            <field>Ciudad__c.Comuna__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Comuna_Geo_Principal__c</valueField>
+        </filterItems>
+        <filterItems>
+            <field>Ciudad__c.Activa__c</field>
+            <operation>equals</operation>
+            <value>true</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Ciudad__c</referenceTo>
+    <relationshipLabel>Lead - Localidad PIA principal</relationshipLabel>
+    <relationshipName>Lead_Principal_Ciudades</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Lookup</type>
+</CustomField>

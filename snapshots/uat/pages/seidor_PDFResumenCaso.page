@@ -1,0 +1,127 @@
+<apex:page controller="seidor_CasoRespuestaPDFController"
+    renderAs="pdf"
+    showHeader="false"
+    sidebar="false"
+    applyBodyTag="false"
+    applyHtmlTag="false">
+
+<html>
+<head>
+    <style>
+
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11pt;
+            color: #000;
+        }
+
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+        }
+
+        .header-table td {
+            border: 1px solid black;
+            padding: 6px;
+            font-size: 10pt;
+        }
+
+        .titulo {
+            text-align: center;
+            font-size: 16pt;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .fecha {
+            text-align: right;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            font-size: 12pt;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .contenido {
+            text-align: justify;
+            line-height: 1.5;
+            border: 1px solid #000;
+            padding: 12px;
+            min-height: 120px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <table class="header-table">
+        <tr>
+            <td width="25%">
+                FORMULARIO
+            </td>
+
+            <td width="45%" style="text-align:center; font-weight:bold;">
+                INFORME DE RESPUESTA DE RECLAMO A CLIENTE
+            </td>
+
+            <td width="30%">
+                Código: F-SGIA-03.1
+            </td>
+        </tr>
+    </table>
+
+    <div class="fecha">
+        Santiago,
+        <apex:outputText value="{0,date,dd/MM/yyyy}">
+            <apex:param value="{!TODAY()}" />
+        </apex:outputText>
+    </div>
+
+    <div class="section-title">
+        Investigación
+    </div>
+
+    <div class="contenido">
+        <apex:outputText value="{!caso.Investigacion__c}" escape="false"/>
+    </div>
+
+    <div class="section-title">
+        Conclusiones
+    </div>
+
+    <div class="contenido">
+        <apex:outputText value="{!caso.Conclusiones__c}" escape="false"/>
+    </div>
+
+    <div class="section-title">
+        Acciones Correctivas
+    </div>
+
+    <div class="contenido">
+        <apex:outputText value="{!caso.Acciones_Correctivas__c}" escape="false"/>
+    </div>
+
+    <div class="section-title">
+        Acciones Preventivas
+    </div>
+
+    <div class="contenido">
+        <apex:outputText value="{!caso.Acciones_Preventivas__c}" escape="false"/>
+    </div>
+
+</body>
+</html>
+
+</apex:page>

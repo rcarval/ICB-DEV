@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Nombre_Proceso__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>Clave de negocio: nombre exacto del proceso/flow protegido (ej. Update_Cliente_Full_Cliente_SAP). Debe coincidir con el literal que cada Flow le pasa al invocable ICB_CircuitBreakerCheck.</description>
+    <externalId>true</externalId>
+    <inlineHelpText>Debe coincidir EXACTO con el nombre del Flow que protege (ej. Update_Cliente_Full_Cliente_SAP).</inlineHelpText>
+    <label>Nombre Proceso</label>
+    <length>100</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

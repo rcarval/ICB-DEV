@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CondPago_Owner_Con_Manager</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+NOT($Permission.Bypass_Condicion_Pago_Aprobacion),
+ISCHANGED(condicion_pago__c),
+OR(
+AND(PRIORVALUE(condicion_pago__c) = &quot;ZD01&quot;, TEXT(condicion_pago__c) = &quot;ZE01&quot;),
+AND(PRIORVALUE(condicion_pago__c) = &quot;ZE01&quot;, TEXT(condicion_pago__c) = &quot;ZD01&quot;)
+),
+ISBLANK(Owner.ManagerId)
+)</errorConditionFormula>
+    <errorMessage>El propietario de la cuenta no tiene gestor asignado. Solicita la configuracion del Manager del owner.</errorMessage>
+</ValidationRule>

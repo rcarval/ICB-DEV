@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Condicion de pago solicitada --></label>
+    <name>Condicion_Pago_Solicitada__c</name>
+    <picklistValues>
+        <masterLabel>Pago contra entrega</masterLabel>
+        <translation><!-- Pago contra entrega --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Previo deposito</masterLabel>
+        <translation><!-- Previo deposito --></translation>
+    </picklistValues>
+</CustomFieldTranslation>
