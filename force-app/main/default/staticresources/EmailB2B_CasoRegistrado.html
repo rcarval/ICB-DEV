@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es-CL" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<meta name="x-apple-disable-message-reformatting">
+<title>Tu caso ha sido registrado</title>
+<!--[if mso]>
+<noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
+<style>body,table,td,div,span,a{font-family:Verdana,Geneva,Arial,sans-serif !important;}</style>
+<![endif]-->
+<style>
+body{margin:0;padding:0;background:#F5F5F5;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}
+img{border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;}
+table{border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;}
+a{color:#007AF5;text-decoration:underline;}
+a:hover{color:#0061C4;}
+
+/* ================= ETIQUETA DE TRANSPORTE ================= */
+.trk{
+  font-family:'Courier New',Courier,monospace;
+  font-size:19px;line-height:26px;font-weight:bold;letter-spacing:2.5px;color:#2B2B2B;
+}
+.trk-cap{font:11px/1.4 Verdana,Geneva,Arial,sans-serif;letter-spacing:1.4px;color:#8A8A93;text-transform:uppercase;}
+
+/* Barra de progreso segmentada */
+.seg{height:8px;font-size:0;line-height:0;}
+.seg-fill{height:8px;font-size:0;line-height:0;border-radius:4px;background:#2E844A;}
+
+/* Etapas: circulo de 30px con icono SVG de 16px */
+.step-ico{width:30px;height:30px;font-size:0;line-height:0;}
+.step-ico svg{display:block;margin:0 auto;}
+.rail{width:2px;font-size:0;line-height:0;}
+
+/* Fallback Outlook: numero dentro del circulo */
+.step-fb{
+  width:30px;height:30px;border-radius:15px;
+  font:bold 14px/30px Verdana,Geneva,Arial,sans-serif;text-align:center;mso-line-height-rule:exactly;
+}
+
+/* Iconos de dato */
+.dat-ico{width:22px;height:22px;font-size:0;line-height:0;}
+
+/* Chips */
+.chip{display:inline-block;border-radius:999px;padding:4px 12px;font:bold 11px/14px Verdana,Geneva,Arial,sans-serif;letter-spacing:0.6px;}
+
+@media only screen and (max-width:600px){
+  .container{width:100% !important;max-width:100% !important;}
+  .pad{padding-left:20px !important;padding-right:20px !important;}
+  .cardpad{padding-left:16px !important;padding-right:16px !important;}
+  .h1{font-size:24px !important;line-height:1.25 !important;}
+  .body-txt{font-size:15px !important;}
+  .stack{display:block !important;width:100% !important;max-width:100% !important;padding-right:0 !important;}
+  .stack-gap{padding-top:14px !important;}
+  .stack-hide{display:none !important;}
+  .trk{font-size:17px !important;letter-spacing:2px !important;}
+  .eta-lbl{width:100% !important;display:block !important;padding-bottom:8px !important;}
+  .eta-val{width:100% !important;display:block !important;text-align:left !important;}
+}
+</style>
+</head>
+<body style="margin:0;padding:0;background:#F5F5F5;">
+
+<!-- Preheader -->
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;">Tu caso N° {{CASE_NUMBER}} fue registrado y ya está en gestión.&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;</div>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F5F5;">
+<tr><td align="center" style="padding:24px 12px 40px;font-family:Verdana, Geneva, Arial, sans-serif;">
+
+<table role="presentation" class="container" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;background:#FFFFFF;">
+
+<!-- ============ HEADER ============ -->
+<tr><td style="padding:0;line-height:0;font-size:0;border-radius:8px 8px 0 0;">
+<a href="https://www.icbfs.cl" target="_blank" style="display:block;line-height:0;">
+<img src="https://raw.githubusercontent.com/sebaCode0297/ICBFS_IMG/main/header.png" width="600" alt="ICB Food Service" style="display:block;width:100%;max-width:600px;height:auto;border:0;border-radius:8px 8px 0 0;">
+</a>
+</td></tr>
+
+<!-- ============ TITULO + SALUDO + INTRO ============ -->
+<tr><td class="pad" style="padding:34px 32px 0;">
+<div class="h1" style="font:bold 28px/1.2 Verdana, Geneva, Arial, sans-serif;color:#2B2B2B;padding-bottom:16px;">Tu caso ha sido registrado</div>
+<div style="font:bold 15px/1.5 Verdana, Geneva, Arial, sans-serif;color:#E40147;text-transform:uppercase;padding-bottom:12px;">Estimado/a {{ACCOUNT_NAME}}:</div>
+<div class="body-txt" style="font:14.5px/1.7 Verdana, Geneva, Arial, sans-serif;color:#4A4A4A;">Te informamos que tu caso fue registrado correctamente en nuestro sistema bajo el N° <strong style="color:#2B2B2B;">{{CASE_NUMBER}}</strong> y ya está en gestión por parte de nuestro equipo.</div>
+</td></tr>
+
+<!-- ============ ETIQUETA DE TRANSPORTE: NUMERO DE SEGUIMIENTO ============ -->
+<tr><td class="pad" style="padding:26px 32px 0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FBFBFC;border:1px solid #EBEBEE;border-left:4px solid #E40147;border-radius:8px;">
+<tr>
+<td class="cardpad" width="62%" valign="middle" style="width:62%;padding:18px 20px;">
+  <div class="trk-cap" style="padding-bottom:6px;">N° de seguimiento</div>
+  <div class="trk">{{CASE_NUMBER}}</div>
+</td>
+<td class="cardpad" width="38%" valign="middle" align="right" style="width:38%;padding:18px 20px;text-align:right;border-left:1px dashed #E3E3E7;">
+  <div class="trk-cap" style="padding-bottom:8px;">Estado</div>
+  <span class="chip" style="background:#E40147;color:#FFFFFF;">{{ESTADO}}</span>
+</td>
+</tr>
+</table>
+</td></tr>
+
+<!-- ============ TARJETA: DETALLE DEL RECLAMO ============ -->
+<tr><td class="pad" style="padding:18px 32px 0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F7F7F8;border:1px solid #EBEBEE;border-radius:8px;">
+<tr><td class="cardpad" style="padding:22px 22px 20px;">
+
+  <!-- Encabezado de la tarjeta -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr>
+  <td valign="middle" style="padding:0 8px 16px 0;font:bold 11px/1.4 Verdana, Geneva, Arial, sans-serif;letter-spacing:1.2px;color:#8A8A93;text-transform:uppercase;">Detalle del reclamo</td>
+  <td valign="middle" align="right" style="padding:0 0 16px 0;font:bold 13px/1.4 Verdana, Geneva, Arial, sans-serif;color:#2B2B2B;text-align:right;white-space:nowrap;">Caso N° {{CASE_NUMBER}}</td>
+  </tr>
+  </table>
+
+  <!--
+    Grilla de datos CON ICONOS.
+    Patron por celda: [icono 22px][etiqueta + valor]
+    Iconos dibujados con tablas anidadas (sin imagenes, sin fuentes): 100% Outlook safe.
+  -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr>
+  <!-- Fecha de ingreso: icono calendario -->
+  <td class="stack" width="50%" valign="top" style="width:50%;padding:0 12px 16px 0;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;">
+    <tr>
+    <td class="dat-ico" width="22" valign="top" style="width:22px;padding:1px 10px 0 0;">
+      <!-- calendario: caja 20x18 con cabecera y anillo -->
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+      <td width="20" height="18" align="center" valign="middle" bgcolor="#FFFFFF" style="width:20px;height:18px;background:#FFFFFF;border:1.5px solid #8A8A93;border-radius:3px;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+        <td width="20" height="5" align="center" style="width:20px;height:5px;background:#8A8A93;font-size:1px;line-height:1px;mso-line-height-rule:exactly;">&nbsp;</td>
+        </tr></table>
+      </td>
+      </tr></table>
+    </td>
+    <td valign="top">
+      <div style="font:12px/1.4 Verdana, Geneva, Arial, sans-serif;color:#8A8A93;padding-bottom:3px;">Fecha de ingreso</div>
+      <div style="font:13px/1.5 Verdana, Geneva, Arial, sans-serif;color:#2B2B2B;">{{FECHA_INGRESO}}</div>
+    </td>
+    </tr>
+    </table>
+  </td>
+  <!-- Tipo de caso: icono etiqueta/clipboard -->
+  <td class="stack" width="50%" valign="top" style="width:50%;padding:0 0 16px 0;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;">
+    <tr>
+    <td class="dat-ico" width="22" valign="top" style="width:22px;padding:1px 10px 0 0;">
+      <!-- clipboard: caja 18x21 con cabecera superior y clip central -->
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+      <td width="18" height="21" align="center" valign="middle" bgcolor="#FFFFFF" style="width:18px;height:21px;background:#FFFFFF;border:1.5px solid #8A8A93;border-radius:3px;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+        <td style="padding:3px 3px 0 3px;">
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+          <tr><td width="10" height="2" style="width:10px;height:2px;background:#8A8A93;font-size:1px;line-height:1px;mso-line-height-rule:exactly;">&nbsp;</td></tr>
+          <tr><td height="2" style="height:2px;font-size:1px;line-height:1px;">&nbsp;</td></tr>
+          <tr><td width="10" height="2" style="width:10px;height:2px;background:#8A8A93;font-size:1px;line-height:1px;mso-line-height-rule:exactly;">&nbsp;</td></tr>
+          </table>
+        </td>
+        </tr></table>
+      </td>
+      </tr></table>
+    </td>
+    <td valign="top">
+      <div style="font:12px/1.4 Verdana, Geneva, Arial, sans-serif;color:#8A8A93;padding-bottom:3px;">Tipo de caso</div>
+      <div style="font:13px/1.5 Verdana, Geneva, Arial, sans-serif;color:#2B2B2B;">{{TIPO_CASO}}</div>
+    </td>
+    </tr>
+    </table>
+  </td>
+  </tr>
+  <tr>
+  <!-- Motivo: icono exclamacion -->
+  <td class="stack" width="50%" valign="top" style="width:50%;padding:0 12px 16px 0;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;">
+    <tr>
+    <td class="dat-ico" width="22" valign="top" style="width:22px;padding:1px 10px 0 0;">
+      <!-- exclamacion: circulo con palo vertical y punto -->
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+      <td width="20" height="20" align="center" valign="middle" bgcolor="#FFFFFF" style="width:20px;height:20px;background:#FFFFFF;border:1.5px solid #8A8A93;border-radius:10px;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+        <td align="center" style="padding:0;">
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+          <td align="center" style="font:bold 11px/12px Verdana,Geneva,Arial,sans-serif;color:#8A8A93;mso-line-height-rule:exactly;">!</td>
+          </tr></table>
+        </td>
+        </tr></table>
+      </td>
+      </tr></table>
+    </td>
+    <td valign="top">
+      <div style="font:12px/1.4 Verdana, Geneva, Arial, sans-serif;color:#8A8A93;padding-bottom:3px;">Motivo</div>
+      <div style="font:13px/1.5 Verdana, Geneva, Arial, sans-serif;color:#2B2B2B;">{{MOTIVO}}</div>
+    </td>
+    </tr>
+    </table>
+  </td>
+  <!-- Cantidad: icono cajas -->
+  <td class="stack" width="50%" valign="top" style="width:50%;padding:0 0 16px 0;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;">
+    <tr>
+    <td class="dat-ico" width="22" valign="top" style="width:22px;padding:1px 10px 0 0;">
+      <!-- cajas: dos rectangulos apilados/desplazados -->
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+      <td width="22" height="20" valign="middle" style="width:22px;height:20px;font-size:0;line-height:0;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+        <td width="11" height="9" bgcolor="#FFFFFF" style="width:11px;height:9px;background:#FFFFFF;border:1.5px solid #8A8A93;border-radius:2px;font-size:1px;line-height:1px;">&nbsp;</td>
+        <td width="2" style="width:2px;font-size:1px;line-height:1px;">&nbsp;</td>
+        <td width="11" height="9" valign="bottom" bgcolor="#FFFFFF" style="width:11px;height:9px;background:#FFFFFF;border:1.5px solid #8A8A93;border-radius:2px;font-size:1px;line-height:1px;">&nbsp;</td>
+        </tr></table>
+      </td>
+      </tr></table>
+    </td>
+    <td valign="top">
+      <div style="font:12px/1.4 Verdana, Geneva, Arial, sans-serif;color:#8A8A93;padding-bottom:3px;">Cantidad</div>
+      <div style="font:13px/1.5 Verdana, Geneva, Arial, sans-serif;color:#2B2B2B;white-space:nowrap;">{{CANTIDAD}} {{UNIDAD}}</div>
+    </td>
+    </tr>
+    </table>
+  </td>
+  </tr>
+  </table>
+
+  <!-- Separador -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="border-top:1px solid #E3E3E7;height:1px;font-size:1px;line-height:1px;">&nbsp;</td></tr></table>
+
+  <!-- Producto -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr>
+  <td valign="top" style="padding:14px 0 16px 0;">
+    <div style="font:12px/1.4 Verdana, Geneva, Arial, sans-serif;color:#8A8A93;padding-bottom:6px;">Producto</div>
+    <div style="font:13px/1.5 Verdana, Geneva, Arial, sans-serif;color:#2B2B2B;word-break:break-word;">{{PRODUCT}}</div>
+  </td>
+  </tr>
+  </table>
+
+  <!-- Separador -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="border-top:1px solid #E3E3E7;height:1px;font-size:1px;line-height:1px;">&nbsp;</td></tr></table>
+
+  <!-- Descripcion del reclamo -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr>
+  <td valign="top" style="padding:14px 0 16px 0;">
+    <div style="font:12px/1.4 Verdana, Geneva, Arial, sans-serif;color:#8A8A93;padding-bottom:6px;">Descripción del reclamo</div>
+    <div style="font:13px/1.6 Verdana, Geneva, Arial, sans-serif;color:#2B2B2B;word-break:break-word;">{{DESCRIPCION}}</div>
+  </td>
+  </tr>
+  </table>
+
+  <!-- Separador -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="border-top:1px solid #E3E3E7;height:1px;font-size:1px;line-height:1px;">&nbsp;</td></tr></table>
+
+  <!--
+    ============ RUTA DEL CASO (reemplaza "Que pasa ahora?") ============
+    Iconos dibujados con tablas, sin imagenes. Riel vertical conecta las 4 etapas.
+  -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr><td style="padding:16px 0 14px 0;font:bold 11px/1.4 Verdana, Geneva, Arial, sans-serif;letter-spacing:1.2px;color:#8A8A93;text-transform:uppercase;">Ruta de tu caso</td></tr>
+  </table>
+
+  <!-- Barra de progreso: 1 de 4 etapas completadas -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr>
+    <td width="25%" class="seg" style="padding-right:3px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="seg-fill" bgcolor="#2E844A" style="background:#2E844A;border-radius:4px 0 0 4px;">&nbsp;</td></tr></table>
+    </td>
+    <td width="25%" class="seg" style="padding-left:3px;padding-right:3px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td height="8" bgcolor="#E3E3E7" style="height:8px;background:#E3E3E7;font-size:1px;line-height:1px;mso-line-height-rule:exactly;">&nbsp;</td></tr></table>
+    </td>
+    <td width="25%" class="seg" style="padding-left:3px;padding-right:3px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td height="8" bgcolor="#E3E3E7" style="height:8px;background:#E3E3E7;font-size:1px;line-height:1px;mso-line-height-rule:exactly;">&nbsp;</td></tr></table>
+    </td>
+    <td width="25%" class="seg" style="padding-left:3px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td height="8" bgcolor="#E3E3E7" style="height:8px;background:#E3E3E7;font-size:1px;line-height:1px;mso-line-height-rule:exactly;">&nbsp;</td></tr></table>
+    </td>
+  </tr>
+  </table>
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:18px;">
+
+  <!--
+    ETAPA 1: completada. Icono: clipboard/registro en SVG.
+    Outlook (que no renderiza SVG) recibe el numero via conditional comment.
+  -->
+  <tr>
+  <td width="42" valign="top" style="width:42px;padding:0 0 18px 0;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+    <td class="step-ico" width="30" height="30" align="center" valign="middle" bgcolor="#E40147" style="width:30px;height:30px;background:#E40147;border-radius:15px;">
+      <!--[if !mso]><!-->
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;"><path d="M9 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="9" y="1" width="6" height="4" rx="1" fill="#FFFFFF"/><path d="m8.5 13.5 2.5 2.5 4.5-5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <!--<![endif]-->
+      <!--[if mso]><div class="step-fb" style="color:#FFFFFF;">1</div><![endif]-->
+    </td>
+    </tr></table>
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+    <td width="30" align="center" style="padding-top:2px;font-size:0;line-height:0;"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td class="rail" width="2" bgcolor="#E3E3E7" style="width:2px;background:#E3E3E7;font-size:1px;line-height:1px;">&nbsp;</td></tr></table></td>
+    </tr></table>
+  </td>
+  <td valign="top" style="padding:3px 0 18px 0;">
+    <div style="font:13px/1.5 Verdana, Geneva, Arial, sans-serif;color:#2B2B2B;"><strong>Registro del caso</strong> <span style="color:#E40147;">· Completado</span></div>
+    <div style="font:12px/1.5 Verdana, Geneva, Arial, sans-serif;color:#4A4A4A;">Recibimos tu reclamo y le asignamos un número de seguimiento.</div>
+  </td>
+  </tr>
+
+  <!-- ETAPA 2: analisis / revision. Icono: lupa + documento en SVG -->
+  <tr>
+  <td width="42" valign="top" style="width:42px;padding:0 0 18px 0;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+    <td class="step-ico" width="30" height="30" align="center" valign="middle" bgcolor="#EF7B85" style="width:30px;height:30px;background:#EF7B85;border-radius:15px;">
+      <!--[if !mso]><!-->
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;"><path d="M11 3a8 8 0 1 0 0 16 8 8 0 0 0 0-16Z" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/><path d="m21 21-4.35-4.35" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <!--<![endif]-->
+      <!--[if mso]><div class="step-fb" style="color:#FFFFFF;">2</div><![endif]-->
+    </td>
+    </tr></table>
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+    <td width="30" align="center" style="padding-top:2px;font-size:0;line-height:0;"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td class="rail" width="2" bgcolor="#E3E3E7" style="width:2px;background:#E3E3E7;font-size:1px;line-height:1px;">&nbsp;</td></tr></table></td>
+    </tr></table>
+  </td>
+  <td valign="top" style="padding:3px 0 18px 0;">
+    <div style="font:13px/1.5 Verdana, Geneva, Arial, sans-serif;color:#2B2B2B;"><strong>Revisión y validación</strong> <span style="color:#8A8A93;">· Hasta 48 horas hábiles</span></div>
+    <div style="font:12px/1.5 Verdana, Geneva, Arial, sans-serif;color:#4A4A4A;">Nuestro equipo revisa los antecedentes. Si necesitamos más información, te contactaremos.</div>
+  </td>
+  </tr>
+
+  <!-- ETAPA 3: retiro / devolucion de producto. Icono: camion de carga en SVG -->
+  <tr>
+  <td width="42" valign="top" style="width:42px;padding:0 0 18px 0;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+    <td class="step-ico" width="30" height="30" align="center" valign="middle" bgcolor="#CDEFC4" style="width:30px;height:30px;background:#CDEFC4;border-radius:15px;">
+      <!--[if !mso]><!-->
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;"><path d="M1 4.5A1.5 1.5 0 0 1 2.5 3H14a1 1 0 0 1 1 1v11H1V4.5Z" fill="#2B2B2B"/><path d="M15 7h3.6a1 1 0 0 1 .8.4l2.4 3.2a1 1 0 0 1 .2.6V15h-7V7Z" fill="#2B2B2B"/><circle cx="6" cy="18" r="2.4" stroke="#2B2B2B" stroke-width="2" fill="none"/><circle cx="18" cy="18" r="2.4" stroke="#2B2B2B" stroke-width="2" fill="none"/><path d="M3.5 7.5h7M3.5 10.5h5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <!--<![endif]-->
+      <!--[if mso]><div class="step-fb" style="color:#2B2B2B;">3</div><![endif]-->
+    </td>
+    </tr></table>
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+    <td width="30" align="center" style="padding-top:2px;font-size:0;line-height:0;"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td class="rail" width="2" bgcolor="#E3E3E7" style="width:2px;background:#E3E3E7;font-size:1px;line-height:1px;">&nbsp;</td></tr></table></td>
+    </tr></table>
+  </td>
+  <td valign="top" style="padding:3px 0 18px 0;">
+    <div style="font:13px/1.5 Verdana, Geneva, Arial, sans-serif;color:#2B2B2B;"><strong>Resolución</strong> <span style="color:#8A8A93;">· Hasta 5 días hábiles</span></div>
+    <div style="font:12px/1.5 Verdana, Geneva, Arial, sans-serif;color:#4A4A4A;">Definimos la solución correspondiente (nota de crédito, reposición o devolución, según el caso).</div>
+  </td>
+  </tr>
+
+  <!-- ETAPA 4: caso cerrado. Icono: circle con check en SVG -->
+  <tr>
+  <td width="42" valign="top" style="width:42px;padding:0;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+    <td class="step-ico" width="30" height="30" align="center" valign="middle" bgcolor="#2E844A" style="width:30px;height:30px;background:#2E844A;border-radius:15px;">
+      <!--[if !mso]><!-->
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;"><circle cx="12" cy="12" r="10" stroke="#FFFFFF" stroke-width="2"/><path d="m7.5 12.5 3 3 6-6.5" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <!--<![endif]-->
+      <!--[if mso]><div class="step-fb" style="color:#FFFFFF;">4</div><![endif]-->
+    </td>
+    </tr></table>
+  </td>
+  <td valign="top" style="padding:3px 0 0 0;">
+    <div style="font:13px/1.5 Verdana, Geneva, Arial, sans-serif;color:#2B2B2B;"><strong>Cierre del caso</strong></div>
+    <div style="font:12px/1.5 Verdana, Geneva, Arial, sans-serif;color:#4A4A4A;">Te avisaremos por correo cuando tu caso esté resuelto.</div>
+  </td>
+  </tr>
+  </table>
+
+  <!-- Nota de plazos -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr><td style="padding:18px 0 0 0;font:11px/1.5 Verdana, Geneva, Arial, sans-serif;color:#8A8A93;">Los plazos son referenciales y se cuentan en días hábiles desde la fecha de ingreso.</td></tr>
+  </table>
+
+</td></tr>
+</table>
+</td></tr>
+
+<!-- ============ BLOQUE: PREPARACION DEL RETIRO ============ -->
+<tr><td class="pad" style="padding:18px 32px 0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FBFBFC;border:1px solid #EBEBEE;border-radius:8px;">
+<tr><td class="cardpad" style="padding:20px 22px;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr>
+  <td valign="middle" style="padding:0 0 4px 0;font:bold 11px/1.4 Verdana, Geneva, Arial, sans-serif;letter-spacing:1.2px;color:#8A8A93;text-transform:uppercase;">Cuando llegue el retiro</td>
+  </tr>
+  <tr>
+  <td style="font:13px/1.7 Verdana, Geneva, Arial, sans-serif;color:#4A4A4A;padding-top:4px;">
+    Deja el producto listo y en un lugar de acceso fácil, con el número de caso <strong style="color:#2B2B2B;">{{CASE_NUMBER}}</strong> visible en el exterior del empaque. Así nuestro equipo puede identificarlo al instante y evitar diferencias en la entrega.
+  </td>
+  </tr>
+  </table>
+</td></tr>
+</table>
+</td></tr>
+
+<!-- ============ CIERRE ============ -->
+<tr><td class="pad" style="padding:22px 32px 0;">
+<div class="body-txt" style="font:14.5px/1.7 Verdana, Geneva, Arial, sans-serif;color:#4A4A4A;">Te mantendremos informado/a sobre cada avance hasta la resolución de tu caso.</div>
+</td></tr>
+
+<!-- ============ SOPORTE ============ -->
+<tr><td class="pad" style="padding:22px 32px 0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#EFF5FC;border:1px solid #D6E4F3;border-radius:8px;">
+<tr><td class="cardpad" style="padding:18px 22px;font:13.5px/1.75 Verdana, Geneva, Arial, sans-serif;color:#4A4A4A;">
+¿Tienes dudas o necesitas soporte? Escríbenos.<br>
+Correo electrónico: <a href="mailto:ccc@icbfs.cl" style="color:#007AF5;text-decoration:underline;">ccc@icbfs.cl</a><br>
+WhatsApp: <a href="https://wa.me/56966490324" target="_blank" style="color:#007AF5;text-decoration:underline;">+56 9 6649 0324</a><br>
+<span style="color:#8A8A93;">Lunes a viernes de 9:00 a 18:00 hrs · Sábados de 9:00 a 14:00 hrs</span>
+</td></tr>
+</table>
+</td></tr>
+
+<tr><td style="padding:0 32px 34px;font-size:0;line-height:0;">&nbsp;</td></tr>
+
+<!-- ============ FOOTER ============ -->
+<tr><td bgcolor="#2E2E2E" align="center" class="pad" style="background:#2E2E2E;border-radius:0 0 8px 8px;padding:32px 32px 28px;text-align:center;">
+<img src="{{URL_LOGO}}" width="84" alt="ICB Food Service" style="display:block;margin:0 auto 18px;width:84px;height:auto;border:0;">
+<div style="font:bold 14px/1.4 Verdana, Geneva, Arial, sans-serif;color:#FFFFFF;letter-spacing:0.5px;text-transform:uppercase;padding-bottom:6px;">ICB Food Service</div>
+<div style="font:bold 13px/1.5 Verdana, Geneva, Arial, sans-serif;color:#FFFFFF;padding-bottom:6px;">Proveedor líder en la industria gastronómica</div>
+<div style="font:12.5px/1.6 Verdana, Geneva, Arial, sans-serif;color:#E6E6E6;">Compra 24/7 en <a href="https://pia.icbfs.cl" target="_blank" style="color:#FFFFFF;text-decoration:underline;">PIA</a>, nuestra plataforma integral de atención.</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:20px;"><tr><td style="border-top:1px solid #4A4A4A;padding-top:16px;font:11px/1.6 Verdana, Geneva, Arial, sans-serif;color:#9A9A9A;text-align:center;">ICB Food Service · Santiago, Chile · Recibes este correo porque eres cliente de ICB Food Service.<br>Contacto · <a href="mailto:ccc@icbfs.cl" style="color:#CCCCCC;text-decoration:underline;">ccc@icbfs.cl</a> · WhatsApp +56 9 6649 0324</td></tr></table>
+</td></tr>
+
+</table>
+
+</td></tr>
+</table>
+</body>
+</html>

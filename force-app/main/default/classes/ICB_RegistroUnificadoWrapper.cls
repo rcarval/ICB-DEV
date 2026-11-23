@@ -36,29 +36,39 @@ public class ICB_RegistroUnificadoWrapper {
             // No initialization needed, this is just for JSON deserialization.
         }
 
-        // Constructor para objetos tipo "Detalle"
-        public ICB_RegistroUnificadoWrapper(Detalle__c detalle, Decimal costo) {
+        // Constructor para objetos tipo "Detalle_Factura"
+        public ICB_RegistroUnificadoWrapper(Detalle_Factura__c detalle, Decimal costo) {
             this.id = detalle.Id;
-            this.productId = detalle.Producto__c;
+            this.productId = detalle.Product__c;
             this.sku = detalle.SKU__c;
             this.umv = detalle.Unidad_de_Medida__c;
-            this.descripcion = detalle.Producto__r.Name;
+            this.descripcion = detalle.Product__r.Name;
             this.listaPrecio = detalle.Valor_Neto__c;
-            this.descuento = detalle.Descuento_Cliente__r.Descuento_gestionado__c != null ? detalle.Descuento_Cliente__r.Descuento_gestionado__c : 0;
-            this.precioClienteNeto = detalle.Precio_Cliente_Neto__c;
-            this.rappel = detalle.Relacion_Rappel_Detalle__r.Rappel__c;
-            this.margen = detalle.Margen_Producto__c;
-            this.descuentoAutonomo = detalle.Producto__r.Descuento_Autonomo_de_Asesor__c;
-            this.margenContribucionKilo = detalle.Margen_de_Contribucion_por_Kilo__c;
-            this.fechaVencimientoDescuento = detalle.Descuento_Cliente__r.Fecha_Hasta__c != null ? detalle.Descuento_Cliente__r.Fecha_Hasta__c : detalle.Producto__r.Fecha_maxima_de_descuento__c;
-            this.fechaMaximaOriginal = detalle.Descuento_Cliente__r.Fecha_Hasta__c != null ? detalle.Descuento_Cliente__r.Fecha_Hasta__c : detalle.Producto__r.Fecha_maxima_de_descuento__c;
-            this.fechaDesde = detalle.Descuento_Cliente__r.Fecha_desde__c;
-            this.fechaHasta = detalle.Descuento_Cliente__r.Fecha_hasta__c;
-            this.precioFinal = detalle.Precio_Final__c;
-            this.tieneCosto = detalle.Tiene_Costo__c;
+            // Descuento_Cliente__r nunca tuvo valores, establecer descuento = 0
+            this.descuento = 0;
+            // Precio_Cliente_Neto__c nunca tuvo valor, usar Valor_Neto__c
+            this.precioClienteNeto = detalle.Valor_Neto__c != null ? detalle.Valor_Neto__c : 0;
+            // Relacion_Rappel_Detalle__r nunca tuvo valores, establecer rappel = 0
+            this.rappel = 0;
+            // Margen_Producto__c nunca tuvo valor, establecer margen = 0
+            this.margen = 0;
+            this.descuentoAutonomo = detalle.Product__r.Descuento_Autonomo_de_Asesor__c;
+            // Margen_de_Contribucion_por_Kilo__c nunca tuvo valor, establecer = 0
+            this.margenContribucionKilo = 0;
+            // Descuento_Cliente__r nunca tuvo valores, usar solo Product__r.Fecha_maxima_de_descuento__c
+            this.fechaVencimientoDescuento = detalle.Product__r.Fecha_maxima_de_descuento__c;
+            this.fechaMaximaOriginal = detalle.Product__r.Fecha_maxima_de_descuento__c;
+            // Descuento_Cliente__r nunca tuvo valores, establecer fechaDesde = null
+            this.fechaDesde = null;
+            // Descuento_Cliente__r nunca tuvo valores, usar fechaVencimientoDescuento o null
+            this.fechaHasta = detalle.Product__r.Fecha_maxima_de_descuento__c;
+            // Precio_Final__c nunca tuvo valor, usar Valor_Neto__c
+            this.precioFinal = detalle.Valor_Neto__c != null ? detalle.Valor_Neto__c : 0;
+            // Tiene_Costo__c nunca tuvo valor, calcular basado en costo > 0
+            this.tieneCosto = costo != null && costo > 0;
             this.costo = costo;
-            this.sObjectName = 'Detalle__c';
-            this.peso = detalle.Producto__r.Peso__c;
+            this.sObjectName = 'Detalle_Factura__c';
+            this.peso = detalle.Product__r.Peso__c;
         }
     
         // Constructor para registros tipo "Descuento"
@@ -112,5 +122,30 @@ public class ICB_RegistroUnificadoWrapper {
             //this.fechaHasta = entry.Fecha_hasta__c;
             //this.precioFinal = entry.Precio_Final__c;
             //this.tieneCosto = entry.Tiene_Costo__c;
+        }
+
+        // Constructor para registros tipo "QuoteLineItem"
+        public ICB_RegistroUnificadoWrapper(QuoteLineItem qli) {
+            this.id = qli.Id;
+            this.productId = qli.Product2Id;
+            this.sku = qli.SKU__c;
+            this.umv = qli.UMV_Panel__c;
+            this.descripcion = qli.Product2.Name;
+            this.listaPrecio = qli.M_PrecioListaUni__c != null ? qli.M_PrecioListaUni__c : qli.UnitPrice;
+            this.descuento = qli.Discount != null ? qli.Discount : 0;
+            this.precioClienteNeto = qli.UnitPrice;
+            this.rappel = qli.Rappel__c;
+            this.margen = qli.M_Margen_producto__c;
+            this.descuentoAutonomo = qli.M_Desc_Aut_nomo__c;
+            this.margenContribucionKilo = qli.M_Contribucion_Peso__c;
+            this.fechaVencimientoDescuento = qli.M_Fecha_max_descuento__c;
+            this.fechaMaximaOriginal = qli.M_Fecha_max_descuento__c;
+            this.fechaDesde = qli.Fecha_desde__c;
+            this.fechaHasta = qli.Fecha_hasta__c;
+            this.precioFinal = qli.M_Precio_Final__c;
+            this.costo = qli.Costo__c;
+            this.tieneCosto = qli.Costo__c != null && qli.Costo__c > 0;
+            this.sObjectName = 'QuoteLineItem';
+            this.peso = qli.Product2.Peso__c;
         }
 }

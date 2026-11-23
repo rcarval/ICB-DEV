@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>68.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Cancelar Caso Screen</masterLabel>
+    <description>Pantalla de cancelación de caso: captura el motivo (máx. 255) y los botones Confirmar cancelación / Volver.</description>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="motivo" label="Motivo" type="String" description="Motivo de cancelación ingresado por el usuario"/>
+            <property name="accion" label="Acción" type="String" role="outputOnly" description="CONFIRMAR o VOLVER según el botón presionado"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

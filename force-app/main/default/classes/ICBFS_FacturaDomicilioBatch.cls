@@ -6,9 +6,10 @@
 * @Last Modified On : October 20, 2025
 * @Modification Log :
 *==============================================================================
-* Ver | Date | Author | Modification
+* Ver | Date       | Author           | Modification
 *==============================================================================
-* 1.0 | October 20, 2025 |   | Initial Version
+* 1.0 | October 20, 2025 |                | Initial Version
+* 1.1 | <fecha>          | <tu-nombre>      | Agregada comparación explícita Direccion__c == Cliente_Despacho__c
 **/
 public with sharing class ICBFS_FacturaDomicilioBatch implements Database.Batchable<SObject>, Database.Stateful {
     private final Set<Id> facturaIdFilter;
@@ -57,7 +58,7 @@ public with sharing class ICBFS_FacturaDomicilioBatch implements Database.Batcha
             return;
         }
 
-        // Obtener todos los domicilios que podrían coincidir sin usar LOWER/TRIM en SOQL
+        // Obtener todos los domicilios que podrían coincidir
         List<Domicilio_de_Cliente__c> domicilios = [
             SELECT Id, Cliente_Despacho__c
             FROM Domicilio_de_Cliente__c
@@ -78,30 +79,51 @@ public with sharing class ICBFS_FacturaDomicilioBatch implements Database.Batcha
         System.debug(LoggingLevel.DEBUG, 'Normalized domicilios map size = ' + mapNormDirToDomicilio.size());
         System.debug(LoggingLevel.DEBUG, 'Domicilio keys sample = ' + mapNormDirToDomicilio.keySet());
 
-        // Preparar la colección para actualizar
+        // Preparar la lista de facturas a actualizar
         List<Facturas__c> toUpdate = new List<Facturas__c>();
 
-        // Comparar facturas contra domicilios
         for (String dNorm : mapDireccionNormToFacturas.keySet()) {
             List<Facturas__c> factList = mapDireccionNormToFacturas.get(dNorm);
+        
             if (mapNormDirToDomicilio.containsKey(dNorm)) {
                 Domicilio_de_Cliente__c dom = mapNormDirToDomicilio.get(dNorm);
-                System.debug(LoggingLevel.DEBUG, 'Match found – direction key: ' + dNorm + ', domicilioId: ' + dom.Id + ', facturasCount: ' + factList.size());
+                String domicilioDirNorm = dom.Cliente_Despacho__c.trim().toLowerCase();
+        
                 for (Facturas__c f : factList) {
                     totalProcessed++;
-                    if (f.Domicilio_Cliente__c == null || f.Domicilio_Cliente__c != dom.Id) {
-                        System.debug(LoggingLevel.DEBUG, 'Updating factura Id: ' + f.Id + ' – old Domicilio_Cliente__c: ' + f.Domicilio_Cliente__c + ', new: ' + dom.Id);
-                        f.Domicilio_Cliente__c = dom.Id;
+                    String facturaDirNorm = f.Direccion__c.trim().toLowerCase();
+                    System.debug(LoggingLevel.DEBUG, 'Factura Id: ' + f.Id + ' – facturaDirNorm="' + facturaDirNorm + '", domicilioDirNorm="' + domicilioDirNorm + '"');
+        
+                    if (facturaDirNorm == domicilioDirNorm) {
+                        // Coinciden
+                        if (f.Domicilio_Cliente__c == null || f.Domicilio_Cliente__c != dom.Id) {
+                            System.debug(LoggingLevel.INFO, 'Factura Id: ' + f.Id + ' – actualizar domicilio de "' + f.Domicilio_Cliente__c + '" a "' + dom.Id + '"');
+                            f.Domicilio_Cliente__c = dom.Id;
+                            // si cambio domicilio => marcar procesada
+                        } else {
+                            System.debug(LoggingLevel.DEBUG, 'Factura Id: ' + f.Id + ' – ya tenía domicilio correcto (' + f.Domicilio_Cliente__c + '), pero se marca como procesada para no volver a revisar');
+                            // no cambio domicilio pero igual la vamos a marcar procesada
+                        }
+                        // En todos los casos de coincidencia, marcar procesada
+                        f.Ya_procesada__c = true;
                         toUpdate.add(f);
-                        totalUpdated++;
+                        totalUpdated++; // aquí podemos considerar que “actualizada” también incluye “marcada procesada aunque no cambió domicilio”
                     } else {
-                        System.debug(LoggingLevel.DEBUG, 'Factura Id: ' + f.Id + ' already has correct Domicilio_Cliente__c: ' + f.Domicilio_Cliente__c);
+                        System.debug(LoggingLevel.INFO, 'Factura Id: ' + f.Id + ' – no coincide dirección: facturaDir="' + facturaDirNorm + '", domicilioDir="' + domicilioDirNorm + '"');
+                        // No coincide domicilio, pero aún la podrías querer marcar como procesada?
+                        // Si quieres que también se marque para no volver a procesar, hazlo acá:
+                        f.Ya_procesada__c = true;
+                        toUpdate.add(f);
+                        totalNoMatch++;
                     }
                 }
             } else {
-                System.debug(LoggingLevel.INFO, 'No domicilio match for direction key: ' + dNorm + ', facturasCount: ' + factList.size());
+                System.debug(LoggingLevel.INFO, 'No domicilio encontrado para la clave "' + dNorm + '" – facturas implicadas: ' + factList.size());
                 for (Facturas__c f : factList) {
                     totalProcessed++;
+                    // No domicilio que coincida → marcar como procesada si así lo deseas
+                    f.Ya_procesada__c = true;
+                    toUpdate.add(f);
                     totalNoMatch++;
                 }
             }
@@ -126,7 +148,6 @@ public with sharing class ICBFS_FacturaDomicilioBatch implements Database.Batcha
                      ', Updated: ' + totalUpdated +
                      ', No domicile match: ' + totalNoMatch;
         System.debug(LoggingLevel.INFO, msg);
-        // Aquí puedes añadir lógica adicional para notificar, crear registro de log, etc.
         System.debug(LoggingLevel.INFO, 'ICBFS_FacturaDomicilioBatch.finish – Total actualizados correctamente = ' + totalUpdated);
     }
 }

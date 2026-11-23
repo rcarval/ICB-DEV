@@ -1,0 +1,441 @@
+<template>
+  <lightning-card icon-name="standard:survey">
+    <div slot="title" style="display: flex; align-items: center; gap: 5px">
+      <span>Encuestas por Sesión</span>
+      <lightning-button-icon
+        icon-name="utility:info"
+        variant="border-filled"
+        size="medium"
+        alternative-text="Acerca de este reporte"
+        title="Acerca de este reporte"
+        onclick={handleToggleHelp}
+      ></lightning-button-icon>
+    </div>
+
+    <!-- FILTROS -->
+    <div class="slds-var-m-around_medium slds-box slds-theme_shade">
+      <div class="slds-grid slds-gutters slds-wrap">
+        <div class="slds-col slds-size_1-of-4">
+          <lightning-input
+            type="date"
+            label="Desde"
+            value={dateFrom}
+            onchange={handleDateFromChange}
+          ></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-4">
+          <lightning-input
+            type="date"
+            label="Hasta"
+            value={dateTo}
+            onchange={handleDateToChange}
+          ></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-4">
+          <lightning-combobox
+            label="Ejecutivo"
+            value={selectedAgent}
+            options={agentOptions}
+            onchange={handleAgentChange}
+          ></lightning-combobox>
+        </div>
+        <div class="slds-col slds-size_1-of-4 slds-align-bottom">
+          <lightning-button
+            label="Buscar encuestas de sesiones"
+            variant="neutral"
+            icon-name="utility:search"
+            onclick={handleLoad}
+            disabled={isLoading}
+          ></lightning-button>
+        </div>
+      </div>
+    </div>
+
+    <template if:true={_showHelp}>
+      <div
+        class="slds-var-m-horizontal_medium slds-var-m-bottom_small slds-box"
+        style="border-left: 4px solid #1565c0; background: #f0f4ff"
+      >
+        <div class="slds-col slds-size_1-of-1">
+          <p class="slds-text-title slds-var-m-bottom_xx-small">
+            Creación de Encuestas de Sesión
+          </p>
+          <p class="slds-text-body_small slds-var-m-bottom_xx-small">
+            Detecta automáticamente sesiones finalizadas que tienen respuestas
+            de encuesta en el chat. Previsualiza los datos antes de confirmar la
+            creación.
+          </p>
+          <p class="slds-text-body_small slds-var-m-bottom_xx-small">
+            <strong>Muestra:</strong> Nombre de sesión · Ejecutivo · Cuenta ·
+            Contacto WhatsApp · ¿Consulta resuelta? (FCR) · Calificación de
+            atención (CSAT) · Comentario · Estado
+          </p>
+          <p class="slds-text-body_small">
+            <strong>Cómo usar:</strong> Selecciona el rango de fechas y haz clic
+            en "Buscar". Filtra por ejecutivo con el combobox. Los gráficos de
+            la derecha se actualizan al filtrar.
+          </p>
+        </div>
+      </div>
+    </template>
+
+    <!-- LOADING -->
+    <template if:true={isLoading}>
+      <div class="slds-var-m-around_medium slds-text-align_center">
+        <lightning-spinner
+          alternative-text="Buscando sesiones..."
+          size="medium"
+        ></lightning-spinner>
+      </div>
+    </template>
+
+    <template if:false={isLoading}>
+      <!-- RESULTADO DE LA ÚLTIMA CREACIÓN -->
+      <template if:true={lastResult}>
+        <div
+          class="slds-var-m-horizontal_medium slds-var-m-bottom_small result-banner"
+        >
+          <lightning-icon
+            icon-name="utility:success"
+            size="x-small"
+            variant="success"
+            class="slds-var-m-right_x-small"
+          ></lightning-icon>
+          <strong>{lastResult.created}</strong> encuesta(s) creada(s)
+          <template if:true={lastResult.skipped}>
+            &nbsp;·&nbsp;<strong>{lastResult.skipped}</strong> omitida(s) (ya
+            existían)
+          </template>
+        </div>
+      </template>
+
+      <template if:true={hasPreview}>
+        <!-- KPIs de resumen -->
+        <div
+          class="slds-grid slds-gutters slds-wrap slds-var-m-horizontal_medium slds-var-m-bottom_small"
+          style="justify-content: center"
+        >
+          <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4">
+            <div class="kpi-card kpi-ended" style="text-align: center">
+              <p class="kpi-value">{completadasCount}</p>
+              <p class="kpi-label">Completadas</p>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4">
+            <div class="kpi-card kpi-new" style="text-align: center">
+              <p class="kpi-value">{incompletasCount}</p>
+              <p class="kpi-label">Incompletas</p>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4">
+            <div class="kpi-card kpi-fcr" style="text-align: center">
+              <p class="kpi-value">{fcrSatisfactionDisplay}</p>
+              <p class="kpi-label">Satisfacción FCR</p>
+              <p class="kpi-sub">{fcrRespondedCount} resp. total</p>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4">
+            <div class="kpi-card kpi-csat" style="text-align: center">
+              <p class="kpi-value">{csatSatisfactionDisplay}</p>
+              <p class="kpi-label">Satisfacción CSAT</p>
+              <p class="kpi-sub">{csatRespondedCount} resp. (puntaje 4-5)</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- DOS COLUMNAS: tabla (izquierda 3/4) + gráficos (derecha 1/4) -->
+        <div
+          class="slds-grid slds-gutters slds-var-m-horizontal_medium slds-var-m-bottom_medium slds-wrap"
+        >
+          <!-- Columna izquierda: exportar + tabla scrollable -->
+          <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-4">
+            <div class="slds-var-m-bottom_x-small slds-text-align_right">
+              <lightning-button-menu
+                label="Exportar Excel"
+                icon-name="utility:download"
+                variant="neutral"
+                onselect={handleExport}
+              >
+                <lightning-menu-item
+                  value="visible"
+                  label="Datos visibles (filtro actual)"
+                ></lightning-menu-item>
+                <lightning-menu-item
+                  value="all"
+                  label="Todos los datos"
+                ></lightning-menu-item>
+              </lightning-button-menu>
+            </div>
+            <div class="table-wrap">
+              <table
+                class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered enc-table"
+              >
+                <thead>
+                  <tr class="slds-line-height_reset">
+                    <th class="enc-th">Sesión</th>
+                    <th class="enc-th">Ejecutivo</th>
+                    <th class="enc-th">Cuenta</th>
+                    <th class="enc-th">Contacto WhatsApp</th>
+                    <th class="enc-th">Fin sesión</th>
+                    <th class="enc-th enc-th-center">
+                      ¿Su consulta fue resuelta?
+                    </th>
+                    <th class="enc-th enc-th-center">
+                      Calificación de la atención
+                    </th>
+                    <th class="enc-th">¿Qué mejorarias?</th>
+                    <th class="enc-th enc-th-center">Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template for:each={paginatedRows} for:item="row">
+                    <tr key={row._key} class="slds-hint-parent enc-row">
+                      <td class="num-cell">
+                        <template if:true={row.sessionId}>
+                          <a
+                            href="#"
+                            class="session-link"
+                            data-id={row.sessionId}
+                            onclick={handleSessionClick}
+                            title="Ver sesión de mensajería"
+                            >{row.sessionName}</a
+                          >
+                        </template>
+                        <template if:false={row.sessionId}>
+                          {row.sessionName}
+                        </template>
+                      </td>
+                      <td class="agent-cell">{row.agentName}</td>
+                      <td class="client-cell">{row.accountName}</td>
+                      <td class="client-cell">{row.clientName}</td>
+                      <td class="date-cell">{row.sessionEndFmt}</td>
+                      <td class="center-cell">
+                        <template if:true={row.fcrAnswer}>
+                          <span class="pill-answer">{row.fcrAnswer}</span>
+                        </template>
+                        <template if:false={row.fcrAnswer}>
+                          <span class="no-answer">—</span>
+                        </template>
+                      </td>
+                      <td class="center-cell">
+                        <template if:true={row.csatAnswer}>
+                          <span class="pill-answer">{row.csatAnswer}</span>
+                        </template>
+                        <template if:false={row.csatAnswer}>
+                          <span class="no-answer">—</span>
+                        </template>
+                      </td>
+                      <td class="mejorar-cell">{row.mejorTrunc}</td>
+                      <td class="center-cell">
+                        <span class={row.statusClass}>{row.status}</span>
+                      </td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+              <div class="pagination-bar">
+                <lightning-button-icon
+                  icon-name="utility:chevronleft"
+                  variant="border-filled"
+                  size="small"
+                  alternative-text="Anterior"
+                  disabled={prevDisabled}
+                  onclick={handlePrevPage}
+                ></lightning-button-icon>
+                <span>{pageInfo}</span>
+                <lightning-button-icon
+                  icon-name="utility:chevronright"
+                  variant="border-filled"
+                  size="small"
+                  alternative-text="Siguiente"
+                  disabled={nextDisabled}
+                  onclick={handleNextPage}
+                ></lightning-button-icon>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna derecha: gráficos con tabs manuales -->
+          <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-4">
+            <!-- Navegación de tabs -->
+            <div class="chart-tab-bar">
+              <button
+                class={tabBtnFcr}
+                data-tab="fcr"
+                onclick={handleChartTabClick}
+              >
+                FCR
+              </button>
+              <button
+                class={tabBtnCsat}
+                data-tab="csat"
+                onclick={handleChartTabClick}
+              >
+                CSAT
+              </button>
+              <button
+                class={tabBtnEstado}
+                data-tab="estado"
+                onclick={handleChartTabClick}
+              >
+                Estado
+              </button>
+              <button
+                class={tabBtnAgent}
+                data-tab="agent"
+                onclick={handleChartTabClick}
+              >
+                Ejecutivos
+              </button>
+            </div>
+
+            <!-- Panel FCR Sí/No -->
+            <template if:true={tabFcrActive}>
+              <template if:true={hasFcrChartData}>
+                <div class="chart-panel">
+                  <p class="chart-title">¿Consulta Resuelta? (FCR)</p>
+                  <p class="chart-sub">{fcrChartData.total} respuestas</p>
+                  <div class="pie-wrap">
+                    <canvas
+                      class="enc-fcr-pie"
+                      width="160"
+                      height="160"
+                    ></canvas>
+                  </div>
+                  <ul class="csat-legend">
+                    <template for:each={fcrChartData.segments} for:item="seg">
+                      <li key={seg.label} class="legend-item">
+                        <span class="legend-dot" style={seg.dotStyle}></span>
+                        <span class="legend-label">{seg.label}</span>
+                        <span class="legend-pct">{seg.pct}%</span>
+                        <span class="legend-count">({seg.count})</span>
+                      </li>
+                    </template>
+                  </ul>
+                </div>
+              </template>
+              <template if:false={hasFcrChartData}>
+                <p
+                  class="slds-text-color_weak slds-text-align_center slds-var-m-around_small"
+                >
+                  Sin datos FCR
+                </p>
+              </template>
+            </template>
+
+            <!-- Panel CSAT distribución -->
+            <template if:true={tabCsatActive}>
+              <template if:true={hasCsatChartData}>
+                <div class="chart-panel">
+                  <p class="chart-title">Distribución CSAT</p>
+                  <p class="chart-sub">{csatChartData.total} respuestas</p>
+                  <div class="csat-satisfaction-badge">
+                    <span class="csat-satisfaction-pct"
+                      >{csatChartData.csatPct}%</span
+                    >
+                    <span class="csat-satisfaction-label"
+                      >satisfacción (4-5)</span
+                    >
+                  </div>
+                  <div class="pie-wrap">
+                    <canvas
+                      class="enc-csat-pie"
+                      width="160"
+                      height="160"
+                    ></canvas>
+                  </div>
+                  <ul class="csat-legend">
+                    <template for:each={csatChartData.segments} for:item="seg">
+                      <li key={seg.label} class="legend-item">
+                        <span class="legend-dot" style={seg.dotStyle}></span>
+                        <span class="legend-label">{seg.label}</span>
+                        <span class="legend-pct">{seg.pct}%</span>
+                        <span class="legend-count">({seg.count})</span>
+                      </li>
+                    </template>
+                  </ul>
+                </div>
+              </template>
+              <template if:false={hasCsatChartData}>
+                <p
+                  class="slds-text-color_weak slds-text-align_center slds-var-m-around_small"
+                >
+                  Sin datos CSAT
+                </p>
+              </template>
+            </template>
+
+            <!-- Panel Estado -->
+            <template if:true={tabEstadoActive}>
+              <template if:true={hasEstadoChartData}>
+                <div class="chart-panel">
+                  <p class="chart-title">Estado de Encuestas</p>
+                  <p class="chart-sub">{estadoChartData.total} encuestas</p>
+                  <div class="pie-wrap">
+                    <canvas
+                      class="enc-estado-pie"
+                      width="160"
+                      height="160"
+                    ></canvas>
+                  </div>
+                  <ul class="csat-legend">
+                    <template
+                      for:each={estadoChartData.segments}
+                      for:item="seg"
+                    >
+                      <li key={seg.label} class="legend-item">
+                        <span class="legend-dot" style={seg.dotStyle}></span>
+                        <span class="legend-label">{seg.label}</span>
+                        <span class="legend-pct">{seg.pct}%</span>
+                        <span class="legend-count">({seg.count})</span>
+                      </li>
+                    </template>
+                  </ul>
+                </div>
+              </template>
+              <template if:false={hasEstadoChartData}>
+                <p
+                  class="slds-text-color_weak slds-text-align_center slds-var-m-around_small"
+                >
+                  Sin datos de estado
+                </p>
+              </template>
+            </template>
+
+            <!-- Panel CSAT Ejecutivos -->
+            <template if:true={tabAgentActive}>
+              <template if:true={hasAgentCsatChartData}>
+                <div class="chart-panel">
+                  <p class="chart-title">CSAT por Ejecutivo</p>
+                  <div class="pie-wrap">
+                    <canvas
+                      class="enc-agent-csat-bar"
+                      width="200"
+                      height="160"
+                    ></canvas>
+                  </div>
+                </div>
+              </template>
+              <template if:false={hasAgentCsatChartData}>
+                <p
+                  class="slds-text-color_weak slds-text-align_center slds-var-m-around_small"
+                >
+                  Sin datos por ejecutivo
+                </p>
+              </template>
+            </template>
+          </div>
+        </div>
+      </template>
+
+      <template if:false={hasPreview}>
+        <div class="slds-var-m-around_medium slds-text-align_center">
+          <p class="slds-text-color_weak">
+            No hay sesiones con respuestas de encuesta para el período
+            seleccionado.
+          </p>
+        </div>
+      </template>
+    </template>
+  </lightning-card>
+</template>

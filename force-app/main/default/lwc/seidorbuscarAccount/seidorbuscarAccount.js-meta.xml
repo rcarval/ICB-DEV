@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Seidor – Buscar Cliente (WhatsApp)</masterLabel>
+    <description>Búsqueda de cliente por RUT, código alfanumérico o nombre. Muestra resultados en tabla. Compatible con Flow Screen y Record Page.</description>
+
+    <targets>
+        <target>lightning__FlowScreen</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+    </targets>
+
+    <targetConfigs>
+
+        <!-- ── Flow Screen ──────────────────────────────────────────────────── -->
+        <targetConfig targets="lightning__FlowScreen">
+
+            <!-- Configuración de entrada -->
+            <property
+                name="required"
+                type="Boolean"
+                label="Campo de selección obligatorio"
+                description="Si está activo, el flow no avanzará hasta que el ejecutivo seleccione un cliente de la tabla."
+                default="false"
+            />
+
+            <!-- Outputs hacia el Flow (outputOnly) -->
+            <property
+                name="selectedAccountId"
+                type="String"
+                label="Id de la cuenta seleccionada"
+                role="outputOnly"
+            />
+            <property
+                name="selectedAccountName"
+                type="String"
+                label="Nombre de la cuenta seleccionada"
+                role="outputOnly"
+            />
+            <property
+                name="selectedRut"
+                type="String"
+                label="RUT de la cuenta seleccionada"
+                role="outputOnly"
+            />
+            <property
+                name="selectedCodigo"
+                type="String"
+                label="Código de cliente seleccionado"
+                role="outputOnly"
+            />
+
+        </targetConfig>
+
+        <!-- ── Record Page / App Page ────────────────────────────────────────── -->
+        <targetConfig targets="lightning__RecordPage,lightning__AppPage">
+            <property
+                name="required"
+                type="Boolean"
+                label="Campo de selección obligatorio"
+                default="false"
+            />
+        </targetConfig>
+
+    </targetConfigs>
+</LightningComponentBundle>

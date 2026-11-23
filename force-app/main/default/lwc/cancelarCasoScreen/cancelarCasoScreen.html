@@ -1,0 +1,27 @@
+<template>
+    <div class="slds-p-around_medium">
+        <p class="slds-m-bottom_medium">
+            Para continuar, indica el motivo por el cual deseas cancelar este caso.
+        </p>
+        <lightning-textarea
+            label="Motivo de cancelación"
+            value={motivo}
+            max-length={maxLength}
+            required
+            message-when-value-missing="Debes indicar el motivo de cancelación."
+            onchange={handleMotivoChange}
+        ></lightning-textarea>
+        <p class="slds-text-body_small slds-text-color_weak slds-text-align_right">
+            {caracteresRestantes} caracteres restantes
+        </p>
+    </div>
+    <div class="slds-border_top slds-p-around_small slds-text-align_right">
+        <lightning-button label="Volver" onclick={handleVolver}></lightning-button>
+        <lightning-button
+            class="slds-m-left_x-small"
+            variant="destructive"
+            label="Confirmar cancelación"
+            onclick={handleConfirmar}
+        ></lightning-button>
+    </div>
+</template>

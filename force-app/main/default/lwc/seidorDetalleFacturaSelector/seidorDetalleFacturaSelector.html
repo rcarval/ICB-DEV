@@ -1,0 +1,261 @@
+<template>
+    <article class="slds-card slds-card_boundary">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <lightning-icon icon-name="custom:custom55" size="small" alternative-text="Detalles de factura"></lightning-icon>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span class="slds-truncate" title={etiquetaTabla}>{etiquetaTabla}</span>
+                        <template lwc:if={seleccionRequerida}>
+                            <abbr class="slds-required slds-m-left_xx-small" title="obligatorio">*</abbr>
+                        </template>
+                    </h2>
+                </div>
+                <div class="slds-no-flex">
+                    <lightning-badge label={textoSeleccionados}></lightning-badge>
+                </div>
+            </header>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+            <template lwc:if={cargando}>
+                <div class="contenedor-spinner">
+                    <lightning-spinner alternative-text="Cargando detalles de la factura" size="small"></lightning-spinner>
+                </div>
+            </template>
+
+            <template lwc:if={mensajeError}>
+                <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                    <span class="slds-assistive-text">Error</span>
+                    <h2>{mensajeError}</h2>
+                </div>
+            </template>
+
+            <template lwc:if={mostrarVacio}>
+                <div class="slds-notify slds-notify_alert slds-alert_warning" role="alert">
+                    <h2>No existen detalles de productos para la factura seleccionada.</h2>
+                </div>
+            </template>
+
+            <template lwc:if={mostrarTabla}>
+                <div class="slds-m-bottom_small buscador">
+                    <lightning-input
+                        type="search"
+                        label="Buscar producto"
+                        variant="label-hidden"
+                        placeholder="Buscar por SKU, nombre o unidad de medida"
+                        value={terminoBusqueda}
+                        onchange={handleBusqueda}
+                    ></lightning-input>
+                </div>
+
+                <template lwc:if={cantidadesHabilitadas}>
+                    <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_x-small">
+                        Seleccione uno o más productos. Debajo de cada fila seleccionada se habilita el campo según la Unidad de Medida del producto:
+                        KG → Peso neto, Caja → Cantidad, Unidad → Cantidad unidad. El valor no puede superar el de la fila y el valor neto reclamado se
+                        calcula con la fórmula de esa unidad.
+                    </p>
+                </template>
+
+                <div class="slds-scrollable_x">
+                    <table
+                        class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered"
+                        aria-label={etiquetaTabla}
+                    >
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th scope="col" class="col-check">
+                                    <lightning-input
+                                        type="checkbox"
+                                        label="Seleccionar todos"
+                                        variant="label-hidden"
+                                        checked={todasVisiblesSeleccionadas}
+                                        onchange={handleSeleccionTodas}
+                                    ></lightning-input>
+                                </th>
+                                <th scope="col"><div class="slds-truncate" title="SKU">SKU</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Nombre producto">Nombre producto</div></th>
+                                <th scope="col" class="col-num"><div class="slds-truncate" title="Cantidad">Cantidad</div></th>
+                                <th scope="col" class="col-num"><div class="slds-truncate" title="Peso neto">Peso neto</div></th>
+                                <th scope="col" class="col-num"><div class="slds-truncate" title="Conversión UM">Conversión UM</div></th>
+                                <th scope="col" class="col-num"><div class="slds-truncate" title="Cantidad unidad">Cantidad unidad</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Unidad de Medida">Unidad de Medida</div></th>
+                                <th scope="col" class="col-num"><div class="slds-truncate" title="Total con rappel">Total con rappel</div></th>
+                                <template lwc:if={cantidadesHabilitadas}>
+                                    <th scope="col" class="col-num">
+                                        <div class="slds-truncate" title="Valor neto reclamado">Valor neto reclamado</div>
+                                    </th>
+                                </template>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={filasVista} for:item="fila">
+                                <!-- Fila de datos -->
+                                <tr key={fila.id} class={fila.claseFila}>
+                                    <td class="col-check">
+                                        <lightning-input
+                                            type="checkbox"
+                                            label={fila.etiquetaCheckbox}
+                                            variant="label-hidden"
+                                            data-id={fila.id}
+                                            checked={fila.seleccionada}
+                                            onchange={handleSeleccionFila}
+                                        ></lightning-input>
+                                    </td>
+                                    <td><div class="slds-truncate" title={fila.sku}>{fila.sku}</div></td>
+                                    <td class="col-nombre"><div class="slds-cell-wrap">{fila.nombre}</div></td>
+                                    <td class="col-num">
+                                        <lightning-formatted-number value={fila.cantidad}></lightning-formatted-number>
+                                    </td>
+                                    <td class="col-num">
+                                        <lightning-formatted-number
+                                            value={fila.pesoNeto}
+                                            minimum-fraction-digits="0"
+                                            maximum-fraction-digits="3"
+                                        ></lightning-formatted-number>
+                                    </td>
+                                    <td class="col-num">
+                                        <lightning-formatted-number value={fila.conversionUM}></lightning-formatted-number>
+                                    </td>
+                                    <td class="col-num">
+                                        <lightning-formatted-number value={fila.cantidadUnidad}></lightning-formatted-number>
+                                    </td>
+                                    <td><div class="slds-truncate" title={fila.unidadMedida}>{fila.unidadMedida}</div></td>
+                                    <td class="col-num">
+                                        <lightning-formatted-number
+                                            value={fila.totalConRappel}
+                                            format-style="currency"
+                                            currency-code="CLP"
+                                            maximum-fraction-digits="0"
+                                        ></lightning-formatted-number>
+                                    </td>
+                                    <template lwc:if={cantidadesHabilitadas}>
+                                        <td class="col-num">
+                                            <template lwc:if={fila.seleccionada}>
+                                                <strong>
+                                                    <lightning-formatted-number
+                                                        value={fila.valorReclamado}
+                                                        format-style="currency"
+                                                        currency-code="CLP"
+                                                        maximum-fraction-digits="0"
+                                                    ></lightning-formatted-number>
+                                                </strong>
+                                            </template>
+                                        </td>
+                                    </template>
+                                </tr>
+
+                                <!-- Sub-fila de ingreso: se despliega debajo de cada fila seleccionada -->
+                                <template lwc:if={fila.mostrarSubFila}>
+                                    <tr key={fila.claveSubFila} class="sub-fila">
+                                        <td class="col-check"></td>
+                                        <td colspan="2" class="sub-fila__titulo">
+                                            <lightning-icon
+                                                icon-name="utility:level_down"
+                                                size="x-small"
+                                                class="slds-m-right_x-small"
+                                                alternative-text="Reclamo de la fila"
+                                            ></lightning-icon>
+                                            <span class="slds-text-title_bold">Cantidad reclamada</span>
+                                            <p class="slds-text-body_small slds-text-color_weak">{fila.textoCalculo}</p>
+                                            <lightning-input
+                                                type="checkbox"
+                                                label="Cantidad total"
+                                                class="slds-m-top_x-small"
+                                                data-id={fila.id}
+                                                checked={fila.cantidadTotal}
+                                                disabled={fila.deshabilitarCantidadTotal}
+                                                onchange={handleCantidadTotal}
+                                            ></lightning-input>
+                                        </td>
+                                        <td class="col-input">
+                                            <lightning-input
+                                                type="number"
+                                                label="Cantidad"
+                                                placeholder="Cantidad"
+                                                min="1"
+                                                step="1"
+                                                max={fila.cantidad}
+                                                value={fila.cajas}
+                                                disabled={fila.deshabilitarCajas}
+                                                message-when-range-overflow={fila.msgMaxCajas}
+                                                message-when-range-underflow="La cantidad debe ser mayor a 0."
+                                                message-when-step-mismatch="Solo se permiten números enteros."
+                                                data-id={fila.id}
+                                                data-campo="cajas"
+                                                onchange={handleCantidad}
+                                            ></lightning-input>
+                                        </td>
+                                        <td class="col-input">
+                                            <lightning-input
+                                                type="number"
+                                                label="Peso neto (KG)"
+                                                placeholder="KG"
+                                                min="0.001"
+                                                step="0.001"
+                                                max={fila.pesoNeto}
+                                                value={fila.kg}
+                                                disabled={fila.deshabilitarKg}
+                                                message-when-range-overflow={fila.msgMaxKg}
+                                                message-when-range-underflow="El peso debe ser mayor a 0."
+                                                message-when-step-mismatch="Máximo 3 decimales."
+                                                data-id={fila.id}
+                                                data-campo="kg"
+                                                onchange={handleCantidad}
+                                            ></lightning-input>
+                                        </td>
+                                        <td></td>
+                                        <td class="col-input">
+                                            <lightning-input
+                                                type="number"
+                                                label="Cantidad unidad"
+                                                placeholder="Unidades"
+                                                min="1"
+                                                step="1"
+                                                max={fila.cantidadUnidad}
+                                                value={fila.unidades}
+                                                disabled={fila.deshabilitarUnidades}
+                                                message-when-range-overflow={fila.msgMaxUnidades}
+                                                message-when-range-underflow="La cantidad debe ser mayor a 0."
+                                                message-when-step-mismatch="Solo se permiten números enteros."
+                                                data-id={fila.id}
+                                                data-campo="unidades"
+                                                onchange={handleCantidad}
+                                            ></lightning-input>
+                                        </td>
+                                        <td colspan="3"></td>
+                                    </tr>
+                                </template>
+                            </template>
+                        </tbody>
+                        <template lwc:if={mostrarTotal}>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="9" class="slds-text-align_right">
+                                        <strong>Total reclamo</strong>
+                                    </td>
+                                    <td class="col-num">
+                                        <strong>
+                                            <lightning-formatted-number
+                                                value={totalReclamado}
+                                                format-style="currency"
+                                                currency-code="CLP"
+                                                maximum-fraction-digits="0"
+                                            ></lightning-formatted-number>
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </template>
+                    </table>
+                </div>
+
+                <template lwc:if={sinResultadosBusqueda}>
+                    <p class="slds-p-around_small slds-text-color_weak">No hay productos que coincidan con la búsqueda.</p>
+                </template>
+            </template>
+        </div>
+    </article>
+</template>

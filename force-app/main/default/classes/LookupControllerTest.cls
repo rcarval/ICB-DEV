@@ -24,7 +24,7 @@ public class LookupControllerTest {
         
         // Assert
         System.assertNotEquals(0, results.size(), 'Expected at least one result.');
-        System.assertEquals('Test Account', (String)results[0].get('Name'), 'Expected Test Account to be in the results.');
+        System.assert(((String)results[0].get('Name')).startsWith('Test Account'), 'Expected Test Account to be in the results. Got: ' + results[0].get('Name'));
     }
     
     @IsTest

@@ -1,0 +1,55 @@
+<template>
+    <template if:true={showMessage}>
+        <div role="alert"
+             style="
+                display:flex;
+                align-items:center;
+                gap:14px;
+                padding:14px 18px;
+                margin:10px;
+                border-radius:14px;
+                background:#fffdf7;
+                box-shadow:0 4px 10px rgba(0,0,0,0.08);
+                border-left:6px solid #f4b400;
+             ">
+
+            <!-- Icono -->
+            <div style="
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                background:#f4b400;
+                border-radius:50%;
+                width:38px;
+                height:38px;
+            ">
+                <lightning-icon
+                    icon-name="utility:warning"
+                    size="small"
+                    variant="inverse">
+                </lightning-icon>
+            </div>
+
+            <!-- Texto -->
+            <div style="
+                flex:1;
+                font-size:17px;
+                color:#2e2e2e;
+                font-weight:600;
+                line-height:1.4;
+                -webkit-text-stroke: 0.25px black;
+            ">
+                FDR modificado. Genera nuevamente el documento para continuar.
+            </div>
+
+            <!-- Icono derecho -->
+            <lightning-icon
+                icon-name="utility:info"
+                size="medium"
+                variant="warning"
+                style="opacity:0.8;">
+            </lightning-icon>
+
+        </div>
+    </template>
+</template>

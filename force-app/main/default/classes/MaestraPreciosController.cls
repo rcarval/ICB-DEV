@@ -12,9 +12,9 @@ No. Fecha                Autor                     Descripción
 **********************************************************************************/
 public class MaestraPreciosController {
     public Account acc { get; set; }
-    public List<Detalle__c> comprasMaestradePrecios { get; set; }
+    public List<Detalle_Factura__c> comprasMaestradePrecios { get; set; }
     public List<Descuento_Cliente__c> descuentosClienteMaestradePrecios { get; set; }
-    public Detalle__c newComprasMaestraPrecio { get; set; }
+    public Detalle_Factura__c newComprasMaestraPrecio { get; set; }
     public Descuento_cliente__c newDescuentosMaestraPrecio { get; set; }
     public Map<Id, Decimal> preciosClienteNeto { get; set; }
     public Map<Id, Decimal> precioFinal { get; set; }
@@ -44,7 +44,7 @@ public class MaestraPreciosController {
         this.descuentosClienteMaestradePrecios = ICB_DescuentoServiceImpl.getDescuentosMaestraPrecios(acc.Id, productosExistentes);
         this.comprasMaestradePrecios = ICB_PrecioServiceImpl.getComprasMaestraPrecios(acc.Id, productosExistentes);
         ICB_CostoServiceImpl.buscarCostosParaProductos(costosProductosMap, comprasMaestradePrecios, descuentosClienteMaestradePrecios);
-        this.newComprasMaestraPrecio = new Detalle__c();
+        this.newComprasMaestraPrecio = new Detalle_Factura__c();
         this.newDescuentosMaestraPrecio = new Descuento_Cliente__c();
         this.preciosClienteNeto = new Map<Id, Decimal>();
         this.precioFinal = new Map<Id, Decimal>();
@@ -103,11 +103,26 @@ public class MaestraPreciosController {
     @AuraEnabled
     public static List<ICB_RegistroUnificadoWrapper> obtenerRegistrosUnificados(Id accountId) {
         System.debug('obtenerRegistrosUnificados - INICIO');
+        
+        // Validar que accountId no sea null
+        if (accountId == null) {
+            System.debug('ERROR: accountId es null.');
+            throw new AuraHandledException('No se puede cargar la maestra de precios: El cliente no está definido.');
+        }
+        
+        // Validar que el cliente tenga Sucursal__c definida
+        Account acc = [SELECT Id, Name, Sucursal__c FROM Account WHERE Id = :accountId LIMIT 1];
+        if (String.isBlank(acc.Sucursal__c)) {
+            System.debug('ERROR: El cliente ' + acc.Name + ' (ID: ' + acc.Id + ') no tiene Sucursal__c definida.');
+            throw new AuraHandledException('No se puede cargar la maestra de precios: El cliente "' + acc.Name + '" no tiene una Sucursal asignada. Por favor, asigna una Sucursal al cliente antes de continuar.');
+        }
+        
         MaestraPreciosController instance = new MaestraPreciosController(new ApexPages.StandardController(new Account(Id = accountId)));
         List<ICB_RegistroUnificadoWrapper> registrosUnificados = new List<ICB_RegistroUnificadoWrapper>();
-        for (Detalle__c detalle : instance.comprasMaestradePrecios) {
-            detalle.Precio_Final__c = ICB_PrecioServiceImpl.getPrecioFinalCompras(detalle.Id, instance.comprasMaestradePrecios);
-            Decimal costo = ICB_CostoServiceImpl.obtenerCostoProducto(detalle.Producto__c, instance.costosProductosMap);
+        for (Detalle_Factura__c detalle : instance.comprasMaestradePrecios) {
+            // Precio_Final__c nunca tuvo valor, el método getPrecioFinalCompras ahora retorna basado en Valor_Neto__c
+            // No es necesario asignar a un campo que no existe
+            Decimal costo = ICB_CostoServiceImpl.obtenerCostoProducto(detalle.Product__c, instance.costosProductosMap);
             registrosUnificados.add(new ICB_RegistroUnificadoWrapper(detalle, costo));
         }
         for (Descuento_Cliente__c descuento : instance.descuentosClienteMaestradePrecios) {
@@ -200,6 +215,13 @@ public class MaestraPreciosController {
     @AuraEnabled(cacheable=true)
     public static List<ICB_RegistroUnificadoWrapper> fetchPricebookEntries(Id accountId, Integer queryLimit, Integer queryOffset, String searchTerm) {
         System.debug('fetchPricebookEntries - INICIO');
+        
+        // Validar que accountId no sea null
+        if (accountId == null) {
+            System.debug('ERROR: accountId es null. No se puede buscar PricebookEntries sin un cliente asociado.');
+            throw new AuraHandledException('No se puede cargar productos: La cotización no tiene un cliente asociado.');
+        }
+        
         // 1. Obtener solo los datos necesarios de Account
         Account acc = ICB_MaestraPreciosRepository.getAccountById(accountId);
 
@@ -275,6 +297,13 @@ public class MaestraPreciosController {
     @AuraEnabled
     public static Integer getTotalNumberOfPricebookEntries(Id accountId, String searchTerm) {
         System.debug('getTotalNumberOfPricebookEntries - INICIO');
+        
+        // Validar que accountId no sea null
+        if (accountId == null) {
+            System.debug('ERROR: accountId es null. No se puede buscar PricebookEntries sin un cliente asociado.');
+            throw new AuraHandledException('No se puede cargar productos: La cotización no tiene un cliente asociado. Por favor, asocia un cliente a la cotización primero.');
+        }
+        
         Account acc = ICB_MaestraPreciosRepository.getAccountSucursal(accountId);
         Pricebook2 clientePricebook = ICB_PricebookServiceImpl.buscarPricebookCliente(acc.Sucursal__c);
         return ICB_MaestraPreciosRepository.countPricebookEntries(clientePricebook.Id, searchTerm);
@@ -295,6 +324,190 @@ public class MaestraPreciosController {
             return ICB_PricebookServiceImpl.getPricebookId(clientePricebook);
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    /**
+    * Método para obtener QuoteLineItems de una Quote existente
+    * @author Rodrigo Carvallo
+    * @param Id quoteId - ID de la Quote
+    * @return List<ICB_RegistroUnificadoWrapper> - Lista de QuoteLineItems en formato wrapper
+    **/
+    @AuraEnabled
+    public static List<ICB_RegistroUnificadoWrapper> obtenerQuoteLineItems(Id quoteId) {
+        System.debug('obtenerQuoteLineItems - INICIO');
+        try {
+            List<QuoteLineItem> quoteLineItems = [
+                SELECT Id, Product2Id, Product2.Name, Product2.Peso__c, SKU__c, UMV_Panel__c, 
+                       UnitPrice, Quantity, Discount, M_PrecioListaUni__c, M_Precio_Final__c,
+                       M_Desc_Aut_nomo__c, M_Fecha_max_descuento__c, M_Margen_producto__c,
+                       M_Contribucion_Peso__c, Rappel__c, Costo__c, 
+                       Fecha_desde__c, Fecha_hasta__c
+                FROM QuoteLineItem 
+                WHERE QuoteId = :quoteId
+                ORDER BY SKU__c ASC
+            ];
+
+            List<ICB_RegistroUnificadoWrapper> registrosUnificados = new List<ICB_RegistroUnificadoWrapper>();
+            for (QuoteLineItem qli : quoteLineItems) {
+                registrosUnificados.add(new ICB_RegistroUnificadoWrapper(qli));
+            }
+
+            System.debug('obtenerQuoteLineItems - FIN - Registros: ' + registrosUnificados.size());
+            return registrosUnificados;
+        } catch (Exception e) {
+            System.debug('Error en obtenerQuoteLineItems: ' + e.getMessage());
+            throw new AuraHandledException('Error al obtener QuoteLineItems: ' + e.getMessage());
+        }
+    }
+
+    /**
+    * Método para actualizar QuoteLineItems con nuevos descuentos y precios
+    * @author Rodrigo Carvallo
+    * @param Id quoteId - ID de la Quote
+    * @param List<ICB_RegistroUnificadoWrapper> registrosUnificados - Lista de registros actualizados
+    * @return String - Mensaje de éxito
+    **/
+    @AuraEnabled
+    public static String actualizarQuoteLineItems(Id quoteId, List<ICB_RegistroUnificadoWrapper> registrosUnificados) {
+        System.debug('actualizarQuoteLineItems - INICIO');
+        System.debug('QuoteId: ' + quoteId);
+        System.debug('Total registros: ' + registrosUnificados.size());
+        
+        try {
+            List<QuoteLineItem> quoteLineItemsToUpdate = new List<QuoteLineItem>();
+            List<QuoteLineItem> quoteLineItemsToInsert = new List<QuoteLineItem>();
+
+            // Obtener información de la Quote para el Pricebook
+            Quote quote = [SELECT Id, Pricebook2Id, ClienteId__c FROM Quote WHERE Id = :quoteId LIMIT 1];
+            
+            for (ICB_RegistroUnificadoWrapper registro : registrosUnificados) {
+                System.debug('Procesando registro - sObjectName: ' + registro.sObjectName + ', ID: ' + registro.id);
+                
+                // Verificar si es un PricebookEntry (nuevo producto) o QuoteLineItem (existente)
+                if (registro.sObjectName == 'PricebookEntry') {
+                    // Es un producto NUEVO que viene del modal "Agregar Productos"
+                    System.debug('Creando NUEVO QuoteLineItem para PricebookEntry: ' + registro.id);
+                    
+                    QuoteLineItem newQli = new QuoteLineItem(
+                        QuoteId = quoteId,
+                        PricebookEntryId = registro.id, // ID del PricebookEntry
+                        Product2Id = registro.productId,
+                        UnitPrice = registro.listaPrecio,
+                        Quantity = 1,
+                        Discount = registro.descuento != null ? registro.descuento : 0,
+                        SKU__c = registro.sku,
+                        UMV_Panel__c = registro.umv,
+                        M_Desc_Aut_nomo__c = registro.descuentoAutonomo,
+                        M_Fecha_max_descuento__c = registro.fechaVencimientoDescuento,
+                        Fecha_desde__c = registro.fechaDesde != null ? registro.fechaDesde : System.today(),
+                        Fecha_hasta__c = registro.fechaVencimientoDescuento,
+                        M_Margen_producto__c = registro.margen,
+                        M_Contribucion_Peso__c = registro.margenContribucionKilo,
+                        M_Precio_Final__c = registro.precioFinal,
+                        M_PrecioListaUni__c = registro.listaPrecio,
+                        Costo__c = registro.costo,
+                        DescuentoModificado__c = true
+                    );
+                    quoteLineItemsToInsert.add(newQli);
+                    
+                } else if (registro.sObjectName == 'QuoteLineItem') {
+                    // Es un QuoteLineItem EXISTENTE que se está actualizando
+                    System.debug('Actualizando QuoteLineItem existente: ' + registro.id);
+                    
+                    QuoteLineItem qli = new QuoteLineItem(
+                        Id = registro.id, // ID del QuoteLineItem existente
+                        UnitPrice = registro.precioClienteNeto,
+                        Discount = registro.descuento != null ? registro.descuento : 0,
+                        M_Margen_producto__c = registro.margen,
+                        M_Contribucion_Peso__c = registro.margenContribucionKilo,
+                        M_Fecha_max_descuento__c = registro.fechaVencimientoDescuento,
+                        Fecha_hasta__c = registro.fechaVencimientoDescuento,
+                        M_Precio_Final__c = registro.precioFinal,
+                        DescuentoModificado__c = true
+                    );
+                    quoteLineItemsToUpdate.add(qli);
+                }
+            }
+
+            Integer totalOperations = 0;
+            
+            // Insertar nuevos QuoteLineItems
+            if (!quoteLineItemsToInsert.isEmpty()) {
+                insert quoteLineItemsToInsert;
+                totalOperations += quoteLineItemsToInsert.size();
+                System.debug('QuoteLineItems INSERTADOS: ' + quoteLineItemsToInsert.size());
+            }
+            
+            // Actualizar QuoteLineItems existentes
+            if (!quoteLineItemsToUpdate.isEmpty()) {
+                update quoteLineItemsToUpdate;
+                totalOperations += quoteLineItemsToUpdate.size();
+                System.debug('QuoteLineItems ACTUALIZADOS: ' + quoteLineItemsToUpdate.size());
+            }
+
+            System.debug('actualizarQuoteLineItems - FIN - Total operaciones: ' + totalOperations);
+            
+            if (totalOperations == 0) {
+                return 'No hay items para actualizar';
+            }
+            
+            return 'QuoteLineItems guardados exitosamente (' + totalOperations + ' items)';
+            
+        } catch (Exception e) {
+            System.debug('Error en actualizarQuoteLineItems: ' + e.getMessage());
+            System.debug('StackTrace: ' + e.getStackTraceString());
+            throw new AuraHandledException('Error al guardar QuoteLineItems: ' + e.getMessage());
+        }
+    }
+
+    /**
+    * Método para obtener información de la Quote
+    * @author Rodrigo Carvallo
+    * @param Id quoteId - ID de la Quote
+    * @return Map<String, Object> - Información de la Quote (Name, Account Name, etc.)
+    **/
+    @AuraEnabled
+    public static Map<String, Object> obtenerInfoQuote(Id quoteId) {
+        System.debug('obtenerInfoQuote - INICIO - quoteId: ' + quoteId);
+        try {
+            if (quoteId == null) {
+                throw new AuraHandledException('El ID de la Quote no puede ser nulo');
+            }
+
+            Quote quote = [
+                SELECT Id, Name, ClienteId__c, ClienteId__r.Name, AccountId, Account.Name, 
+                       Status, ExpirationDate, Pricebook2Id
+                FROM Quote 
+                WHERE Id = :quoteId 
+                LIMIT 1
+            ];
+
+            System.debug('Quote encontrada: ' + quote.Name);
+            
+            // Usar ClienteId__c si existe, sino usar AccountId estándar como fallback
+            Id finalAccountId = quote.ClienteId__c != null ? quote.ClienteId__c : quote.AccountId;
+            String finalAccountName = quote.ClienteId__c != null ? quote.ClienteId__r.Name : quote.Account?.Name;
+            
+            System.debug('ClienteId__c: ' + quote.ClienteId__c);
+            System.debug('AccountId: ' + quote.AccountId);
+            System.debug('Final AccountId usado: ' + finalAccountId);
+            System.debug('Final Account Name: ' + finalAccountName);
+
+            Map<String, Object> quoteInfo = new Map<String, Object>();
+            quoteInfo.put('quoteName', quote.Name);
+            quoteInfo.put('accountId', finalAccountId);
+            quoteInfo.put('accountName', finalAccountName);
+            quoteInfo.put('status', quote.Status);
+            quoteInfo.put('expirationDate', quote.ExpirationDate);
+            quoteInfo.put('pricebookId', quote.Pricebook2Id);
+
+            System.debug('obtenerInfoQuote - FIN - Resultado: ' + quoteInfo);
+            return quoteInfo;
+        } catch (Exception e) {
+            System.debug('ERROR en obtenerInfoQuote: ' + e.getMessage());
+            System.debug('StackTrace: ' + e.getStackTraceString());
+            throw new AuraHandledException('Error al obtener información de Quote: ' + e.getMessage());
         }
     }
 }

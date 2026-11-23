@@ -1,0 +1,208 @@
+<template>
+  <lightning-card icon-name="standard:survey">
+    <div slot="title" style="display: flex; align-items: center; gap: 5px">
+      <span>Encuestas Sin Respuesta</span>
+    </div>
+
+    <!-- FILTROS -->
+    <div class="slds-var-m-around_medium slds-box slds-theme_shade">
+      <div class="slds-grid slds-gutters slds-wrap">
+        <div class="slds-col slds-size_1-of-4">
+          <lightning-input
+            type="date"
+            label="Desde"
+            value={dateFrom}
+            onchange={handleDateFromChange}
+          ></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-4">
+          <lightning-input
+            type="date"
+            label="Hasta"
+            value={dateTo}
+            onchange={handleDateToChange}
+          ></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-4">
+          <lightning-combobox
+            label="Ejecutivo"
+            value={selectedAgent}
+            options={agentOptions}
+            onchange={handleAgentChange}
+          ></lightning-combobox>
+        </div>
+        <div class="slds-col slds-size_1-of-4 slds-align-bottom">
+          <lightning-button
+            label="Buscar"
+            variant="neutral"
+            icon-name="utility:search"
+            onclick={handleLoad}
+            disabled={isLoading}
+          ></lightning-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOADING -->
+    <template if:true={isLoading}>
+      <div class="slds-var-m-around_medium slds-text-align_center">
+        <lightning-spinner
+          alternative-text="Buscando..."
+          size="medium"
+        ></lightning-spinner>
+      </div>
+    </template>
+
+    <template if:false={isLoading}>
+      <template if:true={hasPreview}>
+        <!-- KPIs -->
+        <div
+          class="slds-grid slds-gutters slds-wrap slds-var-m-horizontal_medium slds-var-m-bottom_small"
+          style="justify-content: center"
+        >
+          <div class="slds-col slds-size_1-of-2">
+            <div class="kpi-card kpi-total" style="text-align: center">
+              <p class="kpi-value">{totalCount}</p>
+              <p class="kpi-label">Total registros</p>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-2">
+            <div class="kpi-card kpi-sin-respuesta" style="text-align: center">
+              <p class="kpi-value">{sinRespuestaCount}</p>
+              <p class="kpi-label">Sin respuesta</p>
+              <p class="kpi-sub">{sinRespuestaDisplay} del total</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Tabla -->
+        <div
+          class="slds-grid slds-gutters slds-var-m-horizontal_medium slds-var-m-bottom_medium"
+        >
+          <div class="slds-col slds-size_1-of-1">
+            <div class="slds-var-m-bottom_x-small slds-text-align_right">
+              <lightning-button-menu
+                label="Exportar Excel"
+                icon-name="utility:download"
+                variant="neutral"
+                onselect={handleExport}
+              >
+                <lightning-menu-item
+                  value="visible"
+                  label="Datos visibles (filtro actual)"
+                ></lightning-menu-item>
+                <lightning-menu-item
+                  value="all"
+                  label="Todos los datos"
+                ></lightning-menu-item>
+              </lightning-button-menu>
+            </div>
+            <div class="table-wrap">
+              <table
+                class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered enc-table"
+              >
+                <thead>
+                  <tr class="slds-line-height_reset">
+                    <th class="enc-th">Sesión</th>
+                    <th class="enc-th">Ejecutivo</th>
+                    <th class="enc-th">Cuenta</th>
+                    <th class="enc-th">Contacto WhatsApp</th>
+                    <th class="enc-th">Fin sesión</th>
+                    <th class="enc-th enc-th-center">
+                      ¿Su consulta fue resuelta?
+                    </th>
+                    <th class="enc-th enc-th-center">
+                      Calificación de la atención
+                    </th>
+                    <th class="enc-th">¿Qué mejorarias?</th>
+                    <th class="enc-th enc-th-center">Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template for:each={paginatedRows} for:item="row">
+                    <tr key={row._key} class="slds-hint-parent enc-row">
+                      <td class="num-cell">
+                        <template if:true={row.sessionId}>
+                          <a
+                            href="#"
+                            class="session-link"
+                            data-id={row.sessionId}
+                            onclick={handleSessionClick}
+                            title="Ver sesión de mensajería"
+                            >{row.sessionName}</a
+                          >
+                        </template>
+                        <template if:false={row.sessionId}>
+                          {row.sessionName}
+                        </template>
+                      </td>
+                      <td class="agent-cell">{row.agentName}</td>
+                      <td class="client-cell">{row.accountName}</td>
+                      <td class="client-cell">{row.clientName}</td>
+                      <td class="date-cell">{row.sessionEndFmt}</td>
+                      <td class="center-cell">
+                        <template if:true={row.fcrAnswer}>
+                          <span class="pill-answer">{row.fcrAnswer}</span>
+                        </template>
+                        <template if:false={row.fcrAnswer}>
+                          <span class="no-answer">—</span>
+                        </template>
+                      </td>
+                      <td class="center-cell">
+                        <template if:true={row.csatAnswer}>
+                          <span class="pill-answer">{row.csatAnswer}</span>
+                        </template>
+                        <template if:false={row.csatAnswer}>
+                          <span class="no-answer">—</span>
+                        </template>
+                      </td>
+                      <td class="mejorar-cell">
+                        <template if:true={row.mejorAnswer}>
+                          {row.mejorAnswer}
+                        </template>
+                        <template if:false={row.mejorAnswer}>
+                          <span class="no-answer">—</span>
+                        </template>
+                      </td>
+                      <td class="center-cell">
+                        <span class={row.statusClass}>{row.status}</span>
+                      </td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+              <div class="pagination-bar">
+                <lightning-button-icon
+                  icon-name="utility:chevronleft"
+                  variant="border-filled"
+                  size="small"
+                  alternative-text="Anterior"
+                  disabled={prevDisabled}
+                  onclick={handlePrevPage}
+                ></lightning-button-icon>
+                <span>{pageInfo}</span>
+                <lightning-button-icon
+                  icon-name="utility:chevronright"
+                  variant="border-filled"
+                  size="small"
+                  alternative-text="Siguiente"
+                  disabled={nextDisabled}
+                  onclick={handleNextPage}
+                ></lightning-button-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template if:false={hasPreview}>
+        <div class="slds-var-m-around_medium slds-text-align_center">
+          <p class="slds-text-color_weak">
+            No hay registros sin respuesta para el período seleccionado.
+          </p>
+        </div>
+      </template>
+    </template>
+  </lightning-card>
+</template>

@@ -1,0 +1,147 @@
+.wrapper {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    align-items: stretch;
+}
+
+.container {
+    flex: 1;
+    min-width: 0;
+}
+
+.card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+}
+
+.card-tipicada {
+    border: 1px solid #a7f3d0;
+    box-shadow:
+        0 2px 12px rgba(16, 185, 129, 0.12),
+        0 0 0 1px rgba(16, 185, 129, 0.06);
+}
+
+.card-noasociado {
+    border: 1px solid #fde68a;
+    box-shadow:
+        0 2px 12px rgba(245, 158, 11, 0.12),
+        0 0 0 1px rgba(245, 158, 11, 0.06);
+}
+
+.accent-bar {
+    height: 4px;
+    background-size: 300% 100%;
+    animation: shimmer 3.5s ease-in-out infinite;
+}
+
+.card-tipicada .accent-bar {
+    background: linear-gradient(90deg, #a7f3d0, #6ee7b7, #34d399, #6ee7b7, #a7f3d0);
+}
+
+.card-noasociado .accent-bar {
+    background: linear-gradient(90deg, #fde68a, #fcd34d, #f59e0b, #fcd34d, #fde68a);
+}
+
+@keyframes shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.card-body {
+    display: flex;
+    align-items: flex-start;
+    padding: 1rem 1.25rem;
+    gap: 1rem;
+}
+
+.icon-col {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: float 2.8s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+.icon-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    --sds-c-icon-color-foreground-default: #fff;
+    --sds-c-icon-color-foreground: #fff;
+}
+
+.icon-circle-green {
+    background: linear-gradient(135deg, #a7f3d0, #34d399);
+    box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3);
+}
+
+.icon-circle-amber {
+    background: linear-gradient(135deg, #fde68a, #f59e0b);
+    box-shadow: 0 3px 10px rgba(245, 158, 11, 0.3);
+}
+
+.text-col {
+    flex: 1;
+    min-width: 0;
+}
+
+.title {
+    margin: 0 0 0.25rem;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    line-height: 1.3;
+}
+
+.card-tipicada .title {
+    color: #065f46;
+}
+
+.card-noasociado .title {
+    color: #92400e;
+}
+
+.description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+}
+
+.card-tipicada .description {
+    color: #047857;
+}
+
+.card-noasociado .description {
+    color: #b45309;
+}
+
+@media screen and (max-width: 480px) {
+    .wrapper {
+        flex-wrap: wrap;
+    }
+    .container {
+        flex: 0 0 100%;
+    }
+    .card-body {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    .title {
+        font-size: 0.9375rem;
+    }
+    .description {
+        font-size: 0.75rem;
+    }
+}

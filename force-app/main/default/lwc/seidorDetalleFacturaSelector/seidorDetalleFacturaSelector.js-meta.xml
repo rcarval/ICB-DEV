@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Seidor - Detalle de factura (reclamo)</masterLabel>
+    <description>Tabla de detalles de producto de una factura con selección e ingreso de cantidades reclamadas (Cantidad, Peso neto o Cantidad unidad) y cálculo del valor neto reclamado.</description>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <!-- Entradas -->
+            <property name="facturaId" type="String" role="inputOnly" label="Id de la Factura (Facturas__c)" description="Factura seleccionada en la pantalla anterior."/>
+            <property name="caseId" type="String" role="inputOnly" label="Id del Caso" description="Opcional. Se usa Case.Factura__c cuando no se indica factura."/>
+            <property name="accountId" type="String" role="inputOnly" label="Id de la Cuenta" description="Opcional. Valida que la factura pertenezca a la cuenta."/>
+            <property name="sucursalId" type="String" role="inputOnly" label="Id de la Sucursal" description="Opcional. Valida que la factura pertenezca a la sucursal."/>
+            <property name="etiquetaTabla" type="String" role="inputOnly" label="Título de la tabla" default="Detalles productos de la factura"/>
+            <property name="seleccionRequerida" type="Boolean" role="inputOnly" label="Selección obligatoria" default="false"/>
+            <property name="ingresarCantidades" type="Boolean" role="inputOnly" label="Ingresar cantidades reclamadas" description="Si es verdadero, al seleccionar una fila se despliega debajo una sub-fila para ingresar Cantidad, Peso neto y Cantidad unidad (proceso normal y Rechazo parcial)." default="false"/>
+            <property name="subCategoria" type="String" role="inputOnly" label="Causa (Sub categoría)" description="Informativo."/>
+            <property name="tipoRechazo" type="String" role="inputOnly" label="Tipo de rechazo" description="Informativo."/>
+            <!-- Entrada/Salida -->
+            <property name="estadoSeleccion" type="String" label="Estado de selección (interno)" description="JSON con la selección y cantidades; permite restaurarlas al volver a la pantalla."/>
+            <!-- Salidas -->
+            <property name="outputSelectedRow" type="@salesforce/schema/Detalle_Factura__c" role="outputOnly" label="Fila seleccionada (primera)"/>
+            <property name="outputSelectedRows" type="@salesforce/schema/Detalle_Factura__c[]" role="outputOnly" label="Filas seleccionadas"/>
+            <property name="numberOfRowsSelected" type="Integer" role="outputOnly" label="Cantidad de filas seleccionadas"/>
+            <property name="tipoUMReclamo" type="String" role="outputOnly" label="Tipo UM del reclamo" description="KG, Caja, Unidad, Mixto o vacío."/>
+            <property name="cantidadKgReclamada" type="String" role="outputOnly" label="KG reclamados (texto numérico)"/>
+            <property name="cantidadCajasReclamada" type="Integer" role="outputOnly" label="Cajas reclamadas"/>
+            <property name="cantidadUnidadesReclamada" type="Integer" role="outputOnly" label="Unidades reclamadas"/>
+            <property name="cantidadReclamadaTotal" type="String" role="outputOnly" label="Cantidad reclamada total (texto numérico)"/>
+            <property name="valorNetoReclamado" type="String" role="outputOnly" label="Valor neto reclamado (texto numérico)"/>
+            <property name="cantidadFacturadaReclamo" type="String" role="outputOnly" label="Cantidad facturada del reclamo (texto numérico)" description="Suma, de las filas seleccionadas, de la columna donde se ingresa lo reclamado: KG → Peso neto, Caja → Cantidad, Unidad → Cantidad unidad."/>
+            <property name="detalleReclamoJson" type="String" role="outputOnly" label="Detalle del reclamo por producto (JSON)"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,47 @@
+.contenedor-spinner {
+    position: relative;
+    min-height: 4rem;
+}
+
+.buscador {
+    max-width: 24rem;
+}
+
+.col-check {
+    width: 2.5rem;
+}
+
+.col-num {
+    text-align: right;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.col-nombre {
+    min-width: 12rem;
+}
+
+td {
+    vertical-align: top;
+}
+
+/* Fila seleccionada y su sub-fila de ingreso se ven como un solo bloque */
+.fila-seleccionada > td {
+    border-bottom: none;
+}
+
+.sub-fila > td {
+    background-color: var(--slds-g-color-neutral-base-95, #f3f3f3);
+    border-top: none;
+    padding-top: 0.25rem;
+    padding-bottom: 0.75rem;
+}
+
+.sub-fila__titulo {
+    white-space: normal;
+}
+
+.col-input {
+    min-width: 8.5rem;
+    vertical-align: top;
+}

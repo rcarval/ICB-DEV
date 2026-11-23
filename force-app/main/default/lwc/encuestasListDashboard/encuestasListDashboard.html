@@ -1,0 +1,173 @@
+<template>
+  <lightning-card icon-name="standard:survey">
+    <div slot="title" style="display: flex; align-items: center; gap: 5px">
+      <span>Encuestas por Sesión</span>
+      <lightning-button-icon
+        icon-name="utility:info"
+        variant="border-filled"
+        size="medium"
+        alternative-text="Acerca de este reporte"
+        title="Acerca de este reporte"
+        onclick={handleToggleHelp}
+      ></lightning-button-icon>
+    </div>
+
+    <!-- FILTROS -->
+    <div class="slds-var-m-around_medium slds-box slds-theme_shade">
+      <div class="slds-grid slds-gutters slds-wrap">
+        <div class="slds-col slds-size_1-of-5">
+          <lightning-input type="date" label="Desde" value={dateFrom} onchange={handleDateFromChange}></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-5">
+          <lightning-input type="date" label="Hasta" value={dateTo} onchange={handleDateToChange}></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-5">
+          <lightning-combobox label="Ejecutivo" value={selectedAgent} options={agentOptions} onchange={handleAgentChange}></lightning-combobox>
+        </div>
+        <div class="slds-col slds-size_1-of-5">
+          <lightning-combobox label="Estado encuesta" value={selectedEstado} options={estadoOptions} onchange={handleEstadoChange}></lightning-combobox>
+        </div>
+        <div class="slds-col slds-size_1-of-5 slds-align-bottom">
+          <lightning-button label="Buscar" variant="brand" icon-name="utility:search" onclick={handleSearch} disabled={isLoading}></lightning-button>
+        </div>
+      </div>
+    </div>
+
+    <template if:true={_showHelp}>
+      <div
+        class="slds-var-m-horizontal_medium slds-var-m-bottom_small slds-box"
+        style="border-left: 4px solid #1565c0; background: #f0f4ff"
+      >
+        <div class="slds-col slds-size_1-of-1">
+          <p class="slds-text-title slds-var-m-bottom_xx-small">Encuestas por Sesión</p>
+          <p class="slds-text-body_small slds-var-m-bottom_xx-small">
+            Listado de registros Encuesta_cliente__c ya persistidos (creados por el batch de
+            sincronización o al finalizar la conversación de WhatsApp).
+          </p>
+          <p class="slds-text-body_small slds-var-m-bottom_xx-small">
+            <strong>Métricas:</strong> FCR (¿Tu solicitud fue resuelta?) ·
+            Calificación CSAT (Muy buena / Buena / Regular / Mala / Muy mala) ·
+            Estado de completitud (Completada / Incompleta)
+          </p>
+          <p class="slds-text-body_small">
+            <strong>Cómo usar:</strong> Selecciona rango de fechas y haz clic en "Buscar".
+            Los filtros de Ejecutivo y Estado actúan en tiempo real sobre los datos cargados.
+          </p>
+        </div>
+      </div>
+    </template>
+
+    <!-- LOADING -->
+    <template if:true={isLoading}>
+      <div class="slds-var-m-around_medium slds-text-align_center">
+        <lightning-spinner alternative-text="Cargando encuestas..." size="medium"></lightning-spinner>
+      </div>
+    </template>
+
+    <template if:false={isLoading}>
+      <template if:true={hasData}>
+
+        <!-- Doughnut distribución por Estado -->
+        <template if:true={hasEstadoChartData}>
+          <div class="slds-text-align_center slds-var-m-horizontal_medium slds-var-m-bottom_small">
+            <p class="slds-text-title slds-var-m-bottom_xx-small">Distribución por Estado de Encuesta</p>
+            <canvas class="estado-pie-chart" width="220" height="220"></canvas>
+          </div>
+        </template>
+
+        <!-- EXPORT -->
+        <div class="slds-var-m-horizontal_medium slds-var-m-bottom_x-small slds-text-align_right">
+          <lightning-button-menu
+            label="Exportar Excel"
+            icon-name="utility:download"
+            variant="neutral"
+            onselect={handleExport}
+          >
+            <lightning-menu-item value="visible" label="Datos visibles (página actual)"></lightning-menu-item>
+            <lightning-menu-item value="all"     label="Todos los datos"></lightning-menu-item>
+          </lightning-button-menu>
+        </div>
+
+        <!-- TABLA -->
+        <div class="table-wrap slds-var-m-horizontal_medium slds-var-m-bottom_x-small">
+          <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered enc-table">
+            <thead>
+              <tr class="slds-line-height_reset">
+                <th class="enc-th">Fecha Sesión</th>
+                <th class="enc-th">Ejecutivo</th>
+                <th class="enc-th">Cliente / Teléfono</th>
+                <th class="enc-th">Cuenta</th>
+                <th class="enc-th enc-th-center">FCR</th>
+                <th class="enc-th enc-th-center">CSAT</th>
+                <th class="enc-th enc-th-center">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template for:each={rows} for:item="row">
+                <tr key={row._key} class="slds-hint-parent enc-row">
+                  <td class="date-cell">{row.sessionDateFmt}</td>
+                  <td class="agent-cell">{row.agentName}</td>
+                  <td>
+                    <div class="client-name">{row.clientName}</div>
+                    <div class="contact-name">{row.endUserPhone}</div>
+                  </td>
+                  <td class="client-cell">{row.accountName}</td>
+                  <td class="center-cell">
+                    <template if:true={row.fcrAnswer}>
+                      <span class={row.fcrClass}>{row.fcrAnswer}</span>
+                    </template>
+                    <template if:false={row.fcrAnswer}>
+                      <span class="no-answer">—</span>
+                    </template>
+                  </td>
+                  <td class="center-cell">
+                    <template if:true={row.csatAnswer}>
+                      <span class={row.csatClass}>{row.csatAnswer}</span>
+                    </template>
+                    <template if:false={row.csatAnswer}>
+                      <span class="no-answer">—</span>
+                    </template>
+                  </td>
+                  <td class="center-cell">
+                    <span class={row.estadoClass}>{row.estado}</span>
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- PAGINACIÓN -->
+        <div class="pagination-bar slds-var-m-horizontal_medium slds-var-m-bottom_medium">
+          <lightning-button-icon
+            icon-name="utility:chevronleft"
+            alternative-text="Anterior"
+            onclick={handlePrevPage}
+            disabled={prevDisabled}
+            size="small"
+            variant="border-filled"
+          ></lightning-button-icon>
+          <span class="page-info">{pageInfo}</span>
+          <lightning-button-icon
+            icon-name="utility:chevronright"
+            alternative-text="Siguiente"
+            onclick={handleNextPage}
+            disabled={nextDisabled}
+            size="small"
+            variant="border-filled"
+          ></lightning-button-icon>
+        </div>
+
+      </template>
+
+      <template if:false={hasData}>
+        <div class="slds-var-m-around_medium slds-text-align_center">
+          <p class="slds-text-color_weak">
+            No se encontraron sesiones con respuestas de encuesta para los filtros seleccionados.
+          </p>
+        </div>
+      </template>
+    </template>
+
+  </lightning-card>
+</template>

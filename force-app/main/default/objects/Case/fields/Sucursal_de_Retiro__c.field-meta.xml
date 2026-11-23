@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sucursal_de_Retiro__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Sucursal (Account RecordType=Sucursal) de retiro, migrada desde Direccion_de_Retiro__c (Domicilio).</description>
+    <label>Sucursal de Retiro</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Casos (Sucursal de Retiro)</relationshipLabel>
+    <relationshipName>Casos_Sucursal_Retiro</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

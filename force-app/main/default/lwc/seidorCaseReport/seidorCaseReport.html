@@ -1,0 +1,613 @@
+<template>
+    <div class="report-wrapper">
+        <template if:true={isLoading}>
+            <div class="loading-overlay">
+                <lightning-spinner alternative-text="Cargando datos..." size="large"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <template if:true={hasResults}>
+                <div class="report-card">
+                    <div class="card-header">
+                        <div class="header-left">
+                            <h2 class="card-title">Reporte de Casos</h2>
+                            <span class="card-subtitle">{filteredTotal} registros</span>
+                        </div>
+                        <div class="header-actions">
+                            <div class="export-dropdown">
+                                <button class="btn btn-export" onclick={handleToggleExportMenu}>
+                                    <span class="export-icon">&#x21E9;</span> Descargar Excel
+                                </button>
+                                <template if:true={showExportMenu}>
+                                    <div class="export-menu">
+                                        <button class="export-menu-item" onclick={handleExportFiltered}>Filtrado</button>
+                                        <button class="export-menu-item" onclick={handleExportAll}>Todo</button>
+                                    </div>
+                                </template>
+                            </div>
+                            <button class="btn btn-export" onclick={handleOpenEmailModal}>
+                                &#x2709; Enviar por Correo
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="filters-bar">
+                        <div class="filters-grid">
+                            <div class="filter-item autocomplete-wrapper">
+                                <label class="filter-label">Tipo Requerimiento</label>
+                                <input type="search" class="filter-input" value={tipoRequerimientoSearchTerm} oninput={handleTipoRequerimientoInput} onfocus={handleTipoRequerimientoFocus} placeholder="Buscar por tipo..." />
+                                <template if:true={showTipoRequerimientoDropdown}>
+                                    <div class="autocomplete-dropdown">
+                                        <template for:each={tipoRequerimientoOptions} for:item="opt">
+                                            <div key={opt} class="autocomplete-option" data-value={opt} onmousedown={handleTipoRequerimientoSelect}>{opt}</div>
+                                        </template>
+                                        <template if:false={hasTipoRequerimientoOptions}>
+                                            <div class="autocomplete-option autocomplete-empty">Sin resultados</div>
+                                        </template>
+                                    </div>
+                                </template>
+                            </div>
+                            <div class="filter-item">
+                                <label class="filter-label">Estado del Caso</label>
+                                <select class="filter-input" onchange={handleStatusChange}>
+                                    <template for:each={statusOptions} for:item="st">
+                                        <option key={st.value} selected={st.isSelected} value={st.value}>{st.label}</option>
+                                    </template>
+                                </select>
+                            </div>
+                            <div class="filter-item autocomplete-wrapper centro-filter" onmousedown={handleCentroWrapperMousedown}>
+                                <label class="filter-label">Centro de Abastecimiento</label>
+                                <button type="button" class="filter-input centro-select" onclick={handleCentroDropdownToggle} title={centroButtonLabel}>
+                                    <span class="centro-select-label">{centroButtonLabel}</span>
+                                    <span class="centro-select-arrow">&#9662;</span>
+                                </button>
+                                <template if:true={showCentroDropdown}>
+                                    <div class="autocomplete-dropdown">
+                                        <div class={centroAllClass} onmousedown={handleCentroSelectAll}>
+                                            <input type="checkbox" class="centro-checkbox" checked={isAllCentros} tabindex="-1" />
+                                            <span>Todos</span>
+                                        </div>
+                                        <template for:each={centroOptions} for:item="opt">
+                                            <div key={opt.value} class={opt.className} data-value={opt.value} onmousedown={handleCentroToggle}>
+                                                <input type="checkbox" class="centro-checkbox" checked={opt.isSelected} tabindex="-1" />
+                                                <span>{opt.value}</span>
+                                            </div>
+                                        </template>
+                                        <template if:false={hasCentroOptions}>
+                                            <div class="autocomplete-option autocomplete-empty">Sin centros</div>
+                                        </template>
+                                        <div class="centro-actions">
+                                            <button type="button" class="btn btn-primary centro-apply-btn" onclick={handleCentroApply}>Aplicar</button>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                            <div class="filter-item autocomplete-wrapper">
+                                <label class="filter-label">Cuenta</label>
+                                <input type="search" class="filter-input" value={accountSearchTerm} oninput={handleAccountInput} onfocus={handleAccountFocus} placeholder="Buscar por nombre..." />
+                                <template if:true={showAccountDropdown}>
+                                    <div class="autocomplete-dropdown">
+                                        <template for:each={accountOptions} for:item="opt">
+                                            <div key={opt} class="autocomplete-option" data-value={opt} onmousedown={handleAccountSelect}>{opt}</div>
+                                        </template>
+                                        <template if:false={hasAccountOptions}>
+                                            <div class="autocomplete-option autocomplete-empty">Sin resultados</div>
+                                        </template>
+                                    </div>
+                                </template>
+                            </div>
+                            <div class="filter-item autocomplete-wrapper">
+                                <label class="filter-label">Cliente Despacho</label>
+                                <input type="search" class="filter-input" value={clienteDespachoSearchTerm} oninput={handleClienteDespachoInput} onfocus={handleClienteDespachoFocus} placeholder="Buscar por código..." />
+                                <template if:true={showClienteDespachoDropdown}>
+                                    <div class="autocomplete-dropdown">
+                                        <template for:each={clienteDespachoOptions} for:item="opt">
+                                            <div key={opt} class="autocomplete-option" data-value={opt} onmousedown={handleClienteDespachoSelect}>{opt}</div>
+                                        </template>
+                                        <template if:false={hasClienteDespachoOptions}>
+                                            <div class="autocomplete-option autocomplete-empty">Sin resultados</div>
+                                        </template>
+                                    </div>
+                                </template>
+                            </div>
+                            <div class="filter-item autocomplete-wrapper">
+                                <label class="filter-label">Digitador Caso</label>
+                                <input type="search" class="filter-input" value={propietarioSearchTerm} oninput={handlePropietarioInput} onfocus={handlePropietarioFocus} placeholder="Buscar por propietario..." />
+                                <template if:true={showPropietarioDropdown}>
+                                    <div class="autocomplete-dropdown">
+                                        <template for:each={propietarioOptions} for:item="opt">
+                                            <div key={opt} class="autocomplete-option" data-value={opt} onmousedown={handlePropietarioSelect}>{opt}</div>
+                                        </template>
+                                        <template if:false={hasPropietarioOptions}>
+                                            <div class="autocomplete-option autocomplete-empty">Sin resultados</div>
+                                        </template>
+                                    </div>
+                                </template>
+                            </div>
+                            <div class="filter-item autocomplete-wrapper">
+                                <label class="filter-label">Asesor</label>
+                                <input type="search" class="filter-input" value={asesorSearchTerm} oninput={handleAsesorInput} onfocus={handleAsesorFocus} placeholder="Buscar por asesor..." />
+                                <template if:true={showAsesorDropdown}>
+                                    <div class="autocomplete-dropdown">
+                                        <template for:each={asesorOptions} for:item="opt">
+                                            <div key={opt} class="autocomplete-option" data-value={opt} onmousedown={handleAsesorSelect}>{opt}</div>
+                                        </template>
+                                        <template if:false={hasAsesorOptions}>
+                                            <div class="autocomplete-option autocomplete-empty">Sin resultados</div>
+                                        </template>
+                                    </div>
+                                </template>
+                            </div>
+                            <div class="filter-item date-range">
+                                <label class="filter-label">Fecha Desde - Hasta</label>
+                                <div class="date-range-inputs">
+                                    <input type="date" class="filter-input" value={createdDateStartTerm} oninput={handleCreatedDateStartInput} placeholder="Desde" />
+                                    <span class="date-range-sep">-</span>
+                                    <input type="date" class="filter-input" value={createdDateEndTerm} oninput={handleCreatedDateEndInput} placeholder="Hasta" />
+                                </div>
+                            </div>
+                            <div class="filter-item advanced-filter">
+                                <label class="filter-label">Filtros Avanzados</label>
+                                <div class="advanced-filters-block">
+                                    <template for:each={advancedFilters} for:item="af" for:index="afi">
+                                        <div key={af.key} class="advanced-filter-chip">
+                                            <span class="advanced-filter-key">{af.label}</span>
+                                            <span class="advanced-filter-value">{af.termLabel}</span>
+                                            <button type="button" class="advanced-filter-remove" data-key={af.key} onclick={handleAdvancedRowRemove} title="Quitar">&times;</button>
+                                        </div>
+                                    </template>
+                                    <template if:true={hasAvailableAdvancedFields}>
+                                        <div class="advanced-filter-form">
+                                            <select class="filter-input advanced-select" onchange={handleAdvancedFieldChange} value={advancedFieldSelected}>
+                                                <option value="">Campo...</option>
+                                                <template for:each={availableAdvancedFields} for:item="f">
+                                                    <option key={f.api} value={f.api}>{f.label}</option>
+                                                </template>
+                                            </select>
+                                            <template if:true={advancedFieldSelected}>
+                                                <template if:false={selectedAdvancedFieldIsDate}>
+                                                    <div class="autocomplete-wrapper">
+                                                        <input type="search" class="filter-input" value={advancedNewTerm} oninput={handleAdvancedTermInput} onfocus={handleAdvancedTermFocus} placeholder="Valor..." />
+                                                        <template if:true={advancedNewShowDropdown}>
+                                                            <div class="autocomplete-dropdown">
+                                                                <template for:each={advancedFieldValues} for:item="opt">
+                                                                    <div key={opt} class="autocomplete-option" data-value={opt} onmousedown={handleAdvancedTermSelect}>{opt}</div>
+                                                                </template>
+                                                                <template if:false={hasAdvancedFieldValues}>
+                                                                    <div class="autocomplete-option autocomplete-empty">Sin valores</div>
+                                                                </template>
+                                                            </div>
+                                                        </template>
+                                                    </div>
+                                                </template>
+                                                <template if:true={selectedAdvancedFieldIsDate}>
+                                                    <input type="date" class="filter-input" value={advancedNewTerm} onchange={handleAdvancedDateChange} />
+                                                </template>
+                                            </template>
+                                        </div>
+                                    </template>
+                                    <template if:false={hasAvailableAdvancedFields}>
+                                        <span class="advanced-filter-empty">Todos los campos en uso.</span>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="filter-actions">
+                                <button class="btn btn-secondary" onclick={handleClearFilters}>Limpiar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-section">
+                        <div class="chart-header">
+                            <div class="chart-header-left">
+                                <h3 class="chart-title">Casos por {chartLabel}</h3>
+                                <span class="chart-subtitle">{chartTotal} casos</span>
+                            </div>
+                            <div class="chart-controls">
+                                <label class="chart-label" for="chart-dimension">Dimensi&oacute;n</label>
+                                <select id="chart-dimension" class="chart-select" onchange={handleChartDimensionChange}>
+                                    <option value="tipoRequerimiento">Tipo de Requerimiento</option>
+                                    <option value="status">Estado del Caso</option>
+                                    <option value="motivo">Motivo (Categor&iacute;a)</option>
+                                    <option value="causa">Causa (Sub Categor&iacute;a)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <template if:true={hasChartData}>
+                            <div class="chart-body">
+                                <div class="chart-canvas-wrap">
+                                    <canvas class="case-report-chart"></canvas>
+                                </div>
+                                <div class="chart-legend">
+                                    <template for:each={chartLegend} for:item="item">
+                                        <div key={item.label} class="chart-legend-item">
+                                            <span class="chart-legend-color" style={item.style}></span>
+                                            <span class="chart-legend-label">{item.label}</span>
+                                            <span class="chart-legend-value">{item.value}</span>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                        <template if:false={hasChartData}>
+                            <div class="chart-empty">Sin datos para el gr&aacute;fico con los filtros seleccionados.</div>
+                        </template>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="report-table">
+                            <thead>
+                                <tr>
+                                    <th class="col-toggle"></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="tipoRequerimiento">Tipo Req.<span class="sort-arrow">{sortArrowTipoRequerimiento}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="caseNumber">N Caso<span class="sort-arrow">{sortArrowCaseNumber}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="status">Estado<span class="sort-arrow">{sortArrowStatus}</span><div class="resize-handle"></div></th>
+                                    <th class="col-date sortable-header" onclick={handleSort} data-field="createdDate">F. Apertura<span class="sort-arrow">{sortArrowCreatedDate}</span><div class="resize-handle"></div></th>
+                                    <th class="col-date sortable-header" onclick={handleSort} data-field="closedDate">F. Cierre<span class="sort-arrow">{sortArrowClosedDate}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="periodoAtencion">Periodo<span class="sort-arrow">{sortArrowPeriodoAtencion}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="accountName">Cuenta<span class="sort-arrow">{sortArrowAccountName}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="clienteDespacho">Cliente Desp.<span class="sort-arrow">{sortArrowClienteDespacho}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="nombreDireccion">Nombre Direccion<span class="sort-arrow">{sortArrowNombreDireccion}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="comunaSucursal">Comuna<span class="sort-arrow">{sortArrowComunaSucursal}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="regionCliente">Region<span class="sort-arrow">{sortArrowRegionCliente}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="centroAbastecimiento">Centro Abast.<span class="sort-arrow">{sortArrowCentroAbastecimiento}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="sku">SKU<span class="sort-arrow">{sortArrowSku}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="nombreProducto">Producto<span class="sort-arrow">{sortArrowNombreProducto}</span><div class="resize-handle"></div></th>
+                                    <th class="col-number sortable-header" onclick={handleSort} data-field="cantidadReclamada">Cant.<span class="sort-arrow">{sortArrowCantidadReclamada}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="um">UM<span class="sort-arrow">{sortArrowUm}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="tipoUMReclamo">Tipo UM<span class="sort-arrow">{sortArrowTipoUMReclamo}</span><div class="resize-handle"></div></th>
+                                    <th class="col-money sortable-header" onclick={handleSort} data-field="valorNeto">Valor Neto<span class="sort-arrow">{sortArrowValorNeto}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="motivo">Motivo<span class="sort-arrow">{sortArrowMotivo}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="causa">Causa<span class="sort-arrow">{sortArrowCausa}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="categoriaReclamo">Categoria<span class="sort-arrow">{sortArrowCategoriaReclamo}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="procedeReclamo">Procede<span class="sort-arrow">{sortArrowProcedeReclamo}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="motivoNoProcede">Motivo No proc.<span class="sort-arrow">{sortArrowMotivoNoProcede}</span><div class="resize-handle"></div></th>
+                                    <th class="col-date sortable-header" onclick={handleSort} data-field="fechaRetiro">Fecha Retiro<span class="sort-arrow">{sortArrowFechaRetiro}</span><div class="resize-handle"></div></th>
+                                    <th class="col-date sortable-header" onclick={handleSort} data-field="fechaRecepcion">Fecha Recepci&oacute;n<span class="sort-arrow">{sortArrowFechaRecepcion}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="creadoPor">Digitador Caso<span class="sort-arrow">{sortArrowCreadoPor}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="asesor">Asesor<span class="sort-arrow">{sortArrowAsesor}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="codigoAsesor">Cod. Asesor<span class="sort-arrow">{sortArrowCodigoAsesor}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="tipoNotaCredito">Tipo NC<span class="sort-arrow">{sortArrowTipoNotaCredito}</span><div class="resize-handle"></div></th>
+                                    <th class="col-text sortable-header" onclick={handleSort} data-field="cumplePlazos">Cumple Plazos<span class="sort-arrow">{sortArrowCumplePlazos}</span><div class="resize-handle"></div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={pageGroups} for:item="group">
+                                    <tr key={group.key} class="group-header" onclick={handleToggle} data-key={group.key}>
+                                        <td colspan="31" class="group-header-cell">
+                                            <span class="toggle-icon">{group.toggleIcon}</span>
+                                            <span class="group-label">{group.monthLabel}</span>
+                                            <span class="group-count">{group.totalCases} registros</span>
+                                        </td>
+                                    </tr>
+                                    <template if:false={group.collapsed}>
+                                        <template for:each={group.records} for:item="rec">
+                                            <tr key={rec.id} class="data-row">
+                                                <td></td>
+                                                <td>{rec.tipoRequerimiento}</td>
+                                                <td><a href="javascript:void(0);" class="case-link" data-id={rec.id} onclick={handleOpenCase}>{rec.caseNumber}</a></td>
+                                                <td>{rec.status}</td>
+                                                <td>{rec.formattedCreatedDate}</td>
+                                                <td>{rec.formattedClosedDate}</td>
+                                                <td>{rec.periodoAtencion}</td>
+                                                <td>{rec.accountName}</td>
+                                                <td>{rec.clienteDespacho}</td>
+                                                <td>{rec.nombreDireccion}</td>
+                                                <td>{rec.comunaSucursal}</td>
+                                                <td>{rec.regionCliente}</td>
+                                                <td>{rec.centroAbastecimiento}</td>
+                                                <td>{rec.sku}</td>
+                                                <td>{rec.nombreProducto}</td>
+                                                <td class="cell-number">{rec.cantidadReclamada}</td>
+                                                <td>{rec.um}</td>
+                                                <td>{rec.tipoUMReclamo}</td>
+                                                <td class="cell-money">{rec.formattedValorNeto}</td>
+                                                <td>{rec.motivo}</td>
+                                                <td>{rec.causa}</td>
+                                                <td>{rec.categoriaReclamo}</td>
+                                                <td>{rec.procedeReclamo}</td>
+                                                <td>{rec.motivoNoProcede}</td>
+                                                <td>{rec.fechaRetiro}</td>
+                                                <td>{rec.fechaRecepcion}</td>
+                                                <td>{rec.creadoPor}</td>
+                                                <td>{rec.asesor}</td>
+                                                <td>{rec.codigoAsesor}</td>
+                                                <td>{rec.tipoNotaCredito}</td>
+                                                <td>{rec.cumplePlazos}</td>
+                                            </tr>
+                                        </template>
+                                    </template>
+                                </template>
+                                <template if:false={hasPageGroups}>
+                                    <tr>
+                                        <td colspan="31" class="chart-empty">{noFilteredResultsMessage}</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="pagination-bar">
+                        <span class="pagination-info">Pagina {currentPage} de {totalPagesNum}</span>
+                        <div class="pagination-controls">
+                            <button class="page-btn" onclick={handleFirstPage} disabled={isFirstPage} title="Primera pagina">&laquo;</button>
+                            <button class="page-btn" onclick={handlePrevPage} disabled={isFirstPage} title="Anterior">&lsaquo;</button>
+                            <template for:each={pageNumbers} for:item="pg">
+                                <button key={pg.num} class={pg.className} onclick={handlePageClick} data-page={pg.num}>{pg.num}</button>
+                            </template>
+                            <button class="page-btn" onclick={handleNextPage} disabled={isLastPage} title="Siguiente">&rsaquo;</button>
+                            <button class="page-btn" onclick={handleLastPage} disabled={isLastPage} title="Ultima">&raquo;</button>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <template if:false={hasResults}>
+                <div class="empty-state">
+                    <p>No se encontraron registros</p>
+                </div>
+            </template>
+        </template>
+
+        <template if:true={showEmailModal}>
+            <div class="modal-overlay">
+                <div class="modal-card">
+                    <div class="modal-header">
+                        <h3>Enviar Reporte por Correo</h3>
+                        <button class="modal-close" onclick={handleCloseEmailModal}>&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-field autocomplete-wrapper">
+                            <label class="modal-label">Para (correo electr&oacute;nico) *</label>
+                            <div class="chip-input">
+                                <template for:each={emailToList} for:item="r" for:index="i">
+                                    <span key={r.email} class="chip">
+                                        <span class="chip-label">{r.label}</span>
+                                        <button type="button" class="chip-remove" data-index={i} onclick={removeEmailToRecipient} title="Eliminar">&times;</button>
+                                    </span>
+                                </template>
+                                <input type="text" class="chip-text-input" value={emailToInput}
+                                       oninput={handleEmailToInput}
+                                       onfocus={handleEmailToFocus}
+                                       onkeydown={handleEmailToKeyDown}
+                                       name="emailTo"
+                                       autocomplete="off"
+                                       placeholder={emailToPlaceholder} />
+                            </div>
+                            <template if:true={showEmailToDropdown}>
+                                <div class="modal-autocomplete-dropdown">
+                                    <template for:each={emailToOptions} for:item="u">
+                                        <div key={u.email} class="modal-autocomplete-option" data-name={u.name} data-email={u.email} onmousedown={handleEmailToSelect}>
+                                            <span class="modal-ac-name">{u.name}</span>
+                                            <span class="modal-ac-email">{u.email}</span>
+                                        </div>
+                                    </template>
+                                    <template if:false={hasEmailToOptions}>
+                                        <div class="modal-autocomplete-option modal-ac-empty">Sin resultados</div>
+                                    </template>
+                                </div>
+                            </template>
+                            <span class="modal-hint">Seleccione un usuario o escriba un correo y presione Enter; puede pegar varios separados por ; o ,</span>
+                        </div>
+                        <div class="modal-field autocomplete-wrapper">
+                            <label class="modal-label">Con copia (CC)</label>
+                            <div class="chip-input">
+                                <template for:each={emailCcList} for:item="r" for:index="i">
+                                    <span key={r.email} class="chip">
+                                        <span class="chip-label">{r.label}</span>
+                                        <button type="button" class="chip-remove" data-index={i} onclick={removeEmailCcRecipient} title="Eliminar">&times;</button>
+                                    </span>
+                                </template>
+                                <input type="text" class="chip-text-input" value={emailCcInput}
+                                       oninput={handleEmailCcInput}
+                                       onfocus={handleEmailCcFocus}
+                                       onkeydown={handleEmailCcKeyDown}
+                                       name="emailCc"
+                                       autocomplete="off"
+                                       placeholder={emailCcPlaceholder} />
+                            </div>
+                            <template if:true={showEmailCcDropdown}>
+                                <div class="modal-autocomplete-dropdown">
+                                    <template for:each={emailCcOptions} for:item="u">
+                                        <div key={u.email} class="modal-autocomplete-option" data-name={u.name} data-email={u.email} onmousedown={handleEmailCcSelect}>
+                                            <span class="modal-ac-name">{u.name}</span>
+                                            <span class="modal-ac-email">{u.email}</span>
+                                        </div>
+                                    </template>
+                                    <template if:false={hasEmailCcOptions}>
+                                        <div class="modal-autocomplete-option modal-ac-empty">Sin resultados</div>
+                                    </template>
+                                </div>
+                            </template>
+                            <span class="modal-hint">Seleccione un usuario o escriba un correo y presione Enter; puede pegar varios separados por ; o ,</span>
+                        </div>
+                        <div class="modal-field">
+                            <label class="modal-label">Asunto</label>
+                            <input type="text" class="modal-input" value={emailSubject}
+                                   oninput={handleEmailSubjectInput} />
+                        </div>
+                        <div class="modal-field">
+                            <label class="modal-label">Mensaje (aparecer&aacute; arriba de la tabla)</label>
+                            <textarea class="modal-textarea" rows="4" value={emailMessage}
+                                      oninput={handleEmailMessageInput}
+                                      placeholder="Escriba un mensaje opcional..."></textarea>
+                        </div>
+                        <div class="modal-info">
+                            Se enviar&aacute;n <strong>{filteredTotal} registros</strong> en formato de tabla HTML.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick={handleCloseEmailModal}>Cancelar</button>
+                        <button class="btn btn-primary" onclick={handleSendEmail} disabled={isSendingEmail}>
+                            Enviar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template if:true={showCaseModal}>
+            <div class="modal-overlay">
+                <div class="modal-card modal-case-card">
+                    <div class="case-modal-header">
+                        <div class="case-modal-title">
+                            <h3 class="case-modal-heading">Caso {selectedCase.caseNumber}</h3>
+                            <span class="case-modal-status">{selectedCase.status}</span>
+                        </div>
+                        <div class="case-modal-actions">
+                            <button class="case-open-btn" onclick={handleOpenInConsole} disabled={hasNoSelectedCase} title="Abrir el caso dentro de la consola">
+                                &#8599; Abrir caso
+                            </button>
+                            <button class="modal-close" onclick={handleCloseCaseModal} title="Cerrar">&times;</button>
+                        </div>
+                    </div>
+                    <div class="case-modal-body">
+                        <template if:true={isCaseLoading}>
+                            <div class="case-modal-loading">
+                                <lightning-spinner alternative-text="Cargando caso..." size="small"></lightning-spinner>
+                            </div>
+                        </template>
+                        <template if:false={isCaseLoading}>
+                            <template if:true={hasSelectedCase}>
+                                <div class="case-detail-grid">
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Tipo de Requerimiento</span>
+                                        <span class="case-detail-value">{selectedCase.tipoRequerimiento}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Estado</span>
+                                        <span class="case-detail-value">{selectedCase.status}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Fecha Apertura</span>
+                                        <span class="case-detail-value">{createdDateDetail}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Fecha Cierre</span>
+                                        <span class="case-detail-value">{closedDateDetail}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Periodo Atenci&oacute;n</span>
+                                        <span class="case-detail-value">{selectedCase.periodoAtencion}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Cuenta</span>
+                                        <span class="case-detail-value">{selectedCase.accountName}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Cliente Despacho</span>
+                                        <span class="case-detail-value">{selectedCase.clienteDespacho}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Nombre Direcci&oacute;n</span>
+                                        <span class="case-detail-value">{selectedCase.nombreDireccion}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Comuna</span>
+                                        <span class="case-detail-value">{selectedCase.comunaSucursal}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Regi&oacute;n</span>
+                                        <span class="case-detail-value">{selectedCase.regionCliente}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Centro de Abastecimiento</span>
+                                        <span class="case-detail-value">{selectedCase.centroAbastecimiento}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">SKU</span>
+                                        <span class="case-detail-value">{selectedCase.sku}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Producto</span>
+                                        <span class="case-detail-value">{selectedCase.nombreProducto}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Cantidad Reclamada</span>
+                                        <span class="case-detail-value">{selectedCase.cantidadReclamada}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">UM</span>
+                                        <span class="case-detail-value">{selectedCase.um}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Tipo UM</span>
+                                        <span class="case-detail-value">{selectedCase.tipoUMReclamo}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Valor Neto</span>
+                                        <span class="case-detail-value case-detail-money">{valorNetoDetail}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Motivo</span>
+                                        <span class="case-detail-value">{selectedCase.motivo}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Causa</span>
+                                        <span class="case-detail-value">{selectedCase.causa}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Categor&iacute;a</span>
+                                        <span class="case-detail-value">{selectedCase.categoriaReclamo}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Procede Reclamo</span>
+                                        <span class="case-detail-value">{selectedCase.procedeReclamo}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Motivo No Procede</span>
+                                        <span class="case-detail-value">{selectedCase.motivoNoProcede}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Fecha Retiro</span>
+                                        <span class="case-detail-value">{fechaRetiroDetail}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Fecha Recepci&oacute;n</span>
+                                        <span class="case-detail-value">{fechaRecepcionDetail}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Creado por</span>
+                                        <span class="case-detail-value">{selectedCase.creadoPor}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Asesor</span>
+                                        <span class="case-detail-value">{selectedCase.asesor}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">C&oacute;d. Asesor</span>
+                                        <span class="case-detail-value">{selectedCase.codigoAsesor}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Tipo de Nota de Cr&eacute;dito</span>
+                                        <span class="case-detail-value">{selectedCase.tipoNotaCredito}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Estado Nota de Cr&eacute;dito</span>
+                                        <span class="case-detail-value">{selectedCase.estadoNotaCredito}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Estado de Producto</span>
+                                        <span class="case-detail-value">{selectedCase.estadoProducto}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Horario de Retiro</span>
+                                        <span class="case-detail-value">{selectedCase.horarioRetiro}</span>
+                                    </div>
+                                    <div class="case-detail-item">
+                                        <span class="case-detail-label">Cumple Plazos</span>
+                                        <span class="case-detail-value">{selectedCase.cumplePlazos}</span>
+                                    </div>
+                                </div>
+                            </template>
+                            <template if:false={hasSelectedCase}>
+                                <div class="chart-empty">No hay datos.</div>
+                            </template>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

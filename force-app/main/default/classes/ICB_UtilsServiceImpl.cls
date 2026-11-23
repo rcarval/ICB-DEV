@@ -31,19 +31,16 @@ public class ICB_UtilsServiceImpl{
     /**
     * Método para formatear fechas de componente
     * @author Rodrigo Carvallo
-    * @param List<Detalle__c> comprasMaestradePrecios
+    * @param List<Detalle_Factura__c> comprasMaestradePrecios
     **/
-    public static void formatearFechas(List<Detalle__c> comprasMaestradePrecios){
+    public static void formatearFechas(List<Detalle_Factura__c> comprasMaestradePrecios){
         system.debug('formatear fecha ');
-        for (Detalle__c detalle : comprasMaestradePrecios) {
-            Date fecha = detalle.Descuento_Cliente__r.Fecha_hasta__c;
-            system.debug('fecha ' + detalle.Descuento_Cliente__r.Fecha_hasta__c);
-            if (fecha != null) {
-                detalle.Fecha_Vencimiento_Formateada__c = fecha.day() + '/' + fecha.month() + '/' + fecha.year();
-            } else {
-                detalle.Fecha_Vencimiento_Formateada__c = '';
-                system.debug('fecha else ' + detalle.Descuento_Cliente__r.Fecha_hasta__c);
-            }
+        for (Detalle_Factura__c detalle : comprasMaestradePrecios) {
+            // Descuento_Cliente__r nunca tuvo valores, usar Product__r.Fecha_maxima_de_descuento__c
+            Date fecha = detalle.Product__r.Fecha_maxima_de_descuento__c;
+            system.debug('fecha ' + detalle.Product__r.Fecha_maxima_de_descuento__c);
+            // Fecha_Vencimiento_Formateada__c no existe en Detalle_Factura__c, campo eliminado
+            // La fecha de vencimiento está disponible en detalle.Product__r.Fecha_maxima_de_descuento__c si se necesita
         }
     }
 

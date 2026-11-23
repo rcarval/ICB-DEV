@@ -1,0 +1,118 @@
+<apex:page controller="seidor_CaseComplaintReportService"
+    renderAs="pdf"
+    showHeader="false"
+    sidebar="false"
+    applyBodyTag="false"
+    standardStylesheets="false">
+    <html>
+    <head>
+        <style>
+            @page { size: A4; margin: 20px; }
+        </style>
+    </head>
+
+    <body style="font-family:Arial,sans-serif; font-size:12px; color:#000; margin:0; padding:0;">
+
+        <table style="width:100%; border:2px solid #000; border-collapse:collapse; margin-bottom:15px;">
+            <tr>
+                <td style="width:18%; border:1px solid #000; padding:4px; text-align:center; vertical-align:middle;">
+                    <apex:image url="https://energy-saas-7178--qa2--c.sandbox.vf.force.com/resource/1757015875000/imagenICB?" width="110"/>
+                </td>
+                <td style="width:57%; border:1px solid #000; padding:10px; text-align:center; vertical-align:middle; background-color:#C0C0C0; font-weight:bold; font-size:18px;">
+                    INFORME DE RESPUESTA<br/>DE RECLAMO A CLIENTE
+                </td>
+                <td style="width:25%; border:1px solid #000; padding:8px; vertical-align:middle; font-size:11px; line-height:1.6;">
+                    <b>Código:</b> F-SGIA-03.1<br/>
+                    <b>Fecha:</b> <apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!TODAY()}"/></apex:outputText>
+                </td>
+            </tr>
+        </table>
+
+        <table style="width:100%; border:1px solid #000; border-collapse:collapse; margin-bottom:15px;">
+            <tr>
+                <td style="background-color:#C0C0C0; font-weight:bold; padding:6px 10px; border-bottom:1px solid #000; font-size:13px;" colspan="2">
+                    Datos Generales
+                </td>
+            </tr>
+            <tr>
+                <td style="width:30%; font-weight:bold; padding:8px; border:1px solid #000; vertical-align:top; background-color:#F2F2F2;">
+                    Número Caso
+                </td>
+                <td style="width:70%; padding:8px; border:1px solid #000; vertical-align:top;">
+                    {!caseRecord.CaseNumber}
+                </td>
+            </tr>
+            <tr>
+                <td style="width:30%; font-weight:bold; padding:8px; border:1px solid #000; vertical-align:top; background-color:#F2F2F2;">
+                    Asunto
+                </td>
+                <td style="width:70%; padding:8px; border:1px solid #000; vertical-align:top;">
+                    {!caseRecord.Motivo__c}
+                </td>
+            </tr>
+            <tr>
+                <td style="width:30%; font-weight:bold; padding:8px; border:1px solid #000; vertical-align:top; background-color:#F2F2F2;">
+                    Cliente
+                </td>
+                <td style="width:70%; padding:8px; border:1px solid #000; vertical-align:top;">
+                    {!caseRecord.Account.Name}
+                </td>
+            </tr>
+            <tr>
+                <td style="width:30%; font-weight:bold; padding:8px; border:1px solid #000; vertical-align:top; background-color:#F2F2F2;">
+                    Producto
+                </td>
+                <td style="width:70%; padding:8px; border:1px solid #000; vertical-align:top;">
+                    {!caseRecord.Product.Name} &nbsp;|&nbsp; <b>Marca:</b> {!caseRecord.Marca__c}
+                </td>
+            </tr>
+        </table>
+
+        <table style="width:100%; border:1px solid #000; border-collapse:collapse; margin-bottom:15px;">
+            <tr>
+                <td style="background-color:#C0C0C0; font-weight:bold; padding:6px 10px; border-bottom:1px solid #000; font-size:13px;" colspan="2">
+                    Detalles del Reclamo
+                </td>
+            </tr>
+            <tr>
+                <td style="width:30%; font-weight:bold; padding:8px; border:1px solid #000; vertical-align:top; background-color:#F2F2F2;">
+                    Investigación
+                </td>
+                <td style="width:70%; padding:8px; border:1px solid #000; vertical-align:top; text-align:justify;">
+                    <apex:outputText value="{!caseRecord.Investigacion__c}" escape="false"/>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:30%; font-weight:bold; padding:8px; border:1px solid #000; vertical-align:top; background-color:#F2F2F2;">
+                    Acciones Correctivas
+                </td>
+                <td style="width:70%; padding:8px; border:1px solid #000; vertical-align:top; text-align:justify;">
+                    <apex:outputText value="{!caseRecord.Acciones_Correctivas__c}" escape="false"/>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:30%; font-weight:bold; padding:8px; border:1px solid #000; vertical-align:top; background-color:#F2F2F2;">
+                    Acciones Preventivas
+                </td>
+                <td style="width:70%; padding:8px; border:1px solid #000; vertical-align:top; text-align:justify;">
+                    <apex:outputText value="{!caseRecord.Acciones_Preventivas__c}" escape="false"/>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:30%; font-weight:bold; padding:8px; border:1px solid #000; vertical-align:top; background-color:#F2F2F2;">
+                    Conclusiones
+                </td>
+                <td style="width:70%; padding:8px; border:1px solid #000; vertical-align:top; text-align:justify;">
+                    <apex:outputText value="{!caseRecord.Conclusiones__c}" escape="false"/>
+                </td>
+            </tr>
+        </table>
+
+        <div style="margin-top:25px; font-size:10px; text-align:center; color:#555;">
+            Documento generado automáticamente desde ICB FOOD SERVICE
+        </div>
+
+    </body>
+    </html>
+
+</apex:page>

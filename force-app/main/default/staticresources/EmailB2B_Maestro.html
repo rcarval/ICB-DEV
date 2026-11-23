@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es-CL" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>{{TITLE}}</title>
+<!--[if mso]><style>body,table,td,div,span,a{font-family:Verdana,Geneva,Arial,sans-serif !important;}</style><![endif]-->
+<style>
+body{margin:0;padding:0;background:#F5F5F5;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}
+img{border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;}
+table{border-collapse:collapse;}
+a{color:#007AF5;text-decoration:underline;}
+a:hover{color:#0061C4;}
+.m-only{display:none;mso-hide:all;}
+@media only screen and (max-width:600px){
+.container{width:100% !important;max-width:100% !important;}
+.pad{padding-left:20px !important;padding-right:20px !important;}
+.h1{font-size:24px !important;line-height:1.25 !important;}
+.h2{font-size:18px !important;}
+.body-txt{font-size:15px !important;}
+.cardpad{padding-left:16px !important;padding-right:16px !important;}
+.stack{display:block !important;width:100% !important;text-align:left !important;white-space:normal !important;}
+.d-only{display:none !important;mso-hide:all;}
+.m-only{display:block !important;mso-hide:all;}
+.card-num{font-size:13px !important;padding-top:2px !important;}
+}
+</style>
+</head>
+<body style="margin:0;padding:0;background:#F5F5F5;">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;">{{PREVIEW}}</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F5F5;">
+<tr><td align="center" style="padding:24px 12px 40px;font-family:Verdana, Geneva, Arial, sans-serif;">
+
+<table role="presentation" class="container" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;background:#FFFFFF;">
+
+<tr><td style="padding:0;line-height:0;font-size:0;border-radius:8px 8px 0 0;">
+<a href="https://www.icbfs.cl" target="_blank" style="display:block;line-height:0;">
+<img
+    src="https://raw.githubusercontent.com/sebaCode0297/ICBFS_IMG/main/header.png"
+    alt="ICBFS"
+    style="display:block; width:100%; max-width:600px; height:auto; border:0; border-radius:8px 8px 0 0;"
+>
+</a>
+</td></tr>
+
+<tr><td class="pad" style="padding:34px 32px 0;">
+<div class="h1" style="font:bold 28px/1.2 Verdana, Geneva, Arial, sans-serif;color:#2B2B2B;padding-bottom:16px;">{{H1}}</div>
+<div style="font:bold 15px/1.5 Verdana, Geneva, Arial, sans-serif;color:#E40147;padding-bottom:16px;">Estimado/a {{ACCOUNT_NAME}}:</div>
+<div class="body-txt" style="font:14.5px/1.7 Verdana, Geneva, Arial, sans-serif;color:#4A4A4A;">{{INTRO}}</div>
+</td></tr>
+
+<tr><td class="pad" style="padding:26px 32px 0;{{CARD_VIS}}">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F7F7F8;border:1px solid #EBEBEE;border-radius:8px;">
+<tr>
+<td class="cardpad stack" width="{{COL_IZQ}}" style="padding:20px {{CARD_PAD}}px 10px;white-space:nowrap;font:bold 11px/1.4 Verdana, Geneva, Arial, sans-serif;letter-spacing:1.2px;color:#8A8A93;text-transform:uppercase;">{{CARD_LABEL}}</td>
+<td class="cardpad stack card-num" width="{{COL_DER}}" align="right" style="padding:20px {{CARD_PAD}}px 10px;white-space:nowrap;font:bold 12px/1.4 Verdana, Geneva, Arial, sans-serif;color:#2B2B2B;text-align:right;">Caso N° {{CASE_NUMBER}}</td>
+</tr>
+<tr class="d-only">
+<td class="cardpad" width="{{COL_IZQ}}" style="padding:4px {{CARD_PAD}}px 10px;font:12px/1.4 Verdana, Geneva, Arial, sans-serif;color:#8A8A93;">Producto</td>
+<td class="cardpad" width="{{COL_DER}}" align="right" style="padding:4px {{CARD_PAD}}px 10px;font:12px/1.4 Verdana, Geneva, Arial, sans-serif;color:#8A8A93;text-align:right;">{{LBL_CANTIDAD}}</td>
+</tr>
+<tr><td colspan="2" class="cardpad" style="padding:6px {{CARD_PAD}}px 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="border-top:1px solid #E3E3E7;line-height:0;font-size:0;">&nbsp;</td></tr></table></td></tr>
+<tr>
+<td class="cardpad stack" width="{{COL_IZQ}}" valign="top" style="padding:14px {{CARD_PAD}}px 20px;font:13px/1.5 Verdana, Geneva, Arial, sans-serif;color:#4A4A4A;vertical-align:top;">
+<span class="m-only" style="font:12px/1.4 Verdana, Geneva, Arial, sans-serif;color:#8A8A93;padding-bottom:4px;">Producto</span>
+{{PRODUCT}}
+</td>
+<td class="cardpad stack" width="{{COL_DER}}" valign="top" align="right" style="padding:14px {{CARD_PAD}}px 20px;font:13px/1.5 Verdana, Geneva, Arial, sans-serif;color:#4A4A4A;vertical-align:top;text-align:right;">
+<span class="m-only" style="font:12px/1.4 Verdana, Geneva, Arial, sans-serif;color:#8A8A93;padding-bottom:4px;">{{LBL_CANTIDAD}}</span>
+{{CANTIDAD}} {{UNIDAD}}
+</td>
+</tr>
+</table>
+</td></tr>
+
+<tr><td class="pad" style="padding:32px 32px 0;">
+{{BODY}}
+</td></tr>
+
+<tr><td class="pad" style="padding:26px 32px 0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#EFF5FC;border:1px solid #D6E4F3;border-radius:8px;">
+<tr><td class="cardpad" style="padding:18px 20px;font:13.5px/1.75 Verdana, Geneva, Arial, sans-serif;color:#4A4A4A;">
+Si tienes dudas o necesitas soporte, escríbenos.<br>
+Correo electrónico: <a href="mailto:ccc@icbfs.cl" style="color:#007AF5;text-decoration:underline;">ccc@icbfs.cl</a><br>
+WhatsApp al <a href="https://wa.me/56966490324" target="_blank" style="color:#007AF5;text-decoration:underline;">+56 9 6649 0324</a> (Lunes a Viernes 9:00 - 18:00 hrs, Sábados 09:00 - 14:00 hrs).
+</td></tr>
+</table>
+</td></tr>
+
+<tr><td style="padding:0 32px 34px;font-size:0;line-height:0;">&nbsp;</td></tr>
+
+<tr><td bgcolor="#2E2E2E" align="center" class="pad" style="background:#2E2E2E;border-radius:0 0 8px 8px;padding:32px 32px 28px;text-align:center;">
+<img src="{{URL_LOGO}}" width="84" alt="ICB Food Service" style="display:block;margin:0 auto 18px;width:84px;height:auto;border:0;">
+<div style="font:bold 14px/1.4 Verdana, Geneva, Arial, sans-serif;color:#FFFFFF;letter-spacing:0.5px;text-transform:uppercase;padding-bottom:6px;">ICB Food Service</div>
+<div style="font:bold 13px/1.5 Verdana, Geneva, Arial, sans-serif;color:#FFFFFF;padding-bottom:6px;">Proveedor líder en la industria gastronómica</div>
+<div style="font:12.5px/1.6 Verdana, Geneva, Arial, sans-serif;color:#E6E6E6;">Compra 24/7 en <a href="https://pia.icbfs.cl" target="_blank" style="color:#FFFFFF;text-decoration:underline;">PIA</a>, nuestra plataforma integral de atención.</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:20px;"><tr><td style="border-top:1px solid #4A4A4A;padding-top:16px;font:11px/1.6 Verdana, Geneva, Arial, sans-serif;color:#9A9A9A;text-align:center;">ICB Food Service · Santiago, Chile · Recibes este correo porque eres cliente de ICB Food Service.<br>Contacto · <a href="mailto:ccc@icbfs.cl" style="color:#CCCCCC;text-decoration:underline;">ccc@icbfs.cl</a> · WhatsApp +56 9 6649 0324</td></tr></table>
+</td></tr>
+
+</table>
+
+</td></tr>
+</table>
+</body>
+</html>
