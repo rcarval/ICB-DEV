@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permite crear casos FDR desde el checklist (Custom Permission Crear_Caso_FDR). No asignar a operadores que solo trabajan etapas posteriores (ej. En retiro).</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Crear Caso FDR</label>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>Crear_Caso_FDR</name>
+    </customPermissions>
+</PermissionSet>

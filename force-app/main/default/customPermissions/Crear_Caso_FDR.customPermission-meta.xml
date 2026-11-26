@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Habilita el botón Crear Caso del checklist FDR (ticket 00028201). Asignar vía permission set Crear_Caso_FDR / PSG Ejecutivo de Servicio.</description>
+    <isLicensed>false</isLicensed>
+    <label>Crear Caso FDR</label>
+</CustomPermission>

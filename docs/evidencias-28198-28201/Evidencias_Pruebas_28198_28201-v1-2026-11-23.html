@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Evidencias de Pruebas · 28198 + 28201</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  @page {
+    size: A4; margin: 24mm 15mm 18mm;
+    @top-left { content: "EVIDENCIAS DE PRUEBAS  ·  28198 + 28201"; width: 130mm; font: 500 6.6pt "Poppins", Helvetica, sans-serif; letter-spacing: .18em; color: #5A6B85; vertical-align: bottom; padding-bottom: 3mm; border-bottom: .6pt solid #DCE7F5; }
+    @top-right { content: url("{{svg:seidor-logo-encabezado.svg}}"); vertical-align: bottom; text-align: right; padding-bottom: 2mm; border-bottom: .6pt solid #DCE7F5; }
+    @bottom-left { content: "ICB Food Service · Service Cloud · Evidencias de Pruebas v1.5 · Seidor Chile"; font: 400 6.6pt "Poppins", Helvetica, sans-serif; color: #5A6B85; vertical-align: top; padding-top: 3mm; }
+    @bottom-right { content: "Página " counter(page) " de " counter(pages); font: 500 6.6pt "Poppins", Helvetica, sans-serif; color: #5A6B85; vertical-align: top; padding-top: 3mm; }
+  }
+  @page portada {
+    margin: 0;
+    @top-left { content: none; border: 0; } @top-right { content: none; border: 0; }
+    @bottom-left { content: none; } @bottom-right { content: none; }
+  }
+
+  :root {
+    --navy: #1A2B4A; --navy-2: #152F52; --azul: #1877D2; --azul-2: #5B93C7;
+    --azul-bg: #EEF4FD; --azul-bg-2: #F5F9FE; --linea: #DCE7F5; --texto: #1A2B4A;
+    --suave: #5A6B85; --verde: #5EA632; --verde-bg: #EEF6E8; --ambar: #C97A0E;
+    --ambar-bg: #FBF3E6; --rojo: #C1272D; --rojo-bg: #FBECEC;
+    --f: "Poppins", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { margin: 0; background: #FFFFFF; color: var(--texto); font-family: var(--f); font-size: 9pt; line-height: 1.55; font-weight: 400; }
+
+  .portada {
+    page: portada; break-after: page; position: relative; width: 210mm; height: 297mm; overflow: hidden;
+    color: #FFFFFF; padding: 22mm 20mm;
+    background: radial-gradient(120% 90% at 78% 42%, #1D4B82 0%, #152F52 46%, #0E1F38 100%);
+    display: flex; flex-direction: column;
+  }
+  .portada__logos { display: flex; justify-content: space-between; align-items: center; }
+  .portada__logos img { height: 16mm; }
+  .portada__cliente { font-size: 9pt; font-weight: 600; letter-spacing: .32em; text-transform: uppercase; color: #C9DDF5; }
+  .portada__cuerpo { margin-top: 62mm; }
+  .portada__kicker { font-size: 8pt; font-weight: 600; letter-spacing: .34em; text-transform: uppercase; color: #8FB8E6; margin: 0 0 8mm; }
+  .portada h1 { font-size: 28pt; line-height: 1.08; font-weight: 700; margin: 0 0 6mm; letter-spacing: -.01em; max-width: 160mm; }
+  .portada__sub { font-size: 12.5pt; font-weight: 300; font-style: italic; color: #DCE7F5; margin: 0; max-width: 155mm; }
+  .portada__meta {
+    margin-top: auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    border-top: .6pt solid rgba(255,255,255,.28); padding-top: 6mm;
+  }
+  .portada__meta dt { font-size: 6.4pt; letter-spacing: .2em; text-transform: uppercase; color: #8FB8E6; margin-bottom: 1.5mm; }
+  .portada__meta dd { margin: 0; font-size: 8.6pt; font-weight: 500; }
+  .portada__pie { margin-top: 7mm; font-size: 7.4pt; color: #AFC8E4; }
+
+  .salto { break-before: page; }
+  section { margin-bottom: 9mm; }
+  .sec-num { break-after: avoid; font-size: 7.4pt; font-weight: 600; letter-spacing: .3em; color: var(--azul); text-transform: uppercase; margin: 0 0 1.5mm; }
+  h2 { font-size: 17pt; font-weight: 700; line-height: 1.15; margin: 0 0 2.5mm; letter-spacing: -.01em; break-after: avoid; }
+  .bajada { font-size: 10pt; color: var(--suave); font-weight: 300; margin: 0 0 5mm; max-width: 165mm; }
+  h3 { font-size: 10.5pt; font-weight: 600; margin: 6mm 0 2.5mm; break-after: avoid; }
+  p { margin: 0 0 2.6mm; max-width: 172mm; }
+  ul { margin: 1.5mm 0 3mm 5mm; padding: 0; max-width: 170mm; }
+  li { margin-bottom: 1.4mm; }
+  li::marker { color: var(--azul); }
+  strong { font-weight: 600; }
+  code { font-family: var(--mono); font-size: .86em; background: var(--azul-bg); color: var(--navy-2); padding: .08em .35em; border-radius: 3px; }
+
+  .tarjetas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin: 4mm 0 5mm; }
+  .tarjeta { background: var(--azul-bg); border-radius: 3mm; padding: 4mm 4.5mm; break-inside: avoid; }
+  .tarjeta b { display: block; font-size: 7pt; letter-spacing: .18em; text-transform: uppercase; color: var(--azul); margin-bottom: 1.5mm; font-weight: 600; }
+  .tarjeta p { margin: 0; font-size: 8.6pt; }
+
+  .aviso { border-radius: 3mm; padding: 3.5mm 4.5mm; margin: 4mm 0; break-inside: avoid; font-size: 8.7pt; }
+  .aviso p:last-child { margin-bottom: 0; }
+  .aviso > b { display: block; font-size: 6.8pt; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 1.2mm; font-weight: 600; }
+  .aviso--info { background: var(--azul-bg); border-left: 1.6mm solid var(--azul); }
+  .aviso--info > b { color: var(--azul); }
+  .aviso--ok { background: var(--verde-bg); border-left: 1.6mm solid var(--verde); }
+  .aviso--ok > b { color: var(--verde); }
+
+  table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 8pt; margin: 3mm 0 5mm; }
+  thead { display: table-header-group; }
+  thead th {
+    background: var(--navy); color: #FFFFFF; text-align: left; font-weight: 500; font-size: 7pt;
+    letter-spacing: .06em; padding: 2.2mm 2.6mm;
+  }
+  thead th:first-child { border-top-left-radius: 2mm; }
+  thead th:last-child { border-top-right-radius: 2mm; }
+  tbody td { padding: 2.2mm 2.6mm; border-bottom: .6pt solid var(--linea); vertical-align: top; }
+  tbody tr:nth-child(even) td { background: var(--azul-bg-2); }
+  tbody tr { break-inside: avoid; }
+  td code { background: none; padding: 0; color: var(--azul); }
+
+  figure { margin: 0 0 5mm; break-inside: avoid; }
+  figure img { max-height: 160mm; object-fit: contain; object-position: top; width: 100%; display: block; border-radius: 2.5mm; border: .8pt solid var(--linea); background: #F5F9FE; }
+  figcaption { font-size: 7.4pt; color: var(--suave); margin-top: 2mm; line-height: 1.4; }
+  figcaption b { color: var(--texto); font-weight: 600; }
+  .fig-ancha img { max-height: 175mm; }
+
+  .indice { columns: 2; column-gap: 10mm; list-style: none; margin: 4mm 0 0; padding: 0; }
+  .indice li { break-inside: avoid; display: flex; gap: 3mm; padding: 2mm 0; border-bottom: .6pt solid var(--linea); font-size: 9pt; }
+  .indice li b { color: var(--azul); font-weight: 600; width: 7mm; }
+
+  .etiqueta { display: inline-block; font-size: 6.8pt; font-weight: 600; letter-spacing: .06em; border-radius: 10mm; padding: .5mm 2.4mm; white-space: nowrap; }
+  .e-baja { background: var(--verde-bg); color: #3F7A1E; }
+</style>
+</head>
+<body>
+
+<div class="portada">
+  <div class="portada__logos">
+    <span class="portada__cliente">ICB Food Service · Service Cloud</span>
+    <img src="{{img:seidor-logo-blanco.png}}" alt="Seidor">
+  </div>
+  <div class="portada__cuerpo">
+    <p class="portada__kicker">Evidencias de pruebas · Salesforce</p>
+    <h1>Tickets 00028198 y 00028201</h1>
+    <p class="portada__sub">Evidencias de las pruebas realizadas en el ambiente DEVSERVICE: contactos en Sucursal, checklist FDR, botón Crear Caso y Causa obligatoria.</p>
+  </div>
+  <dl class="portada__meta">
+    <div><dt>Versión</dt><dd>1.5</dd></div>
+    <div><dt>Fecha</dt><dd>26-11-2026</dd></div>
+    <div><dt>Ambiente</dt><dd>DEVSERVICE</dd></div>
+    <div><dt>Elaborado por</dt><dd>Seidor Chile</dd></div>
+  </dl>
+  <p class="portada__pie">ICB Food Service · Service Cloud</p>
+</div>
+
+<section>
+  <p class="sec-num">Contenido</p>
+  <h2>Índice</h2>
+  <ul class="indice">
+    <li><b>01</b>Resumen por ticket</li>
+    <li><b>02</b>Ticket 00028198 — pedido y solución</li>
+    <li><b>03</b>Ticket 00028201 — pedido y solución</li>
+    <li><b>04</b>Casos de prueba y resultados</li>
+    <li><b>05</b>Evidencias UI — Sucursal</li>
+    <li><b>06</b>Evidencias flow — gate y Causa</li>
+    <li><b>07</b>Cobertura Apex</li>
+  </ul>
+</section>
+
+<section class="salto">
+  <p class="sec-num">01 · Resumen</p>
+  <h2>Estado de las pruebas por ticket</h2>
+  <p class="bajada">Resultado de las pruebas funcionales en DEVSERVICE · 26-11-2026.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:14%">Ticket</th>
+        <th style="width:30%">Qué se pidió</th>
+        <th style="width:30%">Cómo se resolvió</th>
+        <th style="width:10%">Status</th>
+        <th>Observación</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>00028198</strong></td>
+        <td>Crear y ver contactos asociados a la Sucursal desde la ficha de Sucursal.</td>
+        <td>Related list <em>Contactos de la Sucursal</em> con botón Nuevo sobre la cuenta Sucursal; layouts y página LRP para operadores.</td>
+        <td><span class="etiqueta e-baja">OK</span></td>
+        <td>Validado con perfiles CCC (Sandra Catalán, Logística) y Gerencia Superior (Wendy Elgueta).</td>
+      </tr>
+      <tr>
+        <td><strong>00028201</strong></td>
+        <td>Validar datos mínimos antes de crear caso FDR; ocultar Crear Caso si falta información; Causa obligatoria al ingresar el caso.</td>
+        <td>LWC checklist (fantasía + contacto); CTA Crear Caso vía permission set <code>Crear_Caso_FDR</code>; gate en el flow; Causa obligatoria en el ingreso.</td>
+        <td><span class="etiqueta e-baja">OK</span></td>
+        <td>Checklist y gate con CCC. Wendy (Gerencia Superior) ve checklist sin CTA Crear Caso.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="tarjetas">
+    <div class="tarjeta"><b>Ambiente</b><p>Sandbox DEVSERVICE (<code>icbfs--devsevice</code>).</p></div>
+    <div class="tarjeta"><b>Cuenta de prueba</b><p>Sucursal VALESKA DIAZ CASTRO - D30951-1.</p></div>
+    <div class="tarjeta"><b>Usuarios</b><p>Login As: Sandra Catalán (CCC), Logística (CCC), Wendy Elgueta (Gerencia Superior).</p></div>
+  </div>
+</section>
+
+<section class="salto">
+  <p class="sec-num">02 · Ticket 00028198</p>
+  <h2>Contactos en la ficha Sucursal</h2>
+  <p class="bajada">Permitir gestionar contactos de la Sucursal desde su propia ficha.</p>
+
+  <h3>02.1 Qué se pidió</h3>
+  <ul>
+    <li>Ver contactos de la Sucursal (no solo los de la cuenta padre).</li>
+    <li>Crear un contacto nuevo asociado a la Sucursal abierta.</li>
+  </ul>
+
+  <h3>02.2 Cómo se solucionó</h3>
+  <ul>
+    <li>Related list <strong>Contactos de la Sucursal</strong> con acción Nuevo.</li>
+    <li>Página de registro LRP de Sucursal y layouts para perfiles operadores.</li>
+  </ul>
+</section>
+
+<section class="salto">
+  <p class="sec-num">03 · Ticket 00028201</p>
+  <h2>Checklist FDR, Crear Caso y Causa</h2>
+  <p class="bajada">Asegurar datos mínimos en la cuenta antes de iniciar el caso y exigir Causa en el ingreso.</p>
+
+  <h3>03.1 Qué se pidió</h3>
+  <ul>
+    <li>Checklist de Nombre de fantasía y contacto completo (nombre, email y teléfono).</li>
+    <li>Sin botón Crear Caso mientras el checklist esté incompleto.</li>
+    <li>Con checklist completo, Crear Caso abre el flow de ingreso.</li>
+    <li>Causa (<code>Sub_Categoria__c</code>) obligatoria al registrar el caso.</li>
+  </ul>
+
+  <h3>03.2 Cómo se solucionó</h3>
+  <ul>
+    <li>Componente <code>checklistDatosFdr</code> en la ficha Sucursal.</li>
+    <li>Botón Crear Caso controlado por el permission set <code>Crear_Caso_FDR</code> (Custom Permission), no por el nombre del perfil.</li>
+    <li>Gate de validación al inicio del flow <code>Caso_Ingreso_de_Caso_mejorado</code>.</li>
+    <li>Campo Causa obligatorio en la pantalla de datos del requerimiento.</li>
+  </ul>
+</section>
+
+<section class="salto">
+  <p class="sec-num">04 · Casos de prueba</p>
+  <h2>Matriz de resultados</h2>
+  <p class="bajada">Casos ejecutados en DEVSERVICE con Login As según el perfil indicado.</p>
+
+  <h3>04.1 Ticket 00028198</h3>
+  <table>
+    <thead>
+      <tr><th style="width:12%">ID</th><th>Caso de prueba</th><th style="width:18%">Perfil</th><th style="width:10%">Status</th><th style="width:12%">Evidencia</th><th>Observación</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>CP-28198-01</td>
+        <td>Related list Contactos de la Sucursal visible</td>
+        <td>CCC / Gerencia Superior</td>
+        <td><span class="etiqueta e-baja">OK</span></td>
+        <td>Fig. 3–4, 7–8</td>
+        <td>Lista con contacto de evidencia y botón Nuevo.</td>
+      </tr>
+      <tr>
+        <td>CP-28198-02</td>
+        <td>Botón Nuevo en Contactos de la Sucursal</td>
+        <td>CCC / Gerencia Superior</td>
+        <td><span class="etiqueta e-baja">OK</span></td>
+        <td>Fig. 3–4, 7–8</td>
+        <td>Disponible en la related list de la Sucursal.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>04.2 Ticket 00028201</h3>
+  <table>
+    <thead>
+      <tr><th style="width:12%">ID</th><th>Caso de prueba</th><th style="width:18%">Perfil</th><th style="width:10%">Status</th><th style="width:12%">Evidencia</th><th>Observación</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>CP-28201-01</td>
+        <td>Checklist incompleto sin Crear Caso</td>
+        <td>CCC</td>
+        <td><span class="etiqueta e-baja">OK</span></td>
+        <td>Fig. 1</td>
+        <td>Ítems en Falta; sin CTA Crear Caso.</td>
+      </tr>
+      <tr>
+        <td>CP-28201-02</td>
+        <td>Checklist completo con Crear Caso</td>
+        <td>CCC (Sandra, Logística)</td>
+        <td><span class="etiqueta e-baja">OK</span></td>
+        <td>Fig. 2, 7</td>
+        <td>Ítems OK; CTA Crear Caso visible.</td>
+      </tr>
+      <tr>
+        <td>CP-28201-03</td>
+        <td>Checklist visible en Gerencia Superior</td>
+        <td>Gerencia Superior</td>
+        <td><span class="etiqueta e-baja">OK</span></td>
+        <td>Fig. 8</td>
+        <td>Wendy Elgueta ve el checklist en la ficha Sucursal.</td>
+      </tr>
+      <tr>
+        <td>CP-28201-04</td>
+        <td>Gate del flow con checklist incompleto</td>
+        <td>CCC</td>
+        <td><span class="etiqueta e-baja">OK</span></td>
+        <td>Fig. 5</td>
+        <td>Mensaje “No es posible crear el caso”.</td>
+      </tr>
+      <tr>
+        <td>CP-28201-05</td>
+        <td>Gate del flow con checklist completo</td>
+        <td>CCC</td>
+        <td><span class="etiqueta e-baja">OK</span></td>
+        <td>Fig. 6</td>
+        <td>Continúa a la pantalla de datos del requerimiento.</td>
+      </tr>
+      <tr>
+        <td>CP-28201-06</td>
+        <td>Causa (<code>Sub_Categoria__c</code>) obligatoria</td>
+        <td>CCC</td>
+        <td><span class="etiqueta e-baja">OK</span></td>
+        <td>Fig. 6 / Flow</td>
+        <td>Campo Causa requerido en la pantalla de ingreso del caso.</td>
+      </tr>
+      <tr>
+        <td>CP-28201-07</td>
+        <td>Cobertura Apex del controlador</td>
+        <td>—</td>
+        <td><span class="etiqueta e-baja">95&nbsp;%</span></td>
+        <td>§07</td>
+        <td>Umbral ≥ 80&nbsp;% cumplido.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="salto">
+  <p class="sec-num">05 · Evidencias UI</p>
+  <h2>Ficha Sucursal — checklist y contactos</h2>
+  <p class="bajada">Consola de servicio · DEVSERVICE · Sucursal VALESKA DIAZ CASTRO - D30951-1.</p>
+
+  <figure class="fig-ancha">
+    <img src="{{img:01-sucursal-checklist-incompleto.jpg}}" alt="Checklist incompleto">
+    <figcaption><b>Fig. 1 · CP-28201-01 · Checklist incompleto (CCC · Sandra Catalán).</b> Fantasía y contacto en Falta; sin botón Crear Caso.</figcaption>
+  </figure>
+
+  <figure class="fig-ancha">
+    <img src="{{img:03-sucursal-checklist-completo-crear-caso.jpg}}" alt="Checklist completo">
+    <figcaption><b>Fig. 2 · CP-28201-02 · Checklist completo (CCC · Sandra Catalán).</b> Ítems OK; botón Crear Caso disponible.</figcaption>
+  </figure>
+
+  <figure class="fig-ancha">
+    <img src="{{img:04-sucursal-contactos-nuevo.jpg}}" alt="Contactos de la Sucursal">
+    <figcaption><b>Fig. 3 · CP-28198-01/02 · Contactos de la Sucursal (CCC · Sandra Catalán).</b> Related list con botón Nuevo.</figcaption>
+  </figure>
+
+  <figure class="fig-ancha">
+    <img src="{{img:02-sucursal-contactos-related-lists.jpg}}" alt="Related lists">
+    <figcaption><b>Fig. 4 · CP-28198 · Related lists (CCC · Sandra Catalán).</b> Contactos de la Sucursal en la ficha.</figcaption>
+  </figure>
+
+  <figure class="fig-ancha">
+    <img src="{{img:07-logistica-checklist-completo.jpg}}" alt="Logística checklist">
+    <figcaption><b>Fig. 7 · CP-28201-02 · Checklist completo (CCC · Logística).</b> Misma UX de checklist y contactos con perfil CCC Logística.</figcaption>
+  </figure>
+
+  <figure class="fig-ancha">
+    <img src="{{img:08-wendy-checklist-sucursal.jpg}}" alt="Wendy checklist">
+    <figcaption><b>Fig. 8 · CP-28201-03 / 28198 · Ficha Sucursal (Gerencia Superior · Wendy Elgueta).</b> Checklist y Contactos de la Sucursal visibles.</figcaption>
+  </figure>
+</section>
+
+<section class="salto">
+  <p class="sec-num">06 · Evidencias flow</p>
+  <h2>Gate del checklist y Causa obligatoria</h2>
+  <p class="bajada">Flow <code>Caso_Ingreso_de_Caso_mejorado</code> · sesión CCC en DEVSERVICE.</p>
+
+  <figure class="fig-ancha">
+    <img src="{{img:06-flow-gate-bloqueado.jpg}}" alt="Gate bloqueado">
+    <figcaption><b>Fig. 5 · CP-28201-04 · Gate bloqueado (CCC).</b> No permite crear el caso si faltan fantasía o contacto.</figcaption>
+  </figure>
+
+  <figure class="fig-ancha">
+    <img src="{{img:05-flow-gate-ok-screen-datos.jpg}}" alt="Gate OK y Causa">
+    <figcaption><b>Fig. 6 · CP-28201-05/06 · Gate OK y Causa obligatoria (CCC).</b> Pantalla de ingreso con Tipo de Requerimiento, Motivo y <em>Causa</em> marcados como obligatorios.</figcaption>
+  </figure>
+</section>
+
+<section class="salto">
+  <p class="sec-num">07 · Cobertura Apex</p>
+  <h2>Tests unitarios</h2>
+  <p class="bajada">Clase <code>ChecklistDatosFdrController</code> en DEVSERVICE.</p>
+
+  <table>
+    <thead><tr><th>Clase</th><th>Resultado</th><th>Cobertura</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>ChecklistDatosFdrController</code></td>
+        <td>Pass</td>
+        <td><strong>95&nbsp;%</strong> (umbral ≥ 80&nbsp;%)</td>
+        <td><span class="etiqueta e-baja">OK</span></td>
+      </tr>
+      <tr>
+        <td><code>ChecklistDatosFdrControllerTest</code></td>
+        <td>100&nbsp;% pass</td>
+        <td>—</td>
+        <td><span class="etiqueta e-baja">OK</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+</body>
+</html>

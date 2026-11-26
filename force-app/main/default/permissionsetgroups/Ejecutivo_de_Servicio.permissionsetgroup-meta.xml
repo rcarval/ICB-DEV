@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Paquete estándar CCC / Ejecutivo de Servicio (sin Delete de Case). Tickets 28198/28201.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Ejecutivo de Servicio</label>
+    <permissionSets>Acceso_a_Cuentas</permissionSets>
+    <permissionSets>Acceso_a_Sesiones_de_msj</permissionSets>
+    <permissionSets>Caso_Lectura_Escritura_Modificacion</permissionSets>
+    <permissionSets>Checklist_Datos_FDR</permissionSets>
+    <permissionSets>Crear_Caso_FDR</permissionSets>
+    <permissionSets>Crear_Sucursal</permissionSets>
+    <permissionSets>Cuentas_PE</permissionSets>
+    <permissionSets>Gestion_service</permissionSets>
+    <permissionSets>Manage_Omni_Channel</permissionSets>
+    <permissionSets>Objeto_Caso_Lectura_Escritura</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>
